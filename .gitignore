@@ -1,0 +1,47 @@
+# Build artifacts
+build/
+_build/
+*.log
+*.out
+*.toc
+*.aux
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.xdv
+*.ilg
+*.ind
+*.idx
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.pip-cache/
+.eggs/
+*.egg-info/
+dist/
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Local scripts or configs
+config.local.sh

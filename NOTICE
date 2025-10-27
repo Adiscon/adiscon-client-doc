@@ -1,0 +1,27 @@
+Adiscon Documentation Project
+Copyright (c) 2025 Adiscon GmbH
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this repository except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Adiscon, WinSyslog, WinSyslog-J, EventReporter, MonitorWare Agent, SyslogViewer,
+and other Adiscon product names referenced herein are trademarks or registered
+trademarks of Adiscon GmbH in Germany, the United States, and/or other
+countries. All other trademarks are the property of their respective owners.
+
+Third-party notices:
+- The documentation build system uses Sphinx (https://www.sphinx-doc.org/),
+  licensed under the BSD license.
+- The Furo Sphinx theme (https://github.com/pradyunsg/furo) is licensed under
+  the MIT license.
+- rst2pdf (https://rst2pdf.org/) is licensed under the MIT license.
+- doc8 (https://doc8.readthedocs.io/) is licensed under the Apache License 2.0.
+- rstcheck (https://github.com/rstcheck/rstcheck) is licensed under the MIT
+  license.
+- Additional Python packages distributed via the Python Package Index (PyPI) are
+  the property of their respective authors and are used under their respective
+  licenses.
+
+This repository is distributed under the Apache License 2.0. See the LICENSE
+file for the full terms.

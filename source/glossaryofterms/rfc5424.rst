@@ -1,0 +1,23 @@
+:orphan:
+
+
+.. index:: RFC 5424
+
+RFC 5424
+========
+
+RFC 5424 is a `IETF <https://www.ietf.org/>`_ document.
+
+This document describes the syslog protocol, which is used to convey event
+notification messages. This protocol utilizes a layered architecture, which
+allows the use of any number of transport protocols for transmission of `syslog <https://www.adiscon.com/syslog/>`_
+messages. It also provides a message format that allows vendor-specific
+extensions to be provided in a structured way.
+
+A standard already produced by this working group is :doc:`rfc 3195 <../glossaryofterms/rfc3195>`, which
+describes how syslog can be sent reliably over a :doc:`tcp <../glossaryofterms/tcp>` connection.
+
+Adiscon supports RFC 5424 messages. There are a number of switches in each
+product to take care of those implementation that do it slightly different.
+
+The formal specification for RFC 5424 can be found in the `IETF RFC <https://www.ietf.org/rfc/rfc5424.txt>`_ repository.

@@ -1,0 +1,20 @@
+
+.. index:: RFC 3164
+
+RFC 3164
+========
+
+RFC 3164 is a `IETF <https://www.ietf.org/>`_ document. It describes how
+`syslog <https://www.adiscon.com/syslog/>`_ messages have been seen in traditional implementations. RFC 3164 is not
+a standard but rather a descriptive ("informational" in IETF terms) document.
+It does not demand a specific behavior but rather documents what has been
+seen. Some existing implementations of real-world syslog use different formats.
+
+RFC 3164 is just the first step towards a newer and better syslog standard.
+A standard already produced by this working group is :doc:`rfc 3195 <../glossaryofterms/rfc3195>`, which
+describes how syslog can be sent reliably over a :doc:`tcp <../glossaryofterms/tcp>` connection.
+
+Adiscon supports RFC 3164 messages. There are a number of switches in each
+product to take care of those implementation that do it slightly different.
+
+The formal specification for RFC 3164 can be found in the `IETF RFC <https://www.ietf.org/rfc/rfc3164.txt>`_ repository.

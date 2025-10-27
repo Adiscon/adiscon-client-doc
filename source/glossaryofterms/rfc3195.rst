@@ -1,0 +1,22 @@
+:orphan:
+
+.. index:: RFC 3195
+
+RFC 3195
+========
+
+RFC 3195 is an `IETF <https://www.ietf.org/>`_ standard. It specifies how `syslog <https://www.adiscon.com/syslog/>`_ messages
+can reliably be transmitted via a :doc:`tcp <../glossaryofterms/tcp>` connection.
+RFC 3195 optionally allows for message encryption and authentication of sender
+and receiver. However, it has not receive any importance in practice. Servers
+are hard to find.
+
+:doc:`adiscon's monitorware line of products <../glossaryofterms/mwlineofproducts>` implement the core RFC 3195 protocol
+(actually, `Adiscon was the first one to do this on the Windows platform <https://www.adiscon.com/monitorwareagent/monitorware-agent-1-3-released/>`_). Under
+UNIX `Rsyslog <https://www.Rsyslog.com/>`_ and `SDSC syslog <https://security.sdsc.edu/index.php/Main_Page>`_ are known to support RFC 3195. Our `liblogging <https://www.Rsyslog.com/liblogging/>`_
+project enables your own applications to "talk" 3195.
+
+The formal specification for RFC 3195 can be found in the `IETF RFC repository <https://www.ietf.org/rfc/rfc3195.txt>`_ .
+
+During its creation, RFC 3195 was known as "syslog-reliable". Many people still
+use this name to refer to it.

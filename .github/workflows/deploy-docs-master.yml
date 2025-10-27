@@ -1,0 +1,196 @@
+---
+name: Deploy documentation (master)
+
+'on':
+  push:
+    branches:
+      - master
+
+# Permissions required for Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: deploy-docs-master
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}master/
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+          cache-dependency-path: |
+            requirements.txt
+            requirements-qa.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --requirement requirements.txt
+
+      - name: Build HTML for all projects (strict)
+        run: make all-html SPHINXOPTS="-W"
+
+      - name: Prepare site content under master/
+        run: |
+          set -e
+          mkdir -p pages-deployment/master
+          # Copy built HTML output
+          if [ -d build/html ]; then
+            cp -r build/html/* pages-deployment/master/
+          fi
+
+          # Ensure each project has index.html (rename index.*.html if needed)
+          if [ -d pages-deployment/master ]; then
+            find pages-deployment/master -maxdepth 1 -type d \
+              | while read -r dir; do
+              [ "$dir" = "pages-deployment/master" ] && continue
+              project=$(basename "$dir")
+              if [ ! -f "$dir/index.html" ]; then
+                idx=$(
+                  find "$dir" -maxdepth 1 -type f -name "index.*.html" | head -1
+                )
+                if [ -n "$idx" ]; then mv "$idx" "$dir/index.html"; fi
+              fi
+            done
+          fi
+
+          # Create a simple landing index if missing
+          if [ ! -f pages-deployment/master/index.html ]; then
+            cat > pages-deployment/master/index.html <<'INDEX'
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <meta charset="utf-8" />
+                <title>Adiscon Client Documentation - master</title>
+                <style>
+                  body {
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                      Arial, sans-serif;
+                    margin: 40px;
+                  }
+                  .project {
+                    background: #f8f9fa;
+                    border: 1px solid #e1e4e8;
+                    border-radius: 6px;
+                    color: #24292e;
+                    display: block;
+                    margin: 8px 0;
+                    padding: 12px 16px;
+                    text-decoration: none;
+                  }
+                  .project:hover {
+                    background: #e1f5fe;
+                    border-color: #0366d6;
+                  }
+                </style>
+                <meta name="robots" content="noindex" />
+                <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1"
+                />
+                <base href="./" />
+                <meta
+                  http-equiv="Content-Security-Policy"
+                  content="default-src 'self';
+                    img-src 'self' data:;
+                    style-src 'self' 'unsafe-inline';"
+                />
+                <link rel="icon" href="data:," />
+                <meta
+                  name="description"
+                  content="Adiscon client documentation master branch"
+                />
+                <meta
+                  property="og:title"
+                  content="Adiscon Client Documentation - master"
+                />
+                <meta property="og:type" content="website" />
+                <meta
+                  property="og:url"
+                  content="https://adiscon.github.io/adiscon-client-doc/master/"
+                />
+                <meta
+                  property="og:description"
+                  content="Browse product manuals built from the master branch."
+                />
+                <meta name="referrer" content="no-referrer" />
+                <meta name="color-scheme" content="light dark" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+              </head>
+              <body>
+                <h1>Adiscon Client Documentation (master)</h1>
+                <p>Select a product manual below.</p>
+                <div id="projects"></div>
+                <script>
+                  (function () {
+                    const container = document.getElementById('projects');
+                    const links = [];
+                    /* The list will be filled by shell below via server-side
+                       generation if needed. */
+                  })();
+                </script>
+                <noscript>
+                  <ul>
+                  </ul>
+                </noscript>
+              </body>
+            </html>
+          INDEX
+
+            # Inject project links server-side
+            {
+              cd pages-deployment/master
+              tmp=""
+              for d in */; do
+                [ -d "$d" ] || continue
+                [ "$d" = "/" ] && continue
+                proj=${d%/}
+                # Append anchor tags into the placeholder div
+                awk -v proj="$proj" '
+                  /<div id="projects">/ {
+                    print
+                    printf "    <a class=\"project\" href=\"%s/\">📚 %s " \
+                           "Documentation</a>\n", proj, proj
+                    next
+                  }
+                  { print }
+                ' index.html > index.tmp && mv index.tmp index.html
+              done
+            }
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages-deployment
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
+
+      - name: Summary
+        run: |
+          DEPLOY_URL="${{ steps.deploy.outputs.page_url }}master/"
+          cat <<'SUMMARY' >>"$GITHUB_STEP_SUMMARY"
+          ## Master Documentation Deployment
+
+          ✅ Deployed to: ${DEPLOY_URL}
+          Intended canonical URL:
+            https://adiscon.github.io/adiscon-client-doc/master/
+          SUMMARY

@@ -1,0 +1,825 @@
+name: Build documentation (HTML & PDF)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+# Allow workflow to create comments and deploy to Pages
+permissions:
+  contents: read
+  pull-requests: write
+  pages: write
+  id-token: write
+
+# Ensure only one workflow runs at a time for each PR
+concurrency:
+  group: pr-docs-combined-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  build-html:
+    runs-on: ubuntu-latest
+    outputs:
+      found-projects: ${{ steps.collect-artifacts.outputs.found-projects }}
+      project-list: ${{ steps.collect-artifacts.outputs.project-list }}
+      total-html-files: ${{ steps.collect-artifacts.outputs.total-html-files }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+          cache-dependency-path: |
+            requirements.txt
+            requirements-qa.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --requirement requirements.txt
+
+      - name: Build HTML for all projects
+        # The -W (or --warning-is-error) option makes Sphinx treat all warnings as errors.
+        # We pass this via SPHINXOPTS to the make command.
+        run: make all-html SPHINXOPTS="-W"
+
+      - name: Find and prepare HTML output
+        id: collect-artifacts
+        run: |
+          # Debug: Show what the build created
+          echo "=== Debugging: Directory structure after build ==="
+          find build/html -maxdepth 1 -type d 2>/dev/null | head -20
+          echo ""
+          echo "=== All HTML files in build/html ==="
+          find build/html -name "*.html" 2>/dev/null | head -20
+          echo ""
+          
+          mkdir -p artifacts/html
+          found_projects=0
+          project_names=""
+          
+          echo "=== Searching for project directories in build/html/ ==="
+          if [ -d "build/html" ]; then
+            for project_path in build/html/*; do
+              if [ -d "$project_path" ]; then
+                project_name=$(basename "$project_path")
+                echo "Found project directory: $project_path for project: $project_name"
+                cp -r "$project_path" "artifacts/html/$project_name"
+                found_projects=$((found_projects + 1))
+                
+                # Build project list for job outputs
+                if [ -z "$project_names" ]; then
+                  project_names="$project_name"
+                else
+                  project_names="$project_names,$project_name"
+                fi
+                
+                echo "  Contents: $(find "$project_path" -name "*.html" | wc -l) HTML files"
+                
+                # Rename index.[project].html to index.html if it exists
+                if [ -f "artifacts/html/$project_name/index.$project_name.html" ]; then
+                  mv "artifacts/html/$project_name/index.$project_name.html" "artifacts/html/$project_name/index.html"
+                  echo "  ✅ Renamed index.$project_name.html → index.html"
+                elif [ -f "$project_path/index.$project_name.html" ]; then
+                  cp "$project_path/index.$project_name.html" "artifacts/html/$project_name/index.html"
+                  echo "  ✅ Copied index.$project_name.html → index.html"
+                elif [ -f "artifacts/html/$project_name/index.html" ]; then
+                  echo "  ✅ Has index.html"
+                else
+                  # Look for any index.[anything].html pattern and rename to index.html
+                  index_file=$(find "artifacts/html/$project_name" -name "index.*.html" -type f | head -1)
+                  if [ -n "$index_file" ]; then
+                    mv "$index_file" "artifacts/html/$project_name/index.html"
+                    echo "  ✅ Renamed $(basename "$index_file") → index.html"
+                  else
+                    echo "  ⚠️  No index file found for $project_name"
+                  fi
+                fi
+              elif [ -f "$project_path" ] && [[ "$project_path" == *.html ]]; then
+                echo "Found HTML file directly in build/html: $project_path"
+                cp "$project_path" "artifacts/html/"
+                found_projects=1
+              fi
+            done
+          fi
+          
+          # Fallback: if no subdirectories found in build/html, copy all HTML files directly
+          if [ "$found_projects" -eq 0 ] && [ -d "build/html" ] && [ $(find build/html -maxdepth 1 -name "*.html" 2>/dev/null | wc -l) -gt 0 ]; then
+            echo "=== No subdirectories found in build/html, copying all HTML files directly from build/html ==="
+            cp -r build/html/* artifacts/html/
+            found_projects=1
+            project_names="docs"
+            echo "  Copied contents of build/html directly to artifacts/html/"
+            
+            # Look for and rename index.[project].html files to index.html
+            if [ -f "artifacts/html/index.html" ]; then
+              echo "  ✅ Has index.html"
+            else
+              index_file=$(find "artifacts/html" -maxdepth 1 -name "index.*.html" -type f | head -1)
+              if [ -n "$index_file" ]; then
+                mv "$index_file" "artifacts/html/index.html"
+                echo "  ✅ Renamed $(basename "$index_file") → index.html"
+              else
+                echo "  ⚠️  No index file found in root"
+              fi
+            fi
+          fi
+          
+          # Create an index page if we have multiple projects and no existing index
+          cd artifacts/html
+          if [ ! -f "index.html" ] && [ $(find . -name "*.html" 2>/dev/null | wc -l) -gt 0 ]; then
+            echo "Creating a main index.html for the artifact."
+            # Create HTML file using echo to avoid YAML heredoc parsing issues
+            echo '<!DOCTYPE html>' > index.html
+            echo '<html>' >> index.html
+            echo '<head>' >> index.html
+            echo "    <title>Documentation for PR #${{ github.event.number }}</title>" >> index.html
+            echo '    <style>' >> index.html
+            echo '        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }' >> index.html
+            echo '        .header { background: #f4f4f4; padding: 20px; border-radius: 5px; margin-bottom: 20px; }' >> index.html
+            echo '        .project-link {' >> index.html
+            echo '            display: block;' >> index.html
+            echo '            padding: 15px;' >> index.html
+            echo '            margin: 10px 0;' >> index.html
+            echo '            background: #e7f3ff;' >> index.html
+            echo '            border-radius: 5px;' >> index.html
+            echo '            text-decoration: none;' >> index.html
+            echo '            color: #333;' >> index.html
+            echo '            border-left: 4px solid #0366d6;' >> index.html
+            echo '        }' >> index.html
+            echo '        .project-link:hover { background: #d1ecf1; }' >> index.html
+            echo '        code { background: #f1f1f1; padding: 2px 5px; border-radius: 3px; }' >> index.html
+            echo '    </style>' >> index.html
+            echo '</head>' >> index.html
+            echo '<body>' >> index.html
+            echo '    <div class="header">' >> index.html
+            echo '        <h1>📖 Documentation Built Successfully!</h1>' >> index.html
+            echo "        <p><strong>Pull Request:</strong> #${{ github.event.number }}</p>" >> index.html
+            echo "        <p><strong>Commit:</strong> <code>${{ github.event.pull_request.head.sha }}</code></p>" >> index.html
+            echo "        <p><strong>Build Time:</strong> $(date)</p>" >> index.html
+            echo '    </div>' >> index.html
+            echo '    <h2>📚 Available Documentation Projects:</h2>' >> index.html
+            
+            # Add links to each project directory
+            find . -maxdepth 1 -type d | while read dir; do
+              if [ -d "$dir" ] && [ "$dir" != "./" ]; then
+                project_name=$(basename "$dir")
+                echo "    <a href=\"$dir/\" class=\"project-link\">" >> index.html
+                echo "        📄 $project_name Documentation" >> index.html
+                echo "    </a>" >> index.html
+              fi
+            done
+            
+            # Add links to direct HTML files
+            find . -maxdepth 1 -type f -name "*.html" -not -name "index.html" | while read file; do
+              file_name=$(basename "$file")
+              echo "    <a href=\"$file_name\" class=\"project-link\">" >> index.html
+              echo "        📄 $file_name" >> index.html
+              echo "    </a>" >> index.html
+            done
+            
+            echo '    <hr>' >> index.html
+            echo "    <p><small>Generated by GitHub Actions on $(date)</small></p>" >> index.html
+            echo '</body>' >> index.html
+            echo '</html>' >> index.html
+          fi
+          
+          echo ""
+          echo "=== Final Summary ==="
+          echo "Projects collected: $found_projects"
+          echo "Project directories in artifacts:"
+          find artifacts/html -maxdepth 1 -type d 2>/dev/null | grep -v "^artifacts/html$" | sort
+          echo ""
+          
+          total_html=$(find artifacts/html -name "*.html" 2>/dev/null | wc -l)
+          echo "Total HTML files found: $total_html"
+          echo ""
+          
+          if [ "$total_html" -eq 0 ]; then
+            echo "❌ WARNING: No HTML files were found and collected!"
+            echo "This might indicate that 'make all-html' didn't generate files in build/html/<project_name> or directly in build/html."
+            echo "Please check the 'make all-html' command output above."
+          else
+            echo "✅ SUCCESS: Found and collected $total_html HTML files from $found_projects projects"
+            echo ""
+            echo "Available projects for browsing:"
+            find artifacts/html -maxdepth 1 -type d 2>/dev/null | while read project_dir; do
+              if [ -d "$project_dir" ] && [ "$(basename "$project_dir")" != "." ]; then
+                project=$(basename "$project_dir")
+                if [ -f "$project_dir/index.html" ]; then
+                  echo "  📖 $project (has index.html - ready for web browsing)"
+                else
+                  echo "  📄 $project ($(find "$project_dir" -name "*.html" | wc -l) HTML files)"
+                fi
+              fi
+            done
+            find artifacts/html -maxdepth 1 -type f -name "*.html" 2>/dev/null | while read html_file; do
+              if [ "$(basename "$html_file")" == "index.html" ]; then
+                echo "  🏠 Main Index (index.html)"
+              else
+                echo "  📄 $(basename "$html_file") (top-level HTML file)"
+              fi
+            done
+          fi
+          
+          # Set job outputs for use in deploy job
+          echo "found-projects=$found_projects" >> $GITHUB_OUTPUT
+          echo "project-list=$project_names" >> $GITHUB_OUTPUT
+          echo "total-html-files=$total_html" >> $GITHUB_OUTPUT
+          
+          echo ""
+          echo "=== Job Outputs Set ==="
+          echo "found-projects: $found_projects"
+          echo "project-list: $project_names"
+          echo "total-html-files: $total_html"
+
+      - name: Upload HTML documentation artifacts
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: html-documentation-pr-${{ github.event.number }}
+          path: artifacts/html/
+          retention-days: 30
+          compression-level: 6
+          if-no-files-found: error
+
+  build-pdf:
+    runs-on: ubuntu-latest
+    outputs:
+      found-projects: ${{ steps.collect-artifacts.outputs.found-projects }}
+      project-list: ${{ steps.collect-artifacts.outputs.project-list }}
+      total-pdf-files: ${{ steps.collect-artifacts.outputs.total-pdf-files }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+          cache-dependency-path: |
+            requirements.txt
+            requirements-qa.txt
+
+      - name: Prepare APT cache
+        run: |
+          sudo mkdir -p /var/cache/apt/archives
+          sudo chown -R "$USER:$USER" /var/cache/apt/archives
+
+      - name: Cache LaTeX packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives
+          key: ${{ runner.os }}-latex-${{ hashFiles('.github/workflows/latex-packages.txt') }}
+
+      - name: Install LaTeX dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y $(tr '\n' ' ' < .github/workflows/latex-packages.txt)
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --requirement requirements.txt
+
+      - name: Build PDF for all projects
+        # The -W (or --warning-is-error) option makes Sphinx treat all warnings as errors.
+        # We pass this via SPHINXOPTS to the make command.
+        run: make all-pdf SPHINXOPTS="-W"
+
+      - name: Find and prepare PDF output
+        id: collect-artifacts
+        run: |
+          # Debug: Show what the build created
+          echo "=== Debugging: Directory structure after PDF build ==="
+          find . -name "*.pdf" 2>/dev/null | head -20
+          echo ""
+          echo "=== PDF files in build/latex ==="
+          find build/latex -name "*.pdf" 2>/dev/null | head -20
+          echo ""
+          
+          mkdir -p artifacts/pdf
+          found_projects=0
+          project_list=""
+          
+          echo "=== Searching for PDF files in build/latex/ ==="
+          if [ -d "build/latex" ]; then
+            for pdf_file in build/latex/*.pdf; do
+              if [ -f "$pdf_file" ]; then
+                pdf_name=$(basename "$pdf_file" .pdf)
+                echo "Found PDF file: $pdf_file for project: $pdf_name"
+                cp "$pdf_file" "artifacts/pdf/"
+                found_projects=$((found_projects + 1))
+                if [ -n "$project_list" ]; then
+                  project_list="$project_list,$pdf_name"
+                else
+                  project_list="$pdf_name"
+                fi
+                echo "  ✅ Copied $pdf_name.pdf"
+              fi
+            done
+          fi
+          
+          # Fallback: search in other common locations
+          if [ "$found_projects" -eq 0 ]; then
+            echo "=== No PDFs found in build/latex, searching elsewhere ==="
+            find . -name "*.pdf" -not -path "./artifacts/*" 2>/dev/null | while read pdf_file; do
+              if [ -f "$pdf_file" ]; then
+                pdf_name=$(basename "$pdf_file")
+                echo "Found PDF file: $pdf_file"
+                cp "$pdf_file" "artifacts/pdf/"
+                found_projects=$((found_projects + 1))
+                echo "  ✅ Copied $pdf_name"
+              fi
+            done
+          fi
+          
+          # Create an index page for the PDFs
+          cd artifacts/pdf
+          if [ $(find . -name "*.pdf" 2>/dev/null | wc -l) -gt 0 ]; then
+            echo "Creating a main index.html for PDF downloads."
+            # Create HTML file using echo to avoid YAML heredoc parsing issues
+            echo '<!DOCTYPE html>' > index.html
+            echo '<html>' >> index.html
+            echo '<head>' >> index.html
+            echo "    <title>PDF Documentation for PR #${{ github.event.number }}</title>" >> index.html
+            echo '    <style>' >> index.html
+            echo '        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }' >> index.html
+            echo '        .header { background: #f4f4f4; padding: 20px; border-radius: 5px; margin-bottom: 20px; }' >> index.html
+            echo '        .pdf-link {' >> index.html
+            echo '            display: block;' >> index.html
+            echo '            padding: 15px;' >> index.html
+            echo '            margin: 10px 0;' >> index.html
+            echo '            background: #fff2e6;' >> index.html
+            echo '            border-radius: 5px;' >> index.html
+            echo '            text-decoration: none;' >> index.html
+            echo '            color: #333;' >> index.html
+            echo '            border-left: 4px solid #e67e22;' >> index.html
+            echo '        }' >> index.html
+            echo '        .pdf-link:hover { background: #ffeaa7; }' >> index.html
+            echo '        code { background: #f1f1f1; padding: 2px 5px; border-radius: 3px; }' >> index.html
+            echo '        .download-icon { color: #e67e22; margin-right: 8px; }' >> index.html
+            echo '    </style>' >> index.html
+            echo '</head>' >> index.html
+            echo '<body>' >> index.html
+            echo '    <div class="header">' >> index.html
+            echo '        <h1>📄 PDF Documentation Built Successfully!</h1>' >> index.html
+            echo "        <p><strong>Pull Request:</strong> #${{ github.event.number }}</p>" >> index.html
+            echo "        <p><strong>Commit:</strong> <code>${{ github.event.pull_request.head.sha }}</code></p>" >> index.html
+            echo "        <p><strong>Build Time:</strong> $(date)</p>" >> index.html
+            echo '    </div>' >> index.html
+            echo '    <h2>📚 Available PDF Documentation:</h2>' >> index.html
+            
+            # Add links to each PDF file
+            find . -maxdepth 1 -type f -name "*.pdf" | while read pdf_file; do
+              pdf_name=$(basename "$pdf_file")
+              echo "    <a href=\"$pdf_name\" class=\"pdf-link\" download>" >> index.html
+              echo "        <span class=\"download-icon\">📥</span>Download $pdf_name" >> index.html
+              echo "    </a>" >> index.html
+            done
+            
+            echo '    <hr>' >> index.html
+            echo "    <p><small>Generated by GitHub Actions on $(date)</small></p>" >> index.html
+            echo '</body>' >> index.html
+            echo '</html>' >> index.html
+          fi
+          
+          echo ""
+          echo "=== Final Summary ==="
+          echo "Projects collected: $found_projects"
+          echo "PDF files in artifacts:"
+          find artifacts/pdf -name "*.pdf" 2>/dev/null | sort
+          echo ""
+          echo "Total PDF files found: $(find artifacts/pdf -name "*.pdf" 2>/dev/null | wc -l)"
+          echo ""
+          if [ $(find artifacts/pdf -name "*.pdf" 2>/dev/null | wc -l) -eq 0 ]; then
+            echo "❌ WARNING: No PDF files were found and collected!"
+            echo "This might indicate that 'make all-pdf' didn't generate files in build/latex/ or other expected locations."
+            echo "Please check the 'make all-pdf' command output above."
+          else
+            echo "✅ SUCCESS: Found and collected $(find artifacts/pdf -name "*.pdf" 2>/dev/null | wc -l) PDF files from $found_projects projects"
+            echo ""
+            echo "Available PDFs for download:"
+            find artifacts/pdf -name "*.pdf" 2>/dev/null | while read pdf_file; do
+              pdf_name=$(basename "$pdf_file")
+              echo "  📄 $pdf_name"
+            done
+          fi
+          
+          # Set outputs for the deploy job
+          echo "found-projects=$found_projects" >> $GITHUB_OUTPUT
+          echo "project-list=$project_list" >> $GITHUB_OUTPUT
+          echo "total-pdf-files=$(find artifacts/pdf -name "*.pdf" 2>/dev/null | wc -l)" >> $GITHUB_OUTPUT
+
+      - name: Upload PDF documentation artifacts
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: pdf-documentation-pr-${{ github.event.number }}
+          path: artifacts/pdf/
+          retention-days: 30
+          compression-level: 6
+          if-no-files-found: error
+
+  combine-and-deploy:
+    needs: [build-html, build-pdf]
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}pr-${{ github.event.number }}/
+    steps:
+      - name: Download HTML documentation artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: html-documentation-pr-${{ github.event.number }}
+          path: ./html-docs
+
+      - name: Download PDF documentation artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: pdf-documentation-pr-${{ github.event.number }}
+          path: ./pdf-docs
+
+      - name: Combine artifacts and create final documentation package
+        run: |
+          mkdir -p combined-docs
+          
+          # Copy HTML documentation
+          if [ -d "html-docs" ]; then
+            cp -r html-docs/* combined-docs/
+          fi
+          
+          # Add PDF documentation in a subfolder
+          if [ -d "pdf-docs" ]; then
+            mkdir -p combined-docs/pdf
+            cp -r pdf-docs/* combined-docs/pdf/
+          fi
+          
+          # Update main index.html to include PDF section
+          cd combined-docs
+          if [ -f "index.html" ]; then
+            # Add PDF section to existing index
+            sed -i 's|<h2>📚 Available Documentation Projects:</h2>|<h2>📚 Available Documentation Projects:</h2>\n    <div style="background: #fff2e6; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #e67e22;">\n        <h3>📄 PDF Downloads</h3>\n        <p><a href="pdf/" style="color: #e67e22; text-decoration: none; font-weight: bold;">📥 Browse and Download PDF Documentation →</a></p>\n    </div>|' index.html
+          else
+            # Create new combined index if no HTML index exists
+            cat > index.html << 'COMBINEDINDEX'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Documentation for PR #${{ github.event.number }}</title>
+              <style>
+                  body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+                  .header { background: #f4f4f4; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
+                  .section { margin: 20px 0; }
+                  .html-section { background: #e7f3ff; padding: 15px; border-radius: 5px; border-left: 4px solid #0366d6; }
+                  .pdf-section { background: #fff2e6; padding: 15px; border-radius: 5px; border-left: 4px solid #e67e22; }
+                  .project-link { display: block; padding: 15px; margin: 10px 0; background: #f8f9fa; border-radius: 5px; text-decoration: none; color: #333; }
+                  .project-link:hover { background: #e1ecf4; }
+                  code { background: #f1f1f1; padding: 2px 5px; border-radius: 3px; }
+              </style>
+          </head>
+          <body>
+              <div class="header">
+                  <h1>📖 Documentation Built Successfully!</h1>
+                  <p><strong>Pull Request:</strong> #${{ github.event.number }}</p>
+                  <p><strong>Commit:</strong> <code>${{ github.event.pull_request.head.sha }}</code></p>
+                  <p><strong>Build Time:</strong> $(date)</p>
+              </div>
+              
+              <div class="section html-section">
+                  <h2>🌐 HTML Documentation</h2>
+                  <p>Browse interactive documentation online</p>
+              </div>
+              
+              <div class="section pdf-section">
+                  <h2>📄 PDF Documentation</h2>
+                  <p><a href="pdf/" style="color: #e67e22; text-decoration: none; font-weight: bold;">📥 Browse and Download PDF Documentation →</a></p>
+              </div>
+              
+              <hr>
+              <p><small>Generated by GitHub Actions on $(date)</small></p>
+          </body>
+          </html>
+          COMBINEDINDEX
+          fi
+
+      - name: Upload combined documentation artifacts
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: documentation-pr-${{ github.event.number }}
+          path: combined-docs/
+          retention-days: 30
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Prepare Pages deployment
+        run: |
+          mkdir -p pages-deployment/pr-${{ github.event.number }}
+          
+          # Copy all documentation to the PR-specific directory
+          if [ -d "combined-docs" ]; then
+            cp -r combined-docs/* pages-deployment/pr-${{ github.event.number }}/
+          fi
+          
+          # Create a project index page for this PR
+          cd pages-deployment/pr-${{ github.event.number }}
+          if [ $(find . -maxdepth 1 -type d | wc -l) -gt 1 ] || [ $(find . -maxdepth 1 -name "*.html" | wc -l) -gt 1 ]; then
+            cat > index.html << 'PRINDEX'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Documentation Preview - PR #${{ github.event.number }}</title>
+              <style>
+                  body { 
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; 
+                      margin: 0; padding: 40px; background: #f6f8fa; 
+                  }
+                  .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+                  .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; }
+                  .project-link { 
+                      display: block; 
+                      padding: 20px; 
+                      margin: 15px 0; 
+                      background: #f8f9fa; 
+                      border: 1px solid #e1e4e8;
+                      border-radius: 6px; 
+                      text-decoration: none; 
+                      color: #24292e;
+                      transition: all 0.2s;
+                  }
+                  .project-link:hover { 
+                      background: #e1f5fe; 
+                      border-color: #0366d6;
+                      transform: translateY(-1px);
+                      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+                  }
+                  .pdf-link {
+                      background: #fff2e6 !important;
+                      border-color: #e67e22 !important;
+                  }
+                  .pdf-link:hover {
+                      background: #ffeaa7 !important;
+                      border-color: #d63031 !important;
+                  }
+                  .project-name { font-size: 18px; font-weight: 600; margin-bottom: 5px; }
+                  .project-info { font-size: 14px; color: #586069; }
+                  .badge { background: #28a745; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
+                  .pdf-badge { background: #e67e22; }
+                  .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #e1e4e8; color: #586069; text-align: center; }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <div class="header">
+                      <h1>📖 Documentation Preview</h1>
+                      <p><strong>Pull Request:</strong> #${{ github.event.number }}</p>
+                      <p><strong>Commit:</strong> ${{ github.event.pull_request.head.sha }}</p>
+                      <p><strong>Generated:</strong> $(date)</p>
+                  </div>
+                  
+                  <h2>🚀 Available Projects</h2>
+                  <p>Click on any project below to browse its documentation online:</p>
+          PRINDEX
+
+            # Add links to each HTML project
+            for dir in */; do
+              if [ -d "$dir" ] && [ "$dir" != "*/" ] && [ "$dir" != "pdf/" ]; then
+                project_name=$(basename "$dir")
+                html_count=$(find "$dir" -name "*.html" | wc -l)
+                has_index=""
+                if [ -f "$dir/index.html" ]; then
+                  has_index="<span class=\"badge\">Ready to browse</span>"
+                fi
+                
+                cat >> index.html << PROJECTLINK
+                  <a href="$dir/" class="project-link">
+                      <div class="project-name">📚 $project_name $has_index</div>
+                      <div class="project-info">$html_count HTML files • Click to explore</div>
+                  </a>
+          PROJECTLINK
+              fi
+            done
+
+            # Add PDF section if it exists
+            if [ -d "pdf/" ]; then
+              pdf_count=$(find pdf/ -name "*.pdf" | wc -l)
+              cat >> index.html << PDFSECTION
+                  <a href="pdf/" class="project-link pdf-link">
+                      <div class="project-name">📄 PDF Documentation <span class="badge pdf-badge">Download</span></div>
+                      <div class="project-info">$pdf_count PDF files • Click to browse and download</div>
+                  </a>
+          PDFSECTION
+            fi
+
+            cat >> index.html << 'PRINDEXEND'
+                  
+                  <div class="footer">
+                      <p>🤖 Generated automatically by GitHub Actions</p>
+                      <p>This preview will be available until the PR is closed or merged</p>
+                  </div>
+              </div>
+          </body>
+          </html>
+          PRINDEXEND
+          fi
+          
+          # Go back to root and create main index
+          cd ../../
+          
+          # Create or update main site index
+          cat > pages-deployment/index.html << 'MAININDEX'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Documentation Previews</title>
+              <style>
+                  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; margin: 0; padding: 40px; background: #f6f8fa; }
+                  .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+                  .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; }
+                  .preview-link { display: block; padding: 20px; margin: 15px 0; background: #f8f9fa; border: 1px solid #e1e4e8; border-radius: 6px; text-decoration: none; color: #24292e; transition: all 0.2s; }
+                  .preview-link:hover { background: #e1f5fe; border-color: #0366d6; transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+                  .pr-number { font-size: 18px; font-weight: 600; margin-bottom: 5px; }
+                  .pr-info { font-size: 14px; color: #586069; }
+                  .badge { background: #28a745; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <div class="header">
+                      <h1>📖 Documentation Previews</h1>
+                      <p>Online preview environments for pull requests</p>
+                  </div>
+                  
+                  <h2>🔍 Available Previews</h2>
+          MAININDEX
+          
+          # Add current PR
+          cat >> pages-deployment/index.html << CURRENTPR
+                  <a href="pr-${{ github.event.number }}/" class="preview-link">
+                      <div class="pr-number">📄 PR #${{ github.event.number }} <span class="badge">Latest</span></div>
+                      <div class="pr-info">HTML & PDF Documentation • Generated on $(date) • Click to browse</div>
+                  </a>
+          CURRENTPR
+          
+          cat >> pages-deployment/index.html << 'MAININDEXEND'
+                  
+                  <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e1e4e8; color: #586069; text-align: center;">
+                      <p>🤖 Generated automatically by GitHub Actions</p>
+                  </div>
+              </div>
+          </body>
+          </html>
+          MAININDEXEND
+
+      - name: Upload to Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages-deployment
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Comment on PR with download links and preview
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const repo = context.repo;
+            const pagesUrl = '${{ steps.deployment.outputs.page_url }}pr-${{ github.event.number }}/';
+            const htmlProjectList = '${{ needs.build-html.outputs.project-list }}';
+            const pdfProjectList = '${{ needs.build-pdf.outputs.project-list }}';
+            const htmlFoundProjects = '${{ needs.build-html.outputs.found-projects }}';
+            const pdfFoundProjects = '${{ needs.build-pdf.outputs.found-projects }}';
+            const totalHtmlFiles = '${{ needs.build-html.outputs.total-html-files }}';
+            const totalPdfFiles = '${{ needs.build-pdf.outputs.total-pdf-files }}';
+            
+            // Generate dynamic project links
+            let htmlProjectLinks = '';
+            if (htmlProjectList && htmlProjectList.trim() !== '') {
+              const projects = htmlProjectList.split(',').filter(p => p.trim() !== '');
+              if (projects.length > 0) {
+                htmlProjectLinks = '### 📚 **HTML Projects:**\n';
+                projects.forEach(project => {
+                  const projectName = project.trim();
+                  htmlProjectLinks += `- **${projectName}** - Browse at [${pagesUrl}${projectName}/](${pagesUrl}${projectName}/)\n`;
+                });
+                htmlProjectLinks += '\n';
+              }
+            }
+            
+            let pdfProjectLinks = '';
+            if (pdfProjectList && pdfProjectList.trim() !== '') {
+              const projects = pdfProjectList.split(',').filter(p => p.trim() !== '');
+              if (projects.length > 0) {
+                pdfProjectLinks = '### 📄 **PDF Downloads:**\n';
+                projects.forEach(project => {
+                  const projectName = project.trim();
+                  pdfProjectLinks += `- **${projectName}.pdf** - Download from [${pagesUrl}pdf/${projectName}.pdf](${pagesUrl}pdf/${projectName}.pdf)\n`;
+                });
+                pdfProjectLinks += '\n';
+              }
+            }
+            
+            // Fallback message if no specific projects found
+            if (!htmlProjectLinks && !pdfProjectLinks) {
+              htmlProjectLinks = '### 📚 **Documentation:**\n- [**Browse All Documentation →**](' + pagesUrl + ')\n\n';
+            }
+            
+            const commentBody = `## 📖 Documentation Preview Ready!
+            
+            ✅ **Sphinx documentation (HTML & PDF) has been built and deployed successfully for this PR!**
+            
+            ### 🌐 **Browse Online (Recommended):**
+            **[📚 View Documentation Online →](${pagesUrl})**
+            
+            This gives you full web browsing with working links, subdirectories, navigation, and PDF downloads - just like a real documentation website!
+            
+            ### 📥 **Download for Offline Use:**
+            
+            **📦 Download the built documentation:**
+            1. Go to the [**Actions tab**](https://github.com/${repo.owner}/${repo.repo}/actions/runs/${context.runId})
+            2. Scroll down to the "**Artifacts**" section
+            3. Click on **\`documentation-pr-${{ github.event.number }}\`** to download the ZIP file
+            4. Extract the ZIP file on your computer
+            5. Open any **\`index.html\`** file in your web browser
+            
+            ### 🔗 Quick Links:
+            - [**🌐 Browse Online →**](${pagesUrl})
+            - [**📄 PDF Downloads →**](${pagesUrl}pdf/)
+            - [**📊 View workflow run →**](https://github.com/${repo.owner}/${repo.repo}/actions/runs/${context.runId})
+            - [**📥 Download artifacts →**](https://github.com/${repo.owner}/${repo.repo}/actions/runs/${context.runId}#artifacts)
+            
+            ### 📊 Build Details:
+            | Item | Value |
+            |------|-------|
+            | **PR Number** | #${{ github.event.number }} |
+            | **Commit** | \`${{ github.event.pull_request.head.sha }}\` |
+            | **Build Time** | ${new Date().toISOString()} |
+            | **HTML Projects** | ${htmlFoundProjects} projects, ${totalHtmlFiles} files |
+            | **PDF Projects** | ${pdfFoundProjects} projects, ${totalPdfFiles} files |
+            | **Online Preview** | [${pagesUrl}](${pagesUrl}) |
+            | **Retention** | Until PR is closed |
+            
+            ${htmlProjectLinks}${pdfProjectLinks}### ⏰ Important Notes:
+            - 🌐 **Online preview** works like a real website with full navigation
+            - 📄 **PDF downloads** available directly from the preview site
+            - 🗂️ **Download artifacts** are available for 30 days
+            - 🔄 **This preview updates** each time you push new commits
+            - 🚀 **Access is immediate** - no waiting for zip generation
+            
+            ---
+            *🤖 This comment was automatically generated by the combined documentation build workflow.*
+            `;
+            
+            // Check for existing comment and update it
+            const comments = await github.rest.issues.listComments({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const existingComment = comments.data.find(comment => 
+              comment.body.includes('## 📖 Documentation Preview Ready!')
+            );
+            
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                owner: repo.owner,
+                repo: repo.repo,
+                comment_id: existingComment.id,
+                body: commentBody
+              });
+              console.log(`Updated existing comment ${existingComment.id}`);
+            } else {
+              const newComment = await github.rest.issues.createComment({
+                owner: repo.owner,
+                repo: repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+              console.log(`Created new comment ${newComment.data.id}`);
+            }
+
+      - name: Summary
+        run: |
+          echo "## Combined Documentation Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Build Status:** Successful" >> $GITHUB_STEP_SUMMARY
+          echo "📦 **Combined Artifact:** documentation-pr-${{ github.event.number }}" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 **Download:** [Artifacts Section](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}#artifacts)" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 **Online Preview:** [${{ steps.deployment.outputs.page_url }}pr-${{ github.event.number }}/](${{ steps.deployment.outputs.page_url }}pr-${{ github.event.number }}/)" >> $GITHUB_STEP_SUMMARY
+          echo "⏰ **Retention:** 30 days" >> $GITHUB_STEP_SUMMARY
+          echo "📖 **Documentation Systems:** Sphinx (HTML + PDF)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Built Files:" >> $GITHUB_STEP_SUMMARY
+          echo "- **HTML Files:** ${{ needs.build-html.outputs.total-html-files }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **PDF Files:** ${{ needs.build-pdf.outputs.total-pdf-files }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Projects:" >> $GITHUB_STEP_SUMMARY
+          echo "- **HTML Projects:** ${{ needs.build-html.outputs.project-list }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **PDF Projects:** ${{ needs.build-pdf.outputs.project-list }}" >> $GITHUB_STEP_SUMMARY

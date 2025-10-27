@@ -1,0 +1,22 @@
+# Ignore placeholders, local-only endpoints, and sites that block automated link checkers
+(?i)https?://localhost(?:/.*)?
+(?i)https?://127\.0\.0\.1(?:/.*)?
+(?i)https?://192\.168\.[0-9.]+(?:/.*)?
+mailto:.*
+(?i)https?://(?:[^/]*\.)?mwagent\.com(?:/.*)?
+(?i)https?://loganalyzer\.adiscon\.com(?:/.*)?
+(?i)https?://ticket\.adiscon\.com(?:/.*)?
+(?i)https?://(?:[^/]*\.)?eventreporter\.com(?:/.*)?
+(?i)https?://(?:www\.)?liblogging\.org(?:/.*)?
+(?i)https?://(?:www\.)?ietf\.org(?:/.*)?
+(?i)https?://github\.com/.+\.tar\.gz
+(?i)https?://(?:www\.)?openssl\.org(?:/.*)?
+(?i)https?://(?:[^/]*\.)?adiscon\.com(?:/.*)?
+(?i)https?://(?:[^/]*\.)?winsyslog\.com(?:/.*)?
+(?i)https?://rainer\.gerhards\.net(?:/.*)?
+(?i)https?://security\.sdsc\.edu(?:/.*)?
+(?i)https?://msdn\.microsoft\.com(?:/.*)?
+(?i)https?://docs\.microsoft\.com(?:/.*)?
+(?i)https?://(?:[^/]*\.)?rsyslog\.com(?:/.*)?
+(?i)https?://(?:[^/]*\.)?liblognorm\.com(?:/.*)?
+(?i)https?://datatracker\.ietf\.org(?:/.*)?
