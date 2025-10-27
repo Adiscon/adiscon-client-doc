@@ -11,18 +11,84 @@ This guide explains how to build the documentation locally for browsing or verif
 - Optional: HTML Help Workshop (`hhc.exe`) if you need CHM output on Windows
 
 ## Setup
-1. Clone the repository
-   ```bash
-   git clone [repository-url]
-   ```
-2. Change into the project folder
-   ```bash
-   cd [repository-folder]
-   ```
-3. Install dependencies
-   ```bash
-   pip install -r requirements.txt
-   ```
+
+### Virtual Environment Setup (Recommended)
+
+Using a virtual environment is recommended to avoid conflicts with system Python packages.
+
+#### Windows
+Run the Windows batch script:
+```cmd
+setup_venv.bat
+```
+
+#### Linux/macOS/Unix
+Run the shell script:
+```bash
+./setup_venv.sh
+```
+
+#### What the Setup Scripts Do
+1. **Check Python Installation**: Verify that Python 3.x is installed and accessible
+2. **Create Virtual Environment**: Create a new Python virtual environment in the `venv` directory
+3. **Activate Environment**: Activate the virtual environment
+4. **Upgrade pip**: Update pip to the latest version
+5. **Install Dependencies**: Install required packages from `requirements.txt`
+
+#### Manual Setup (Alternative)
+If you prefer to set up the virtual environment manually:
+
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# Windows:
+venv\Scripts\activate.bat
+# Linux/macOS:
+source venv/bin/activate
+
+# Install dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+#### Activating the Virtual Environment
+
+Before building documentation, activate the virtual environment:
+
+**Windows:**
+```cmd
+venv\Scripts\activate.bat
+```
+
+**Linux/macOS/Unix:**
+```bash
+source venv/bin/activate
+```
+
+#### Deactivating the Virtual Environment
+
+When done:
+```bash
+deactivate
+```
+
+### Troubleshooting Setup
+
+**Python Not Found:**
+- Make sure Python 3.x is installed
+- Ensure Python is in your system PATH
+- On Windows, you may need to restart your command prompt after installing Python
+
+**Permission Errors (Linux/macOS):**
+```bash
+chmod +x setup_venv.sh
+```
+
+**Virtual Environment Already Exists:**
+- Use the existing environment (recommended)
+- Delete the `venv` directory and run the setup script again
 
 ## Building the Docs
 - Build all HTML documentation
