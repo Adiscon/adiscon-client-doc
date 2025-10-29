@@ -240,13 +240,13 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 - Keep FAQ pages self-contained. Avoid "Related Information" sections that cross-link to other manuals unless they are guarded with `.. only::` tags per Rule 4 above.
 - If a page truly needs labels from other manuals, prefer plain hyperlinks or guard the cross-manual `:doc:` links with `.. only::`.
 
-### 4.5 Exclude Patterns for Per-Product Builds
+### 4.7 Exclude Patterns for Per-Product Builds
 
 - The `exclude_patterns` in each `<product>/conf.py` should exclude other manuals to speed up builds, but never exclude pages that are referenced in that product's `index.<product>.rst` toctree. Excluding a toctree target causes the error: "document isn't included in any toctree".
 - `winsyslog` and `winsyslog-j` should be kept in parity. The `winsyslog-j` build is the same as `winsyslog` but with extra Japanese-specific files; it should not exclude the whole WinSyslog FAQ toctree.
 - When adding new cross-manual FAQ entries, verify that other products either exclude those files or guard links with `.. only::` to avoid leaking content into sidebars.
 
-### 4.6 Environment Setup Gotchas
+### 4.8 Environment Setup Gotchas
 
 - `sphinx-build`, `doc8`, and other tools are installed under `~/.local/bin` by default. Prepend this to PATH before running `make`:
 
@@ -273,6 +273,8 @@ pip install -r requirements.txt -r requirements-qa.txt
 - Always preserve the exact variable names as they appear in the original documentation
 - This includes preserving typos, unusual capitalization, and non-standard formatting
 
+- **Note on doc8**: If the `doc8` command is not found when running `make validate-rst`, use `python -m doc8` instead. The Makefile has been updated to use this form.
+
 ### 4.4 Pre-Change Checklist
 
 Before making any changes:
@@ -290,26 +292,38 @@ Before making any changes:
 
 ### 4.5 Post-Change Validation
 
-**CRITICAL REQUIREMENT**: After making ANY changes to `.rst` files, you MUST run the full build process to ensure no warnings are introduced.
+**CRITICAL REQUIREMENT**: After making ANY changes to `.rst` files, you MUST run the full build process and all validation checks to ensure no warnings or errors are introduced.
 
 **Required Steps:**
 
-1. **Always run the full build**: `make all-html`
+1. **Always run the full build**: `make all-html SPHINXOPTS="-W"`
    - This builds ALL documentation sets and catches warnings across the entire project
    - The build system treats warnings as errors and will fail if any warnings exist
    - Never skip this step, even for "minor" changes
 
-2. **Fix warnings immediately**: Don't commit with warnings
+2. **Run RST validation**: `make validate-rst`
+   - Checks for RST syntax errors, formatting issues, and style violations
+   - Uses `doc8` for style checking and `rstcheck` for syntax validation
+   - Fixes common issues like missing newlines at end of file, trailing whitespace, and invalid directives
+   - **Note**: If `doc8` command is not found, use `python -m doc8` instead
+
+3. **Run spelling check**: `make spelling`
+   - Validates spelling across all documentation products
+   - Flags unknown words that may need to be added to `source/shared/spelling-wordlist.txt`
+   - For legitimate technical terms or product-specific words, add them to the wordlist rather than changing the content
+   - Domain terms, acronyms, and technical jargon should be added to the wordlist
+
+4. **Fix warnings immediately**: Don't commit with warnings
    - All warnings must be resolved before changes are considered complete
    - Use the patterns in section 4.3 and Recipe 6 to systematically fix issues
-   - Re-run `make all-html` after each batch of fixes until clean
+   - Re-run validation after each batch of fixes until clean
 
-3. **Check rendered output**: Look at the HTML to ensure formatting is correct
+5. **Check rendered output**: Look at the HTML to ensure formatting is correct
    - Verify that emphasis markup renders correctly
    - Check that lists display properly
    - Ensure code blocks are formatted as expected
 
-4. **Test all products**: If changing shared files (in `/source/`), test all product builds
+6. **Test all products**: If changing shared files (in `/source/`), test all product builds
    - Changes to files in `/source/` affect multiple documentation sets
    - Each product must build cleanly: eventreporter, mwagent, rsyslog, syslogviewer, winsyslog, winsyslog-j
 
@@ -318,6 +332,54 @@ Before making any changes:
 - Small syntax errors can break multiple product builds
 - The CI/CD pipeline will fail on any warnings
 - Clean builds ensure professional documentation quality
+- Spelling errors reduce documentation credibility
+- Consistent formatting improves readability and maintainability
+
+### 4.6 Pre-Pull Request Checklist
+
+**MANDATORY**: Before creating a pull request, you MUST run all validation checks to ensure the codebase is ready for review.
+
+**Required Pre-PR Validation Steps:**
+
+1. **Run full build with strict warnings**: `make all-html SPHINXOPTS="-W"`
+   - Verify zero warnings across all products
+   - Fix any build errors or warnings before proceeding
+
+2. **Run RST validation**: `make validate-rst`
+   - Ensures all RST files follow proper syntax and style guidelines
+   - Checks for common formatting issues
+   - Verify zero errors before proceeding
+
+3. **Run spelling check**: `make spelling`
+   - Validates spelling across all documentation
+   - Add any legitimate technical terms to `source/shared/spelling-wordlist.txt` if flagged
+   - Verify zero spelling errors before proceeding
+
+4. **Optional but recommended**: Run full validation suite: `make validate`
+   - Runs linkcheck, spelling, and RST validation together
+   - Provides comprehensive pre-PR validation
+   - Fix any issues found before creating the PR
+
+**Validation Command Summary:**
+```bash
+# Activate virtual environment
+source venv/bin/activate
+
+# Run all validation checks (recommended)
+make validate
+
+# Or run individually:
+make all-html SPHINXOPTS="-W"  # Build with strict warnings
+make validate-rst              # RST syntax and style checks
+make spelling                   # Spelling validation
+make linkcheck                 # Check for broken links
+```
+
+**Important Notes:**
+- Never skip validation steps even for small changes
+- All checks must pass with zero errors/warnings before creating PR
+- The CI/CD pipeline will run these same checks and fail if issues are found
+- Fixing issues before PR submission saves time and reduces review cycles
 
 ## 5. How to Use AI Agents: Prompt Recipes
 
@@ -522,12 +584,31 @@ Act as a Sphinx documentation expert. Your task is to fix all warnings across th
 Act as a release-prep assistant. Your goal is to finish all remaining work items and ensure the repo is ready for review.
 
 1. Reconcile the task list: mark completed items, cancel obsolete ones, and list any blockers.
-2. Run the full validation: `make all-html` (warnings as errors), or `make validate` for QA checks (`linkcheck`, `spelling`, `validate-rst`).
-3. If warnings/errors appear, fix them and re-run until clean.
-4. Update changelogs if present (e.g., `CHANGELOG.md` or per-product notes):
+
+2. Run the full validation suite: `make validate`
+   - This runs: `linkcheck`, `spelling`, and `validate-rst` together
+   - Provides comprehensive pre-PR validation
+   - Fix any issues found before proceeding
+
+3. Run full build with strict warnings: `make all-html SPHINXOPTS="-W"`
+   - Verify zero warnings across all products
+   - Fix any build errors or warnings before proceeding
+
+4. If warnings/errors appear, fix them and re-run until clean:
+   - RST validation errors: fix syntax issues, add missing newlines, fix formatting
+   - Spelling errors: add legitimate terms to `source/shared/spelling-wordlist.txt`
+   - Build warnings: follow Recipe 6 patterns to fix systematically
+
+5. Update changelogs if present (e.g., `CHANGELOG.md` or per-product notes):
    - Add entries for changes (structure, recipes, build tooling, rule updates)
    - Use consistent date/version formatting
-5. Summarize what changed and what was verified.
+
+6. Verify all validation checks pass:
+   - `make validate-rst` - zero errors
+   - `make spelling` - zero misspellings
+   - `make all-html SPHINXOPTS="-W"` - zero warnings
+
+7. Summarize what changed and what was verified.
 ```
 
 ### Recipe 8: SUMMARIZE (PR and Squashed Commit Messages)
@@ -583,15 +664,41 @@ When working with this repository, AI agents should follow these best practices:
 5. Do **not** "correct" spelling inside URLs or hyperlink targets—even if a URL looks misspelled, keep the original form.
 
 ### Quality Assurance
-1. **MANDATORY**: Always run `make all-html` after making changes
+1. **MANDATORY**: Always run `make all-html SPHINXOPTS="-W"` after making changes
    - This is non-negotiable for ANY RST file modifications
    - Fix ALL warnings before considering the task complete
    - Clean builds are required for professional documentation
-2. Review the generated HTML to ensure formatting is correct
-3. Check that all internal links work properly
-4. Verify that examples are accurate and functional
-5. **Final verification**: Ensure `make all-html` completes with zero warnings
-6. When modifying YAML files (including GitHub Actions workflows), run `yamllint` on the changed files before finishing your work.
+
+2. **MANDATORY**: Run RST validation: `make validate-rst`
+   - Checks for syntax errors, formatting issues, and style violations
+   - Ensures files have proper newlines, no trailing whitespace, correct formatting
+   - Fix all errors before proceeding
+
+3. **MANDATORY**: Run spelling check: `make spelling`
+   - Validates spelling across all documentation products
+   - Add legitimate technical terms to `source/shared/spelling-wordlist.txt` if flagged
+   - Fix all spelling errors before proceeding
+
+4. **RECOMMENDED**: Run full validation suite: `make validate`
+   - Runs all QA checks together (linkcheck, spelling, validate-rst)
+   - Provides comprehensive validation before PR submission
+
+5. Review the generated HTML to ensure formatting is correct
+   - Verify that emphasis markup renders correctly
+   - Check that lists display properly
+   - Ensure code blocks are formatted as expected
+
+6. Check that all internal links work properly
+   - Use `make linkcheck` to verify external links (may be slow)
+
+7. Verify that examples are accurate and functional
+
+8. **Final verification**: Ensure all checks pass with zero errors/warnings:
+   - `make all-html SPHINXOPTS="-W"` - zero warnings
+   - `make validate-rst` - zero errors
+   - `make spelling` - zero misspellings
+
+9. When modifying YAML files (including GitHub Actions workflows), run `yamllint` on the changed files before finishing your work.
 
 ### Communication
 1. Document significant changes in commit messages
