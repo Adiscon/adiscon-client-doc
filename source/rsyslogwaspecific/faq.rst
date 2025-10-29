@@ -7,6 +7,8 @@ Here you find FAQ for Rsyslog:
 .. toctree::
    :maxdepth: 1
 
+   faq/start-program-action-troubleshooting
+
 
 
 further FAQ you find on `adiscon.com <https://www.adiscon.com/>`_ :
