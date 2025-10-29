@@ -1,7 +1,7 @@
 .. _start-program-action-troubleshooting-eventreporter:
 
 Why doesn't my Start Program action work in EventReporter?
-=========================================================
+==========================================================
 
 This article explains common issues with the Start Program action in EventReporter and provides solutions to resolve them.
 
@@ -101,7 +101,7 @@ EventReporter uses specific replacement characters to pass event data to externa
    - Example: ``"Event occurred: %m"`` instead of ``Event occurred: %m``
 
 Troubleshooting Steps
---------------------
+---------------------
 
 1. **Check Windows Event Log**
    - Open Event Viewer (type "Event Viewer" in Windows search)
