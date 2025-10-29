@@ -1,7 +1,7 @@
 .. _start-program-action-troubleshooting-eventreporter:
 
-Why doesn't my Start Program action work in EventReporter?
-==========================================================
+Troubleshooting the Start Program action in EventReporter
+=========================================================
 
 This article explains common issues with the Start Program action in EventReporter and provides solutions to resolve them.
 

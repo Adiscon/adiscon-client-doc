@@ -1,7 +1,7 @@
 .. _start-program-action-troubleshooting-rsyslog:
 
-Why doesn't my Start Program action work in Rsyslog?
-====================================================
+Troubleshooting the Start Program action in Rsyslog
+===================================================
 
 This article explains common issues with the Start Program action in Rsyslog and provides solutions to resolve them.
 

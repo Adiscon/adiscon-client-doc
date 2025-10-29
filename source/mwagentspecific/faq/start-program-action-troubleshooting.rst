@@ -1,7 +1,7 @@
 .. _start-program-action-troubleshooting-mwagent:
 
-Why doesn't my Start Program action work in MonitorWare Agent?
-==============================================================
+Troubleshooting the Start Program action in MonitorWare Agent
+=============================================================
 
 This article explains common issues with the Start Program action in MonitorWare Agent and provides solutions to resolve them.
 

@@ -1,7 +1,7 @@
 .. _start-program-action-troubleshooting-winsyslog:
 
-Why doesn't my Start Program action work in WinSyslog?
-======================================================
+Troubleshooting the Start Program action in WinSyslog
+=====================================================
 
 This article explains common issues with the Start Program action in WinSyslog and provides solutions to resolve them.
 
