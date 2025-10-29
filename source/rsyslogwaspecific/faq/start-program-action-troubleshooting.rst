@@ -1,7 +1,7 @@
 .. _start-program-action-troubleshooting-rsyslog:
 
 Why doesn't my Start Program action work in Rsyslog?
-===================================================
+====================================================
 
 This article explains common issues with the Start Program action in Rsyslog and provides solutions to resolve them.
 
@@ -120,7 +120,7 @@ Rsyslog may not use the same shell or interpreter as your user session.
    - Verify the interpreter exists and is executable
 
 Troubleshooting Steps
---------------------
+---------------------
 
 1. **Check system logs**
    - View Rsyslog logs: ``journalctl -u rsyslog``
@@ -144,23 +144,25 @@ Troubleshooting Steps
    - Test with different users: ``sudo -u rsyslog /path/to/script``
 
 Example Working Configuration
------------------------------
+-------------------------------
 
 Here's an example of a properly configured Start Program action for Rsyslog:
 
 **Rsyslog configuration:**
-````
-# Log all messages to file and execute script
-*.* /var/log/messages
-*.* ^/usr/local/bin/process-syslog.sh
-````
+
+.. code-block:: text
+
+   # Log all messages to file and execute script
+   *.* /var/log/messages
+   *.* ^/usr/local/bin/process-syslog.sh
 
 **Script content (/usr/local/bin/process-syslog.sh):**
-````bash
-#!/bin/bash
-# Process syslog message
-echo "$(date): $@" >> /var/log/processed-messages.log
-````
+
+.. code-block:: bash
+
+   #!/bin/bash
+   # Process syslog message
+   echo "$(date): $@" >> /var/log/processed-messages.log
 
 **Key points:**
 - Full path to script

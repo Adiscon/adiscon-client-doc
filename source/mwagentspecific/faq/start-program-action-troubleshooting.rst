@@ -1,7 +1,7 @@
 .. _start-program-action-troubleshooting-mwagent:
 
 Why doesn't my Start Program action work in MonitorWare Agent?
-=============================================================
+==============================================================
 
 This article explains common issues with the Start Program action in MonitorWare Agent and provides solutions to resolve them.
 
@@ -127,7 +127,7 @@ External programs running too long can affect MonitorWare Agent performance.
    - Consider asynchronous execution for longer tasks
 
 Troubleshooting Steps
---------------------
+---------------------
 
 1. **Check Windows Event Log**
    - Open Event Viewer (type "Event Viewer" in Windows search)

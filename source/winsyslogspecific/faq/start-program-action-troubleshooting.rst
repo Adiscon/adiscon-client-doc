@@ -1,7 +1,7 @@
 .. _start-program-action-troubleshooting-winsyslog:
 
 Why doesn't my Start Program action work in WinSyslog?
-=====================================================
+======================================================
 
 This article explains common issues with the Start Program action in WinSyslog and provides solutions to resolve them.
 
@@ -78,7 +78,7 @@ The working directory when WinSyslog executes the program may be different from 
    - Add ``cd /d C:\your\working\directory`` at the beginning of batch files
 
 Troubleshooting Steps
---------------------
+---------------------
 
 1. **Check Windows Event Log**
    - Open Event Viewer (type "Event Viewer" in Windows search)
