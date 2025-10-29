@@ -89,6 +89,7 @@ anti-SPAM
 ANY
 API
 appname
+async
 ASCII
 ASP
 AUDIT

@@ -357,7 +357,7 @@ RSTCHECK_IGNORE_LANGUAGES ?= none
 .PHONY: validate-rst
 validate-rst:
 	@echo "$(COLOR_BLUE)Running doc8...$(COLOR_RESET)"
-	@doc8 --max-line-length $(DOC8_MAX_LINE_LENGTH) $(RST_LINT_PATHS)
+	@python -m doc8 --max-line-length $(DOC8_MAX_LINE_LENGTH) $(RST_LINT_PATHS)
 	@echo "$(COLOR_BLUE)Running rstcheck...$(COLOR_RESET)"
 	@rstcheck --recursive --report-level WARNING \
 	        --ignore-directives $(RSTCHECK_IGNORE_DIRECTIVES) \
