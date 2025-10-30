@@ -44,12 +44,10 @@ This FAQ applies to:
 Additional Information
 ----------------------
 
-For more information about configuring the ODBC database action, see:
+For more information about configuring the ODBC database action, see the :doc:`database logging <../../glossaryofterms/database>` documentation.
 
 .. only:: mwagent
 
-   * :doc:`ODBC Database Options <../../mwagentspecific/a-databaseoptions>` (MonitorWare Agent)
-
-* :doc:`database logging <../../glossaryofterms/database>` (General database concepts)
+   See also :doc:`ODBC Database Options <../../mwagentspecific/a-databaseoptions>` for MonitorWare Agent-specific configuration details.
 
 For details about MariaDB itself, visit the `MariaDB Foundation website <https://mariadb.org/>`_.
