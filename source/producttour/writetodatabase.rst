@@ -13,4 +13,4 @@ custom applications can easily browse them.
 
 
 Further details can be found here:
-:doc:`write to database <../mwagentspecific/a-databaseoptions>`.
+:doc:`write to database <../shared/references/a-databaseoptions>`.
