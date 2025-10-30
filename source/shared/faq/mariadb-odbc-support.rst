@@ -36,7 +36,9 @@ The configuration process is identical to using MySQL, as MariaDB maintains bina
 Additional Information
 ----------------------
 
-For more information about configuring the ODBC database action, see the :doc:`database logging <../../glossaryofterms/database>` documentation.
+.. only:: not syslogviewer
+
+   For more information about configuring the ODBC database action, see the :doc:`database logging <../../glossaryofterms/database>` documentation.
 
 .. only:: mwagent
 
