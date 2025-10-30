@@ -16,7 +16,7 @@ Storing Actions
 .. toctree::
    :maxdepth: 1
 
-   a-databaseoptions
+   ../shared/references/a-databaseoptions
    a-oledbdatabaseaction
    a-fileoptions
    a-syslogqueueaction

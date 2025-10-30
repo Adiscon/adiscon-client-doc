@@ -18,7 +18,7 @@ Storing Actions
 .. toctree::
    :maxdepth: 1
 
-   ../mwagentspecific/a-databaseoptions
+   ../shared/references/a-databaseoptions
    ../mwagentspecific/a-oledbdatabaseaction
    ../mwagentspecific/a-fileoptions
 

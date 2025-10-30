@@ -38,6 +38,6 @@ For more information about configuring the ODBC database action, see the :doc:`d
 
 .. only:: mwagent
 
-   See also :doc:`ODBC Database Options <../../mwagentspecific/a-databaseoptions>` for MonitorWare Agent-specific configuration details.
+   See also :doc:`ODBC Database Options <../references/a-databaseoptions>` for MonitorWare Agent-specific configuration details.
 
 For details about MariaDB itself, visit the `MariaDB Foundation website <https://mariadb.org/>`_.

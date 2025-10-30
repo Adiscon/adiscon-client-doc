@@ -29,7 +29,7 @@ assignments and then use these tools.
 Connection Options
 ------------------
 
-.. image:: ../images/a-odbcdatabase-connection.png
+.. image:: ../../images/a-odbcdatabase-connection.png
    :width: 100%
 
 * Action - ODBC Database Connection*
@@ -240,7 +240,7 @@ if you would like to store a substring. For example, if you intend to store
 only the first 200 characters of each message, you can use ``%msg:1:200%``.
 
 
-.. image:: ../images/a-odbcdatabase-datafields.png
+.. image:: ../../images/a-odbcdatabase-datafields.png
    :width: 100%
 
 * Action - ODBC Database Datafields*
@@ -287,12 +287,12 @@ Fieldcontent
 
 **Description:**
   Finally, the Fieldcontent is the event property. For a complete list of
-  supported properties, see :doc:`event properties <../shared/references/eventspecificproperties>`
+  supported properties, see :doc:`event properties <eventspecificproperties>`
 
 Action Queue Options
 --------------------
 
-.. image:: ../images/a-odbcdatabase-actionqueue.png
+.. image:: ../../images/a-odbcdatabase-actionqueue.png
    :width: 100%
 
 * Action - Send RELP Action Queue*
