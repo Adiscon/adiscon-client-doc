@@ -1,3 +1,5 @@
+:orphan:
+
 .. _mariadb-odbc-support:
 
 Is MariaDB supported by the ODBC action?
