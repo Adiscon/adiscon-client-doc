@@ -10,6 +10,7 @@ Here you find FAQ about EventReporter:
    faq/log-rotation-file-handle-cleanup
    faq/eventreporter-iot2025-support
    faq/start-program-action-troubleshooting
+   ../shared/faq/mariadb-odbc-support
 
 
 

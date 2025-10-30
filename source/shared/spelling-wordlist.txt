@@ -777,6 +777,7 @@ MWConsole
 my-subconfigfiles-
 MyProperty
 MySQL
+MariaDB
 nAction
 nAddLogType
 nAddMibDescriptionToMsg
