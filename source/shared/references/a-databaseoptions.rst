@@ -1,3 +1,5 @@
+:orphan:
+
 ODBC Database Options
 =====================
 
