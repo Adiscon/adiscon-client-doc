@@ -45,3 +45,4 @@ Additional Information
    See also :doc:`ODBC Database Options <../references/a-databaseoptions>` for MonitorWare Agent-specific configuration details.
 
 For details about MariaDB itself, visit the `MariaDB Foundation website <https://mariadb.org/>`_.
+
