@@ -15,7 +15,7 @@ MariaDB is designed to be binary-compatible with MySQL, which makes switching fr
 Support Status
 --------------
 
-**Yes, MariaDB is fully supported by the ODBC action** in WinSyslog, EventReporter, MonitorWare Agent, and Rsyslog Windows Agent.
+**Yes, MariaDB is fully supported by the ODBC action.**
 
 MariaDB can be used as a direct replacement for MySQL with the ODBC database action. Since MariaDB maintains binary compatibility with MySQL, it works seamlessly with existing MySQL ODBC drivers and configurations.
 
@@ -30,16 +30,6 @@ To use MariaDB with the ODBC action:
 4. **Select the DSN** in your product's ODBC Database action configuration
 
 The configuration process is identical to using MySQL, as MariaDB maintains binary compatibility with MySQL connectors and drivers.
-
-Products Affected
------------------
-
-This FAQ applies to:
-
-* WinSyslog
-* EventReporter
-* MonitorWare Agent
-* Rsyslog Windows Agent
 
 Additional Information
 ----------------------
