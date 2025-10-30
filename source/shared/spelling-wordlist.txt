@@ -113,6 +113,7 @@ B8
 bAbortRuleOnFailure
 back-end
 backend
+binary-compatible
 BAD
 bAddFacilityString
 Basefilter
@@ -778,6 +779,7 @@ my-subconfigfiles-
 MyProperty
 MySQL
 MariaDB
+Microsystems
 nAction
 nAddLogType
 nAddMibDescriptionToMsg
@@ -1102,6 +1104,8 @@ OID
 OIDs
 old-style
 OLEDB
+open-source
+Oracle
 OleDB
 on-screen
 on-unreliability-of-plain-tcp-syslog
@@ -1367,7 +1371,15 @@ SHA
 SHA1
 SHIFT
 Shift-JIS
+SHOM
+SHOM-EXT
+SHOM-INT
 shortkeys
+ShutDown
+Shutdown
+SHUTDOWN
+side-by-side
+Sun
 SID
 SIDs
 SignatureAlgorithms
