@@ -22,3 +22,4 @@ independently when needed.
 
    gettingstarted/index
    references/index
+   faq/odbc-mariadb-support
