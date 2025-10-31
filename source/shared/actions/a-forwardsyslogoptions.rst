@@ -7,7 +7,7 @@ Protocol Type
 There are various ways to transmit syslog messages. In general,they can be sent
 via UDP, TCP, or RFC 3195 RAW. Typically, syslog messages are received via UDP
 protocol, which is the default. UDP is understood by almost all servers, but
-doesn't guarantee transport. In plain words, this means that syslog messages
+does not guarantee transport. In plain words, this means that syslog messages
 sent via UDP can get lost if there is a network error, the network is congested
 or a device (like a router or switch) is out of buffer space. Typically, UDP
 works quite well. However, it should not be used if the loss of a limited
@@ -52,7 +52,7 @@ value. This will free up connection slots on the server machine.
 Syslog Target Options
 ---------------------
 
-.. image:: ../images/a-forwardsyslog-target.png
+.. image:: ../../images/a-forwardsyslog-target.png
    :width: 100%
 
 * Action - Forward Syslog Target Options*
@@ -167,7 +167,7 @@ Syslog Port (Round robin mode)
 Syslog Message Options
 ----------------------
 
-.. image:: ../images/a-forwardsyslog-message.png
+.. image:: ../../images/a-forwardsyslog-message.png
    :width: 100%
 
 * Action - Forward Syslog - Message Options*
@@ -187,7 +187,7 @@ Syslog processing
   With this settings you can assign how your syslog messages will be processed.
 
   For processing syslog you can choose out of four different options. You can
-  use :doc:`rfc3164 <../glossaryofterms/rfc3164>` or RFC5424 (recommended) which is the current syslog standard,
+  use :doc:`rfc3164 <../../glossaryofterms/rfc3164>` or RFC5424 (recommended) which is the current syslog standard,
   you are able to customize the syslog header or you do not process your syslog
   and forwards it as it is.
 
@@ -206,8 +206,8 @@ Use Custom Syslog Header
   can write into the field yourself or you use properties as dynamic content.
   By default the Header field is filled with the content of the RFC 5424 header.
 
-  **Please note** that the header content of the Header field can be configured. :doc:`event properties <../shared/references/eventspecificproperties>` are described in the
-  :doc:`property replacer section <../shared/references/eventproperties>`.
+  **Please note** that the header content of the Header field can be configured. :doc:`event properties <../references/eventspecificproperties>` are described in the
+  :doc:`property replacer section <../references/eventproperties>`.
 
 
 
@@ -283,7 +283,7 @@ Use CEE enhanced Syslog Format
   see the "Include message property in CEE Format" option. Here is a sample how
   the format looks like for a security Eventlog message:
 
-  ``@cee: {"source": "machine.local", "nteventlogtype": "Security", "sourceproc": "Microsoft-Windows-Security-Auditing", "id": "4648", "categoryid": "12544", "category": "12544", "keywordid": "0x8020000000000000", "user": "N\\A", "SubjectUserSid": "S-1-5-11-222222222-333333333-4444444444-5555", "SubjectUserName": "User", "SubjectDomainName": "DOMAIN", "SubjectLogonId": "0x5efdd", "LogonGuid": "{00000000-0000-0000-0000-000000000000}", "TargetUserName": "Administrator", "TargetDomainName": " DOMAIN ", "TargetLogonGuid": "{00000000-0000-0000-0000-000000000000}", "TargetServerName": "servername", "TargetInfo": " servername ", "ProcessId": "0x76c", "ProcessName": "C:\\Windows\\System32\\spoolsv.exe", "IpAddress": "-", "IpPort": "-", "catname": "Logon", "keyword": "Audit Success", "level": "Information", }``
+  ``@cee: {"source": "machine.local", "nteventlogtype": "Security", "sourceproc": "Microsoft-Windows-Security-Auditing", "id": "4648", "categoryid": "12544", "category": "12544", "keywordid": "0x8020000000000000", "user": "N\\\\A", "SubjectUserSid": "S-1-5-11-222222222-333333333-4444444444-5555", "SubjectUserName": "User", "SubjectDomainName": "DOMAIN", "SubjectLogonId": "0x5efdd", "LogonGuid": "{00000000-0000-0000-0000-000000000000}", "TargetUserName": "Administrator", "TargetDomainName": " DOMAIN ", "TargetLogonGuid": "{00000000-0000-0000-0000-000000000000}", "TargetServerName": "servername", "TargetInfo": " servername ", "ProcessId": "0x76c", "ProcessName": "C:\\\\Windows\\\\System32\\\\spoolsv.exe", "IpAddress": "-", "IpPort": "-", "catname": "Logon", "keyword": "Audit Success", "level": "Information", }``
 
   Additionally to this format you can set: Include message property in CEE
   Format.
@@ -306,6 +306,10 @@ Include message property in CEE Format
   If enabled, the message itself will be included in the JSON Stream as
   property. Disable this option if you do not want the message itself in the
   CEE Format.
+
+  **Please note** you can also make Event ID part of the actual Syslog message while forwarding to a Syslog server then you have to make some changes in
+  the Forward Syslog Action.
+  :doc:`click here <../../articles/include-event-id-in-syslog-msg>` to know the settings.
 
 
 Message Format
@@ -387,8 +391,6 @@ Compression Level
   Besides the fact that the mechanisms behind compression are experimental, the
   feature itself is solid.
 
-
-
 Overwrite Syslog Properties
 ---------------------------
 
@@ -417,7 +419,7 @@ Syslog Priority
 SSL/TLS related Options
 -----------------------
 
-.. image:: ../images/a-forwardsyslog-ssltls.png
+.. image:: ../../images/a-forwardsyslog-ssltls.png
    :width: 100%
 
 * Action - Forward Syslog SSL/TLS related Options*
@@ -607,7 +609,7 @@ Session Timeout
 Action Queue Options
 --------------------
 
-.. image:: ../images/a-forwardsyslog-actionqueue.png
+.. image:: ../../images/a-forwardsyslog-actionqueue.png
    :width: 100%
 
 * Action - Forward Syslog Action Queue*
@@ -615,7 +617,7 @@ Action Queue Options
 
 
 Use Diskqueue if connection to Syslog server fails
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nUseDiscQueue
