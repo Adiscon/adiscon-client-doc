@@ -4,7 +4,7 @@ Syslog Forwarding
 Protocol Type
 -------------
 
-There are various ways to transmit syslog messages. In general,they can be sent
+There are various ways to transmit syslog messages. In general, they can be sent
 via UDP, TCP, or RFC 3195 RAW. Typically, syslog messages are received via UDP
 protocol, which is the default. UDP is understood by almost all servers, but
 does not guarantee transport. In plain words, this means that syslog messages
