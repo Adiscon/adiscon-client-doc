@@ -7,7 +7,7 @@ Protocol Type
 There are various ways to transmit syslog messages. In general,they can be sent
 via UDP, TCP, or RFC 3195 RAW. Typically, syslog messages are received via UDP
 protocol, which is the default. UDP is understood by almost all servers, but
-doesn't guarantee transport. In plain words, this means that syslog messages
+does not guarantee transport. In plain words, this means that syslog messages
 sent via UDP can get lost if there is a network error, the network is congested
 or a device (like a router or switch) is out of buffer space. Typically, UDP
 works quite well. However, it should not be used if the loss of a limited
@@ -89,6 +89,7 @@ Syslog server (Syslog Send mode)
 
 
 
+
 Syslog Port (Syslog Send mode)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -107,6 +108,7 @@ Syslog Port (Syslog Send mode)
 
 
 
+
 Use this backup Syslog server if first one fails
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -117,6 +119,7 @@ Use this backup Syslog server if first one fails
   The backup server is automatically used if the connection to the primary
   server fails. The primary server is automatically retried when the next
   Syslog session is opened. This option is only available when using TCP syslog.
+
 
 
 
@@ -145,6 +148,7 @@ Syslog server (Round robin mode)
   This is the name or IP address of the system to which Syslog messages should
   be sent to. You can either use an IPv4, an IPv6 Address, or a Hostname that
   resolves to an IPv4 or IPv6 Address.
+
 
 
 
@@ -206,8 +210,9 @@ Use Custom Syslog Header
   can write into the field yourself or you use properties as dynamic content.
   By default the Header field is filled with the content of the RFC 5424 header.
 
-  **Please note** that the header content of the Header field can be configured. :doc:`event properties <../shared/references/eventspecificproperties>` are described in the
-  :doc:`property replacer section <../shared/references/eventproperties>`.
+  **Please note** that the header content of the Header field can be configured. :doc:`event properties <shared/references/eventspecificproperties>` are described in the
+  :doc:`property replacer section <shared/references/eventproperties>`.
+
 
 
 
@@ -225,6 +230,7 @@ Output Encoding
 
 
 
+
 Include UTF8 BOM in message
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -235,6 +241,7 @@ Include UTF8 BOM in message
   If enabled (default), the UTF8 BOM code will be prepended to the output
   message if you are using UTF8 Output encoding. If the syslog receiver cannot
   handle and remove the UTF8 BOM you can disabled this option.
+
 
 
 
@@ -256,6 +263,7 @@ Use XML to Report
 
 
 
+
 Forward as MonitorWare Agent XML Representation Code
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -271,6 +279,7 @@ Forward as MonitorWare Agent XML Representation Code
 
 
 
+
 Use CEE enhanced Syslog Format
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -283,7 +292,7 @@ Use CEE enhanced Syslog Format
   see the "Include message property in CEE Format" option. Here is a sample how
   the format looks like for a security Eventlog message:
 
-  ``@cee: {"source": "machine.local", "nteventlogtype": "Security", "sourceproc": "Microsoft-Windows-Security-Auditing", "id": "4648", "categoryid": "12544", "category": "12544", "keywordid": "0x8020000000000000", "user": "N\\A", "SubjectUserSid": "S-1-5-11-222222222-333333333-4444444444-5555", "SubjectUserName": "User", "SubjectDomainName": "DOMAIN", "SubjectLogonId": "0x5efdd", "LogonGuid": "{00000000-0000-0000-0000-000000000000}", "TargetUserName": "Administrator", "TargetDomainName": " DOMAIN ", "TargetLogonGuid": "{00000000-0000-0000-0000-000000000000}", "TargetServerName": "servername", "TargetInfo": " servername ", "ProcessId": "0x76c", "ProcessName": "C:\\Windows\\System32\\spoolsv.exe", "IpAddress": "-", "IpPort": "-", "catname": "Logon", "keyword": "Audit Success", "level": "Information", }``
+  ``@cee: {"source": "machine.local", "nteventlogtype": "Security", "sourceproc": "Microsoft-Windows-Security-Auditing", "id": "4648", "categoryid": "12544", "category": "12544", "keywordid": "0x8020000000000000", "user": "N\\\\A", "SubjectUserSid": "S-1-5-11-222222222-333333333-4444444444-5555", "SubjectUserName": "User", "SubjectDomainName": "DOMAIN", "SubjectLogonId": "0x5efdd", "LogonGuid": "{00000000-0000-0000-0000-000000000000}", "TargetUserName": "Administrator", "TargetDomainName": " DOMAIN ", "TargetLogonGuid": "{00000000-0000-0000-0000-000000000000}", "TargetServerName": "servername", "TargetInfo": " servername ", "ProcessId": "0x76c", "ProcessName": "C:\\\\Windows\\\\System32\\\\spoolsv.exe", "IpAddress": "-", "IpPort": "-", "catname": "Logon", "keyword": "Audit Success", "level": "Information", }``
 
   Additionally to this format you can set: Include message property in CEE
   Format.
@@ -307,6 +316,10 @@ Include message property in CEE Format
   property. Disable this option if you do not want the message itself in the
   CEE Format.
 
+  **Please note** you can also make Event ID part of the actual Syslog message while forwarding to a Syslog server then you have to make some changes in
+  the Forward Syslog Action.
+  :doc:`click here <../articles/include-event-id-in-syslog-msg>` to know the settings.
+
 
 Message Format
 ^^^^^^^^^^^^^^
@@ -319,6 +332,7 @@ Message Format
   like. You can use properties to insert content dynamically or have fixed
   messages that appear in every message. Event properties are described in the
   property replacer section.
+
 
 
 
@@ -338,6 +352,7 @@ Add Syslog Source when forwarding to other Syslog servers
 
 
 
+
 Use zLib Compression to compress the data
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -348,6 +363,7 @@ Use zLib Compression to compress the data
   With this option you can set the grade of compression for your syslog
   messages. For more information please read the note at the bottom of this
   page.
+
 
 
 
@@ -387,8 +403,6 @@ Compression Level
   Besides the fact that the mechanisms behind compression are experimental, the
   feature itself is solid.
 
-
-
 Overwrite Syslog Properties
 ---------------------------
 
@@ -401,6 +415,7 @@ Syslog Facility
 **Description:**
   When configured, will overwrite the Syslog Facility with the configured
   value.
+
 
 
 
@@ -435,6 +450,7 @@ Enable SSL / TLS Encryption
 
 
 
+
 TLS Mode
 ^^^^^^^^
 
@@ -454,6 +470,7 @@ TLS Mode
 
 
 
+
 Select common CA PEM
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -463,6 +480,7 @@ Select common CA PEM
 **Description:**
   Select the certificate from the common Certificate Authority (CA). The syslog
   receiver should use the same CA.
+
 
 
 
@@ -477,6 +495,7 @@ Select Certificate PEM
 
 
 
+
 Select Key PEM
 ^^^^^^^^^^^^^^
 
@@ -485,6 +504,7 @@ Select Key PEM
 
 **Description:**
   Select the keyfile for the client certificate (PEM Format).
+
 
 
 
@@ -500,6 +520,7 @@ Allow SSL v3
 
 
 
+
 Allow SSL v1.0
 ^^^^^^^^^^^^^^
 
@@ -509,6 +530,7 @@ Allow SSL v1.0
 **Description:**
   This option enables insecure protocol method TLSv1. We recommend NOT enabling
   this option as TLSv1 is considered broken.
+
 
 
 
@@ -523,6 +545,7 @@ Allow SSL v1.1
 
 
 
+
 Allow SSL v1.2
 ^^^^^^^^^^^^^^
 
@@ -534,6 +557,7 @@ Allow SSL v1.2
 
 
 
+
 Allow TLS v1.3
 ^^^^^^^^^^^^^^
 
@@ -542,6 +566,7 @@ Allow TLS v1.3
 
 **Description:**
   This option enables protocol method TLS1.3 which provides enhanced security and performance.
+
 
 
 
@@ -599,10 +624,7 @@ Session Timeout
 ^^^^^^^^^^^^^^^
 
 **File Configuration field:**
-  nTimeoutValue
-
-**Description:**
-  Timeout value for TCP persistent and octet-count based framing connections.
+nTimeoutValue
 
 Action Queue Options
 --------------------
@@ -625,6 +647,7 @@ Use Diskqueue if connection to Syslog server fails
 
 
 
+
 Split files if this size is reached
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -634,6 +657,7 @@ Split files if this size is reached
 **Description:**
   Files will be split until they reach the configured size in bytes. The
   maximum support file size is 10485760 bytes.
+
 
 
 
@@ -649,6 +673,7 @@ Diskqueue Directory
 
 
 
+
 Waittime between connection tries
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -658,6 +683,7 @@ Waittime between connection tries
 **Description:**
   The minimum waittime until the Syslog Action retries to establish a
   connection to the Syslog server after failure.
+
 
 
 
@@ -673,6 +699,7 @@ Overrun Prevention Delay (ms)
 
 
 
+
 Double wait time after each retry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -681,6 +708,7 @@ Double wait time after each retry
 
 **Description:**
   If enabled, the configured waittime is doubled after each try.
+
 
 
 
@@ -695,6 +723,7 @@ Limit wait time doubling to
 
 
 
+
 Enable random wait time delay
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -705,6 +734,7 @@ Enable random wait time delay
   If enabled, a some random time will be added into the waittime delay. When
   using many syslog senders, this can avoid that all senders start sending
   cached syslog data to the Syslog server at the same time.
+
 
 
 
@@ -739,8 +769,9 @@ Enable IP Spoofing for the UDP Protocol
 
 
 
+
 Fixed IP or single property
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   szSpoofedIPAddress

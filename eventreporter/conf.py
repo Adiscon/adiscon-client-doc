@@ -100,6 +100,7 @@ exclude_patterns = ['index.mwagent.rst','index.rsyslog.rst','index.winsyslog.rst
     'mwagentspecific/a-postprocessevent.rst','mwagentspecific/a-sendmsqueue.rst','mwagentspecific/a-sendrelp.rst',
     'mwagentspecific/a-sendsnmptrap.rst','mwagentspecific/a-sendtocommunicationsport.rst',
     'mwagentspecific/a-syslogqueueaction.rst',
+    'rsyslogwaspecific/a-forwardsyslogoptions.rst','winsyslogspecific/a-forwardsyslogoptions.rst',
     'mwagentspecific/cpumonitor.rst','mwagentspecific/databasemonitor.rst','mwagentspecific/diskspacemonitor.rst',
     'mwagentspecific/f-cpumemorymonitor.rst','mwagentspecific/f-diskspacemonitor.rst','mwagentspecific/f-filemonitor.rst',
     'mwagentspecific/f-ftpprobe.rst','mwagentspecific/f-httpprobe.rst','mwagentspecific/f-imapprobe.rst',

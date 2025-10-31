@@ -98,7 +98,7 @@ exclude_patterns = ['articles/index-mwagent.rst','articles/include-event-id-in-s
    'mwagentspecific/index.rst','mwagentspecific/actions.rst',
    'mwagentspecific/configuringmwagent.rst','mwagentspecific/filterconditions.rst','mwagentspecific/generaloptions.rst',
    'mwagentspecific/services.rst',
-   'mwagentspecific/a-controlntservice.rst','mwagentspecific/a-forwardsyslogoptions.rst',
+   'mwagentspecific/a-controlntservice.rst', 'rsyslogwaspecific/a-forwardsyslogoptions.rst','winsyslogspecific/a-forwardsyslogoptions.rst',
    'mwagentspecific/a-httprequest.rst','mwagentspecific/a-syslogqueueaction.rst','mwagentspecific/cpumonitor.rst',
    'mwagentspecific/databasemonitor.rst','mwagentspecific/diskspacemonitor.rst',
    'mwagentspecific/eventlogmonitorv1.rst','mwagentspecific/eventlogmonitorv2.rst','mwagentspecific/f-cpumemorymonitor.rst',
