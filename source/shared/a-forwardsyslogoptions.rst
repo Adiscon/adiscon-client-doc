@@ -7,7 +7,7 @@ Protocol Type
 There are various ways to transmit syslog messages. In general,they can be sent
 via UDP, TCP, or RFC 3195 RAW. Typically, syslog messages are received via UDP
 protocol, which is the default. UDP is understood by almost all servers, but
-doesn't guarantee transport. In plain words, this means that syslog messages
+does not guarantee transport. In plain words, this means that syslog messages
 sent via UDP can get lost if there is a network error, the network is congested
 or a device (like a router or switch) is out of buffer space. Typically, UDP
 works quite well. However, it should not be used if the loss of a limited
@@ -206,8 +206,8 @@ Use Custom Syslog Header
   can write into the field yourself or you use properties as dynamic content.
   By default the Header field is filled with the content of the RFC 5424 header.
 
-  **Please note** that the header content of the Header field can be configured. :doc:`event properties <../shared/references/eventspecificproperties>` are described in the
-  :doc:`property replacer section <../shared/references/eventproperties>`.
+  **Please note** that the header content of the Header field can be configured. :doc:`event properties <references/eventspecificproperties>` are described in the
+  :doc:`property replacer section <references/eventproperties>`.
 
 
 
@@ -307,6 +307,10 @@ Include message property in CEE Format
   property. Disable this option if you do not want the message itself in the
   CEE Format.
 
+  **Please note** you can also make Event ID part of the actual Syslog message while forwarding to a Syslog server then you have to make some changes in
+  the Forward Syslog Action.
+  :doc:`click here <../articles/include-event-id-in-syslog-msg>` to know the settings.
+
 
 Message Format
 ^^^^^^^^^^^^^^
@@ -386,8 +390,6 @@ Compression Level
 
   Besides the fact that the mechanisms behind compression are experimental, the
   feature itself is solid.
-
-
 
 Overwrite Syslog Properties
 ---------------------------
@@ -599,10 +601,7 @@ Session Timeout
 ^^^^^^^^^^^^^^^
 
 **File Configuration field:**
-  nTimeoutValue
-
-**Description:**
-  Timeout value for TCP persistent and octet-count based framing connections.
+nTimeoutValue
 
 Action Queue Options
 --------------------
