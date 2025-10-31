@@ -22,7 +22,7 @@ everything about this event and you get it in a well-structured way. It
 includes all of the properties described in our
 :doc:`event properties reference <../shared/references/eventspecificproperties>`.
 To enable XML format, simply check "Use XML to Report" in the
-:doc:`forward syslog options <../mwagentspecific/a-forwardsyslogoptions>` Action.
+:doc:`forward syslog options <../shared/actions/a-forwardsyslogoptions>` Action.
 Use Custom Format - In the "Forward Syslog" action, you can specify your own
 custom format in the "Message Format" text box. By default it is set to %msg%,
 but you can include whatever you like. Use the "Insert" link to do this (or
