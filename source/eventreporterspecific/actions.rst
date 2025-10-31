@@ -30,7 +30,7 @@ forwarding actions
    ../mwagentspecific/a-mailoptions
    ../mwagentspecific/a-netsend
    ../mwagentspecific/a-forwardsetpoptions
-   ../mwagentspecific/a-forwardsyslogoptions
+   ../shared/actions/a-forwardsyslogoptions
    ../mwagentspecific/a-senddtls
 
 internal actions
