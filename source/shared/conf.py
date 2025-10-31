@@ -19,6 +19,7 @@ exclude_patterns = [
     "_build",
     "Thumbs.db",
     ".DS_Store",
+    "actions/*",
 ]
 
 # The shared library frequently references documents that live in the

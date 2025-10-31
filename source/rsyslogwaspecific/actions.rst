@@ -18,7 +18,7 @@ Forwarding Actions
    :maxdepth: 1
 
    ../mwagentspecific/a-sendrelp
-   a-forwardsyslogoptions
+   ../shared/actions/a-forwardsyslogoptions
    ../mwagentspecific/a-senddtls
 
 internal actions

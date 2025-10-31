@@ -23,4 +23,4 @@ email.
 * UDP related Options*
 
 Further details can be found here:
-:doc:`syslog forwarding <../mwagentspecific/a-forwardsyslogoptions>`.
+:doc:`syslog forwarding <../shared/actions/a-forwardsyslogoptions>`.

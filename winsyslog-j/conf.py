@@ -140,6 +140,10 @@ exclude_patterns = ['articles/index-mwagent.rst','articles/include-event-id-in-s
    'mwagentspecific/faq.rst','mwagentspecific/faq/*.rst'
 ]
 
+# Suppress warnings for document references in conditional blocks
+# that reference documents excluded from this build
+suppress_warnings = ['ref.doc']
+
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 

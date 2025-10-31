@@ -35,7 +35,7 @@ forwarding actions
    a-sendrelp
    a-forwardsetpoptions
    a-sendsnmptrap
-   a-forwardsyslogoptions
+   ../shared/actions/a-forwardsyslogoptions
    a-senddtls
 
 internal actions
