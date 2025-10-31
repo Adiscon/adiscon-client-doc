@@ -317,6 +317,13 @@ Include message property in CEE Format
 
   **Please note** you can also make Event ID part of the actual Syslog message while forwarding to a Syslog server then you have to make some changes in
   the Forward Syslog Action.
+
+.. only:: mwagent
+
+  :doc:`click here <../../articles/include-event-id-in-syslog-msg>` to know the settings.
+
+.. only:: eventreporter
+
   :doc:`click here <../../articles/include-event-id-in-syslog-msg>` to know the settings.
 
 
