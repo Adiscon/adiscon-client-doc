@@ -584,7 +584,7 @@ Use OpenSSL configuration commands
 
 **Description:**
   By enabling this option, you can set OpenSSL configuration commands directly.
-  For more information's on available configuration parameters for each command
+  For more information on available configuration parameters for each command
   type, visit this page:
 
   https://www.openssl.org/docs/man1.0.2/ssl/SSL_CONF_cmd.html
