@@ -7,7 +7,7 @@ Protocol Type
 There are various ways to transmit syslog messages. In general,they can be sent
 via UDP, TCP, or RFC 3195 RAW. Typically, syslog messages are received via UDP
 protocol, which is the default. UDP is understood by almost all servers, but
-doesn't guarantee transport. In plain words, this means that syslog messages
+does not guarantee transport. In plain words, this means that syslog messages
 sent via UDP can get lost if there is a network error, the network is congested
 or a device (like a router or switch) is out of buffer space. Typically, UDP
 works quite well. However, it should not be used if the loss of a limited
@@ -125,7 +125,7 @@ Use round robin (multiple Syslog server)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Amount of messages send to each Syslog server before load balancing
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nRoundRobinMsgCount
@@ -206,8 +206,8 @@ Use Custom Syslog Header
   can write into the field yourself or you use properties as dynamic content.
   By default the Header field is filled with the content of the RFC 5424 header.
 
-  **Please note** that the header content of the Header field can be configured. :doc:`event properties <../shared/references/eventspecificproperties>` are described in the
-  :doc:`property replacer section <../shared/references/eventproperties>`.
+  **Please note** that the header content of the Header field can be configured. :doc:`event properties <references/eventspecificproperties>` are described in the
+  :doc:`property replacer section <references/eventproperties>`.
 
 
 
@@ -226,7 +226,7 @@ Output Encoding
 
 
 Include UTF8 BOM in message
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nProtocolType
@@ -307,6 +307,10 @@ Include message property in CEE Format
   property. Disable this option if you do not want the message itself in the
   CEE Format.
 
+  **Please note** you can also make Event ID part of the actual Syslog message while forwarding to a Syslog server then you have to make some changes in
+  the Forward Syslog Action.
+  :doc:`click here <../articles/include-event-id-in-syslog-msg>` to know the settings.
+
 
 Message Format
 ^^^^^^^^^^^^^^
@@ -323,7 +327,7 @@ Message Format
 
 
 Add Syslog Source when forwarding to other Syslog servers
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
    nSyslogInsertSource
@@ -339,7 +343,7 @@ Add Syslog Source when forwarding to other Syslog servers
 
 
 Use zLib Compression to compress the data
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nUseCompression
@@ -387,8 +391,6 @@ Compression Level
   Besides the fact that the mechanisms behind compression are experimental, the
   feature itself is solid.
 
-
-
 Overwrite Syslog Properties
 ---------------------------
 
@@ -423,7 +425,7 @@ SSL/TLS related Options
 * Action - Forward Syslog SSL/TLS related Options*
 
 Enable SSL / TLS Encryption
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nUseSSL
@@ -626,7 +628,7 @@ Use Diskqueue if connection to Syslog server fails
 
 
 Split files if this size is reached
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nDiskQueueMaxFileSize
@@ -638,7 +640,7 @@ Split files if this size is reached
 
 
 Diskqueue Directory
-^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   szDiskQueueDirectory
@@ -650,7 +652,7 @@ Diskqueue Directory
 
 
 Waittime between connection tries
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration fields:**
   nDiskCacheWait
@@ -662,7 +664,7 @@ Waittime between connection tries
 
 
 Overrun Prevention Delay (ms)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nPreventOverrunDelay
@@ -674,7 +676,7 @@ Overrun Prevention Delay (ms)
 
 
 Double wait time after each retry
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   bCacheWaittimeDoubling
@@ -685,7 +687,7 @@ Double wait time after each retry
 
 
 Limit wait time doubling to
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nCacheWaittimeDoublingTimes
@@ -696,7 +698,7 @@ Limit wait time doubling to
 
 
 Enable random wait time delay
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   bCacheRandomDelay
@@ -722,7 +724,7 @@ UDP related Options
 -------------------
 
 Enable IP Spoofing for the UDP Protocol
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nSpoofIPAddress
@@ -740,7 +742,7 @@ Enable IP Spoofing for the UDP Protocol
 
 
 Fixed IP or single property
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   szSpoofedIPAddress

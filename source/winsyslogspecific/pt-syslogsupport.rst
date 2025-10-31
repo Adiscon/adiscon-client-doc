@@ -10,4 +10,4 @@ supported.
 
 
 Further details can be found here:
-:doc:`syslog forwarding <a-forwardsyslogoptions>`.
+:doc:`syslog forwarding <../shared/a-forwardsyslogoptions>`.
