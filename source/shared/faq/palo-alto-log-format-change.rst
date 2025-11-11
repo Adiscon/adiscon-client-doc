@@ -15,12 +15,12 @@ What is the recommended syslog format configuration for Palo Alto firewalls when
 Answer
 ------
 
-**We recommend configuring Palo Alto firewalls to use IETF** :doc:`RFC 5424 <../../glossaryofterms/rfc5424>` **syslog format instead of BSD (RFC 3164) format.** The IETF format provides a structured, unambiguous message format that ensures consistent parsing regardless of Palo Alto firmware version or spacing differences in log messages.
+**We recommend configuring Palo Alto firewalls to use IETF** :doc:`RFC 5424 <../../glossaryofterms/rfc5424>` **syslog format instead of BSD** :doc:`RFC 3164 <../../glossaryofterms/rfc3164>` **format.** The IETF format provides a structured, unambiguous message format that ensures consistent parsing regardless of Palo Alto firmware version or spacing differences in log messages.
 
 Why Use IETF (RFC 5424) Format?
 --------------------------------
 
-IETF format is recommended over BSD (RFC 3164) format for the following reasons:
+IETF format is recommended over BSD :doc:`RFC 3164 <../../glossaryofterms/rfc3164>` format for the following reasons:
 
 1. **Structured format:** IETF format includes a required APP-NAME field that eliminates parsing ambiguity
 2. **Consistent parsing:** The structured format ensures your syslog server parses messages consistently regardless of:
@@ -68,24 +68,24 @@ For each syslog server in the profile:
 
 6. **Facility:** Select the appropriate syslog facility value (default is LOG_USER)
 
-Step 3: Verify Your Syslog Server Supports RFC 5424
+Step 3: Verify The Syslog Service Supports RFC 5424
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before applying the changes, ensure:
 
-1. Your syslog server supports RFC 5424 format: Verify that your syslog server version has RFC 5424 parsing enabled
+1. The Syslog Service supports RFC 5424 format: Verify that RFC 5424 parsing is enabled
 
 .. only:: winsyslog
 
-   For WinSyslog, ensure RFC 5424 parsing is enabled in the Syslog Server service configuration.
+   Ensure RFC 5424 parsing is enabled in the Syslog Server service configuration.
 
 .. only:: mwagent
 
-   For MonitorWare Agent, ensure RFC 5424 parsing is enabled in the Syslog Server service configuration.
+   Ensure RFC 5424 parsing is enabled in the Syslog Server service configuration.
 
 .. only:: rsyslog
 
-   For Rsyslog, RFC 5424 support is built-in and enabled by default.
+   RFC 5424 support is built-in and enabled by default.
 
 Step 4: Commit Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -132,7 +132,7 @@ Using IETF (RFC 5424) format provides:
 Technical Reference
 -------------------
 
-* RFC 3164 (BSD) - `IETF RFC 3164 <https://www.ietf.org/rfc/rfc3164.txt>`_
+* :doc:`RFC 3164 (BSD) <../../glossaryofterms/rfc3164>`
 * :doc:`RFC 5424 (IETF) <../../glossaryofterms/rfc5424>`
 * `Palo Alto Documentation - Configure Syslog Monitoring <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/configure-syslog-monitoring>`_
 * `Palo Alto Documentation - Syslog Field Descriptions <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/syslog-field-descriptions>`_
