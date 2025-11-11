@@ -36,7 +36,7 @@ forwarding actions
    ../mwagentspecific/a-sendrelp
    ../mwagentspecific/a-forwardsetpoptions
    ../mwagentspecific/a-sendsnmptrap
-   a-forwardsyslogoptions
+   ../shared/actions/a-forwardsyslogoptions
    ../mwagentspecific/a-senddtls
 
 internal actions
