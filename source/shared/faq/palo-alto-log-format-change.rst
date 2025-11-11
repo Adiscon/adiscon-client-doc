@@ -1,3 +1,5 @@
+:orphan:
+
 .. _palo-alto-log-format-change:
 
 Recommended Palo Alto Firewall Syslog Configuration
