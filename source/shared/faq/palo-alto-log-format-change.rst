@@ -15,12 +15,40 @@ What is the recommended syslog format configuration for Palo Alto firewalls when
 Answer
 ------
 
-**We recommend configuring Palo Alto firewalls to use IETF** :doc:`RFC 5424 <../../glossaryofterms/rfc5424>` **syslog format instead of BSD** :doc:`RFC 3164 <../../glossaryofterms/rfc3164>` **format.** The IETF format provides a structured, unambiguous message format that ensures consistent parsing regardless of Palo Alto firmware version or spacing differences in log messages.
+**We recommend configuring Palo Alto firewalls to use IETF** :doc:`RFC 5424 <../../glossaryofterms/rfc5424>` **syslog format instead of BSD**
+
+.. only:: winsyslog
+
+   :doc:`RFC 3164 <../../glossaryofterms/rfc3164>`
+
+.. only:: mwagent
+
+   :doc:`RFC 3164 <../../glossaryofterms/rfc3164>`
+
+.. only:: rsyslog
+
+   :doc:`RFC 3164 <../../glossaryofterms/rfc3164>`
+
+**format.** The IETF format provides a structured, unambiguous message format that ensures consistent parsing regardless of Palo Alto firmware version or spacing differences in log messages.
 
 Why Use IETF (RFC 5424) Format?
 --------------------------------
 
-IETF format is recommended over BSD :doc:`RFC 3164 <../../glossaryofterms/rfc3164>` format for the following reasons:
+IETF format is recommended over BSD
+
+.. only:: winsyslog
+
+   :doc:`RFC 3164 <../../glossaryofterms/rfc3164>`
+
+.. only:: mwagent
+
+   :doc:`RFC 3164 <../../glossaryofterms/rfc3164>`
+
+.. only:: rsyslog
+
+   :doc:`RFC 3164 <../../glossaryofterms/rfc3164>`
+
+format for the following reasons:
 
 1. **Structured format:** IETF format includes a required APP-NAME field that eliminates parsing ambiguity
 2. **Consistent parsing:** The structured format ensures your syslog server parses messages consistently regardless of:
@@ -132,7 +160,18 @@ Using IETF (RFC 5424) format provides:
 Technical Reference
 -------------------
 
-* :doc:`RFC 3164 (BSD) <../../glossaryofterms/rfc3164>`
+.. only:: winsyslog
+
+   * :doc:`RFC 3164 (BSD) <../../glossaryofterms/rfc3164>`
+
+.. only:: mwagent
+
+   * :doc:`RFC 3164 (BSD) <../../glossaryofterms/rfc3164>`
+
+.. only:: rsyslog
+
+   * :doc:`RFC 3164 (BSD) <../../glossaryofterms/rfc3164>`
+
 * :doc:`RFC 5424 (IETF) <../../glossaryofterms/rfc5424>`
 * `Palo Alto Documentation - Configure Syslog Monitoring <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/configure-syslog-monitoring>`_
 * `Palo Alto Documentation - Syslog Field Descriptions <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/syslog-field-descriptions>`_
