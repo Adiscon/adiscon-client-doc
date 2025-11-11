@@ -236,7 +236,17 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 **Rule 9a: FileConfig variable names are case-sensitive and must be preserved exactly**
 ### 4.4 FAQ and Navigation Hygiene (IMPORTANT)
 
-- Do NOT include `source/shared/faq-supporting-labels.rst` inside product FAQ articles. That helper injects a hidden toctree and can pollute the FAQ sidebar with unrelated entries. Include it only on dedicated supporting pages – not on actual FAQ articles.
+- **Do NOT include `source/shared/faq-supporting-labels.rst` or `source/shared/supporting-labels.rst` inside product FAQ articles OR shared FAQ files.** These helpers inject hidden toctrees that can pollute FAQ sidebars with unrelated entries from other manuals. Include them only on dedicated supporting pages – not on actual FAQ articles.
+- **Shared FAQ files that are referenced from product-specific toctrees MUST use `:orphan:` directive** to avoid "document isn't included in any toctree" errors when building shared content in isolation. Example:
+  ```rst
+  :orphan:
+  
+  .. _some-faq-label:
+  
+  FAQ Title
+  =========
+  ```
+- **Never include `supporting-labels.rst` in shared FAQ files** that are referenced by multiple product FAQ pages. The hidden toctree in `supporting-labels.rst` contains cross-manual references (e.g., MWAgent-specific pages) that will appear in ALL product FAQ sidebars, causing TOC pollution. If a shared FAQ file only references glossary terms (like RFC 5424, RFC 3164), it doesn't need the supporting-labels include.
 - Keep FAQ pages self-contained. Avoid "Related Information" sections that cross-link to other manuals unless they are guarded with `.. only::` tags per Rule 4 above.
 - If a page truly needs labels from other manuals, prefer plain hyperlinks or guard the cross-manual `:doc:` links with `.. only::`.
 
@@ -718,7 +728,10 @@ When working with this repository, AI agents should follow these best practices:
 **Solution:** Either add the missing label to the target document or correct the reference.
 
 **Problem:** "WARNING: document isn't included in any toctree"
-**Solution:** Add the document to an appropriate `toctree` directive or mark it as `:orphan:`.
+**Solution:** Add the document to an appropriate `toctree` directive or mark it as `:orphan:`. For shared FAQ files that are only referenced from product-specific toctrees, always use `:orphan:` to avoid build errors when building shared content in isolation.
+
+**Problem:** FAQ pages showing wrong items in sidebar/TOC (e.g., MWAgent pages appearing in Rsyslog FAQ)
+**Solution:** This is caused by including `supporting-labels.rst` or `faq-supporting-labels.rst` in shared FAQ files. These files contain hidden toctrees with cross-manual references that pollute all product FAQ sidebars. Remove the include directive from shared FAQ files. If the file only references glossary terms, it doesn't need the supporting-labels include. Also ensure shared FAQ files use `:orphan:` directive if they're only referenced from product-specific toctrees.
 
 **Problem:** "WARNING: duplicate label"
 **Solution:** Rename one of the labels to be unique across the documentation.

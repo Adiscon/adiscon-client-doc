@@ -1,4 +1,4 @@
-.. include:: ../supporting-labels.rst
+:orphan:
 
 .. _palo-alto-log-format-change:
 
