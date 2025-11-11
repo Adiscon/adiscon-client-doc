@@ -33,7 +33,7 @@ Configuration
 To use MariaDB with the ODBC action:
 
 1. **Install MariaDB ODBC Driver:**
-   - Download and install the MariaDB Connector/ODBC driver from the official MariaDB website
+   - Download and install the `MariaDB Connector/ODBC driver <https://mariadb.org/connector-odbc/all-releases/>`_ from the official MariaDB website
    - Ensure you install the correct version (32-bit or 64-bit) to match your Adiscon product installation
 
 2. **Configure System DSN:**
@@ -49,16 +49,6 @@ To use MariaDB with the ODBC action:
    - Create the database tables if needed using the "Create Database" button
 
 **Note:** The configuration process is identical to configuring MySQL, as MariaDB uses MySQL-compatible drivers and protocols.
-
-Migration from MySQL
---------------------
-
-If you are currently using MySQL and want to migrate to MariaDB:
-
-* The migration process is typically straightforward due to binary compatibility
-* Your existing ODBC configuration should work with minimal or no changes
-* Database schema and data can usually be migrated directly
-* Test the connection thoroughly after migration to ensure all functionality works as expected
 
 Additional Information
 -----------------------
