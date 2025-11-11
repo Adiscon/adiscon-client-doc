@@ -15,7 +15,7 @@ What is the recommended syslog format configuration for Palo Alto firewalls when
 Answer
 ------
 
-**We recommend configuring Palo Alto firewalls to use IETF (:doc:`RFC 5424 <../../glossaryofterms/rfc5424>`) syslog format instead of BSD (RFC 3164) format.** The IETF format provides a structured, unambiguous message format that ensures consistent parsing regardless of Palo Alto firmware version or spacing differences in log messages.
+**We recommend configuring Palo Alto firewalls to use IETF** :doc:`RFC 5424 <../../glossaryofterms/rfc5424>` **syslog format instead of BSD (RFC 3164) format.** The IETF format provides a structured, unambiguous message format that ensures consistent parsing regardless of Palo Alto firmware version or spacing differences in log messages.
 
 Why Use IETF (RFC 5424) Format?
 --------------------------------
