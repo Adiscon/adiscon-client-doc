@@ -8,6 +8,7 @@ Here you find FAQ for Rsyslog:
    :maxdepth: 1
 
    faq/start-program-action-troubleshooting
+   ../shared/faq/mariadb-odbc-support
 
 
 
