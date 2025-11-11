@@ -15,7 +15,7 @@ After upgrading a Palo Alto firewall, the syslog output format from the syslog s
 Answer
 ------
 
-This issue occurs because Palo Alto firewalls use BSD (:doc:`RFC 3164 <../../glossaryofterms/rfc3164>`) syslog format, which has an optional TAG field. After upgrades, Palo Alto may change spacing in syslog messages, which causes parsing ambiguity in RFC 3164 format. The recommended solution is to configure Palo Alto to use IETF (:doc:`RFC 5424 <../../glossaryofterms/rfc5424>`) format instead, which eliminates parsing ambiguity.
+This issue occurs because Palo Alto firewalls use BSD (RFC 3164) syslog format, which has an optional TAG field. After upgrades, Palo Alto may change spacing in syslog messages, which causes parsing ambiguity in RFC 3164 format. The recommended solution is to configure Palo Alto to use IETF (:doc:`RFC 5424 <../../glossaryofterms/rfc5424>`) format instead, which eliminates parsing ambiguity.
 
 Root Cause
 ----------
@@ -132,7 +132,7 @@ IETF format is the recommended long-term solution as it eliminates parsing ambig
 Technical Reference
 -------------------
 
-* :doc:`RFC 3164 (BSD) <../../glossaryofterms/rfc3164>`
+* RFC 3164 (BSD) - `IETF RFC 3164 <https://www.ietf.org/rfc/rfc3164.txt>`_
 * :doc:`RFC 5424 (IETF) <../../glossaryofterms/rfc5424>`
 * `Palo Alto Documentation - Configure Syslog Monitoring <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/configure-syslog-monitoring>`_
 * `Palo Alto Documentation - Syslog Field Descriptions <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/syslog-field-descriptions>`_
