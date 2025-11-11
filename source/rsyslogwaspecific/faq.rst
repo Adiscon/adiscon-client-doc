@@ -9,6 +9,7 @@ Here you find FAQ for Rsyslog:
 
    faq/start-program-action-troubleshooting
    ../shared/faq/mariadb-odbc-support
+   ../shared/faq/palo-alto-log-format-change
 
 
 
