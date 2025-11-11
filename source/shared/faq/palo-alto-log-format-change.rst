@@ -1,3 +1,5 @@
+.. include:: ../supporting-labels.rst
+
 .. _palo-alto-log-format-change:
 
 Why does the log output format change after a Palo Alto firewall upgrade?

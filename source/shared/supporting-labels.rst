@@ -15,8 +15,9 @@
    /glossaryofterms/mwconcepts-services
    /glossaryofterms/ruleengine
    /glossaryofterms/rules
-   /glossaryofterms/rfc5424
+   /glossaryofterms/rfc3164
    /glossaryofterms/rfc3195
+   /glossaryofterms/rfc5424
    /glossaryofterms/setp
    /glossaryofterms/smtp
    /glossaryofterms/tcp
