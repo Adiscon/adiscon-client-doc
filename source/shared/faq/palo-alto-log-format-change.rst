@@ -2,49 +2,40 @@
 
 .. _palo-alto-log-format-change:
 
-Why does the log output format change after a Palo Alto firewall upgrade?
-=========================================================================
+Recommended Palo Alto Firewall Syslog Configuration
+===================================================
 
-This article explains why Palo Alto firewall log format changes after upgrades can cause parsing issues and how to resolve them by switching to IETF (RFC 5424) format.
+This article provides configuration recommendations for Palo Alto firewalls to ensure consistent and reliable syslog message parsing by your syslog server.
 
 Question
 --------
 
-After upgrading a Palo Alto firewall, the syslog output format from the syslog server has changed. Specifically, the ``version=`` field that was previously included in the output is now missing. Why does this happen and how can it be fixed?
+What is the recommended syslog format configuration for Palo Alto firewalls when sending logs to a syslog server?
 
 Answer
 ------
 
-This issue occurs because Palo Alto firewalls use BSD (RFC 3164) syslog format, which has an optional TAG field. After upgrades, Palo Alto may change spacing in syslog messages, which causes parsing ambiguity in RFC 3164 format. The recommended solution is to configure Palo Alto to use IETF (:doc:`RFC 5424 <../../glossaryofterms/rfc5424>`) format instead, which eliminates parsing ambiguity.
+**We recommend configuring Palo Alto firewalls to use IETF (:doc:`RFC 5424 <../../glossaryofterms/rfc5424>`) syslog format instead of BSD (RFC 3164) format.** The IETF format provides a structured, unambiguous message format that ensures consistent parsing regardless of Palo Alto firmware version or spacing differences in log messages.
 
-Root Cause
-----------
+Why Use IETF (RFC 5424) Format?
+--------------------------------
 
-The issue occurs because:
+IETF format is recommended over BSD (RFC 3164) format for the following reasons:
 
-1. **Missing TAG field:** Palo Alto syslog messages use BSD (RFC 3164) format without the optional TAG field
-2. **Spacing changes:** After upgrades, Palo Alto may change spacing (e.g., from 2 spaces to 1 space) before fields like ``version=``
-3. **Parser ambiguity:** Without a TAG field, RFC 3164 parsers must use heuristics to determine where the message content begins. The spacing difference triggers different parsing behavior:
-   - **Old format (2 spaces):** The parser extracts ``version`` as the syslogtag → Output: ``version=10.2.7-h12|...``
-   - **New format (1 space):** The parser does not extract ``version`` as syslogtag → Output: ``11.2.6|...`` (missing ``version=``)
+1. **Structured format:** IETF format includes a required APP-NAME field that eliminates parsing ambiguity
+2. **Consistent parsing:** The structured format ensures your syslog server parses messages consistently regardless of:
+   * Palo Alto firmware version
+   * Spacing differences in log messages
+   * Future firmware updates that may change message formatting
+3. **Better compatibility:** IETF format is the modern syslog standard and provides better support for SIEM systems and log analysis tools
+4. **Prevents parsing issues:** BSD format relies on heuristics that can be affected by spacing changes, potentially causing fields like ``version=`` to be parsed incorrectly or missing from output
 
-Solution: Switch to IETF (RFC 5424) Format
--------------------------------------------
+**Note:** If you're experiencing issues where the ``version=`` field is missing from syslog output after a Palo Alto upgrade, this is typically caused by BSD format parsing ambiguity due to spacing changes. Switching to IETF format resolves this issue.
 
-The recommended solution is to configure Palo Alto to use IETF (RFC 5424) syslog format instead of BSD format. The IETF format includes a required APP-NAME field that eliminates parsing ambiguity, ensuring consistent behavior regardless of spacing.
+Configuration Steps
+-------------------
 
-Why IETF Format Solves the Problem
------------------------------------
-
-* APP-NAME is required (unlike BSD's optional TAG field)
-* Structured format eliminates parsing ambiguity
-* Consistent parsing regardless of spacing differences
-* Better for SIEM systems and log analysis tools
-
-Configuration Steps for Palo Alto
-----------------------------------
-
-Step 1: Access Syslog Server Profile Configuration
+Step 1: Access Syslog Server Profile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Log in to the Palo Alto Networks firewall web interface
@@ -56,8 +47,8 @@ Step 1: Access Syslog Server Profile Configuration
    * Edit an existing syslog server profile, or
    * Click **Add** to create a new profile
 
-Step 2: Configure Server Settings
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Step 2: Configure Syslog Server Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For each syslog server in the profile:
 
@@ -77,8 +68,8 @@ For each syslog server in the profile:
 
 6. **Facility:** Select the appropriate syslog facility value (default is LOG_USER)
 
-Step 3: Verify Syslog Server Compatibility
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Step 3: Verify Your Syslog Server Supports RFC 5424
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before applying the changes, ensure:
 
@@ -96,8 +87,8 @@ Before applying the changes, ensure:
 
    For Rsyslog, RFC 5424 support is built-in and enabled by default.
 
-Step 4: Apply Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Step 4: Commit Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Click **OK** to save the syslog server profile
 2. Commit the configuration
@@ -105,8 +96,8 @@ Step 4: Apply Configuration
 
    Reference: `Palo Alto Documentation - Commit Changes <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/configure-syslog-monitoring#commit-your-changes-and-review-the-logs-on-the-syslog-server>`_
 
-Step 5: Verify the Change
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Step 5: Verify Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After committing:
 
@@ -118,16 +109,25 @@ After committing:
 3. Verify APP-NAME field: The ``paloalto`` field (APP-NAME) should be present and consistently parsed by your syslog server
 4. Verify output format: Syslog server output should now consistently include the ``version=`` prefix
 
-Expected Result
----------------
+Expected Results
+----------------
 
-After switching to IETF format:
+After configuring IETF format, you should see:
 
-* **Consistent parsing:** The syslog server will consistently extract the APP-NAME field (``paloalto``)
-* **No spacing issues:** The structured format eliminates ambiguity caused by spacing differences
-* **Reliable output:** Output format will be consistent regardless of Palo Alto version or spacing
+* **Consistent message format:** Messages appear in structured IETF format with the APP-NAME field (``paloalto``) consistently parsed
+* **Reliable field extraction:** All fields, including ``version=``, are reliably extracted regardless of Palo Alto firmware version
+* **Future-proof configuration:** The structured format ensures consistent behavior even after firmware upgrades
+* **Better log analysis:** The structured format provides better support for SIEM systems and log analysis tools
 
-IETF format is the recommended long-term solution as it eliminates parsing ambiguity and provides better structure for log analysis.
+Benefits Summary
+----------------
+
+Using IETF (RFC 5424) format provides:
+
+* **Eliminates parsing ambiguity:** The structured format with required APP-NAME field ensures consistent parsing
+* **Prevents version-related issues:** Spacing changes in firmware updates won't affect message parsing
+* **Industry standard:** IETF format is the modern syslog standard recommended for enterprise environments
+* **Better integration:** Improved compatibility with SIEM systems, log analysis tools, and centralized logging solutions
 
 Technical Reference
 -------------------
