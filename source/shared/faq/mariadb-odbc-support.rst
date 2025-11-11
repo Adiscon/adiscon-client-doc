@@ -3,12 +3,12 @@
 Is MariaDB supported by the ODBC action?
 =========================================
 
-This article explains MariaDB support in ODBC database actions across Adiscon products.
+This article explains MariaDB support in ODBC database actions.
 
 Question
 --------
 
-Is MariaDB supported by the ODBC action in WinSyslog, EventReporter, MonitorWare Agent, and Rsyslog?
+Is MariaDB supported by the ODBC action?
 
 Answer
 ------
@@ -26,16 +26,6 @@ Key characteristics of MariaDB:
 * **Binary Compatibility:** Designed to be binary-compatible with MySQL, making migration straightforward
 * **Independent Development:** Continuous, independent development separate from MySQL
 * **Performance:** Often preferred as an alternative due to sometimes better performance characteristics
-
-ODBC Support
-------------
-
-Since MariaDB is binary-compatible with MySQL and provides MySQL-compatible ODBC drivers, it works seamlessly with the ODBC database action in:
-
-* WinSyslog
-* EventReporter
-* MonitorWare Agent
-* Rsyslog
 
 Configuration
 -------------
