@@ -1,5 +1,3 @@
-.. include:: ../supporting-labels.rst
-
 .. _palo-alto-log-format-change:
 
 Recommended Palo Alto Firewall Syslog Configuration
