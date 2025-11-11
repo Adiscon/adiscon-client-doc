@@ -739,6 +739,17 @@ When working with this repository, AI agents should follow these best practices:
 **Problem:** "WARNING: Inline interpreted text or phrase reference start-string without end-string"
 **Solution:** Often caused by single backticks used incorrectly. Use double backticks for inline literals: ``text`` not `text`.
 
+**Problem:** `:doc:` references not rendering as links in HTML output
+**Solution:** `:doc:` references nested inside bold markup (`**...**`) or other inline markup may not parse correctly. Move the `:doc:` reference outside of the markup by splitting the bold text.
+
+```rst
+# WRONG - :doc: nested inside bold markup:
+**We recommend using IETF (:doc:`RFC 5424 <../../glossaryofterms/rfc5424>`) format.**
+
+# CORRECT - :doc: outside bold markup:
+**We recommend using IETF** :doc:`RFC 5424 <../../glossaryofterms/rfc5424>` **format.**
+```
+
 ### Formatting Issues
 
 **Problem:** Code blocks not rendering correctly
