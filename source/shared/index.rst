@@ -23,4 +23,3 @@ independently when needed.
    gettingstarted/index
    references/index
    faq/mariadb-odbc-support
-   faq/palo-alto-log-format-change
