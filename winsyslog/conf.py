@@ -270,5 +270,19 @@ pdf_documents = [
      'System Tools'),
 ]
 
+# PDF style configuration to handle wide tables
+pdf_style_path = ['.', '_static']
+pdf_stylesheets = ['sphinx', 'kerning', 'a4', 'winsyslog']
+pdf_fit_mode = 'shrink'
+pdf_break_level = 2
+pdf_verbosity = 1
+
+# PDF layout configuration
+pdf_use_toc = True
+pdf_use_index = True
+pdf_toc_depth = 3
+# Enable cover page for proper title page
+pdf_use_coverpage = True
+
 
 
