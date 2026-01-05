@@ -3,7 +3,7 @@ Configuring
 
 WinSyslog is easy to use and is powerful.
 
-In this chapter, you will learn how to configure the EventReporter Service.
+In this chapter, you will learn how to configure the WinSyslog service.
 
 
 .. toctree::
