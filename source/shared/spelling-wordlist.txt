@@ -684,6 +684,7 @@ logzip-archiving-tool-for-windows
 Long-term
 LONGVCHAR
 lookups
+Lorbach
 lossy
 low-bandwidth
 low-disk
