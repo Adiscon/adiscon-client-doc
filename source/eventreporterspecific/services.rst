@@ -16,8 +16,8 @@ assigned to a service, when one of the respective type is to be created.
 Service defaults are NOT executed and thus cannot gather any data.
 
 Added a test mode for Services, currently EventLog Monitor V1 & V2 and File
-Monitor are supported. When enabling the testmode for a certain service, it
-will process it's Events/Files over and over again. So only use this setting
+Monitor are supported. When enabling the test mode for a certain service, it
+will process its Events/Files over and over again. So only use this setting
 for testing purposes.
 
 Basic Services

@@ -6,7 +6,7 @@ EventReporter Shortcut Keys
 
 Use shortcut keys as an alternative to the mouse when working in EventReporter
 Client. Keyboard shortcuts may also make it easier for you to interact with
-EventReporter. All these shortkeys are usually available in textboxes
+EventReporter. All these shortcut keys are usually available in textboxes
 only. Listed below are the available short keys:
 
 

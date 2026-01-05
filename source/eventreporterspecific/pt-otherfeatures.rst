@@ -45,7 +45,7 @@ Minimal Resource Usage
 ----------------------
 
 EventReporter has no noticeable impact on system resources. It was specifically
-written with minimal resource usage in mind. In typical scenarios, it's
+written with minimal resource usage in mind. In typical scenarios, its
 footprint is barely traceable. This ensures it can also be installed on heavily
 loaded servers.
 
