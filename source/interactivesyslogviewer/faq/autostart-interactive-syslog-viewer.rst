@@ -87,7 +87,7 @@ This method starts the application at system boot, regardless of user login, mak
    - **Name:** Enter a descriptive name, such as "Interactive Syslog Viewer Autostart"
    - **Description:** Optional description, e.g., "Automatically starts Interactive Syslog Viewer at system boot"
    - **Security options:**
-     
+
      - Select "Run whether user is logged on or not"
      - Check "Run with highest privileges" if the application requires elevated permissions
      - Choose the user account under which the task should run
@@ -108,11 +108,11 @@ This method starts the application at system boot, regardless of user login, mak
    - Click "New..." to create a new action
    - **Action:** Ensure "Start a program" is selected
    - **Program/script:** Enter the full path to Interactive Syslog Viewer executable
-     
+
      Example: ``C:\Program Files (x86)\MonitorWare Agent\InterActive SyslogViewer.exe``
 
    - **Add arguments (optional):** Enter command-line parameters
-     
+
      Example: ``/autolisten /port=10514``
 
    - Click "OK" to save the action
@@ -127,7 +127,7 @@ This method starts the application at system boot, regardless of user login, mak
 
    - Switch to the "Settings" tab
    - Recommended settings:
-     
+
      - Check "Allow task to be run on demand"
      - Check "Run task as soon as possible after a scheduled start is missed"
      - Uncheck "Stop the task if it runs longer than" (to allow continuous operation)
