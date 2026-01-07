@@ -10,3 +10,4 @@ see directly what is happening.
 
    syslogviewer
    syslogvieweroptionsandconfiguration
+   faq
