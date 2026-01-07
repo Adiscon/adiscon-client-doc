@@ -123,7 +123,7 @@ exclude_patterns = ['index.eventreporter.rst','index.mwagent.rst','index.winsysl
     'gettingstarted/monitoringexternaldevicesportprobe.rst','gettingstarted/monitoringftpserver.rst','gettingstarted/monitoringharddiskspace.rst',
     'gettingstarted/monitoringimapserver.rst','gettingstarted/monitoringnntpserver.rst','gettingstarted/monitoringsmtpserver.rst',
     'gettingstarted/startingscriptsandapplications.rst','glossaryofterms/index.rst',
-    'interactivesyslogviewer/*.rst','introduction/*.rst','producttour/*.rst',
+    'interactivesyslogviewer/*.rst','interactivesyslogviewer/faq/*.rst','introduction/*.rst','producttour/*.rst',
     'references/index.rst','references/comparisonofproperties.rst','references/icmpcodes.rst','references/mwagentservice2.rst',
     'references/mwagentshortcutkeys.rst','references/registrypaths.rst','references/versioncomparison.rst',
     'references/editioncomparison.rst','step-by-step/how-to-enter-the-license-information.rst',

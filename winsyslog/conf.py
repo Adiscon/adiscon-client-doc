@@ -136,7 +136,7 @@ exclude_patterns = ['articles/index-mwagent.rst', 'articles/include-event-id-in-
    'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/start-program-action-troubleshooting.rst','references/editioncomparison.rst',
    'index.eventreporter.rst','index.mwagent.rst','index.rsyslog.rst',
    'stepbystepguides.rst','purchasingmwagent.rst','monitorwareconcepts.rst','commonuses.rst','gettinghelp.rst',
-   'index.syslogviewer.rst','index.winsyslog-j.rst','winsyslogspecific/winsyslog-j.rst','winsyslogspecific/generaloptions-j.rst',
+   'index.syslogviewer.rst','interactivesyslogviewer/*.rst','interactivesyslogviewer/faq/*.rst','index.winsyslog-j.rst','winsyslogspecific/winsyslog-j.rst','winsyslogspecific/generaloptions-j.rst',
    'winsyslogspecific/postprocessapps-options-j.rst','mwagentspecific/general-options.rst','winsyslogspecific/general-options-j.rst',
    'winsyslogspecific/configuringwinsyslog-j.rst','gettingstarted/multiple-rulesets-rules-actions.rst',
    'mwagentspecific/faq.rst','mwagentspecific/faq/*.rst'
