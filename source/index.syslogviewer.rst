@@ -15,4 +15,5 @@ see directly what is happening.
 
    interactivesyslogviewer/syslogviewer
    interactivesyslogviewer/syslogvieweroptionsandconfiguration
+   interactivesyslogviewer/faq
    copyrights

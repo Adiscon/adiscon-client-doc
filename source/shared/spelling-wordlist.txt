@@ -98,6 +98,9 @@ AUS
 authenticationFailure
 auto-increments
 auto-saving
+autostart
+Autostart
+Autostarting
 automatically-reload-service
 AVMISDN1
 AVMISDN2
@@ -294,6 +297,7 @@ double-click
 double-clicking
 DROP
 drop-down
+dropdown
 DSN
 DTLS
 DTR

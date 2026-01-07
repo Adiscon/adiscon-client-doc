@@ -117,7 +117,7 @@ exclude_patterns = ['index.mwagent.rst','index.rsyslog.rst','index.winsyslog.rst
     'gettingstarted/monitoringexternaldevicesping.rst','gettingstarted/monitoringharddiskspace.rst','gettingstarted/monitoringimapserver.rst',
     'gettingstarted/monitoringexternaldevicesportprobe.rst','gettingstarted/monitoringftpserver.rst','gettingstarted/monitoringnntpserver.rst',
     'gettingstarted/monitoringsmtpserver.rst','gettingstarted/monitorwareagenttutorial.rst','gettingstarted/obtainingaprintablemanual.rst',
-    'interactivesyslogviewer/*.rst','introduction/index.rst','introduction/addon-components.rst','introduction/core-components.rst',
+    'interactivesyslogviewer/*.rst','interactivesyslogviewer/faq/*.rst','introduction/index.rst','introduction/addon-components.rst','introduction/core-components.rst',
     'introduction/features.rst','introduction/system-requirements.rst',
     'index.syslogviewer.rst',
 #    'producttour/*.rst',
