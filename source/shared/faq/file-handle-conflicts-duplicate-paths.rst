@@ -116,27 +116,13 @@ Best Practices
 * Monitor file handles using Windows Resource Monitor or Process Explorer to verify proper release
 * Verify that external batch scripts or archiving processes can access files after the timeout period
 
-Related Settings
-----------------
-
-**CleanFileHandlesTimeout**: Timeout setting (in seconds) that determines how long the service waits before closing unused file handles. This setting works correctly when only one file action references each file. When multiple actions reference the same file, the timeout may not work as expected.
-
-**"Create unique filenames"**: Feature that enables daily file rotation by including timestamp in filenames. When enabled, new files are created each day, and old files should be released after the timeout period. This feature works correctly when file paths are unique per rule.
-
-**File Path** (in File Action): Directory path where log files are written. Use unique paths per rule to avoid conflicts. Consider organizing by device type, rule name, or other logical grouping.
-
-**File Base Name** (in File Action): Filename template for log files. Ensure different rules use different patterns or paths to prevent multiple rules from writing to the same physical file.
-
 Verification
 ------------
 
 After implementing the solution:
 
 1. Monitor file handles using Windows Resource Monitor or Process Explorer to confirm files are released after the CleanFileHandlesTimeout period
-2. Verify that files are released after the expected timeout period (e.g., after 2:00 AM daily)
-3. Test your external batch script or archiving process to confirm it can access files without "file in use" errors
-4. Check debug logs to confirm only one file action is managing each file
-5. Verify configuration using the configuration client's verification feature - it should report 0 errors related to duplicate filenames
+2. Verify configuration using the configuration client's verification feature - it should report 0 errors related to duplicate filenames
 
 If files are still not released after the timeout period, check for:
 
