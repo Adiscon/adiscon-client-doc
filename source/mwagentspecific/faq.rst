@@ -13,6 +13,7 @@ Here you find FAQ about the MonitorWare Products:
    faq/diff-massroll-massupdateroll
    faq/mwagent-iot2025-support
    faq/start-program-action-troubleshooting
+   ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/mariadb-odbc-support
    ../shared/faq/palo-alto-log-format-change
 
