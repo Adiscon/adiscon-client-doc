@@ -52,8 +52,8 @@ The most important setting for high-load systems is the Worker Threads configura
 **For WinSyslog:**
 
 1. Open WinSyslog Config Client
-2. Navigate to **QueueManager** section
-3. Set **Worker Threads** to at least **half the CPU core count**
+2. Navigate to **General Options > Queue Manager** section
+3. Set **Number of worker threads** to at least **half the CPU core count**
 
    * Example: For an 8-core system, set to at least 4 worker threads
    * Example: For a 16-core system, set to at least 8 worker threads
@@ -63,11 +63,25 @@ The most important setting for high-load systems is the Worker Threads configura
    * If automatic configuration reload is enabled, the service will reload automatically
    * If automatic configuration reload is disabled, manually restart the service
 
-**For MonitorWare Agent and Rsyslog Windows Agent:**
+**For MonitorWare Agent:**
+
+1. Open MonitorWare Agent Config Client
+2. Navigate to **General Options > Queue Manager** section
+3. Set **Number of worker threads** to at least **half the CPU core count**
+
+   * Example: For an 8-core system, set to at least 4 worker threads
+   * Example: For a 16-core system, set to at least 8 worker threads
+
+4. Save the configuration
+
+   * If automatic configuration reload is enabled, the service will reload automatically
+   * If automatic configuration reload is disabled, manually restart the service
+
+**For Rsyslog Windows Agent:**
 
 1. Open the product configuration interface
-2. Navigate to the **QueueManager** or equivalent section (location may vary by product)
-3. Set **Worker Threads** to at least **half the CPU core count**
+2. Navigate to the **Queue Manager** or equivalent section (location may vary by product)
+3. Set **Number of worker threads** to at least **half the CPU core count**
 
    * Example: For an 8-core system, set to at least 4 worker threads
    * Example: For a 16-core system, set to at least 8 worker threads
@@ -129,14 +143,6 @@ Best Practices
 * **Plan configuration changes during lower-traffic periods** - When possible, schedule major changes during maintenance windows
 * **Monitor Event ID 126 (WinSyslog)** - Verify that configuration reloads complete successfully ("Configuration reload successfully done")
 
-Related Settings
-----------------
-
-* **Worker Threads** (QueueManager section or equivalent): Number of parallel worker threads for processing filters and actions. **Critical setting for high-load systems** - should be set to at least half the CPU core count for optimal performance. Default values may be too low for systems with many CPU cores. Location may vary by product (QueueManager section in WinSyslog, equivalent section in MonitorWare Agent and Rsyslog Windows Agent).
-* **Main Queue Limit** (General section or equivalent): Maximum number of messages that can be queued. On high-load systems, ensure this is set appropriately to handle peak message volumes.
-* **Event ID 126 (WinSyslog)**: Windows Event Log entry that indicates "Configuration reload successfully done". Monitor this to verify that configuration reloads complete successfully in WinSyslog.
-* **Debug Logging**: Should be disabled on production high-load systems as it significantly increases processing overhead and extends operation times.
-
 Verification
 ------------
 
@@ -156,5 +162,3 @@ If performance issues persist after adjusting worker threads, consider:
 
 * Further increasing worker threads (up to the CPU core count)
 * Reviewing filter and action complexity
-* Checking for database or output bottlenecks
-* Collecting debug logs during peak load for analysis (on test systems only)
