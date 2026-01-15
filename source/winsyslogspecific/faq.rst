@@ -8,11 +8,11 @@ Here you find FAQ about the WinSyslog Products:
    :maxdepth: 1
 
    faq/log-rotation-file-handle-cleanup
+   faq/log-rotation-naming-convention
    faq/winsyslog-iot2025-support
    faq/start-program-action-troubleshooting
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/high-load-performance-worker-threads
-   ../shared/faq/log-rotation-naming-convention
    ../shared/faq/mariadb-odbc-support
    ../shared/faq/palo-alto-log-format-change
 

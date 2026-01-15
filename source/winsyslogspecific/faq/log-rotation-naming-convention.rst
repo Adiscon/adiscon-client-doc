@@ -1,55 +1,33 @@
-:orphan:
+.. _log-rotation-naming-convention-winsyslog:
 
-.. _log-rotation-naming-convention:
+Log Rotation Naming Convention Change in WinSyslog 18.x
+========================================================
 
-Log Rotation Naming Convention Change
-======================================
-
-This article explains the change in rotated log file naming convention in recent versions of WinSyslog, MonitorWare Agent, and EventReporter.
+This article explains the change in rotated log file naming convention in WinSyslog 18.x and later versions.
 
 Question
 --------
 
-Why are my rotated log files named differently after upgrading to WinSyslog 18.x, MonitorWare Agent 15.x, or EventReporter 19.x?
+Why are my rotated log files named differently after upgrading to WinSyslog 18.x?
 
 Answer
 ------
 
-Recent versions of these products use a new naming convention for rotated log files. Instead of placing sequence numbers before the file extension (e.g., ``syslog1.csv``, ``syslog2.csv``), the new format appends sequence numbers after the file extension (e.g., ``syslog.csv.1``, ``syslog.csv.2``).
+WinSyslog 18.x and later versions use a new naming convention for rotated log files. Instead of placing sequence numbers before the file extension (e.g., ``syslog1.csv``, ``syslog2.csv``), the new format appends sequence numbers after the file extension (e.g., ``syslog.csv.1``, ``syslog.csv.2``).
 
 **This change is intentional and by design.** The new format follows Unix/POSIX conventions and provides better compatibility with common log management tools and scripts.
 
 What Changed
 ------------
 
-.. only:: winsyslog
-
-   **Old Format (WinSyslog versions before 18.x):**
-
-.. only:: mwagent
-
-   **Old Format (MonitorWare Agent versions before 15.x):**
-
-.. only:: eventreporter
-
-   **Old Format (EventReporter versions before 19.x):**
+**Old Format (WinSyslog versions before 18.x):**
 
 * ``syslog.csv`` (active log file)
 * ``syslog1.csv`` (first rotated file)
 * ``syslog2.csv`` (second rotated file)
 * ``syslog3.csv`` (third rotated file)
 
-.. only:: winsyslog
-
-   **New Format (WinSyslog 18.x and later):**
-
-.. only:: mwagent
-
-   **New Format (MonitorWare Agent 15.x and later):**
-
-.. only:: eventreporter
-
-   **New Format (EventReporter 19.x and later):**
+**New Format (WinSyslog 18.x and later):**
 
 * ``syslog.csv`` (active log file)
 * ``syslog.csv.1`` (first rotated file)
@@ -122,7 +100,7 @@ The new format is compatible with most modern log rotation utilities:
 Migration Best Practices
 ------------------------
 
-When upgrading to versions with the new naming convention:
+When upgrading to WinSyslog 18.x or later:
 
 1. **Test in development:**
 
@@ -133,7 +111,7 @@ When upgrading to versions with the new naming convention:
 
 2. **Update automation:**
 
-   * Modify scripts before deploying the new product version
+   * Modify scripts before deploying the new WinSyslog version
    * Update monitoring tool configurations
    * Test all changes in the development environment
 
@@ -158,13 +136,13 @@ When upgrading to versions with the new naming convention:
 Common Questions
 ----------------
 
-**Can I configure the product to use the old naming format?**
+**Can I configure WinSyslog to use the old naming format?**
 
 No. The new naming format is built into the log rotation subsystem and cannot be changed through configuration. This ensures consistent behavior and maintains the reliability and thread safety improvements.
 
 **Will my existing rotated log files be renamed automatically?**
 
-No. Existing rotated files retain their original names. The new naming convention applies only to files rotated after upgrading to the new version.
+No. Existing rotated files retain their original names. The new naming convention applies only to files rotated after upgrading to WinSyslog 18.x or later.
 
 **What happens to old rotated files?**
 
@@ -177,6 +155,6 @@ No. The naming convention change does not affect performance. In fact, the under
 Additional Information
 ----------------------
 
-For more information about log rotation configuration, see the log file action documentation in your product's manual.
+For more information about log rotation configuration, see the log file action documentation in the WinSyslog manual.
 
 If you need assistance updating scripts or tools to work with the new naming convention, contact Adiscon support at https://ticket.adiscon.com/

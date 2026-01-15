@@ -8,6 +8,7 @@ Here you find FAQ about the MonitorWare Products:
    :maxdepth: 1
 
    faq/log-rotation-file-handle-cleanup
+   faq/log-rotation-naming-convention
    faq/massrollout
    faq/massupdaterollout
    faq/diff-massroll-massupdateroll
@@ -15,7 +16,6 @@ Here you find FAQ about the MonitorWare Products:
    faq/start-program-action-troubleshooting
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/high-load-performance-worker-threads
-   ../shared/faq/log-rotation-naming-convention
    ../shared/faq/mariadb-odbc-support
    ../shared/faq/palo-alto-log-format-change
 
