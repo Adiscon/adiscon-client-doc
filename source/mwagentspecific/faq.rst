@@ -8,6 +8,7 @@ Here you find FAQ about the MonitorWare Products:
    :maxdepth: 1
 
    faq/log-rotation-file-handle-cleanup
+   faq/log-rotation-naming-convention
    faq/massrollout
    faq/massupdaterollout
    faq/diff-massroll-massupdateroll
