@@ -9,6 +9,7 @@ Here you find FAQ about the MonitorWare Products:
 
    faq/log-rotation-file-handle-cleanup
    faq/log-rotation-naming-convention
+   faq/log-rotation-short-delay
    faq/massrollout
    faq/massupdaterollout
    faq/diff-massroll-massupdateroll

@@ -527,6 +527,7 @@ TCP-based
 TCP-specific
 TIMED
 TIMETICKS
+timeframes
 TLS
 TLS1
 TLSv1

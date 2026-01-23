@@ -9,6 +9,7 @@ Here you find FAQ about the WinSyslog Products:
 
    faq/log-rotation-file-handle-cleanup
    faq/log-rotation-naming-convention
+   faq/log-rotation-short-delay
    faq/winsyslog-iot2025-support
    faq/start-program-action-troubleshooting
    ../shared/faq/file-handle-conflicts-duplicate-paths
