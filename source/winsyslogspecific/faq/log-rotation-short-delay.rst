@@ -1,18 +1,9 @@
-:orphan:
+.. _log-rotation-short-delay-winsyslog:
 
-.. _log-rotation-short-delay:
-
-Why does log rotation fail when using ZIP compression?
-=======================================================
+Why does log rotation fail when using ZIP compression in WinSyslog?
+====================================================================
 
 This article explains why log rotation operations fail when the rotation action delay setting is configured too short, causing ZIP compression to be interrupted by the move operation before completion.
-
-Applies To
-----------
-
-* WinSyslog
-* MonitorWare Agent
-* EventReporter
 
 Problem
 -------
@@ -30,7 +21,7 @@ Symptoms
 Root Cause
 ----------
 
-The "Maximum wait time for log rotation" setting in the Configuration Client controls the waiting period between when log rotation is triggered and when move operations begin. When this delay is too short (such as the default 15 seconds), ZIP compression processes that take longer than the delay period get interrupted by the move operation, causing the rotation to fail.
+The "Maximum wait time for log rotation" setting in the WinSyslog Configuration Client controls the waiting period between when log rotation is triggered and when move operations begin. When this delay is too short (such as the default 15 seconds), ZIP compression processes that take longer than the delay period get interrupted by the move operation, causing the rotation to fail.
 
 Solution
 --------
@@ -38,11 +29,11 @@ Solution
 Option 1: Increase Maximum Wait Time for Log Rotation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Open the Configuration Client
+1. Open the WinSyslog Configuration Client
 2. Navigate to the rotation settings section
 3. Locate the "Maximum wait time for log rotation" setting
 4. Change the value from 15000 (15 seconds) to 60000 (60 seconds) or 120000 (120 seconds)
-5. Save the configuration and restart the service
+5. Save the configuration and restart the WinSyslog service
 6. Test log rotation during the next scheduled rotation period
 
 Option 2: Switch to Size-Based Rotation
@@ -73,4 +64,4 @@ Verification
 * Monitor log directories after rotation triggers to ensure files are properly moved
 * Check that compressed files are not remaining in live logging directories
 * Verify rotation completes within expected timeframes
-* Confirm no rotation failures in service logs during test periods
+* Confirm no rotation failures in WinSyslog logs during test periods

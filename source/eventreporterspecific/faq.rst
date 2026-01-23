@@ -9,10 +9,10 @@ Here you find FAQ about EventReporter:
 
    faq/log-rotation-file-handle-cleanup
    faq/log-rotation-naming-convention
+   faq/log-rotation-short-delay
    faq/eventreporter-iot2025-support
    faq/start-program-action-troubleshooting
    ../shared/faq/file-handle-conflicts-duplicate-paths
-   ../shared/faq/log-rotation-short-delay
    ../shared/faq/mariadb-odbc-support
 
 
