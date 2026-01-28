@@ -1,18 +1,7 @@
-:orphan:
-
-.. _config-reload-high-load:
-
 Configuration Reload Not Completing Under High Load
 ====================================================
 
 This article explains what to do when configuration reloads fail to complete during periods of high message volume, leaving the service in an inconsistent state or causing service stop operations to timeout.
-
-Applies To
-----------
-
-* WinSyslog
-* MonitorWare Agent
-* Rsyslog Windows Agent
 
 Problem
 -------
@@ -30,7 +19,7 @@ Symptoms
 Root Cause
 ----------
 
-During a configuration reload, the product must:
+During a configuration reload, MonitorWare Agent must:
 
 1. Pause message processing
 2. Drain in-flight messages from worker threads
