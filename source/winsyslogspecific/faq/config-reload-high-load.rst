@@ -76,8 +76,8 @@ Option 4: Disable Auto-Reload for Production
 
 **Impact:** Eliminates the risk of incomplete reloads during high-load periods
 
-Option 5: Split Configuration into Multiple Receivers and RuleSets (Advanced Optimization)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Option 5: Split Configuration into Multiple Receivers and Rulesets (Advanced Optimization)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Problem:** A single input service with a single ruleset requires every message to be evaluated against all rules sequentially, creating significant overhead under high load.
 
