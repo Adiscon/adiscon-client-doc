@@ -15,6 +15,7 @@ Here you find FAQ about the MonitorWare Products:
    faq/diff-massroll-massupdateroll
    faq/mwagent-iot2025-support
    faq/start-program-action-troubleshooting
+   ../shared/faq/config-reload-incomplete-high-load
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support
