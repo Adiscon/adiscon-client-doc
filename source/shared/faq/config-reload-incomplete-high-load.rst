@@ -37,9 +37,9 @@ During a configuration reload, the product must:
 3. Re-read the configuration from registry / file
 4. Reinitialize all rules, filters, and actions
 5. Resume message processing
-6. Log Event 126 to confirm completion
+6. Log Event ID 126 to confirm completion
 
-Under high message volume with insufficient worker threads, step 2 (draining in-flight work) takes significantly longer. If the system is processing many messages simultaneously, the drain phase can extend significantly. In extreme cases, the reload process may appear to stall or never complete, resulting in missing Event 126 entries.
+Under high message volume with insufficient worker threads, step 2 (draining in-flight work) takes significantly longer. If the system is processing many messages simultaneously, the drain phase can extend significantly. In extreme cases, the reload process may appear to stall or never complete, resulting in missing Event ID 126 entries.
 
 **Contributing factors:**
 
@@ -119,7 +119,7 @@ Option 5: Split Configuration into Multiple Receivers and RuleSets (Advanced Opt
 
 * Before: 1 input, 1 ruleset, multiple rules, all rules evaluated per message
 * After: Multiple inputs, multiple rulesets, fewer rules per ruleset, significantly fewer rules evaluated per message
-* Expected: 75% reduction in rule evaluation, 4-8x throughput improvement
+* Expected results: 75% reduction in rule evaluation, 4-8x throughput improvement
 
 **Benefits:**
 
