@@ -34,7 +34,7 @@ During a configuration reload, the product must:
 
 1. Pause message processing
 2. Drain in-flight messages from worker threads
-3. Re-read the configuration from registry / file
+3. Re-read the configuration from its storage location
 4. Reinitialize all rules, filters, and actions
 5. Resume message processing
 6. Log Event 126 to confirm completion
