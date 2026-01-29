@@ -1,7 +1,7 @@
 .. _config-reload-high-load-mwagent:
 
 Configuration reload issues under high load in MonitorWare Agent
-===============================================================
+================================================================
 
 This article explains why MonitorWare Agent configuration reloads can stall under heavy load and how to stabilize reload behavior.
 

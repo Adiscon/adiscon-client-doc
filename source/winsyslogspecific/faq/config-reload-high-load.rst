@@ -1,7 +1,7 @@
 .. _config-reload-high-load-winsyslog:
 
 High-load configuration reload issues in WinSyslog
-=================================================
+==================================================
 
 This article explains why WinSyslog configuration reloads can stall under heavy load and how to stabilize reload behavior.
 
