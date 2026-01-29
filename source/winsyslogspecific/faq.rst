@@ -12,7 +12,7 @@ Here you find FAQ about the WinSyslog Products:
    faq/log-rotation-short-delay
    faq/winsyslog-iot2025-support
    faq/start-program-action-troubleshooting
-   ../shared/faq/config-reload-incomplete-high-load
+   faq/winsyslog-config-reload-high-load
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support
