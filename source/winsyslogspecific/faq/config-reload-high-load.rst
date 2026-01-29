@@ -83,7 +83,7 @@ Best Practices
 --------------
 
 * Set worker threads to at least half the CPU core count.
-* Use Action Queue for database actions instead of oversizing the main queue.
+* Use Action Queue for database actions instead of expanding the main queue.
 * Plan reloads during low-traffic periods or scheduled maintenance windows.
 * Monitor Event ID 126 to confirm reload completion.
 
