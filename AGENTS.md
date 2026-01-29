@@ -205,6 +205,10 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 **Note:** Important information
 ```
 
+**Rule 6a: Heading underlines must be at least as long as the title text (including option headings)**
+
+**Rule 6b: Avoid uncommon words that trigger spelling; prefer common wording or add approved terms to the spelling word list**
+
 **Rule 7: Directory names are case-sensitive in references**
 ```rst
 # WRONG (if actual directory is "interactivesyslogviewer"):
