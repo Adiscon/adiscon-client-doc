@@ -73,7 +73,7 @@ Option 1: Increase Worker Threads (Immediate Action)
    * If automatic configuration reload is enabled in WinSyslog, the service will reload automatically
    * If automatic configuration reload is disabled, manually restart the WinSyslog service
 
-Option 2: Upgrade to Latest WinSyslog Build
+Option 2: Upgrade to Latest WinSyslog Build.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Upgrade to the latest WinSyslog build which includes fixes for configuration-reload issues related to log rotation. This may resolve incomplete reloads observed in logs.
@@ -152,7 +152,3 @@ To verify WinSyslog configuration reloads are completing successfully:
 
 If Event ID 126 is missing from WinSyslog debug logs after configuration changes, this indicates an incomplete reload and the system may be operating with inconsistent configuration.
 
-Notes
------
-
-..

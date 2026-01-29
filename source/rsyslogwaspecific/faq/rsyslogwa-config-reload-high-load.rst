@@ -73,7 +73,7 @@ Option 1: Increase Worker Threads (Immediate Action)
    * If automatic configuration reload is enabled in Rsyslog Windows Agent, the service will reload automatically
    * If automatic configuration reload is disabled, manually restart the Rsyslog Windows Agent service
 
-Option 2: Upgrade to Latest Rsyslog Windows Agent Build
+Option 2: Upgrade to Latest Rsyslog Windows Agent Build.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Upgrade to the latest Rsyslog Windows Agent build which includes fixes for configuration-reload issues related to log rotation. This may resolve incomplete reloads observed in logs.
@@ -152,7 +152,3 @@ To verify Rsyslog Windows Agent configuration reloads are completing successfull
 
 If Event ID 126 is missing from Rsyslog Windows Agent debug logs after configuration changes, this indicates an incomplete reload and the system may be operating with inconsistent configuration.
 
-Notes
------
-
-..

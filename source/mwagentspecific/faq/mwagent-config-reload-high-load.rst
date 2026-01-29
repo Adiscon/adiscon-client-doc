@@ -73,7 +73,7 @@ Option 1: Increase Worker Threads (Immediate Action)
    * If automatic configuration reload is enabled in MonitorWare Agent, the service will reload automatically
    * If automatic configuration reload is disabled, manually restart the MonitorWare Agent service
 
-Option 2: Upgrade to Latest MonitorWare Agent Build
+Option 2: Upgrade to Latest MonitorWare Agent Build.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Upgrade to the latest MonitorWare Agent build which includes fixes for configuration-reload issues related to log rotation. This may resolve incomplete reloads observed in logs.
@@ -151,7 +151,3 @@ To verify MonitorWare Agent configuration reloads are completing successfully:
 
 If Event ID 126 is missing from MonitorWare Agent debug logs after configuration changes, this indicates an incomplete reload and the system may be operating with inconsistent configuration.
 
-Notes
------
-
-..
