@@ -8,6 +8,7 @@ Here you find FAQ for Rsyslog:
    :maxdepth: 1
 
    faq/start-program-action-troubleshooting
+   faq/config-reload-high-load
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support
    ../shared/faq/palo-alto-log-format-change

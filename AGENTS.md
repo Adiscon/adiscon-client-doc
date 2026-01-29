@@ -56,6 +56,7 @@ This repository uses a unified, product-centric directory structure. All documen
 ### Shared vs. Product-Specific Content and Builds
 
 -   Author content under `source/`. Shared topics and references belong in `source/shared/` where they can be reused across products.
+-   When task instructions require strict product isolation, do not create or modify shared content for that work.
 -   Each product build uses its root-level `conf.py` via `sphinx-build -c <product>` while reading sources from `source/`.
 -   For fast iteration on shared topics, use `make shared-html` which builds `source/shared/` in isolation with a minimal config. Some cross-document references may be unresolved in this mode and will resolve during full product builds.
 -   For end-to-end verification of a single manual, use `make html-<project>`. For pre-release validation across all manuals, use `make all-html`.
