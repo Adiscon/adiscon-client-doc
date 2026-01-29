@@ -134,6 +134,7 @@ exclude_patterns = ['articles/index-mwagent.rst', 'articles/include-event-id-in-
    'producttour/testpassivesyslogservice.rst','producttour/powerfulleventprocessing.rst',
    'references/index.rst','references/mwagentshortcutkeys.rst','references/mwagentservice2.rst','references/icmpcodes.rst',
    'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/start-program-action-troubleshooting.rst','references/editioncomparison.rst',
+   'rsyslogwaspecific/faq/config-reload-high-load.rst',
    'index.eventreporter.rst','index.mwagent.rst','index.rsyslog.rst',
    'stepbystepguides.rst','purchasingmwagent.rst','monitorwareconcepts.rst','commonuses.rst','gettinghelp.rst',
    'index.syslogviewer.rst','index.winsyslog-j.rst','winsyslogspecific/winsyslog-j.rst','winsyslogspecific/generaloptions-j.rst',
@@ -283,6 +284,5 @@ pdf_use_index = True
 pdf_toc_depth = 3
 # Enable cover page for proper title page
 pdf_use_coverpage = True
-
 
 

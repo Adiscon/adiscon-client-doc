@@ -56,6 +56,7 @@ This repository uses a unified, product-centric directory structure. All documen
 ### Shared vs. Product-Specific Content and Builds
 
 -   Author content under `source/`. Shared topics and references belong in `source/shared/` where they can be reused across products.
+-   When task instructions require strict product isolation, do not create or modify shared content for that work.
 -   Each product build uses its root-level `conf.py` via `sphinx-build -c <product>` while reading sources from `source/`.
 -   For fast iteration on shared topics, use `make shared-html` which builds `source/shared/` in isolation with a minimal config. Some cross-document references may be unresolved in this mode and will resolve during full product builds.
 -   For end-to-end verification of a single manual, use `make html-<project>`. For pre-release validation across all manuals, use `make all-html`.
@@ -204,6 +205,10 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 **Note:** Important information
 ```
 
+**Rule 6a: Heading underlines must be at least as long as the title text (including option headings)**
+
+**Rule 6b: Avoid uncommon words that trigger spelling; prefer common wording or add approved terms to the spelling word list**
+
 **Rule 7: Directory names are case-sensitive in references**
 ```rst
 # WRONG (if actual directory is "interactivesyslogviewer"):
@@ -247,6 +252,7 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
   =========
   ```
 - **Never include `supporting-labels.rst` in shared FAQ files** that are referenced by multiple product FAQ pages. The hidden toctree in `supporting-labels.rst` contains cross-manual references (e.g., MWAgent-specific pages) that will appear in ALL product FAQ sidebars, causing TOC pollution. If a shared FAQ file only references glossary terms (like RFC 5424, RFC 3164), it doesn't need the supporting-labels include.
+- **For product-only FAQ articles, omit the "Applies To" section.** It is redundant when the page lives under a product-only FAQ tree.
 - Keep FAQ pages self-contained. Avoid "Related Information" sections that cross-link to other manuals unless they are guarded with `.. only::` tags per Rule 4 above.
 - If a page truly needs labels from other manuals, prefer plain hyperlinks or guard the cross-manual `:doc:` links with `.. only::`.
 
