@@ -252,6 +252,7 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
   =========
   ```
 - **Never include `supporting-labels.rst` in shared FAQ files** that are referenced by multiple product FAQ pages. The hidden toctree in `supporting-labels.rst` contains cross-manual references (e.g., MWAgent-specific pages) that will appear in ALL product FAQ sidebars, causing TOC pollution. If a shared FAQ file only references glossary terms (like RFC 5424, RFC 3164), it doesn't need the supporting-labels include.
+- **For product-only FAQ articles, omit the "Applies To" section.** It is redundant when the page lives under a product-only FAQ tree.
 - Keep FAQ pages self-contained. Avoid "Related Information" sections that cross-link to other manuals unless they are guarded with `.. only::` tags per Rule 4 above.
 - If a page truly needs labels from other manuals, prefer plain hyperlinks or guard the cross-manual `:doc:` links with `.. only::`.
 

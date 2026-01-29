@@ -5,11 +5,6 @@ High-load configuration reload stalls in Rsyslog Windows Agent
 
 This article explains why Rsyslog Windows Agent configuration reloads can stall under heavy load and how to stabilize reload behavior.
 
-Applies To
-----------
-
-* Rsyslog Windows Agent
-
 Problem
 -------
 
