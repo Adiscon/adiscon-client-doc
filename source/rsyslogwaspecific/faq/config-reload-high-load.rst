@@ -32,7 +32,7 @@ Solution
 --------
 
 Option 1: Increase worker threads
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. Open the Rsyslog Windows Agent Configuration Client.
 2. Navigate to **General Options > Queue Manager**.
@@ -44,7 +44,7 @@ Option 1: Increase worker threads
 4. Save the configuration and allow Rsyslog Windows Agent to reload.
 
 Option 2: Upgrade to the latest build
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Upgrade to the latest Rsyslog Windows Agent build to pick up fixes that address configuration reload and log rotation behavior under load.
 

@@ -32,7 +32,7 @@ Solution
 --------
 
 Option 1: Increase worker threads
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. Open the MonitorWare Agent Configuration Client.
 2. Navigate to **General Options > Queue Manager**.
