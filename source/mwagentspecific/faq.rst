@@ -16,6 +16,7 @@ Here you find FAQ about the MonitorWare Products:
    faq/mwagent-iot2025-support
    faq/start-program-action-troubleshooting
    faq/config-reload-high-load
+   faq/queue-buildup-sql-server-cleanup
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support
