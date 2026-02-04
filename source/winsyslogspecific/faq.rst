@@ -17,6 +17,7 @@ Here you find FAQ about the WinSyslog Products:
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support
+   ../shared/faq/openssl-cve-impact
    ../shared/faq/palo-alto-log-format-change
 
 
