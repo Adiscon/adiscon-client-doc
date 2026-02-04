@@ -144,7 +144,7 @@ _raw_exclude_patterns = [
     'index.mwagent.rst',
     'index.rsyslog.rst',
     'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/start-program-action-troubleshooting.rst',
-    'rsyslogwaspecific/faq/config-reload-high-load.rst',
+    'rsyslogwaspecific/faq/config-reload-high-load.rst','rsyslogwaspecific/faq/openssl-cve-impact.rst',
     'index.eventreporter.rst','eventreporterspecific/*.rst','eventreporterspecific/faq/*.rst',
     'index.winsyslog.rst','producttour/*.rst','purchasingmwagent.rst','references/*.rst',
     'winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst','winsyslogspecific/glossaryofterms.rst',
