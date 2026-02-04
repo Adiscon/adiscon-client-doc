@@ -7,6 +7,7 @@ Here you find FAQ for Rsyslog:
 .. toctree::
    :maxdepth: 1
 
+   faq/openssl-cve-impact
    faq/start-program-action-troubleshooting
    faq/config-reload-high-load
    ../shared/faq/high-load-performance-worker-threads

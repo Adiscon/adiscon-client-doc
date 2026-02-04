@@ -132,7 +132,7 @@ exclude_patterns = ['articles/index-mwagent.rst','articles/include-event-id-in-s
    'producttour/testpassivesyslogservice.rst','producttour/powerfulleventprocessing.rst',
    'references/index.rst','references/mwagentshortcutkeys.rst','references/mwagentservice2.rst','references/icmpcodes.rst',
    'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/start-program-action-troubleshooting.rst','references/editioncomparison.rst',
-   'rsyslogwaspecific/faq/config-reload-high-load.rst',
+   'rsyslogwaspecific/faq/config-reload-high-load.rst','rsyslogwaspecific/faq/openssl-cve-impact.rst',
    'index.eventreporter.rst','index.mwagent.rst','index.rsyslog.rst',
    'stepbystepguides.rst','purchasingmwagent.rst','monitorwareconcepts.rst','commonuses.rst','gettinghelp.rst',
    'index.syslogviewer.rst','index.winsyslog.rst','winsyslogspecific/winsyslog.rst','winsyslogspecific/generaloptions.rst',
