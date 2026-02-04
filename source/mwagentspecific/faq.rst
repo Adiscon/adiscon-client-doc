@@ -14,6 +14,7 @@ Here you find FAQ about the MonitorWare Products:
    faq/massupdaterollout
    faq/diff-massroll-massupdateroll
    faq/mwagent-iot2025-support
+   faq/openssl-cve-impact
    faq/start-program-action-troubleshooting
    faq/config-reload-high-load
    faq/queue-buildup-sql-server-cleanup

@@ -130,7 +130,8 @@ exclude_patterns = ['index.mwagent.rst','index.rsyslog.rst','index.winsyslog.rst
     'producttour/testpassivesyslogservice.rst',
     'references/index.rst','references/icmpcodes.rst','references/editioncomparison.rst',
     'references/mwagentservice2.rst','references/mwagentshortcutkeys.rst','references/registrypaths.rst',
-    'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/start-program-action-troubleshooting.rst','rsyslogwaspecific/faq/config-reload-high-load.rst','stepbystepguides/*.rst','winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst',
+    'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/start-program-action-troubleshooting.rst','rsyslogwaspecific/faq/config-reload-high-load.rst',
+    'rsyslogwaspecific/faq/openssl-cve-impact.rst','stepbystepguides/*.rst','winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst',
     'index.winsyslog-j.rst','gettingstarted/multiple-rulesets-rules-actions.rst',
     'mwagentspecific/faq.rst','mwagentspecific/faq/*.rst',
     'shared/faq/palo-alto-log-format-change.rst'

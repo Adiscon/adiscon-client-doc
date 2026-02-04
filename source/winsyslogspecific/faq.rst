@@ -11,6 +11,7 @@ Here you find FAQ about the WinSyslog Products:
    faq/log-rotation-naming-convention
    faq/log-rotation-short-delay
    faq/winsyslog-iot2025-support
+   faq/openssl-cve-impact
    faq/start-program-action-troubleshooting
    faq/config-reload-high-load
    faq/queue-buildup-sql-server-cleanup
