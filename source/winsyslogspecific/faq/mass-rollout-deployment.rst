@@ -184,5 +184,3 @@ See Also
 --------
 
 * :doc:`../installation` - WinSyslog installation documentation
-* :doc:`../configuringwinsyslog` - Configuration guide
-* :doc:`../generaloptions` - General options reference
