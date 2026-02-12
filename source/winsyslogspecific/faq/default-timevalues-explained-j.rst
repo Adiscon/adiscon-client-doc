@@ -8,7 +8,7 @@ Default Timevalues Setting in WinSyslog Explained
    :author: Adiscon GmbH
    :created: 2026-02-12
    :updated: 2026-02-12
-   :products: WinSyslog
+   :products: WinSyslog-j
 
 Overview
 --------
