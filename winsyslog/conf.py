@@ -140,6 +140,7 @@ exclude_patterns = ['articles/index-mwagent.rst', 'articles/include-event-id-in-
    'index.syslogviewer.rst','index.winsyslog-j.rst','winsyslogspecific/winsyslog-j.rst','winsyslogspecific/generaloptions-j.rst',
    'winsyslogspecific/postprocessapps-options-j.rst','mwagentspecific/general-options.rst','winsyslogspecific/general-options-j.rst',
    'winsyslogspecific/configuringwinsyslog-j.rst','gettingstarted/multiple-rulesets-rules-actions.rst',
+   'winsyslogspecific/faq/default-timevalues-explained-j.rst',
    'mwagentspecific/faq.rst','mwagentspecific/faq/*.rst'
 ]
 
