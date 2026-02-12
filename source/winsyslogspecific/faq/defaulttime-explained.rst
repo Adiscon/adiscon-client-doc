@@ -68,7 +68,7 @@ Property Option: localtime
 
 Converts the output of any timestamp into localtime:
 
-.. code-block:: none
+.. code-block::
 
    %timegenerated:::localtime%
 
@@ -79,7 +79,7 @@ Property Option: uxLocalTimeStamp
 
 Same output as uxTimeStamp, but uses localtime instead of UTC:
 
-.. code-block:: none
+.. code-block::
 
    %timereported:::uxLocalTimeStamp%
 
@@ -90,14 +90,14 @@ Examples
 
 **Using UTC timestamps (default):**
 
-.. code-block:: none
+.. code-block::
 
    %timegenerated%
    %timereported:::uxTimeStamp%
 
 **Using localtime timestamps:**
 
-.. code-block:: none
+.. code-block::
 
    %timegenerated:::localtime%
    %timereported:::uxLocalTimeStamp%
