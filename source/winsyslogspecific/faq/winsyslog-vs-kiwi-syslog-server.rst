@@ -66,7 +66,7 @@ Feature Comparison
      - Filters + actions
      - Flexible rules + actions architecture
    * - Database Support
-     - ODBC databases (example SQL Server)
+     - ODBC databases (e.g., SQL Server)
      - Any ODBC-compliant database
    * - RFC 5424 Support
      - Not supported
