@@ -21,6 +21,7 @@ Here you find FAQ about the WinSyslog Products:
    faq/export-settings-support-call
    faq/mysql-update
    faq/winsyslog-vs-kiwi-syslog-server
+   faq/originating-ip-address
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support
