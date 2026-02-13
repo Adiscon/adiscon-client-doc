@@ -36,6 +36,12 @@ MySQL 4.x servers.
 Option 2: Use Pre-4.1 Style Passwords
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. note::
+
+   The ``OLD_PASSWORD()`` function uses a less secure hashing algorithm
+   than the MySQL 4.1+ method. Upgrading your client libraries
+   (Option 1) is the preferred solution from a security standpoint.
+
 If you need to continue using a pre-4.1 client program with WinSyslog,
 reset the MySQL user password using the ``OLD_PASSWORD()`` function.
 
