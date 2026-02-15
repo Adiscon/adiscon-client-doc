@@ -12,6 +12,7 @@ Here you find FAQ for Rsyslog:
    faq/config-reload-high-load
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support
+   ../shared/faq/openssl-cve-impact
    ../shared/faq/palo-alto-log-format-change
 
 
