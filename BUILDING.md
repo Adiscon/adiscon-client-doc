@@ -172,3 +172,19 @@ CHM output. The executable is no longer bundled with this repository.
 
 When `HHC` is not available, the Makefile will still build HTML output but skip
 the final CHM compilation step.
+
+**Note:** CHM builds use the Alabaster theme (not Furo) for compatibility with
+the Windows HTML Help viewer's IE/Trident engine, which does not support modern
+CSS features like custom properties.
+
+**Batch helper for CHM compilation (Windows):** If you build HTMLHelp from WSL
+(or another environment where `hhc.exe` cannot run), use the `build-chm.bat`
+script from Windows (cmd or PowerShell) to compile all CHM files:
+
+```cmd
+make all-htmlhelp   REM from WSL – generates HTMLHelp files, skips CHM
+build-chm.bat       REM from Windows – compiles all .hhp to .chm
+```
+
+You can override the compiler path: `set HHC=C:\path\to\hhc.exe` before
+running `build-chm.bat`.

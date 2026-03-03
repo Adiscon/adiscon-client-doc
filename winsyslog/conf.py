@@ -30,6 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from conf_common import (
     enable_spelling_extension,
     get_spelling_word_list,
+    get_shared_templates_path,
     load_linkcheck_ignore,
 )
 
@@ -55,7 +56,9 @@ if 'tags' in globals():
     tags.add('winsyslog')
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+# CHM uses Alabaster (no shared Furo override needed); HTML uses Furo + localStorage fix
+_building_htmlhelp = os.environ.get('SPHINX_BUILDER') == 'htmlhelp'
+templates_path = ['_templates'] if _building_htmlhelp else ['_templates', get_shared_templates_path()]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -165,7 +168,11 @@ sitemap_url_scheme = "{link}"
 sitemap_localtolinks = False
 sitemap_filename = "sitemap.xml"
 
-if importlib.util.find_spec("furo") is not None:
+# CHM viewer uses IE/Trident engine - Furo's CSS variables fail; use Alabaster for htmlhelp
+if _building_htmlhelp:
+    html_theme = "alabaster"
+    html_theme_options = {}
+elif importlib.util.find_spec("furo") is not None:
     html_theme = "furo"
     html_theme_options = {
         # Furo theme options (removed 'show_related' as it's not supported)

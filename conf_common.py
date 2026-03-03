@@ -34,17 +34,20 @@ def get_spelling_word_list(current_file: str) -> str:
     return str(word_list)
 
 
+def get_shared_templates_path() -> str:
+    """Return path to shared templates (e.g. for CHM localStorage compatibility)."""
+    return str(Path(__file__).resolve().parent / "_templates")
+
+
 def enable_spelling_extension(extensions: List[str]) -> List[str]:
-    """Ensure the spelling builder is available when dependencies are installed."""
+    """Add spelling extension only when the package and Enchant C library are available."""
     if "sphinxcontrib.spelling" in extensions:
         return extensions
 
     try:
-        has_extension = importlib.util.find_spec("sphinxcontrib.spelling") is not None
-    except Exception:  # pragma: no cover - defensive guard for importlib issues
-        has_extension = False
-
-    if has_extension:
+        import sphinxcontrib.spelling  # noqa: F401
         extensions.append("sphinxcontrib.spelling")
+    except Exception:  # pragma: no cover - e.g. Enchant C library not installed
+        pass
 
     return extensions
