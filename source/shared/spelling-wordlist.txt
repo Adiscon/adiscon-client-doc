@@ -1439,7 +1439,6 @@ performance-intense
 performance-optimizing-syslog-server
 performance-tests-and-results
 permittedsenders-options
-php-syslog-ng
 playsound-action
 pop3
 pop3probe
@@ -1787,7 +1786,6 @@ vbs
 vendor-specific
 version-history
 verticaltab
-w-to-setup-phpsyslogng-with-monitorware-products
 wa42
 waittime
 walkthrough
