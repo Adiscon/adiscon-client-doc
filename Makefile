@@ -235,10 +235,10 @@ htmlhelp-%: FORCE
 	$(call check_project,$*)
 	$(call print_build_start,$*,HTMLHelp)
 	@$(MKDIR) $(BUILDDIR)/chm/$*
-	@$(SPHINXBUILD) -b htmlhelp -c $* $(SPHINXOPTS) $(SOURCEDIR) $(BUILDDIR)/chm/$*
+	@SPHINX_BUILDER=htmlhelp $(SPHINXBUILD) -b htmlhelp -c $* $(SPHINXOPTS) $(SOURCEDIR) $(BUILDDIR)/chm/$*
 	@if [ -n "$(HHC)" ]; then \
 		echo "$(COLOR_YELLOW)Compiling CHM file for $*...$(COLOR_RESET)"; \
-		$(HHC) $(BUILDDIR)/chm/$*/*.hhp || true; \
+		"$(HHC)" $(BUILDDIR)/chm/$*/*.hhp || true; \
 		if [ -f $(BUILDDIR)/chm/$*/*.chm ]; then \
 			$(CP) $(BUILDDIR)/chm/$*/*.chm $(BUILDDIR)/ 2>$(NULL_DEVICE) || true; \
 			echo "$(COLOR_GREEN)✓ CHM file created for $*$(COLOR_RESET)"; \
