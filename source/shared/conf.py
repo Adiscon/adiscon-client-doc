@@ -3,7 +3,7 @@ import importlib
 
 project = "Shared Content Library"
 author = "Adiscon GmbH"
-copyright = "2025, Adiscon GmbH"
+copyright = "1988-2026, Adiscon GmbH"
 
 extensions = [
     "sphinx.ext.todo",
