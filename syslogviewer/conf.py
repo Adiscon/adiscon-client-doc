@@ -21,6 +21,7 @@
 # sys.path.insert(0, os.path.abspath('.'))
 
 import importlib
+import os
 import sys
 from pathlib import Path
 
@@ -64,7 +65,7 @@ master_doc = 'index.syslogviewer'
 
 # General information about the project.
 project = u'InterActive SyslogViewer'
-copyright = u'2020, Adiscon GmbH'
+copyright = u'1996-2026, Adiscon GmbH'
 author = u'Adiscon GmbH'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -189,8 +190,8 @@ todo_include_todos = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-# Base URL for sitemap generation
-html_baseurl = 'https://www.adiscon.com/adiscon-tools/adiscons-interactive-syslogviewer/manual/'
+# Base URL for sitemap generation (override via env for custom builds, e.g. GitHub Pages)
+html_baseurl = os.environ.get('SPHINX_HTML_BASEURL') or 'https://www.adiscon.com/adiscon-tools/adiscons-interactive-syslogviewer/manual/'
 
 # Sitemap configuration to remove language/version from URLs
 sitemap_url_scheme = "{link}"
