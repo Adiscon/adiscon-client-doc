@@ -82,8 +82,6 @@ Installations and Configurations
 
 - `Interactive logon/logoff Filter? <https://www.mwagent.com/step-by-step-guides/installation-and-configuration/interactive-logonlogoff-filter/>`_
 
-.. Instead of "How To setup php-syslog-ng with MonitorWare Products?" the product is no longer available
-
 - `How setup EventReporter to view EventLogs in Adiscon LogAnalyzer? <https://loganalyzer.adiscon.com/articles/how-to-setup-EventReporter-to-view-windows-eventlogs-in-adiscon-loganalyzer/>`_
 
 - `Monitoring MS ISA Firewall Logfiles via Syslog? <https://www.mwagent.com/step-by-step-guides/installation-and-configuration/monitoring-ms-isa-firewall-logfiles-via-syslog/>`_

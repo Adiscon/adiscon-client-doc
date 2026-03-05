@@ -52,11 +52,6 @@ Installations and Configurations
   <https://www.winsyslog.com/step-by-step-guides/installation-and-configuration/mw
   agent-setup/>`_
 
-- `how to setup php-syslog-ng with monitorware products?
-  <https://www.winsyslog.com/step-by-step-guides/installation-and-configuration/ho
-  w-to-setup-phpsyslogng-with-monitorware-products/>`_
-
-
 services
 ^^^^^^^^
 
