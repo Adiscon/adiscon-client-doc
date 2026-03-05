@@ -25,9 +25,10 @@ specific events.
 Larger environments consolidate Rsyslog Windows Agent data in a central
 repository like the MonitorWare event database or combined log files. Database
 is the source of information for all reporting and analysis modules of the
-MonitorWare system. By default, database can be created with MySQL, Microsoft
-Access, or Microsoft SQL Server (also available as cost-free MSDE). As standard
-SQL and ODBC are being used, it is easily adaptable to other database systems.
+MonitorWare system. By default, database can be created with MySQL or MariaDB,
+Microsoft Access, or Microsoft SQL Server (including SQL Server Express). As
+standard SQL and ODBC are being used, it is easily adaptable to other database
+systems.
 For example, we know that many customers use it successfully with Oracle
 databases.
 

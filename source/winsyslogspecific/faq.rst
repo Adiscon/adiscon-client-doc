@@ -19,7 +19,6 @@ Here you find FAQ about the WinSyslog Products:
    faq/what-is-freeware-mode
    faq/defaulttime-explained
    faq/export-settings-support-call
-   faq/mysql-update
    faq/winsyslog-vs-kiwi-syslog-server
    faq/copying-configuration
    faq/originating-ip-address

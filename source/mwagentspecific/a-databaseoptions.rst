@@ -8,7 +8,7 @@ compliant database (virtually any database system currently available for the
 Windows operating system supports ODBC). We support any database system
 that provides OLEDB or ODBC drivers. This includes Microsoft
 JET databases (as used by Microsoft Access), Microsoft SQL Server, MySQL,
-Oracle, PostgreSQL, Sybase, and many other database systems.
+MariaDB, Oracle, PostgreSQL, Sybase, and many other database systems.
 
 Once stored inside the database, different message viewers as well as custom
 applications can easily browse them. The defaults for the write database action

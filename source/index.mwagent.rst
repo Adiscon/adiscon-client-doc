@@ -73,8 +73,8 @@ In larger environments, you consolidate MonitorWare Agent data in a central
 :doc:`repository <../glossaryofterms/repository>`, such as the MonitorWare event :doc:`database <../glossaryofterms/database>` or
 combined log files. The :doc:`database <../glossaryofterms/database>` is the information source for all
 reporting and analysis modules of the MonitorWare system. By default, you
-can create the :doc:`database <../glossaryofterms/database>` with MySQL, Microsoft Access, or Microsoft
-SQL Server (also available as the cost-free MSDE). Since we use standard SQL
+can create the :doc:`database <../glossaryofterms/database>` with MySQL or MariaDB, Microsoft Access, or Microsoft
+SQL Server (including SQL Server Express). Since we use standard SQL
 and support both OLEDB and ODBC drivers, you can easily adapt MonitorWare to any :doc:`database <../glossaryofterms/database>` system
 that provides compatible drivers. This includes Oracle, PostgreSQL, and many other database systems.
 
@@ -107,7 +107,7 @@ diagram illustrates this process:
     is often used, ensuring reliable and secure delivery.
 4.  **Central Repository (database/Log Files):**
     In the central system, the received events are stored in a :doc:`database <../glossaryofterms/database>`
-    (e.g., MySQL, MS SQL Server, Oracle) or in combined log files. This :doc:`repository <../glossaryofterms/repository>` serves
+    (e.g., MySQL, MariaDB, MS SQL Server, Oracle) or in combined log files. This :doc:`repository <../glossaryofterms/repository>` serves
     as a consolidated information source for all subsequent steps.
 5.  **Analysis and Reporting:**
     The centrally stored data is utilized by the analysis and reporting modules
