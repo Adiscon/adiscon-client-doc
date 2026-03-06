@@ -28,6 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from conf_common import (
+    enable_json_ld,
     enable_spelling_extension,
     get_spelling_word_list,
     get_shared_templates_path,
@@ -241,3 +242,7 @@ pdf_documents = [
      author, 'MonitorWareAgent', 'Log Consolidator and Alerter.',
      'System Tools'),
 ]
+
+
+def setup(app):
+    enable_json_ld(app)
