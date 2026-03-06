@@ -272,13 +272,13 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 - Keep FAQ pages self-contained. Avoid "Related Information" sections that cross-link to other manuals unless they are guarded with `.. only::` tags per Rule 4 above.
 - If a page truly needs labels from other manuals, prefer plain hyperlinks or guard the cross-manual `:doc:` links with `.. only::`.
 
-### 4.8 Exclude Patterns for Per-Product Builds
+### 4.6 Exclude Patterns for Per-Product Builds
 
 - The `exclude_patterns` in each `<product>/conf.py` should exclude other manuals to speed up builds, but never exclude pages that are referenced in that product's `index.<product>.rst` toctree. Excluding a toctree target causes the error: "document isn't included in any toctree".
 - `winsyslog` and `winsyslog-j` should be kept in parity. The `winsyslog-j` build is the same as `winsyslog` but with extra Japanese-specific files; it should not exclude the whole WinSyslog FAQ toctree.
 - When adding new cross-manual FAQ entries, verify that other products either exclude those files or guard links with `.. only::` to avoid leaking content into sidebars.
 
-### 4.9 Environment Setup Gotchas
+### 4.7 Environment Setup Gotchas
 
 - `sphinx-build`, `doc8`, and other tools are installed under `~/.local/bin` by default. Prepend this to PATH before running `make`:
 
@@ -309,7 +309,7 @@ pip install -r requirements.txt -r requirements-qa.txt
   execution for both linters (`doc8` and `rstcheck`). If your system does not
   provide `python`, run with `make validate-rst PYTHON=python3`.
 
-### 4.4 Pre-Change Checklist
+### 4.8 Pre-Change Checklist
 
 Before making any changes:
 
@@ -324,7 +324,7 @@ Before making any changes:
 9. **Preserve FileConfig variable names**: Never change spelling, capitalization, or formatting of FileConfig variable names - they are part of the actual configuration system
 10. **Consult RST_RULES.md**: For comprehensive RST syntax rules and examples, refer to the `RST_RULES.md` file which provides detailed guidelines for correct reStructuredText formatting
 
-### 4.5 Post-Change Validation
+### 4.9 Post-Change Validation
 
 **CRITICAL REQUIREMENT**: After making ANY changes to `.rst` files, you MUST run the full build process and all validation checks to ensure no warnings or errors are introduced.
 
@@ -370,7 +370,7 @@ Before making any changes:
 - Spelling errors reduce documentation credibility
 - Consistent formatting improves readability and maintainability
 
-### 4.6 Pre-Pull Request Checklist
+### 4.10 Pre-Pull Request Checklist
 
 **MANDATORY**: Before creating a pull request, you MUST run all validation checks to ensure the codebase is ready for review.
 
