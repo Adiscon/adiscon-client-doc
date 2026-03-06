@@ -129,7 +129,7 @@ Licensing Comparison
    * - Licensed Version
      - Subscription-based
      - One-time or competitive licensing
-   * - Upgrade Insurance
+   * - :ref:`UpgradeInsurance <upgradeinsurance-explainer>`
      - Not applicable
      - Available option
    * - Trial
@@ -160,7 +160,7 @@ Support and Development
      - User-driven (quarterly feature implementation)
    * - Product Updates
      - Regular releases
-     - Regular releases with upgrade insurance option
+     - Regular releases with :ref:`UpgradeInsurance <upgradeinsurance-explainer>` option
 
 Key WinSyslog Advantages
 --------------------------

@@ -57,7 +57,7 @@ Manual
    rsyslogwaspecific/commonuses
    rsyslogwaspecific/rsyslogwa
    rsyslogwaspecific/gettinghelp
-   rsyslogwaspecific/purchasingrsyslogwa
+   shared/sales/index
    rsyslogwaspecific/articles
    rsyslogwaspecific/faq
    rsyslogwaspecific/references

@@ -22,4 +22,6 @@ independently when needed.
 
    gettingstarted/index
    references/index
+   contact-language-policy
    faq/mariadb-odbc-support
+   sales/index
