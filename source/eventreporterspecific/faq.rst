@@ -14,6 +14,7 @@ Here you find FAQ about EventReporter:
    faq/openssl-cve-impact
    faq/start-program-action-troubleshooting
    faq/queue-buildup-sql-server-cleanup
+   faq/order-of-stopping-service
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/mariadb-odbc-support
 
