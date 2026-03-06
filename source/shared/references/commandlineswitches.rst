@@ -51,7 +51,7 @@ CFGEvntSLog.exe example.cfg
 WINSyslogClient.exe example.cfg
 
 
-**Sample for Rsyslog Windows Agent:**
+**Sample for rsyslog Windows Agent:**
 
 RsyslogConfigClient.exe example.cfg
 
@@ -69,7 +69,7 @@ CFGEvntSLog.exe "example.cfg"
 
 WINSyslogClient.exe "example.cfg"
 
-**Sample for Rsyslog Windows Agent:**
+**Sample for rsyslog Windows Agent:**
 
 RsyslogConfigClient.exe "example.cfg"
 

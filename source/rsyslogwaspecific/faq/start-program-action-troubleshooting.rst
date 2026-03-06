@@ -1,14 +1,14 @@
 .. _start-program-action-troubleshooting-rsyslog:
 
-Troubleshooting the Start Program action in Rsyslog
+Troubleshooting the Start Program action in rsyslog
 ===================================================
 
-This article explains common issues with the Start Program action in Rsyslog and provides solutions to resolve them.
+This article explains common issues with the Start Program action in rsyslog and provides solutions to resolve them.
 
 Background
 ----------
 
-The Start Program action allows Rsyslog to execute external programs or scripts when specific syslog message conditions are met. However, there are several common issues that can prevent this action from working correctly on Linux/Unix systems.
+The Start Program action allows rsyslog to execute external programs or scripts when specific syslog message conditions are met. However, there are several common issues that can prevent this action from working correctly on Linux/Unix systems.
 
 Common Issues and Solutions
 ---------------------------
@@ -21,7 +21,7 @@ Common Issues and Solutions
 - The external program works when run manually from command line
 
 **Root Cause:**
-Rsyslog may not be able to locate the executable file due to path issues or missing dependencies.
+rsyslog may not be able to locate the executable file due to path issues or missing dependencies.
 
 **Solutions:**
 
@@ -35,26 +35,26 @@ Rsyslog may not be able to locate the executable file due to path issues or miss
    - Test the command manually from terminal
 
 3. **Check PATH environment variable**
-   - Rsyslog may not have access to the same PATH as your user session
+   - rsyslog may not have access to the same PATH as your user session
    - Use full paths instead of relying on PATH resolution
 
 **Issue 2: Permission problems**
 
 **Symptoms:**
 - No error messages in system log
-- Program works when run manually but not through Rsyslog
+- Program works when run manually but not through rsyslog
 
 **Root Cause:**
-Rsyslog runs as a system service with different permissions than your user account.
+rsyslog runs as a system service with different permissions than your user account.
 
 **Solutions:**
 
 1. **Check file permissions**
    - Ensure the executable has execute permissions: ``chmod +x /path/to/script``
-   - Check if Rsyslog user can access the file: ``sudo -u rsyslog /path/to/script``
+   - Check if rsyslog user can access the file: ``sudo -u rsyslog /path/to/script``
 
 2. **Check directory permissions**
-   - Ensure Rsyslog can access the directory containing the script
+   - Ensure rsyslog can access the directory containing the script
    - Check parent directory permissions: ``ls -la /path/to/``
 
 3. **Use appropriate file locations**
@@ -68,7 +68,7 @@ Rsyslog runs as a system service with different permissions than your user accou
 - Relative paths in scripts don't work
 
 **Root Cause:**
-The working directory when Rsyslog executes the program may be different from expected.
+The working directory when rsyslog executes the program may be different from expected.
 
 **Solutions:**
 
@@ -87,7 +87,7 @@ The working directory when Rsyslog executes the program may be different from ex
 - Scripts fail due to missing environment settings
 
 **Root Cause:**
-Rsyslog service may not have access to the same environment variables as your user session.
+rsyslog service may not have access to the same environment variables as your user session.
 
 **Solutions:**
 
@@ -106,7 +106,7 @@ Rsyslog service may not have access to the same environment variables as your us
 - Wrong interpreter is used for scripts
 
 **Root Cause:**
-Rsyslog may not use the same shell or interpreter as your user session.
+rsyslog may not use the same shell or interpreter as your user session.
 
 **Solutions:**
 
@@ -123,7 +123,7 @@ Troubleshooting Steps
 ---------------------
 
 1. **Check system logs**
-   - View Rsyslog logs: ``journalctl -u rsyslog``
+   - View rsyslog logs: ``journalctl -u rsyslog``
    - Check system log: ``tail -f /var/log/syslog``
    - Look for error messages related to your script
 
@@ -132,10 +132,10 @@ Troubleshooting Steps
    - Example: ``echo "Test" > /tmp/test.txt``
 
 3. **Verify the command works manually**
-   - Run the exact same command that Rsyslog should execute
+   - Run the exact same command that rsyslog should execute
    - Test as the rsyslog user: ``sudo -u rsyslog /path/to/script``
 
-4. **Check Rsyslog configuration**
+4. **Check rsyslog configuration**
    - Verify the action is properly configured in ``/etc/rsyslog.conf``
    - Ensure the rule is being triggered correctly
 
@@ -146,9 +146,9 @@ Troubleshooting Steps
 Example Working Configuration
 -------------------------------
 
-Here's an example of a properly configured Start Program action for Rsyslog:
+Here's an example of a properly configured Start Program action for rsyslog:
 
-**Rsyslog configuration:**
+**rsyslog configuration:**
 
 .. code-block:: text
 
@@ -174,13 +174,13 @@ Additional Tips
 ---------------
 
 - **Security considerations:** Be careful with scripts that process syslog data
-- **Performance:** Keep external programs lightweight to avoid impacting Rsyslog performance
+- **Performance:** Keep external programs lightweight to avoid impacting rsyslog performance
 - **Error handling:** Add proper error handling to your scripts
 - **Logging:** Add logging to your scripts to help troubleshoot issues
 - **Testing:** Always test scripts thoroughly before deploying in production
 
 If you continue to experience issues after following these steps, please contact Adiscon support with:
-- Rsyslog version
+- rsyslog version
 - Linux distribution and version
 - Exact command being executed
 - Any error messages from system logs

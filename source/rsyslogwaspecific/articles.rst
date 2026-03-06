@@ -1,7 +1,7 @@
 Articles
 ========
 
-Here you find articles for Rsyslog:
+Here you find articles for rsyslog:
 
 
 .. toctree::

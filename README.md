@@ -8,7 +8,7 @@ built into HTML, PDF, and CHM formats.
 ## Products Covered
 - WinSyslog
 - WinSyslog-J
-- Rsyslog
+- rsyslog
 - MonitorWare Agent (MWAgent)
 - EventReporter
 - SyslogViewer

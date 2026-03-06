@@ -12,7 +12,7 @@ Applies To
 
 * WinSyslog
 * MonitorWare Agent
-* Rsyslog Windows Agent
+* rsyslog Windows Agent
 
 Problem
 -------
@@ -77,7 +77,7 @@ The most important setting for high-load systems is the Worker Threads configura
    * If automatic configuration reload is enabled, the service will reload automatically
    * If automatic configuration reload is disabled, manually restart the service
 
-**For Rsyslog Windows Agent:**
+**For rsyslog Windows Agent:**
 
 1. Open the product configuration interface
 2. Navigate to the **Queue Manager** or equivalent section (location may vary by product)
@@ -117,7 +117,7 @@ For busy production systems, avoid making large configuration changes directly:
 If automatic configuration reload is disabled and you need to restart the service, or if the configuration client service restart fails or times out:
 
 1. Open Windows Services Management Console (services.msc)
-2. Locate the product service (WinSyslog, MonitorWare Agent, or Rsyslog Windows Agent service)
+2. Locate the product service (WinSyslog, MonitorWare Agent, or rsyslog Windows Agent service)
 3. Right-click and select **Restart** (or **Stop** then **Start**)
 4. The Services Console provides more reliable service control under high load
 

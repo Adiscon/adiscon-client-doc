@@ -65,6 +65,7 @@ CharMatch
 CipherString
 CipherSuite
 Client-Server
+cloud-init
 CompareOperation
 Computername
 Config
@@ -439,8 +440,7 @@ RestOfMessage
 Right-click
 Rollout
 Rollouts
-Rsyslog
-Rsyslog-windows-agent-eula
+rsyslog-windows-agent-eula
 RsyslogConfigClient
 RuleSet
 RuleSets

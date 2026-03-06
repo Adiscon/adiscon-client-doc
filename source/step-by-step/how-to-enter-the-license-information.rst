@@ -9,7 +9,7 @@ This article describes how to enter the license information you received via
 mail by buying one of our products.
 
 The Article is applicable to EventReporter, MonitorWare Agent, WinSyslog and
-Rsyslog WindowsAgent.
+rsyslog WindowsAgent.
 
 
 The license screen can be found on the left side of the client under the item

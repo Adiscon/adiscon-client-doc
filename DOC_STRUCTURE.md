@@ -2,7 +2,7 @@
 
 ## 1. High-Level Overview
 
-This document outlines the current structure of the Adiscon documentation project. The content is organized into a mix of general categories and product-specific folders. A significant portion of the documentation, especially concerning core concepts, is shared across multiple products. The primary products covered are **WinSyslog**, **EventReporter**, **MonitorWare Agent**, **Rsyslog Windows Agent**, and **SyslogViewer**.
+This document outlines the current structure of the Adiscon documentation project. The content is organized into a mix of general categories and product-specific folders. A significant portion of the documentation, especially concerning core concepts, is shared across multiple products. The primary products covered are **WinSyslog**, **EventReporter**, **MonitorWare Agent**, **rsyslog Windows Agent**, and **SyslogViewer**.
 
 ## 2. Core Technical Concepts
 
@@ -29,7 +29,7 @@ The following is a breakdown of the main content categories found in the `source
 | `producttour/` | Product feature demonstrations and walkthroughs. | **Shared** | 38 .rst files |
 | `winsyslogspecific/` | Content unique to the WinSyslog product. | **Product-Specific** (WinSyslog) | 40 .rst files |
 | `eventreporterspecific/` | Content unique to the EventReporter product. | **Product-Specific** (EventReporter) | 28 .rst files |
-| `rsyslogwaspecific/` | Content unique to the Rsyslog Windows Agent. | **Product-Specific** (Rsyslog WA) | 27 .rst files |
+| `rsyslogwaspecific/` | Content unique to the rsyslog Windows Agent. | **Product-Specific** (rsyslog WA) | 27 .rst files |
 | `interactivesyslogviewer/` | Manual for the Interactive SyslogViewer tool. | **Product-Specific** (SyslogViewer) | 15 .rst files |
 | `mwagentspecific/` | MonitorWare Agent-specific configuration and features. | **Product-Specific** (MonitorWare Agent) | 94 .rst files |
 
@@ -44,7 +44,7 @@ MonitorWare Agent now uses the `mwagentspecific/` directory, aligning with the n
   - MonitorWare Agent: 94 .rst files (`mwagentspecific/`)
   - WinSyslog: 40 .rst files (`winsyslogspecific/`)
   - EventReporter: 28 .rst files (`eventreporterspecific/`)
-  - Rsyslog WA: 27 .rst files (`rsyslogwaspecific/`)
+  - rsyslog WA: 27 .rst files (`rsyslogwaspecific/`)
   - SyslogViewer: 15 .rst files (`interactivesyslogviewer/`)
 - **Total:** 367 .rst files across the entire documentation
 

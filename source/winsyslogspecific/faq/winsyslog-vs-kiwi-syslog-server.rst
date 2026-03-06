@@ -77,7 +77,7 @@ Feature Comparison
    * - TLS Support
      - Yes (for secure TCP)
      - Yes – Built-in secure transport
-   * - Rsyslog Integration
+   * - rsyslog Integration
      - Basic forwarding
      - Seamless integration
    * - Windows Event Log

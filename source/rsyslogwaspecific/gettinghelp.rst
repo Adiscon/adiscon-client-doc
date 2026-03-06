@@ -1,7 +1,7 @@
 Getting Help
 ============
 
-Rsyslog Windows Agent is very reliable. In the event you experience problems,
+rsyslog Windows Agent is very reliable. In the event you experience problems,
 find here how to solve them.
 
 **Please note that all options (except priority support) are also open to
@@ -79,7 +79,7 @@ are interested in doing so, please contact us via the
 for further details.
 
 
-**Rsyslog Windows Agent Web Site**
+**rsyslog Windows Agent Web Site**
 
 Visit the support area at http://www.Rsyslog.com/windows-agent/support/ for
 further information. If for any reason that URL ever becomes invalid, please

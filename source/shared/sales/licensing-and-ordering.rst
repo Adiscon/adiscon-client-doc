@@ -24,7 +24,7 @@ Details
 Trial period
 ~~~~~~~~~~~~
 
-WinSyslog, EventReporter, MonitorWare Agent, and Rsyslog Windows Agent provide
+WinSyslog, EventReporter, MonitorWare Agent, and rsyslog Windows Agent provide
 30-day trial functionality after installation. After that period, a valid
 license is required for full-feature operation.
 
@@ -50,8 +50,8 @@ Product-specific links
      - `EventReporter ordering page <https://www.eventreporter.com/products-prices/order-now/>`_
    * - MonitorWare Agent
      - `MonitorWare Agent ordering page <https://www.mwagent.com/order-and-pricing/order-now/>`_
-   * - Rsyslog Windows Agent
-     - `Rsyslog Windows Agent ordering page <https://www.rsyslog.com/windows-agent/>`_
+   * - rsyslog Windows Agent
+     - `rsyslog Windows Agent ordering page <https://www.rsyslog.com/windows-agent/>`_
 
 Choosing an edition
 ~~~~~~~~~~~~~~~~~~~
