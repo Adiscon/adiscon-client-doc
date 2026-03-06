@@ -289,7 +289,9 @@ pip install -r requirements.txt -r requirements-qa.txt
 - Always preserve the exact variable names as they appear in the original documentation
 - This includes preserving typos, unusual capitalization, and non-standard formatting
 
-- **Note on doc8**: If the `doc8` command is not found when running `make validate-rst`, use `python -m doc8` instead. The Makefile has been updated to use this form.
+- **Note on Python invocation for linters**: `make validate-rst` uses Python module
+  execution for both linters (`doc8` and `rstcheck`). If your system does not
+  provide `python`, run with `make validate-rst PYTHON=python3`.
 
 ### 4.4 Pre-Change Checklist
 
@@ -321,7 +323,8 @@ Before making any changes:
    - Checks for RST syntax errors, formatting issues, and style violations
    - Uses `doc8` for style checking and `rstcheck` for syntax validation
    - Fixes common issues like missing newlines at end of file, trailing whitespace, and invalid directives
-   - **Note**: If `doc8` command is not found, use `python -m doc8` instead
+   - **Note**: If your environment lacks `python`, run
+     `make validate-rst PYTHON=python3`
 
 3. **Run spelling check**: `make spelling`
    - Validates spelling across all documentation products

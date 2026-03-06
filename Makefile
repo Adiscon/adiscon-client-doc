@@ -353,17 +353,18 @@ DOC8_MAX_LINE_LENGTH ?= 1000
 RSTCHECK_IGNORE_DIRECTIVES ?= toctree,index,only,highlight
 RSTCHECK_IGNORE_ROLES ?= doc,ref
 RSTCHECK_IGNORE_LANGUAGES ?= none
+PYTHON ?= python3
 
 .PHONY: validate-rst
 validate-rst:
 	@echo "$(COLOR_BLUE)Running doc8...$(COLOR_RESET)"
-	@python -m doc8 --max-line-length $(DOC8_MAX_LINE_LENGTH) $(RST_LINT_PATHS)
+	@$(PYTHON) -m doc8 --max-line-length $(DOC8_MAX_LINE_LENGTH) $(RST_LINT_PATHS)
 	@echo "$(COLOR_BLUE)Running rstcheck...$(COLOR_RESET)"
-	@rstcheck --recursive --report-level WARNING \
-	        --ignore-directives $(RSTCHECK_IGNORE_DIRECTIVES) \
-	        --ignore-roles $(RSTCHECK_IGNORE_ROLES) \
-	        --ignore-languages $(RSTCHECK_IGNORE_LANGUAGES) \
-	        $(RST_LINT_PATHS)
+	@$(PYTHON) -m rstcheck --recursive --report-level WARNING \
+		--ignore-directives $(RSTCHECK_IGNORE_DIRECTIVES) \
+		--ignore-roles $(RSTCHECK_IGNORE_ROLES) \
+		--ignore-languages $(RSTCHECK_IGNORE_LANGUAGES) \
+		$(RST_LINT_PATHS)
 	@echo "$(COLOR_GREEN)✓ reStructuredText linting completed$(COLOR_RESET)"
 
 # -----------------------------------------------------------------------------
