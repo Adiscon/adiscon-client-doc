@@ -65,7 +65,6 @@ CharMatch
 CipherString
 CipherSuite
 Client-Server
-cloud-init
 CompareOperation
 Computername
 Config
@@ -365,6 +364,7 @@ PHP
 PING
 PIX
 POP3
+POSIX
 POST
 PROGRA
 Palo
@@ -440,7 +440,6 @@ RestOfMessage
 Right-click
 Rollout
 Rollouts
-rsyslog-windows-agent-eula
 RsyslogConfigClient
 RuleSet
 RuleSets
@@ -527,7 +526,6 @@ TCP-based
 TCP-specific
 TIMED
 TIMETICKS
-timeframes
 TLS
 TLS1
 TLSv1
@@ -712,6 +710,7 @@ adiscons-interactive-SyslogViewer
 adisconteam
 agent-4-0
 agent-setup
+air-gapped
 all-new
 an-unix-like-logger-for-windows
 anti-SPAM
@@ -755,6 +754,7 @@ centralized-monitoring-and-report
 centralized-monitoring-and-reporting
 cfg
 checkboxes
+cloud-init
 co-exist
 co-ordinated
 code-block
@@ -937,6 +937,7 @@ fromPos
 fromhost
 front-end
 full-featured
+gapped
 general-options
 general-options-j
 general-questions
@@ -1526,10 +1527,12 @@ rswaconcepts-actions
 rswaconcepts-filterconditions
 rswaconcepts-services
 rsyslog
+rsyslog-windows-agent-eula
 rule-based
 rulebase
 ruleset
 rulesets
+runbooks
 rver-mwa30-2
 s-ip
 s-mwa42
@@ -1741,6 +1744,7 @@ this-is-a-step-by-step-guide-which-describes-how-to-windows-update-log
 three-character
 three-quarters
 time-based
+timeframes
 timereported
 timestamp-type
 tls-ca
@@ -1827,5 +1831,3 @@ year-month-day
 yy
 zLib
 ö
-POSIX
-runbooks

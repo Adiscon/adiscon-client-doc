@@ -44,6 +44,13 @@ Coverage continuity and reinstatement
 * Reinstatement is back-dated to the previous coverage end date or, if it was
   never purchased, to the original license purchase date.
 
+Difference from the base license
+--------------------------------
+
+UpgradeInsurance is separate from the base product license. For the distinction
+between perpetual licenses and this time-limited service, see
+:ref:`sales-perpetual-license-upgradeinsurance`.
+
 Examples
 --------
 

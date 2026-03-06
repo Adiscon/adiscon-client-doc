@@ -67,6 +67,16 @@ Licensing and counting rules can be product-specific. For now, use the sales
 ticket process to clarify product-specific licensing details. These details will
 be documented in dedicated product-specific sales pages.
 
+Offline and licensing behavior
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For common licensing and deployment questions, see these canonical answers:
+
+* :ref:`sales-air-gapped-environments`
+* :ref:`sales-offline-installation-activation`
+* :ref:`sales-online-verification-after-activation`
+* :ref:`sales-perpetual-license-upgradeinsurance`
+
 Purchase methods
 ~~~~~~~~~~~~~~~~
 

@@ -21,6 +21,8 @@ Quick actions
   :doc:`purchase-orders-and-billing`.
 * I need product licensing and ordering links:
   :doc:`licensing-and-ordering`.
+* I need to confirm offline or air-gapped licensing behavior:
+  :doc:`air-gapped-environments`.
 * I need UpgradeInsurance policy details:
   :doc:`upgradeinsurance`.
 
@@ -32,4 +34,8 @@ Quick actions
    what-happens-after-sales-ticket
    purchase-orders-and-billing
    licensing-and-ordering
+   air-gapped-environments
+   offline-installation-and-activation
+   online-verification-after-activation
+   perpetual-license-and-upgradeinsurance
    upgradeinsurance
