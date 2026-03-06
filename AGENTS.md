@@ -180,6 +180,13 @@ Common path mappings for "General Options":
 
 Never use `../general-options` (hyphenated) for WinSyslog pages; that file name does not exist and will break builds.
 
+**Rule 4a: Preferred cross-reference strategy (in order)**
+
+1. Use `:ref:` to a stable label on a shared page when possible.
+2. Use `:doc:` for same-manual links and guaranteed shared pages.
+3. Use guarded `.. only::` blocks for product-specific cross-manual links.
+4. Use external URLs only when an internal target cannot be made build-safe.
+
 ### 4.3 Common Patterns in This Repository
 
 **Rule 4: Product name consistency**
@@ -239,7 +246,16 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 ```
 
 **Rule 9a: FileConfig variable names are case-sensitive and must be preserved exactly**
-### 4.4 FAQ and Navigation Hygiene (IMPORTANT)
+### 4.4 AI Ingestibility and Canonical Answers (IMPORTANT)
+
+- For high-traffic user intents (sales questions, troubleshooting, policy topics), prefer **one intent/question per page**.
+- Each such page should include a stable structure: `Question`, `Answer`, `Details`, `Action path`, and `Related information`.
+- Add a stable label (`.. _label-name:`) to key pages so other pages can cross-link with `:ref:`.
+- Keep policy statements in one canonical page only (for example pricing policy, maintenance policy, licensing edge cases). Other pages should summarize briefly and link to the canonical page.
+- Avoid conflicting duplicate policy text across multiple pages. If duplicated text is unavoidable, keep one section marked as canonical and link back to it.
+- Prefer short, explicit answer blocks over narrative-only paragraphs so both humans and AI systems can retrieve precise answers.
+
+### 4.5 FAQ and Navigation Hygiene (IMPORTANT)
 
 - **Do NOT include `source/shared/faq-supporting-labels.rst` or `source/shared/supporting-labels.rst` inside product FAQ articles OR shared FAQ files.** These helpers inject hidden toctrees that can pollute FAQ sidebars with unrelated entries from other manuals. Include them only on dedicated supporting pages – not on actual FAQ articles.
 - **Shared FAQ files that are referenced from product-specific toctrees MUST use `:orphan:` directive** to avoid "document isn't included in any toctree" errors when building shared content in isolation. Example:
@@ -256,13 +272,13 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 - Keep FAQ pages self-contained. Avoid "Related Information" sections that cross-link to other manuals unless they are guarded with `.. only::` tags per Rule 4 above.
 - If a page truly needs labels from other manuals, prefer plain hyperlinks or guard the cross-manual `:doc:` links with `.. only::`.
 
-### 4.7 Exclude Patterns for Per-Product Builds
+### 4.8 Exclude Patterns for Per-Product Builds
 
 - The `exclude_patterns` in each `<product>/conf.py` should exclude other manuals to speed up builds, but never exclude pages that are referenced in that product's `index.<product>.rst` toctree. Excluding a toctree target causes the error: "document isn't included in any toctree".
 - `winsyslog` and `winsyslog-j` should be kept in parity. The `winsyslog-j` build is the same as `winsyslog` but with extra Japanese-specific files; it should not exclude the whole WinSyslog FAQ toctree.
 - When adding new cross-manual FAQ entries, verify that other products either exclude those files or guard links with `.. only::` to avoid leaking content into sidebars.
 
-### 4.8 Environment Setup Gotchas
+### 4.9 Environment Setup Gotchas
 
 - `sphinx-build`, `doc8`, and other tools are installed under `~/.local/bin` by default. Prepend this to PATH before running `make`:
 
