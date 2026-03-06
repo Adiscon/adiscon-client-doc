@@ -360,11 +360,22 @@ validate-rst:
 	@echo "$(COLOR_BLUE)Running doc8...$(COLOR_RESET)"
 	@$(PYTHON) -m doc8 --max-line-length $(DOC8_MAX_LINE_LENGTH) $(RST_LINT_PATHS)
 	@echo "$(COLOR_BLUE)Running rstcheck...$(COLOR_RESET)"
-	@$(PYTHON) -m rstcheck --recursive --report-level WARNING \
-		--ignore-directives $(RSTCHECK_IGNORE_DIRECTIVES) \
-		--ignore-roles $(RSTCHECK_IGNORE_ROLES) \
-		--ignore-languages $(RSTCHECK_IGNORE_LANGUAGES) \
-		$(RST_LINT_PATHS)
+	@if command -v rstcheck >/dev/null 2>&1; then \
+		rstcheck --recursive --report-level WARNING \
+			--ignore-directives $(RSTCHECK_IGNORE_DIRECTIVES) \
+			--ignore-roles $(RSTCHECK_IGNORE_ROLES) \
+			--ignore-languages $(RSTCHECK_IGNORE_LANGUAGES) \
+			$(RST_LINT_PATHS); \
+	elif $(PYTHON) -m rstcheck --help >/dev/null 2>&1; then \
+		$(PYTHON) -m rstcheck --recursive --report-level WARNING \
+			--ignore-directives $(RSTCHECK_IGNORE_DIRECTIVES) \
+			--ignore-roles $(RSTCHECK_IGNORE_ROLES) \
+			--ignore-languages $(RSTCHECK_IGNORE_LANGUAGES) \
+			$(RST_LINT_PATHS); \
+	else \
+		echo "$(COLOR_RED)Error: rstcheck is not installed. Install QA dependencies with 'pip install -r requirements-qa.txt'.$(COLOR_RESET)"; \
+		exit 1; \
+	fi
 	@echo "$(COLOR_GREEN)✓ reStructuredText linting completed$(COLOR_RESET)"
 
 # -----------------------------------------------------------------------------

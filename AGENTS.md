@@ -305,9 +305,10 @@ pip install -r requirements.txt -r requirements-qa.txt
 - Always preserve the exact variable names as they appear in the original documentation
 - This includes preserving typos, unusual capitalization, and non-standard formatting
 
-- **Note on Python invocation for linters**: `make validate-rst` uses Python module
-  execution for both linters (`doc8` and `rstcheck`). If your system does not
-  provide `python`, run with `make validate-rst PYTHON=python3`.
+- **Note on linter invocation**: `make validate-rst` runs `doc8` via Python
+  module execution and runs `rstcheck` via CLI (with `python -m rstcheck`
+  fallback if the CLI entrypoint is missing). If your system does not provide
+  `python`, run with `make validate-rst PYTHON=python3`.
 
 ### 4.8 Pre-Change Checklist
 
