@@ -417,6 +417,13 @@ make linkcheck                 # Check for broken links
 - The CI/CD pipeline will run these same checks and fail if issues are found
 - Fixing issues before PR submission saves time and reduces review cycles
 
+### 4.11 JSON-LD Structured Data (HTML Builds)
+
+- HTML manuals inject Schema.org JSON-LD via `conf_common.py` and each product `conf.py` `setup(app)` hook.
+- Keep this integration in place for all product manuals. Do not remove `enable_json_ld` imports or `setup(app)` wiring.
+- Default behavior is enabled. Disable only when explicitly required by setting `DISABLE_JSON_LD=1` (or `true`/`yes`) in the build environment.
+- When changing Sphinx config/template behavior, verify generated HTML still contains `<script type="application/ld+json">`.
+
 ## 5. How to Use AI Agents: Prompt Recipes
 
 To ensure consistency and efficiency, please use the following prompt templates when instructing an AI agent to perform tasks. These recipes are designed to provide clear, actionable instructions that help AI agents understand the context and requirements.
