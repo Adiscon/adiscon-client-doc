@@ -59,7 +59,7 @@ Manual
    eventreporterspecific/stepbystepguides
    eventreporterspecific/eventreporter
    eventreporterspecific/gettinghelp
-   eventreporterspecific/purchasingeventreporter
+   shared/sales/index
    eventreporterspecific/articles
    eventreporterspecific/faq
    eventreporterspecific/references

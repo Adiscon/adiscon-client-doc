@@ -68,8 +68,8 @@ Manual
    ../interactivesyslogviewer/index
    winsyslogspecific/winsyslog
    winsyslogspecific/gettinghelp
+   shared/sales/index
    winsyslogspecific/winsyslogconcepts
-   winsyslogspecific/purchasingwinsyslog
    winsyslogspecific/articles
    winsyslogspecific/faq
    winsyslogspecific/references

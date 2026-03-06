@@ -162,8 +162,8 @@ Manual
    interactivesyslogviewer/index
    mwagentspecific/index
    gettinghelp
+   shared/sales/index
    monitorwareconcepts
-   purchasingmwagent
    articles/index-mwagent
    mwagentspecific/faq
    shared/references/index
