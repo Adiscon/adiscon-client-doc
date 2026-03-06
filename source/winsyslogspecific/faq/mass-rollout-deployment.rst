@@ -139,7 +139,7 @@ For contemporary environments, consider these options:
 * **Group Policy:** Use GPO to deploy registry files and execute installation scripts
 * **PowerShell DSC:** Desired State Configuration for automated deployment
 * **Configuration Management:** Integrate with SCCM, Ansible, or similar tools
-* **Cloud Deployment:** Automate via cloud-init scripts for virtual machines
+* **Cloud Deployment:** Automate via cloud provisioning scripts for virtual machines
 
 Best Practices
 --------------

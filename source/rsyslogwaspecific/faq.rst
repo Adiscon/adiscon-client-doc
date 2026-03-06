@@ -1,7 +1,7 @@
 FAQ
 ===
 
-Here you find FAQ for Rsyslog:
+Here you find FAQ for rsyslog:
 
 
 .. toctree::

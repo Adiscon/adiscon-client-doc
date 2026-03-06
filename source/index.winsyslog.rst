@@ -1,59 +1,65 @@
 About WinSyslog
 ===============
 
-**WinSyslog is a powerful and professional-grade syslog server for Microsoft Windows. It is designed for demanding enterprise environments and provides the same core functionality as a Unix syslog daemon, but with extended capabilities, modular
-design, and seamless Windows integration.**
+**WinSyslog is a Windows syslog server for collecting, processing, storing, and
+forwarding log messages across Windows-centric and mixed environments. It helps
+IT operations, security, and compliance teams centralize syslog data from
+network devices, appliances, servers, and applications on a native Windows
+platform.**
 
-WinSyslog is actively maintained and continuously enhanced. With over two decades
-of development, it is one of the most mature, robust, and feature-rich syslog
-solutions available for the Windows platform today.
+Developed since 1996, WinSyslog was the first syslog server for Windows. It is
+built by the same team behind `rsyslog <https://www.Rsyslog.com>`_ and combines
+long-standing syslog expertise with a Windows-focused deployment and management
+model. Adiscon has published additional background on this shared engineering
+lineage in `The rsyslog Evolution: Bridging BSD Heritage with Adiscon Innovation <https://www.rsyslog.com/the-rsyslog-evolution-bridging-bsd-heritage-with-adiscon-innovation/>`_.
 
-Network administrators rely on WinSyslog to monitor critical infrastructure in
-real time and receive alerts the moment important events occur.
+`Syslog <https://www.adiscon.com/syslog>`_ remains one of the standard protocols
+for centralized event logging. Routers, switches, firewalls, printers,
+hypervisors, Linux systems, and many security appliances can all send syslog
+messages. WinSyslog provides the Windows-side collection point for these events
+and lets you route them to the destinations and workflows your environment
+requires.
 
-`Syslog <https://www.adiscon.com/syslog>`_ is a well-established protocol for centralized
-logging of system events. While it originated in the UNIX world, today it is used
-by nearly all networked devices—including routers, switches, firewalls, and printers—
-to report events, status updates, and diagnostics.
+WinSyslog is designed for environments that need more than a basic message
+receiver. It can receive syslog over UDP and TCP, support secure syslog
+transport with TLS, and integrate with RELP-based forwarding for reliable log
+delivery. It also runs as a native Windows service and fits naturally into
+Windows administration and monitoring practices.
 
-Microsoft Windows does not include a native syslog server (known as "syslogd" on UNIX).
-This is where Adiscon’s `WinSyslog <https://www.WinSyslog.com>`_ steps in. Developed
-since 1996, it was the first syslog server for Windows and remains a trusted
-solution for system and network administrators worldwide.
+.. figure:: /images/winsyslog-edge-collector-architecture.jpg
+   :alt: WinSyslog as a Windows edge collector that receives noisy log streams, filters and normalizes them, and forwards cleaner events to downstream systems
+   :align: center
 
-WinSyslog is developed by the same experienced team behind the industry-leading
-`Rsyslog <https://www.Rsyslog.com>`_ project, the de facto syslog standard in Linux.
-This shared expertise ensures deep protocol understanding and consistent
-implementation across platforms.
-
-The product has evolved significantly since its early days. Originally released
-as "NTSLog", it became "WinSyslog" starting with version 3 to reflect its
-expanded capabilities. Each release has introduced meaningful enhancements,
-with version 4 adding rule-based processing and modular services that allow
-for extremely flexible setups.
-
-WinSyslog can operate as a standalone solution or be combined with other Adiscon
-tools—such as `MonitorWare Agent <https://www.mwagent.com>`_ and
-`EventReporter <https://www.EventReporter.com>`_—to form a comprehensive, centralized
-event monitoring and alerting system for Windows-based infrastructures.
+   WinSyslog can act as a Windows edge collector that reduces noise and forwards
+   cleaner event streams to SIEMs, databases, files, and other downstream
+   systems.
 
 Typical use cases include:
 
-- Logging events from syslog-capable devices such as routers, switches, and printers
-- Long-term storage of logs in text files, ODBC databases, or the Windows Event Log
-- Real-time display of messages and automatic notification (e.g., via email) on critical events
-- Running multiple concurrent syslog listeners on different ports
+- Centralized logging for routers, switches, firewalls, wireless controllers,
+  printers, and other syslog-capable devices
+- Real-time alerting and event-driven automation for critical infrastructure and
+  security incidents
+- Long-term log storage in text files, ODBC databases, and the Windows Event
+  Log
+- Secure forwarding and relay scenarios that require TCP, TLS, or reliable log
+  transport
+- Edge or node-level collection in Windows environments, where WinSyslog can
+  remove noise, normalize messages, and forward cleaner event streams upstream
+- Windows-based syslog collection for SIEM pre-filtering, compliance retention,
+  and operational troubleshooting
 
-WinSyslog runs as a stable, low-maintenance Windows service that starts
-automatically with the system. Once configured, it operates reliably in the
-background, requiring no manual intervention.
+WinSyslog uses a flexible rule engine to filter, enrich, store, display, and
+forward events. You can use it as a standalone Windows syslog server or as part
+of a larger logging architecture with other Adiscon components and downstream
+analysis systems. In distributed logging pipelines, this also helps reduce
+unnecessary upstream traffic, storage volume, and processing load by dropping
+low-value events early and forwarding only the data that needs further
+retention or analysis.
 
-With decades of field-tested experience, WinSyslog delivers unmatched
-reliability and versatility for professionals who demand robust, scalable,
-and secure event logging on Windows systems.
-
-To learn more about the full suite of MonitorWare products, visit:
-`https://www.adiscon.com/products <https://www.adiscon.com/products>`_
+This manual covers installation, features, configuration, operations, FAQ
+content, and reference material for WinSyslog. Use the sections below to get
+started or go directly to the area you need.
 
 Manual
 ======

@@ -1,15 +1,15 @@
-Configuring Rsyslog Windows Agent
+Configuring rsyslog Windows Agent
 =================================
 
-In this chapter, you see how to configure the Rsyslog Windows Agent Service.
+In this chapter, you see how to configure the rsyslog Windows Agent Service.
 
-The Rsyslog Windows Agent service runs in the background once it is configured.
+The rsyslog Windows Agent service runs in the background once it is configured.
 There is no manual intervention needed to operate it. As such, this chapter
-focuses on the Rsyslog Windows Agent configuration client application. It is
+focuses on the rsyslog Windows Agent configuration client application. It is
 used to configure the service settings.
 
-To run the Rsyslog Windows Agent Configuration client, simply click its icon
-present in the Rsyslog program folder located in the Start menu. Once started,
+To run the rsyslog Windows Agent Configuration client, simply click its icon
+present in the rsyslog program folder located in the Start menu. Once started,
 a Window similar to the following one appears:
 
 

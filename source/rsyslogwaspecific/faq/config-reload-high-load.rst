@@ -1,14 +1,14 @@
 .. _config-reload-high-load-rsyslogwa:
 
-High-load configuration reload stalls in Rsyslog Windows Agent
+High-load configuration reload stalls in rsyslog Windows Agent
 ==============================================================
 
-This article explains why Rsyslog Windows Agent configuration reloads can stall under heavy load and how to stabilize reload behavior.
+This article explains why rsyslog Windows Agent configuration reloads can stall under heavy load and how to stabilize reload behavior.
 
 Problem
 -------
 
-During periods of high message volume, Rsyslog Windows Agent detects configuration changes but may not complete the reload process. The service can appear to hang during reloads and stop requests can time out.
+During periods of high message volume, rsyslog Windows Agent detects configuration changes but may not complete the reload process. The service can appear to hang during reloads and stop requests can time out.
 
 Symptoms
 --------
@@ -29,19 +29,19 @@ Solution
 Option 1: Increase worker threads
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Open the Rsyslog Windows Agent Configuration Client.
+1. Open the rsyslog Windows Agent Configuration Client.
 2. Navigate to **General Options > Queue Manager**.
 3. Set **Number of worker threads** to at least half the CPU core count.
 
    * Example: For an 8-core system, set at least 4 worker threads.
    * Example: For a 16-core system, set at least 8 worker threads.
 
-4. Save the configuration and allow Rsyslog Windows Agent to reload.
+4. Save the configuration and allow rsyslog Windows Agent to reload.
 
 Option 2: Upgrade to the latest build
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Upgrade to the latest Rsyslog Windows Agent build to pick up fixes that address configuration reload and log rotation behavior under load.
+Upgrade to the latest rsyslog Windows Agent build to pick up fixes that address configuration reload and log rotation behavior under load.
 
 Option 3: Reduce the Queue Limit when Action Queue is enabled
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -79,6 +79,6 @@ Verification
 ------------
 
 1. Check the Windows Application Event Log for Event ID 126 after configuration changes.
-2. Confirm Rsyslog Windows Agent service stop operations complete within the timeout period.
+2. Confirm rsyslog Windows Agent service stop operations complete within the timeout period.
 3. Monitor worker thread utilization and queue depth during peak load.
 4. Verify reload completion times are consistent under normal conditions.

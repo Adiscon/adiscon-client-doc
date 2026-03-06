@@ -1,4 +1,4 @@
-Rsyslog WindowsAgent - Services
+rsyslog WindowsAgent - Services
 ===============================
 
 Services gather events data. For example, the Syslog server service accepts
@@ -27,7 +27,7 @@ actions) if it does not receive heartbeats from WinSyslog.
 
 **MonitorWare Echo Reply**
 
-A central agent running the Rsyslog WindowsAgent is using the echo request and
+A central agent running the rsyslog WindowsAgent is using the echo request and
 instructs to poll each of the other WinSyslog services. When the request is not
 carried out successfully, an alert is generated. The MonitorWare echo protocol
 

@@ -1,11 +1,11 @@
 Common Uses
 ===========
 
-Rsyslog Windows Client can be used in several ways, due to its set of features.
+rsyslog Windows Client can be used in several ways, due to its set of features.
 
 The most common use is to forward Windows EventLogs to a central Syslog server,
-which is usually Rsyslog. That means, the EventLog will be polled for new
-entries and they will be forwarded to Rsyslog via syslog. Basically, the
+which is usually rsyslog. That means, the EventLog will be polled for new
+entries and they will be forwarded to rsyslog via syslog. Basically, the
 transition of Windows Events to Linux should be the most common case.
 
 In addition to the Windows EventLog, text file-based logs are the second-most to

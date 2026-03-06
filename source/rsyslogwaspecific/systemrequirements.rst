@@ -38,10 +38,10 @@ Service
   of disk space. However, the actual resources used by the agent largely depend
   on the services configured.
 
-* If the Rsyslog Windows Agent shall just monitor the local systems event log,
+* If the rsyslog Windows Agent shall just monitor the local systems event log,
   impact on the monitored system is barely noticeable, if at all visible.
 
-* If the Rsyslog Windows Agent acts as a central Syslog server receiving
+* If the rsyslog Windows Agent acts as a central Syslog server receiving
   hundreds of messages per second, it needs many more resources. Even then, the
   actual load is depending on the actions carried out. As such, there is no
   single guideline for hardware sizing. It needs to be adapted to the expected
@@ -58,7 +58,7 @@ Service
   (including overhead) takes roughly 4-8 KB. With 1024 MB, you can buffer up to
   100,000-200,000 messages in 1024 MB.
 
-* Please note that the Rsyslog Windows Agent is capable of storing such bursts
+* Please note that the rsyslog Windows Agent is capable of storing such bursts
   temporarily in memory even if the machine would otherwise be too slow to
   process the messages.
 

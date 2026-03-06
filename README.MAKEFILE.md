@@ -126,7 +126,7 @@ The documentation is organized into several projects:
 
 - **eventreporter** - EventReporter documentation
 - **mwagent** - MonitorWare Agent documentation
-- **rsyslog** - Rsyslog documentation
+- **rsyslog** - rsyslog documentation
 - **syslogviewer** - SyslogViewer documentation
 - **winsyslog** - Windows Syslog documentation
 - **winsyslog-j** - Windows Syslog Java edition documentation

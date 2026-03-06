@@ -86,7 +86,7 @@ A monitoring agent for Windows systems that:
 -   Provides alerting capabilities
 -   Integrates with central monitoring systems
 
-### Rsyslog
+### rsyslog
 The enhanced syslog daemon for Linux/Unix systems featuring:
 -   High-performance log processing
 -   Reliable event logging with queuing
@@ -190,7 +190,7 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 ### 4.3 Common Patterns in This Repository
 
 **Rule 4: Product name consistency**
-- Always use exact capitalization: `WinSyslog`, `EventReporter`, `MonitorWare Agent`, `Rsyslog`, `SyslogViewer`
+- Always use exact capitalization: `WinSyslog`, `EventReporter`, `MonitorWare Agent`, `rsyslog`, `SyslogViewer`
 - Never use variations like `Winsyslog`, `eventreporter`, `MW Agent`
 
 **Rule 5: Windows terminology**
@@ -456,7 +456,7 @@ Act as a senior technical writer. Your task is to perform a deep content cleanup
 1. Recursively scan all `.rst` files in the specified directory.
 
 2. Enforce terminological consistency:
-   - Product names must be spelled exactly as: WinSyslog, EventReporter, MonitorWare Agent, Rsyslog (not RSyslog), SyslogViewer
+   - Product names must be spelled exactly as: WinSyslog, EventReporter, MonitorWare Agent, rsyslog (not RSyslog), SyslogViewer
    - Use "Windows" not "windows" when referring to the operating system
    - Use "Linux" not "linux" when referring to the operating system
    - Standardize technical terms: "syslog" (not "sys log"), "event log" (not "eventlog")
@@ -756,7 +756,7 @@ When working with this repository, AI agents should follow these best practices:
 **Problem:** "WARNING: document isn't included in any toctree"
 **Solution:** Add the document to an appropriate `toctree` directive or mark it as `:orphan:`. For shared FAQ files that are only referenced from product-specific toctrees, always use `:orphan:` to avoid build errors when building shared content in isolation.
 
-**Problem:** FAQ pages showing wrong items in sidebar/TOC (e.g., MWAgent pages appearing in Rsyslog FAQ)
+**Problem:** FAQ pages showing wrong items in sidebar/TOC (e.g., MWAgent pages appearing in rsyslog FAQ)
 **Solution:** This is caused by including `supporting-labels.rst` or `faq-supporting-labels.rst` in shared FAQ files. These files contain hidden toctrees with cross-manual references that pollute all product FAQ sidebars. Remove the include directive from shared FAQ files. If the file only references glossary terms, it doesn't need the supporting-labels include. Also ensure shared FAQ files use `:orphan:` directive if they're only referenced from product-specific toctrees.
 
 **Problem:** "WARNING: duplicate label"

@@ -1,9 +1,9 @@
 Configuring
 ===========
 
-Rsyslog Windows Agent is easy to use and is powerful.
+rsyslog Windows Agent is easy to use and is powerful.
 
-In this chapter, you will learn how to configure the Rsyslog Windows Agent
+In this chapter, you will learn how to configure the rsyslog Windows Agent
 Service.
 
 
