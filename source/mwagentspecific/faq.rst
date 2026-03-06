@@ -19,6 +19,7 @@ Here you find FAQ about the MonitorWare Products:
    faq/config-reload-high-load
    faq/queue-buildup-sql-server-cleanup
    faq/order-of-stopping-service
+   faq/cluster-server-support
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support

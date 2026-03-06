@@ -15,6 +15,7 @@ Here you find FAQ about EventReporter:
    faq/start-program-action-troubleshooting
    faq/queue-buildup-sql-server-cleanup
    faq/order-of-stopping-service
+   faq/cluster-server-support
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/mariadb-odbc-support
 
