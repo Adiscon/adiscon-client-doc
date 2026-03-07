@@ -362,7 +362,7 @@ Include <Fieldname>
   Please note the difference between the "Date and Time" and "Date and Time
   reported by Device". Both are timestamps. Either both are written in local
   time or :doc:`utc <../glossaryofterms/utc>` based on the "Use UTC for Timestamps" check box.
-  However, "Date and Time" is the time when MonitorWare Agent received the
+  However, "Date and Time" is the time when the product received the
   message. Therefore, it is always a consistent value.
 
   In contrast, the "Date and Time Reported by Device" is a timestamp taken from
@@ -407,7 +407,7 @@ The "WebTrends Syslog compatible" mimics the format that WebTrends applications
 expect. Please note that we only mimic the log file format. It is still the job
 of the reporting device (most notable firewall) to generate the correct
 WebTrends WELF format. The "WebTrends" format is supported because many
-customers would like to use MonitorWare Agent 3.0 enhanced features while still
+customers would like to use product enhanced features while still
 having the ability to work with WebTrends.
 
 

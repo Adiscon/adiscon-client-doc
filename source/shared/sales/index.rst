@@ -6,7 +6,7 @@ question-focused format.
 
 Use this section for commercial topics (quotes, orders, licenses, renewals, and
 purchase orders). For technical troubleshooting and product support, use the
-``Getting Help`` chapter in your product manual.
+FAQ and troubleshooting sections in the relevant product manual.
 
 Quick actions
 -------------

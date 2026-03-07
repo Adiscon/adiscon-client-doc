@@ -1,3 +1,5 @@
+.. _winsyslog-configuring:
+
 Configuring WinSyslog
 =====================
 

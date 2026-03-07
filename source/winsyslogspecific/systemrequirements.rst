@@ -12,9 +12,9 @@ Client
 ------
 
 * The client can be installed on Windows 10, Windows 11, and Windows Server
-  2016/2019/2022. The operating system variant (Workstation, Server …) is
-  irrelevant. Note: For legacy systems (Windows XP, Server 2003), older versions
-  are available - contact Adiscon for details.
+  2016/2019/2022/2025. The operating system variant (Workstation, Server …) is
+  irrelevant. Note: For Windows versions that are out of Microsoft support,
+  older WinSyslog builds may be available. Contact Adiscon for details.
 
 * The client is suited for 32bit and 64bit operating systems. It runs
   automatically on each platform in 32Bit or 64Bit mode.

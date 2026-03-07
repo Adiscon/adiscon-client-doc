@@ -1,46 +1,33 @@
-Glossary of Terms
-=================
+Glossary
+========
 
-**Unfortunately, in the IT world terms are not necessarily used the same way by all people.**
-
-To clarify what we are talking about, we have created a glossary of terms as we
-at Adiscon understand them. Of course, we try hard to stay with the mainstream
-definitions.
-
-This list includes both general IT terms as well as Adiscon-specific terms. We
-hope this glossary of terms will be useful for all interested parties.
-
-
+This section defines the main terms, protocols, and reference concepts that
+appear throughout the WinSyslog manual. Unlike the :doc:`Concepts
+<winsyslogconcepts>` section, this glossary is meant for term lookup rather
+than for explaining the overall product model.
 
 .. toctree::
    :maxdepth: 1
 
-   ../glossaryofterms/mwconcepts-actions
-   ../glossaryofterms/eventreporter
-   wsconcepts-filterconditions
+   ../glossaryofterms/engine-only-install
    ../glossaryofterms/ftp
    ../glossaryofterms/http
    ../glossaryofterms/ietf
    ../glossaryofterms/imap
-   ../glossaryofterms/mwconcepts-informationunit
    ../glossaryofterms/ipv6
    ../glossaryofterms/millisecond
-   ../glossaryofterms/mwlineofproducts
    ../glossaryofterms/nntp
    ../glossaryofterms/pop3
+   ../glossaryofterms/registry-file
    ../glossaryofterms/relp
    ../glossaryofterms/resourceid
    ../glossaryofterms/rfc3164
    ../glossaryofterms/rfc3195
    ../glossaryofterms/rfc5424
-   ../glossaryofterms/rules
-   ../glossaryofterms/ruleengine
-   wsconcepts-services
    ../glossaryofterms/setp
    ../glossaryofterms/smtp
    ../glossaryofterms/snmp
    ../glossaryofterms/syslogfacility
    ../glossaryofterms/tcp
    ../glossaryofterms/udp
-   ../glossaryofterms/upgradeinsurance
    ../glossaryofterms/utc

@@ -90,7 +90,7 @@ Runs on a large Variety of Windows Systems
 ------------------------------------------
 
 Windows 2019/2016/2012/10/8/2008 (R2)/7/Vista/2008/2003/2003 (R2)/XP/2000;
-Workstation or Server – MonitorWare Agent runs on all of them.
+Workstation or Server – rsyslog Windows Agent runs on all of them.
 
 Support for End-of-Life operating systems is only partially
 available. Only a minimal service installation may be possible. More details:

@@ -4,7 +4,7 @@ How to Perform a Mass Rollout
 =============================
 
 A mass rollout refers to the automated deployment of Adiscon
-products like `WinSyslog <https://www.WinSyslog.com/>`_ or
+products like `WinSyslog <https://www.winsyslog.com/>`_ or
 `EventReporter <https://www.EventReporter.com/>`_ or `MonitorWare Agent <https://www.mwagent.com/>`_ to a
 significant number of machines (typically more than 5-10). This guide
 outlines the recommended procedure for achieving an efficient and
@@ -33,7 +33,7 @@ The first step is to set up a single machine with the desired product
 and configuration. This system will serve as your blueprint for all
 subsequent deployments.
 
-#.  **Perform a complete installation** of `WinSyslog <https://www.WinSyslog.com/>`_ or `EventReporter <https://www.EventReporter.com/>`_
+#.  **Perform a complete installation** of `WinSyslog <https://www.winsyslog.com/>`_ or `EventReporter <https://www.EventReporter.com/>`_
     or `MonitorWare Agent <https://www.mwagent.com/>`_ on a designated master machine.
 #. **Configure the product** exactly as you intend it to be on all target machines. This includes all rulesets, actions,
    destinations, and general settings. Ensure that the
@@ -68,7 +68,7 @@ executable files and the exported configuration.
 
 #. **Identify the core product executables and helper DLLs.** These
     are typically found in the installation directory of your master
-    system. For `WinSyslog <https://www.WinSyslog.com/>`_, this would include
+    system. For `WinSyslog <https://www.winsyslog.com/>`_, this would include
     ``winsyslg.exe`` and its associated DLLs. For
     `EventReporter <https://www.EventReporter.com/>`_, it would be ``mwagent.exe`` and its
     dependencies.

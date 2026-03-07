@@ -3,7 +3,7 @@
 How to Perform a Mass Update Rollout
 ====================================
 
-A mass update rollout for Adiscon products like `WinSyslog <https://www.WinSyslog.com/>`_ or
+A mass update rollout for Adiscon products like `WinSyslog <https://www.winsyslog.com/>`_ or
 `EventReporter <https://www.EventReporter.com/>`_ or `MonitorWare Agent <https://www.mwagent.com/>`_ typically involves replacing existing product
 files with newer versions and optionally applying updated
 configurations. The process is similar to an initial mass rollout but
@@ -27,7 +27,7 @@ configuration and package, then replicating it across target machines.
 First, update a single machine to the new product version and configure
 it as desired. This system will serve as your blueprint for the update.
 
-#.  **Perform an in-place upgrade** of `WinSyslog <https://www.WinSyslog.com/>`_ or `EventReporter <https://www.EventReporter.com/>`_
+#.  **Perform an in-place upgrade** of `WinSyslog <https://www.winsyslog.com/>`_ or `EventReporter <https://www.EventReporter.com/>`_
     or `MonitorWare Agent <https://www.mwagent.com/>`_
     on a designated master machine to the new
     version. Ensure the upgrade completes successfully.

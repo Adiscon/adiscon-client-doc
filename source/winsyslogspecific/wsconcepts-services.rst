@@ -3,8 +3,8 @@ WinSyslog - Services
 
 Services inside the WinSyslog gather the data that is processed by rules. Each
 service type reflects a specific set of code inside WinSyslog. For example, a
-Syslog Service represents an instance of a Syslog server and an NT Event Log
-Monitor Service represents an instance of an NT Log Monitor (periodically
+Syslog Service represents an instance of a Syslog server and a Windows Event Log
+Monitor Service represents an instance of a Windows Event Log monitor (periodically
 pulling out log information).
 
 Typically, there can be multiple instances of the same service running, as long
@@ -30,7 +30,7 @@ actions) if it does not receive heartbeats from WinSyslog.
 
 **MonitorWare Echo Reply**
 
-A central agent running the MonitorWare Agent is using the echo request and
+A central agent running WinSyslog is using the echo request and
 instructs to poll each of the other WinSyslog services. When the request is not
 carried out successfully, an alert is generated. The MonitorWare echo protocol
 
@@ -73,7 +73,7 @@ TCP communication is supported.
 **Event Log Monitor**
 
 Monitors Windows event logs. As soon as new events are detected,
-these are forwarded to MonitorWare processing. This service is similar to
+these are forwarded to WinSyslog processing. This service is similar to
 the Adiscon EventReporter functionality.
 
 
@@ -83,9 +83,9 @@ Each instance of a service has an associated ruleset. This allows easy
 creation of customized rulesets on a per service basis. Of course, all
 services can also operate on a common ruleset.
 
-All services are executed as multiple threads inside the MonitorWare Agent.
+All services are executed as multiple threads inside WinSyslog.
 From the operating point of view, there is only one system service called the
-"MonitorWare Agent". If the service configuration of the MonitorWare Agent is
-modified, the MonitorWare system service needs to be restarted in order to
+"WinSyslog". If the service configuration of WinSyslog is
+modified, the WinSyslog service needs to be restarted in order to
 activate the new configuration. Later releases will have some options to
 automate this task.

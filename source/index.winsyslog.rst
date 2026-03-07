@@ -8,7 +8,7 @@ network devices, appliances, servers, and applications on a native Windows
 platform.**
 
 Developed since 1996, WinSyslog was the first syslog server for Windows. It is
-built by the same team behind `rsyslog <https://www.Rsyslog.com>`_ and combines
+built by the same team behind `rsyslog <https://www.rsyslog.com>`_ and combines
 long-standing syslog expertise with a Windows-focused deployment and management
 model. Adiscon has published additional background on this shared engineering
 lineage in `The rsyslog Evolution: Bridging BSD Heritage with Adiscon Innovation <https://www.rsyslog.com/the-rsyslog-evolution-bridging-bsd-heritage-with-adiscon-innovation/>`_.
@@ -67,19 +67,13 @@ Manual
 .. toctree::
    :maxdepth: 1
 
-   winsyslogspecific/introduction
-   winsyslogspecific/producttour
    winsyslogspecific/index
-   winsyslogspecific/stepbystepguides
-   ../interactivesyslogviewer/index
-   winsyslogspecific/winsyslog
-   winsyslogspecific/gettinghelp
-   shared/sales/index
-   winsyslogspecific/winsyslogconcepts
-   winsyslogspecific/articles
+   Tutorials <winsyslogspecific/stepbystepguides>
+   Interactive Syslog Viewer <../interactivesyslogviewer/index>
+   Configuration <winsyslogspecific/winsyslog>
    winsyslogspecific/faq
-   winsyslogspecific/references
-   winsyslogspecific/glossaryofterms
+   Licensing and purchasing <shared/sales/index>
+   Reference <winsyslogspecific/references>
    copyrights
 
 

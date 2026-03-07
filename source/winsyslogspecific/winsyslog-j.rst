@@ -9,7 +9,9 @@ In this chapter, you will learn how to configure the WinSyslog service.
 .. toctree::
    :maxdepth: 2
 
+   winsyslogconcepts
    configuringwinsyslog-j
+   multiple-rulesets-rules-actions
    ../mwagentspecific/clientoptions
    ../mwagentspecific/clienttools
    ../mwagentspecific/usingfilebasedconfiguration

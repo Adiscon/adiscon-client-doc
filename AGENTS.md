@@ -363,6 +363,16 @@ Before making any changes:
    - Changes to files in `/source/` affect multiple documentation sets
    - Each product must build cleanly: eventreporter, mwagent, rsyslog, syslogviewer, winsyslog, winsyslog-j
 
+### 4.9a Local Working Notes for Structural Cleanup
+
+- When a task changes documentation structure, migration rules, or reusable
+  cleanup patterns, also update the local helper notes if they exist:
+  - `LOCAL_NOTES_cross_product_doc_transformations.md`
+  - `LOCAL_SUMMARY_<product>_*.md`
+- These local note files are working aids for later cross-product cleanup and
+  should stay aligned with the current migration approach.
+- Do **not** commit these local note files unless the user explicitly asks.
+
 **Why This Matters:**
 - RST formatting errors propagate across documentation sets
 - Small syntax errors can break multiple product builds
@@ -705,6 +715,9 @@ When working with this repository, AI agents should follow these best practices:
 3. Preserve existing Sphinx directives and markup
 4. Commit changes with clear, descriptive messages
 5. Do **not** "correct" spelling inside URLs or hyperlink targets—even if a URL looks misspelled, keep the original form.
+6. When structural cleanup work changes the reusable migration pattern, update
+   the local helper notes and summaries as part of the same task, but keep them
+   uncommitted unless explicitly requested.
 
 ### Quality Assurance
 1. **MANDATORY**: Always run `make all-html SPHINXOPTS="-W"` after making changes

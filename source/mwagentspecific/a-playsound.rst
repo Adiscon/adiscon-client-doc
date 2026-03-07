@@ -12,10 +12,14 @@ in console mode (From command prompt with the -r option).
 
 * Action - Play Sound*
 
-**Please note: if your machine has multiple sound cards installed, the "Play Sound" action will always use the card, that was installed first into the system.**
+**Please note:** if your machine has multiple sound cards installed, the
+**Play Sound** action uses the playback device that Windows exposes as the
+primary output for the service context.
 
-There is a work around if you want to use :doc:`play sound action <../articles/playsound-action>`
-for a second sound card!
+If you need a different playback device, run the service under a user account
+whose Windows audio settings select the desired primary output. This is an
+advanced workaround and is usually of limited practical value on modern server
+systems.
 
 
 Filename of the Soundfile

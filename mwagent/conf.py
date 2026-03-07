@@ -102,7 +102,7 @@ exclude_patterns = ['index.rsyslog.rst',
                     'rsyslogwaspecific/faq/config-reload-high-load.rst','rsyslogwaspecific/faq/openssl-cve-impact.rst',
                     'index.eventreporter.rst','eventreporterspecific/*.rst','eventreporterspecific/faq/*.rst',
   		    'index.syslogviewer.rst',
-                    'index.winsyslog.rst','index.winsyslog-j.rst','winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst','winsyslogspecific/glossaryofterms.rst',
+                    'index.winsyslog.rst','index.winsyslog-j.rst','winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst','winsyslogspecific/producttour/*.rst','winsyslogspecific/glossaryofterms.rst',
                     'glossaryofterms/wsconcepts-*.rst']
 
 

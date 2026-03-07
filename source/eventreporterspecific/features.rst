@@ -59,7 +59,7 @@ Runs on a large Variety of Windows Systems
 ------------------------------------------
 
 Windows 2019/2016/2012/10/8/2008(R2)/7/Vista/2008/2003/2003(R2)/XP/2000
-Workstation or Server – MonitorWare Agent runs on all of them.
+Workstation or Server – EventReporter runs on all of them.
 
 Support for End-of-Life operating systems is only partially
 available. Only a minimal service installation may be possible. More details:
@@ -105,7 +105,7 @@ EventReporter supports characters encoded in double byte character sets (DBCS).
 This is mostly used with Asian languages like Japanese or Chinese. All DBCS
 strings are forwarded correctly to the syslog daemon or email recipient.
 However, the receiving side must also be able to process DBCS correctly.
-Adiscon's syslog daemon for Windows, `WinSyslog <https://www.WinSyslog.com>`_, does so. The output character
+Adiscon's syslog daemon for Windows, `WinSyslog <https://www.winsyslog.com>`_, does so. The output character
 encoding is selectable and supports Shift-JIS, JIS, and EUC-JP for Japanese users.
 
 Multi-Language Client
@@ -140,7 +140,7 @@ be defined.
 Handling for low-memory cases
 -----------------------------
 
-MWAgent allocates some emergency memory on startup. If the system memory limit
+EventReporter allocates some emergency memory on startup. If the system memory limit
 is reached, it releases the emergency memory and locks the queue. That means
 not more items can be queued, this prevents a crash of the Agent and the queue
 is still being processed. Many other positions in the code have been hardened

@@ -87,12 +87,12 @@ For each syslog server in the profile:
    * Select **TCP** or **SSL** (not UDP)
    * If using SSL, ensure TLSv1.2 is supported
 
-   Reference: `Palo Alto Documentation - Configure Syslog Server Profile <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/configure-syslog-monitoring#configure-a-syslog-server-profile>`_
+   Reference: `Palo Alto Documentation - Configure Syslog Monitoring <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/configure-syslog-monitoring>`_
 
 4. **Port:** Enter the port number (default TCP syslog port is 514, but verify with your syslog server configuration)
 5. **Format:** Select **IETF** (this is the key setting)
 
-   Reference: `Palo Alto Documentation - Configure Syslog Server Profile <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/configure-syslog-monitoring#configure-a-syslog-server-profile>`_
+   Reference: `Palo Alto Documentation - Configure Syslog Monitoring <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/configure-syslog-monitoring>`_
 
 6. **Facility:** Select the appropriate syslog facility value (default is LOG_USER)
 
@@ -122,7 +122,7 @@ Step 4: Commit Configuration
 2. Commit the configuration
 3. Review the commit and click **Commit** again to confirm
 
-   Reference: `Palo Alto Documentation - Commit Changes <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/configure-syslog-monitoring#commit-your-changes-and-review-the-logs-on-the-syslog-server>`_
+   Reference: `Palo Alto Documentation - Configure Syslog Monitoring <https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/monitoring/use-syslog-for-monitoring/configure-syslog-monitoring>`_
 
 Step 5: Verify Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

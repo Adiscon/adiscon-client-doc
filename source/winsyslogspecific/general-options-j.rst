@@ -102,8 +102,8 @@ Time). This setting has an effect on:
 * Filter Engine: If you filter by weekday or time fields, localtime does affect
   the filter result
 
-For information about "How can I get localtime output" please see
-:doc:`default timevalues setting in EventReporter/MonitorWare Agent/WinSyslog explained <../articles/default-timevalues-setting>`.
+For information about how to get local-time output, see
+:doc:`the WinSyslog FAQ entry on Default Timevalues <faq/defaulttime-explained>`.
 
 
 Protect Service against shutdown

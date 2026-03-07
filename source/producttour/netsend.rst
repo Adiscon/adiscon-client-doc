@@ -1,8 +1,14 @@
 Net Send
 ========
 
-This helps to send short alert messages to recipient machine via Windows Net
-Send facility. Great for alerting logged-on administrators.
+Send short alert messages to a recipient machine via the Windows
+Messenger service (``net send``).
+
+.. warning::
+
+   **Deprecated:** ``net send`` pop-up messages are not available by default on
+   modern Windows versions and are unreliable in many environments. Prefer
+   modern alerting methods like sending email or forwarding to syslog.
 
 
 .. image:: ../images/a-netsend.png

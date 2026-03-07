@@ -1,3 +1,5 @@
+.. _winsyslog-configuring:
+
 Configuring WinSyslog
 =====================
 
@@ -56,9 +58,9 @@ Theoretically, you can run a few hundred services in a single service instance.
 However, both from a usage scenario point of view as well as concerning
 operating system resources, we recommend limiting the services to a maximum of
 20 to 30. Of course, there are some applications where more than this limit is
-useful. MonitorWare Agent does not restrict this number. If there is a need for
+useful. WinSyslog does not restrict this number. If there is a need for
 a large number of services and the hardware is capable of managing all these
-tasks, there is nothing in the MonitorWare Agent that limits from doing so.
+tasks, there is nothing in WinSyslog that limits from doing so.
 
 The actual parameters depend on the service type. Common to all services is the
 capability to enable or disable a service. A service is started only if it is

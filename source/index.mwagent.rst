@@ -14,7 +14,7 @@ network security requirements but limited resources for security solutions.
 
 MonitorWare Agent is the ideal solution if you want to centralize your
 monitoring needs. It offers all the capabilities of
-`WinSyslog <https://www.WinSyslog.com/>`_ and
+`WinSyslog <https://www.winsyslog.com/>`_ and
 `EventReporter <https://www.EventReporter.com/>`_ , plus many of its own
 proven features. MonitorWare Agent uses the reliable
 `SETP protocol <https://www.mwagent.com/files/manual/current/glossaryofterms/setp.html>`_
@@ -118,7 +118,7 @@ diagram illustrates this process:
 MonitorWare Agent vs. WinSyslog and EventReporter
 -------------------------------------------------
 
-MonitorWare Agent integrates the core functionalities of `WinSyslog <https://www.WinSyslog.com/>`_ (one of the first Syslog servers
+MonitorWare Agent integrates the core functionalities of `WinSyslog <https://www.winsyslog.com/>`_ (one of the first Syslog servers
 for Windows) and `EventReporter <https://www.EventReporter.com/>`_ (the
 first tool for Windows Event Forwarding) into a comprehensive solution. While
 WinSyslog and EventReporter are proven specialists for Syslog collection and

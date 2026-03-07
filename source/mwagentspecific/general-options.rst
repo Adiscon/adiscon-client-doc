@@ -103,7 +103,7 @@ Default Timevalues are based on
     affect the filter result
 
   For information about "How can I get localtime output" please see
-  :doc:`default timevalues setting in EventReporter/MonitorWare Agent/WinSyslog explained <../articles/default-timevalues-setting>`.
+  :doc:`default timevalues setting explained <../articles/default-timevalues-setting>`.
 
 
 Protect Service against shutdown
