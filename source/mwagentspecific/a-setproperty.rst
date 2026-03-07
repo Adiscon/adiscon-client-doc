@@ -48,3 +48,13 @@ Set Property Value
   Please note that the field content can be configured with
   :doc:`event properties <../shared/references/eventspecificproperties>` are described in the
   :doc:`property replacer section <../shared/references/eventproperties>`.
+
+Difference from Set Status
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`Set Property` changes data on the current message. The updated value is then
+used by later filters and actions for that same message only.
+
+Use `Set Property` when you need to rewrite, normalize, or enrich message
+content. Use :doc:`Set Status <a-setstatus>` instead when you need a global
+value that persists across multiple messages.

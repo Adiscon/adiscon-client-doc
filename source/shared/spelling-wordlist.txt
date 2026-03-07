@@ -977,6 +977,7 @@ how-to-setup-EventReporter-to-view-windows-eventlogs-in-adiscon-loganalyzer
 how-to-setup-a-control-nt-service
 how-to-setup-a-control-nt-service-action
 how-to-setup-a-failover-syslog-server
+failover
 how-to-setup-a-file-logging-action
 how-to-setup-a-forward-via-syslog-action
 how-to-setup-a-set-property-action

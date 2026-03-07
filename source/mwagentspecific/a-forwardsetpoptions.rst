@@ -17,7 +17,7 @@ Servername
   szServer
 
 **Description:**
-  The MonitorWare Agent sends :doc:`setp <../glossaryofterms/setp>` to the server/listener under this name.
+  The product sends :doc:`setp <../glossaryofterms/setp>` to the server/listener under this name.
   You can either use an IPv4, an IPv6 Address, or a Hostname that resolves to
   an IPv4 or IPv6 Address.
 
@@ -39,7 +39,7 @@ Default SETP Port
   looked up via the socket service database functions. The lookup is for
   protocol TCP.
 
-  **Please Note: The SETP port configured here must match the port configured at the listener side (i.e. MonitorWare Agent or WinSyslog Enterprise edition).
+  **Please Note: The SETP port configured here must match the port configured at the listener side (for example, WinSyslog Enterprise edition).
   If they do not match, a Send SETP session cannot be initiated. The rule
   engine will log this to the Windows Event Log.**
 

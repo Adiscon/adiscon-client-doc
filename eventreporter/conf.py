@@ -137,6 +137,7 @@ exclude_patterns = ['index.mwagent.rst','index.rsyslog.rst','index.winsyslog.rst
     'references/mwagentservice2.rst','references/mwagentshortcutkeys.rst','references/registrypaths.rst',
     'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/start-program-action-troubleshooting.rst','rsyslogwaspecific/faq/config-reload-high-load.rst',
     'rsyslogwaspecific/faq/openssl-cve-impact.rst','stepbystepguides/*.rst','winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst',
+    'winsyslogspecific/producttour/*.rst',
     'index.winsyslog-j.rst','gettingstarted/multiple-rulesets-rules-actions.rst',
     'mwagentspecific/faq.rst','mwagentspecific/faq/*.rst',
     'shared/faq/palo-alto-log-format-change.rst'
@@ -279,4 +280,3 @@ pdf_toc_depth = 6
 
 def setup(app):
     enable_json_ld(app)
-

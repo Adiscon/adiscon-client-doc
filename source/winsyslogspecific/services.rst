@@ -1,24 +1,23 @@
 Services
 ========
 
-Services gather events data. For example, the Syslog server service accepts
-incoming Syslog messages and the Event Log Monitor extracts Windows Event Log
-data. There can be unlimited multiple services. Depending on the service type,
-there can also be multiple instances running, each one with different settings.
+Services are the WinSyslog inputs. They receive or generate events and pass
+those events into a ruleset for further processing.
 
-You must define at least one service, otherwise the product does not gather
-event data and hence does not perform any useful work at all. Sometimes,
-services are mistaken with service defaults those are pre-existing in the tree
-view. Service defaults are just the templates that carry the default properties
-assigned to a service, when one of the respective type is to be created.
-Service defaults are NOT executed and thus cannot gather any data.
+You need at least one active service. Without a service, WinSyslog does not
+collect any data.
 
-Added a test mode for Services, currently EventLog Monitor V1 & V2 and File
-Monitor are supported. When enabling the testmode for a certain service, it
-will process it's Events/Files over and over again. So only use this setting
-for testing purposes.
+A few points matter in practice:
 
-Basic Services
+- **Actual services** process events.
+- **Service defaults** are only templates for creating new service instances.
+- Multiple service instances are possible when their ports and settings do not
+  conflict.
+
+Use the service pages below when you need to choose the right input type or
+understand what a specific listener does.
+
+Basic services
 --------------
 
 .. toctree::
@@ -27,7 +26,7 @@ Basic Services
    ../mwagentspecific/heartbeat
    ../mwagentspecific/monitorwareechoreply
 
-network services
+Network services
 ----------------
 
 .. toctree::

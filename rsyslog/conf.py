@@ -132,7 +132,7 @@ exclude_patterns = ['index.eventreporter.rst','index.mwagent.rst','index.winsysl
     'references/index.rst','references/comparisonofproperties.rst','references/icmpcodes.rst','references/mwagentservice2.rst',
     'references/mwagentshortcutkeys.rst','references/registrypaths.rst','references/versioncomparison.rst',
     'references/editioncomparison.rst','step-by-step/how-to-enter-the-license-information.rst',
-    'stepbystepguides.rst','index.syslogviewer.rst','winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst','index.winsyslog-j.rst',
+    'stepbystepguides.rst','index.syslogviewer.rst','winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst','winsyslogspecific/producttour/*.rst','index.winsyslog-j.rst',
     'gettingstarted/multiple-rulesets-rules-actions.rst',
     'mwagentspecific/faq.rst','mwagentspecific/faq/*.rst','eventreporterspecific/faq/*.rst'
 ]
@@ -272,5 +272,4 @@ pdf_documents = [
 
 def setup(app):
     enable_json_ld(app)
-
 

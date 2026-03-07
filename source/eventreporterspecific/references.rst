@@ -21,7 +21,7 @@ The following references provide in-depth information to some very specific thin
 
    ../shared/references/complexfilterconditions
    eventreportershortcutkeys
-   ../shared/references/commandlineswitches
+   commandlineswitches
    editioncomparison
    ../shared/references/connecttocomputer
    ../shared/references/microsoftsystemerrorcodes

@@ -35,8 +35,8 @@ Technical support routing
 -------------------------
 
 For technical incidents, troubleshooting, and product behavior issues, use the
-support category in the same system or the ``Getting Help`` chapter in your
-product manual.
+support category in the same system or the FAQ and troubleshooting sections in
+your product manual.
 
 Next action
 -----------

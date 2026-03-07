@@ -1,11 +1,12 @@
-Default Timevalues Setting in EventReporter/MonitorWare Agent/WinSyslog explained
-=================================================================================
+:orphan:
+
+Default Timevalues Setting Explained
+====================================
 
 - Created: 2008-01-24 Andre Lorbach
 - Updated: 2020-10-05 adisconteam
 
-The general options of each product (EventReporter, MonitorWare Agent and
-WinSyslog) contain a setting for the "Default Timevalues". This setting can be
+The general options contain a setting for the "Default Timevalues". This setting can be
 set to Localtime and UTC (Universal Coordinated Time) which is default.
 
 **If you switch this setting to Localtime, you may wonder why output timevalues still are in UTC.**

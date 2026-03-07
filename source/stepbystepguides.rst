@@ -118,7 +118,7 @@ Actions
 
 - `How to setup a SETP Action <https://www.mwagent.com/step-by-step-guides/actions-related/how-to-setup-an-setp-action/>`_
 
-.. es gibt bei https://www.WinSyslog.com/step-by-step-guides/actions-related/file-logging-steps-mwa42/
+.. es gibt bei https://www.winsyslog.com/step-by-step-guides/actions-related/file-logging-steps-mwa42/
 .. eine aktuellere Version
 .. https://www.mwagent.com/step-by-step-guides/actions-related/how-to-setup-a-file-logging-action/
 

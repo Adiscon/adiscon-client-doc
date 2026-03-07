@@ -38,7 +38,7 @@ reporting facilities like for analysis, a web interface, or reporting via
 `Adiscon LogAnalyzer <https://loganalyzer.adiscon.com>`_.
 
 rsyslog Windows Agent can also integrate with other network monitoring and
-management related Adiscon products like `EventReporter <https://www.EventReporter.com>`_, `WinSyslog <https://www.WinSyslog.com>`_ and
+management related Adiscon products like `EventReporter <https://www.EventReporter.com>`_, `WinSyslog <https://www.winsyslog.com>`_ and
 `MonitorWare Agent <https://www.mwagent.com>`_. In fact, it uses common terms and methods wherever possible,
 so upgrading from these solutions to the full MonitorWare system is easy.
 

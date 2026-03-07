@@ -69,7 +69,7 @@ These are:
 
 * Source System* - This is the system a message is originated from. It can be
 
-used to check for authorized systems to pass messages to the MonitorWare Agent.
+used to check for authorized systems to pass messages to WinSyslog.
 
 * Message Content* - The message content filter condition is very powerful. It
 
@@ -138,7 +138,7 @@ filtering.
 SNMP Traps
 ----------
 
-Using SNMP Traps MonitorWare Agent can be used to manage and monitor all sorts
+Using SNMP Traps WinSyslog can be used to manage and monitor all sorts
 of equipment including computers, routers, wiring hubs etc. A trap is generated
 when the device feels it should do so and it contains the information that the
 device feels should be transmitted. Related filters are grouped here:
@@ -156,7 +156,7 @@ device feels should be transmitted. Related filters are grouped here:
 Custom Property
 ---------------
 
-As the name suggests it is a "Custom Property". Internally in MonitorWare Agent
+As the name suggests it is a "Custom Property". Internally in WinSyslog
 all values are stored in properties. For example the main message is stored in
 a property called "msg". By using this dialog you can access properties which
 are dynamic (Like those from SNMP Trap Monitor when using v2 protocol).

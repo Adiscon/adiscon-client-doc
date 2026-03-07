@@ -1,5 +1,5 @@
-rsyslog WindowsAgent - Services
-===============================
+rsyslog Windows Agent - Services
+================================
 
 Services gather events data. For example, the Syslog server service accepts
 incoming Syslog messages and the Event Log Monitor extracts Windows Event Log
@@ -20,15 +20,15 @@ defaults are NOT executed and thus cannot gather any data.
 **Heartbeat**
 
 This service generates a special information type. Its primary purpose is to
-notify a receiving system that WinSyslog, set for heart beating is still alive.
+notify a receiving system that rsyslog Windows Agent, set for heart beating is still alive.
 So the receiving system can be configured to raise alarms (or corrective
-actions) if it does not receive heartbeats from WinSyslog.
+actions) if it does not receive heartbeats from rsyslog Windows Agent.
 
 
 **MonitorWare Echo Reply**
 
-A central agent running the rsyslog WindowsAgent is using the echo request and
-instructs to poll each of the other WinSyslog services. When the request is not
+A central agent running the rsyslog Windows Agent is using the echo request and
+instructs to poll each of the other rsyslog Windows Agent services. When the request is not
 carried out successfully, an alert is generated. The MonitorWare echo protocol
 
 
@@ -40,7 +40,7 @@ TCP communication is supported.
 **Event Log Monitor**
 
 Monitors Windows event logs. As soon as new events are detected,
-these are forwarded to MonitorWare processing. This service is similar to
+these are forwarded to rsyslog Windows Agent processing. This service is similar to
 the Adiscon EventReporter functionality.
 
 
@@ -50,9 +50,9 @@ Each instance of a service has an associated ruleset. This allows easy
 creation of customized rulesets on a per service basis. Of course, all
 services can also operate on a common ruleset.
 
-All services are executed as multiple threads inside the MonitorWare Agent.
+All services are executed as multiple threads inside rsyslog Windows Agent.
 From the operating point of view, there is only one system service called the
-"MonitorWare Agent". If the service configuration of the MonitorWare Agent is
-modified, the MonitorWare system service needs to be restarted in order to
+"rsyslog Windows Agent". If the service configuration of rsyslog Windows Agent is
+modified, the rsyslog Windows Agent service needs to be restarted in order to
 activate the new configuration. Later releases will have some options to
 automate this task.

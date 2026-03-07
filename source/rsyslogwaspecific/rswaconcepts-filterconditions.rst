@@ -69,7 +69,7 @@ These are:
 
 * Source System* - This is the system a message is originated from. It can be
 
-used to check for authorized systems to pass messages to the MonitorWare Agent.
+used to check for authorized systems to pass messages to rsyslog Windows Agent.
 
 * Message Content* - The message content filter condition is very powerful. It
 
@@ -181,7 +181,7 @@ log information units.
 Custom Property
 ---------------
 
-As the name suggests it is a "Custom Property". Internally in MonitorWare Agent
+As the name suggests it is a "Custom Property". Internally in rsyslog Windows Agent
 all values are stored in properties. For example the main message is stored in
 a property called "msg". By using this dialog you can access properties which
 are dynamic (Like those from SNMP Trap Monitor when using v2 protocol).

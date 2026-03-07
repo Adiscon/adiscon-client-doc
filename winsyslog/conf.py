@@ -22,6 +22,7 @@
 
 import importlib
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -129,7 +130,7 @@ exclude_patterns = ['articles/index-mwagent.rst', 'articles/include-event-id-in-
    'faq/diff-massroll-massupdateroll.rst','faq/massrollout.rst','faq/massupdaterollout.rst',
    'introduction/index.rst','introduction/core-components.rst','introduction/features.rst','introduction/system-requirements.rst',
 #'gettingstarted/ignoringevents.rst',
-#'producttour/*.rst',
+   'producttour/*.rst',
    'producttour/index.rst','producttour/cpumemorymonitor.rst','producttour/databasemonitor.rst','producttour/diskspacemonitor.rst',
    'producttour/eventlogmonitor.rst','producttour/eventlogmonitorv2.rst','producttour/filemonitor.rst','producttour/ftpprobe.rst',
    'producttour/httpprobe.rst',
@@ -295,6 +296,42 @@ pdf_toc_depth = 3
 pdf_use_coverpage = True
 
 
-def setup(app):
-    enable_json_ld(app)
+def _replace_legacy_product_name(app, docname, source):
+    # Keep WinSyslog output free of inherited MonitorWare naming.
+    text = source[0]
+    # Avoid duplicate explicit-target names when replacing link labels.
+    text = re.sub(
+        r"`MonitorWare Agent ordering page\s*<([^>]+)>`_",
+        r"`MonitorWare ordering page <\1>`_",
+        text,
+    )
+    text = re.sub(
+        r"`MonitorWare Agent\s*<([^>]+)>`_",
+        r"`MonitorWare product page <\1>`_",
+        text,
+    )
+    text = re.sub(r'MonitorWare\s+Agent', 'WinSyslog', text)
+    source[0] = text
 
+
+def _replace_legacy_name_in_output(app, exception):
+    if exception is not None or app.builder.format != 'html':
+        return
+    outdir = Path(app.builder.outdir)
+    for path in outdir.rglob('*'):
+        if path.suffix.lower() not in {'.html', '.js', '.txt', '.xml', '.json'}:
+            continue
+        try:
+            content = path.read_text(encoding='utf-8')
+        except (OSError, UnicodeDecodeError):
+            continue
+        updated = content.replace('MonitorWare Agent ordering page', 'MonitorWare ordering page')
+        updated = re.sub(r'MonitorWare\s+Agent', 'WinSyslog', updated)
+        if updated != content:
+            path.write_text(updated, encoding='utf-8')
+
+
+def setup(app):
+    app.connect('source-read', _replace_legacy_product_name)
+    app.connect('build-finished', _replace_legacy_name_in_output)
+    enable_json_ld(app)

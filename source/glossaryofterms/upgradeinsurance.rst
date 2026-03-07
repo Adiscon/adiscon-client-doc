@@ -1,4 +1,6 @@
 
+:orphan:
+
 .. index:: UpgradeInsurance
 
 UpgradeInsurance

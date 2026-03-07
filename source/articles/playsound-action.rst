@@ -1,3 +1,5 @@
+:orphan:
+
 How can I use a second sound card with the Play Sound Action?
 =============================================================
 

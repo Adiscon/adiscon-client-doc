@@ -1,18 +1,16 @@
 Actions
 =======
 
-Actions tell the application that what to do with a given event. With actions,
-you can forward events to a mail recipient or Syslog server, store it in a
-file or database or do many other things with it.
+Actions define what WinSyslog does after a rule matches an event. They are the
+output and follow-up stage of processing.
 
+A single rule can contain multiple actions. Actions run in listed order, so the
+sequence can matter when one action changes data or affects later behavior.
 
-There can be multiple actions for each rule.
-Actions are processed in the order they are configured.
-However you can change the order of the actions by moving them Up or Down.
+Use the sections below to choose the right action type for storage,
+forwarding, notification, or internal processing.
 
-
-
-Storing Actions
+Storage actions
 ---------------
 
 .. toctree::
@@ -22,8 +20,8 @@ Storing Actions
    ../mwagentspecific/a-oledbdatabaseaction
    ../mwagentspecific/a-fileoptions
 
-forwarding actions
-------------------
+Forwarding and notification actions
+-----------------------------------
 
 .. toctree::
    :maxdepth: 1
@@ -39,8 +37,8 @@ forwarding actions
    a-forwardsyslogoptions
    ../mwagentspecific/a-senddtls
 
-internal actions
-----------------
+Internal processing actions
+---------------------------
 
 .. toctree::
    :maxdepth: 1
@@ -54,7 +52,7 @@ internal actions
    ../mwagentspecific/a-setproperty
    ../mwagentspecific/a-setstatus
 
-other actions
+Other actions
 -------------
 
 .. toctree::

@@ -7,19 +7,43 @@ Installation
 
 .. only:: winsyslog
 
-   **Installation is quick and easy. The WinSyslog Service uses a standard installation wizard.**
+   Use this page to install WinSyslog on a Windows system and prepare it for
+   initial configuration.
 
-   We highly recommend visiting our `Online Seminars <https://www.adiscon.com/seminars-online>`_ to access the online seminars
-   on WinSyslog as well as other members of this product family. These are not marketing videos but technically packed
-   presentations that help you get started quickly and efficiently.
+   Before you begin
+   ----------------
 
-   The installation walkthrough at `Installing WinSyslog <https://www.mwagent.com/step-by-step-guides/installation-and-configuration/how-to-setup-monitorware-agent-WinSyslog-and-EventReporter>`_
-   is a helpful reference, and WinSyslog is part of `Adiscon's MonitorWare line of products <../glossaryofterms/mwlineofproducts.html>`_.
+   - Verify that the target system matches the supported platforms in
+     :doc:`System Requirements <systemrequirements>`.
+   - Decide whether you need only the WinSyslog service and configuration
+     client, or also optional components such as Interactive Syslog Viewer.
+   - Ensure you have local administrator rights on the target machine.
 
-   WinSyslog installers are available from the `Download Versions <https://www.WinSyslog.com/download>`_ page. Launch the setup
-   by double-clicking ``wnsyslog.exe`` and following the onscreen instructions.
+   Installation steps
+   ------------------
 
-.. toctree::
-   :maxdepth: 1
+   1. Download the current installer from the
+      `Download Versions <https://www.winsyslog.com/download>`_ page.
+   2. Start the setup program by double-clicking ``wnsyslog.exe``.
+   3. Accept the license terms and continue through the installer wizard.
+   4. Select the components you want to install.
+   5. Finish the setup. The installer will add the WinSyslog program group and
+      install the required runtime components if needed.
 
-   ../shared/gettingstarted/informationforamassrollout
+   What gets installed
+   -------------------
+
+   A standard WinSyslog installation typically includes:
+
+   - the **WinSyslog service**, which receives and processes log data
+   - the **WinSyslog Configuration Client**, which is used to configure the
+     service and send test messages
+   - optional UI or analysis components if you selected them during setup
+
+   What to do next
+   ---------------
+
+   After installation, continue with
+   :doc:`Understand the Components <producttour/understand-the-components>` and
+   then :doc:`Creating an Initial Configuration <creatinganinitialconfiguration>`
+   to build a first working setup.

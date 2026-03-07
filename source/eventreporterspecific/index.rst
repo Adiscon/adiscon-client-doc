@@ -7,7 +7,7 @@ This chapter provides a quick overview of EventReporter and what can be
 done with it.
 
 Most importantly, it contains a tutorial touching many of the basic tasks that
-can be done with MonitorWare Agent as well as pointer on how to setup and
+can be done with EventReporter as well as pointer on how to setup and
 configure.
 
 Be sure to at least briefly read this section and then decide where to go from
