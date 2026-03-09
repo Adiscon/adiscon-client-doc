@@ -102,8 +102,8 @@ Default Timevalues are based on
   * Filter Engine: If you filter by weekday or time fields, localtime does
     affect the filter result
 
-  For information about "How can I get localtime output" please see
-  :doc:`default timevalues setting explained <../articles/default-timevalues-setting>`.
+  For information about local time output, see
+  :doc:`FAQ: default time values explained <../shared/faq/defaulttime-explained>`.
 
 
 Protect Service against shutdown
