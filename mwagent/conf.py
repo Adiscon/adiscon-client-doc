@@ -98,8 +98,7 @@ spelling_word_list_filename = get_spelling_word_list(__file__)
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
 exclude_patterns = ['index.rsyslog.rst',
-                    'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/start-program-action-troubleshooting.rst',
-                    'rsyslogwaspecific/faq/config-reload-high-load.rst','rsyslogwaspecific/faq/openssl-cve-impact.rst',
+                    'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/*.rst',
                     'index.eventreporter.rst','eventreporterspecific/*.rst','eventreporterspecific/faq/*.rst',
   		    'index.syslogviewer.rst',
                     'index.winsyslog.rst','index.winsyslog-j.rst','winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst','winsyslogspecific/producttour/*.rst','winsyslogspecific/glossaryofterms.rst',

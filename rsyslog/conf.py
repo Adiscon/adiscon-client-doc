@@ -71,7 +71,7 @@ source_suffix = '.rst'
 master_doc = 'index.rsyslog'
 
 # General information about the project.
-project = u'RSyslog Windows Agent'
+project = u'rsyslog Windows Agent'
 copyright = u'2004-2026, Adiscon GmbH'
 author = u'Adiscon GmbH'
 
@@ -134,7 +134,19 @@ exclude_patterns = ['index.eventreporter.rst','index.mwagent.rst','index.winsysl
     'references/editioncomparison.rst','step-by-step/how-to-enter-the-license-information.rst',
     'stepbystepguides.rst','index.syslogviewer.rst','winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst','winsyslogspecific/producttour/*.rst','index.winsyslog-j.rst',
     'gettingstarted/multiple-rulesets-rules-actions.rst',
-    'mwagentspecific/faq.rst','mwagentspecific/faq/*.rst','eventreporterspecific/faq/*.rst'
+    'mwagentspecific/faq.rst','mwagentspecific/faq/*.rst','eventreporterspecific/faq/*.rst',
+    'shared/index.rst',
+    'shared/gettingstarted/*.rst',
+    'shared/references/index.rst',
+    'shared/references/commandlineswitches.rst',
+    'shared/references/editioncomparison.rst',
+    'shared/references/icmpcodes.rst',
+    'shared/references/mwagentservice2.rst',
+    'shared/references/mwagentshortcutkeys.rst',
+    'shared/references/registrypaths.rst',
+    'shared/supporting-labels.rst',
+    'shared/faq-supporting-labels.rst',
+    'shared/partials/installation-overview.rst'
 ]
 
 # The name of the Pygments (syntax highlighting) style to use.
@@ -233,7 +245,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'RSyslogWindowsAgent.tex', u'RSyslog Windows Agent Configuration Documentation',
+    (master_doc, 'RSyslogWindowsAgent.tex', u'rsyslog Windows Agent Configuration Documentation',
      u'Adiscon GmbH', 'manual'),
 ]
 
@@ -243,7 +255,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'RSyslogWindowsAgent', u'RSyslog Windows Agent Configuration Documentation',
+    (master_doc, 'RSyslogWindowsAgent', u'rsyslog Windows Agent Configuration Documentation',
      [author], 1)
 ]
 
@@ -254,7 +266,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'RSyslogWindowsAgent', u'RSyslog Windows Agent Configuration Documentation',
+    (master_doc, 'RSyslogWindowsAgent', u'rsyslog Windows Agent Configuration Documentation',
      author, 'RSyslogWindowsAgent', 'Windows EventLog Messages monitoring and reporting to rsyslog.',
      'System Tools'),
 ]
@@ -264,7 +276,7 @@ texinfo_documents = [
 # -- Options for PDF output -------------------------------------------
 
 pdf_documents = [
-    (master_doc, u'RSyslogWindowsAgent', u'RSyslog Windows Agent Configuration Documentation',
+    (master_doc, u'RSyslogWindowsAgent', u'rsyslog Windows Agent Configuration Documentation',
      author, 'RSyslogWindowsAgent', 'Windows EventLog Messages monitoring and reporting to rsyslog.',
      'System Tools'),
 ]
@@ -272,4 +284,3 @@ pdf_documents = [
 
 def setup(app):
     enable_json_ld(app)
-

@@ -1,19 +1,13 @@
+:orphan:
+
 Common Uses
 ===========
 
-rsyslog Windows Client can be used in several ways, due to its set of features.
+This legacy page is no longer part of the active rsyslog Windows Agent
+navigation.
 
-The most common use is to forward Windows EventLogs to a central Syslog server,
-which is usually rsyslog. That means, the EventLog will be polled for new
-entries and they will be forwarded to rsyslog via syslog. Basically, the
-transition of Windows Events to Linux should be the most common case.
+For the current product path, use:
 
-In addition to the Windows EventLog, text file-based logs are the second-most to
-be forwarded. These text file logs could be from a web server like IIS or
-anything else.
-
-The third common case would be the syslog relay. This could happen if you have
-several sites, but no Linux server on each site. Then you could as well use a
-Windows machine to receive all the log messages, no matter if it is EventLogs,
-web server logs or regular syslog. You could then filter it if necessary and
-forward all logs again to a central location.
+- :doc:`collect-and-forward-windows-events`
+- :doc:`creatinganinitialconfiguration`
+- :doc:`store-and-forward`

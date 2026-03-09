@@ -148,8 +148,7 @@ _raw_exclude_patterns = [
     'interactivesyslogviewer/index.rst',
     'index.mwagent.rst',
     'index.rsyslog.rst',
-    'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/start-program-action-troubleshooting.rst',
-    'rsyslogwaspecific/faq/config-reload-high-load.rst','rsyslogwaspecific/faq/openssl-cve-impact.rst',
+    'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/*.rst',
     'index.eventreporter.rst','eventreporterspecific/*.rst','eventreporterspecific/faq/*.rst',
     'index.winsyslog.rst','producttour/*.rst','purchasingmwagent.rst','references/*.rst',
     'winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst','winsyslogspecific/producttour/*.rst','winsyslogspecific/glossaryofterms.rst',
@@ -319,6 +318,5 @@ pdf_documents = [
 
 def setup(app):
     enable_json_ld(app)
-
 
 
