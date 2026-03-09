@@ -19,6 +19,7 @@ exclude_patterns = [
     "_build",
     "Thumbs.db",
     ".DS_Store",
+    "gettingstarted/monitorwareagenttutorial.rst",
 ]
 
 # The shared library frequently references documents that live in the
@@ -27,6 +28,7 @@ exclude_patterns = [
 # warnings can be suppressed safely here.
 suppress_warnings = [
     "toc.not_readable",
+    "toc.excluded",
     "ref.doc",
 ]
 

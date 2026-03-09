@@ -155,10 +155,9 @@ Do NOT process existing entries when Event Log corruption occurs
   nDoNotProcessLastRecord
 
 **Description:**
-  When this option is checked, it prevents from reprocessing of the whole
-  Windows Event Log when it is `corrupted or truncated
-  <https://www.mwagent.com/faq/general-questions/what-does-event-id-1011-mean/>`_ .
-  So EventReporter / MonitorWare Agent do not process all entries again.
+  When this option is checked, it prevents reprocessing of the whole Windows
+  Event Log when the log becomes corrupted or truncated. This helps avoid
+  re-reading all existing entries after such an event.
 
 
 
@@ -629,12 +628,9 @@ Ruleset to use
 
 .. note::
 
-  **If you intend to make the Event ID part of the actual Syslog message while forwarding to a Syslog server then you have to make some changes
-  in the Event Log Monitor Settings.**
-
-  `Click here
-  <https://www.mwagent.com/faq/general-questions/how-can-i-make-event-id-part-of-the-actual-syslog-message-while-forwarding-to-a-syslog-server/>`_
-  **to know the settings.**
+  **If you intend to make the Event ID part of the actual Syslog message while
+  forwarding to a Syslog server, adjust the Event Log Monitor output format or
+  the Forward Syslog action message format accordingly.**
 
   **The Event Log Monitor caches messages libraries. This greatly speeds up processing, but causes memory consumption for the cached libraries. By default,
   libraries are cached for 30 minutes. If memory consumption is too high, you

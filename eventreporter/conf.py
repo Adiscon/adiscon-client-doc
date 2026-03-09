@@ -126,13 +126,7 @@ exclude_patterns = ['index.mwagent.rst','index.rsyslog.rst','index.winsyslog.rst
     'introduction/features.rst','introduction/system-requirements.rst',
     'index.syslogviewer.rst',
 #    'producttour/*.rst',
-    'producttour/index.rst','producttour/databasemonitor.rst','producttour/serialportmonitor.rst','producttour/ntservicesmonitor.rst',
-    'producttour/cpumemorymonitor.rst','producttour/diskspacemonitor.rst','producttour/filemonitor.rst','producttour/ftpprobe.rst',
-    'producttour/httpprobe.rst','producttour/imapprobe.rst','producttour/nntpprobe.rst','producttour/otherfeatures.rst',
-    'producttour/pingprobe.rst','producttour/pop3probe.rst','producttour/portprobe.rst','producttour/powerfulleventprocessing.rst',
-    'producttour/postprocessing.rst','producttour/sendsyslogtestmessage.rst','producttour/sendtocommunicationsport.rst',
-    'producttour/setpserver.rst','producttour/smtpprobe.rst','producttour/snmptrapreceiver.rst','producttour/syslogserver.rst',
-    'producttour/testpassivesyslogservice.rst',
+    'producttour/*.rst',
     'references/index.rst','references/icmpcodes.rst','references/editioncomparison.rst',
     'references/mwagentservice2.rst','references/mwagentshortcutkeys.rst','references/registrypaths.rst',
     'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/start-program-action-troubleshooting.rst','rsyslogwaspecific/faq/config-reload-high-load.rst',
@@ -140,7 +134,16 @@ exclude_patterns = ['index.mwagent.rst','index.rsyslog.rst','index.winsyslog.rst
     'winsyslogspecific/producttour/*.rst',
     'index.winsyslog-j.rst','gettingstarted/multiple-rulesets-rules-actions.rst',
     'mwagentspecific/faq.rst','mwagentspecific/faq/*.rst',
-    'shared/faq/palo-alto-log-format-change.rst'
+    'shared/faq/palo-alto-log-format-change.rst',
+    'shared/index.rst',
+    'shared/gettingstarted/*.rst',
+    'shared/references/index.rst',
+    'shared/references/mwagentservice2.rst',
+    'shared/references/commandlineswitches.rst',
+    'shared/references/editioncomparison.rst',
+    'shared/references/icmpcodes.rst',
+    'shared/references/mwagentshortcutkeys.rst',
+    'shared/references/registrypaths.rst'
 ]
 
 # The name of the Pygments (syntax highlighting) style to use.

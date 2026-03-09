@@ -1,10 +1,13 @@
-Configuring
-===========
+.. _eventreporter-configuring:
 
-EventReporter is easy to use and is powerful.
+Configuration
+=============
 
-In this chapter, you will learn how to configure the EventReporter Service.
+Use this section to configure how EventReporter collects Windows events,
+processes them through rules, and stores or forwards the results.
 
+If you are new to the product, start with ``Getting Started`` for the first
+working setup and return here for the detailed configuration pages.
 
 .. toctree::
    :maxdepth: 2
@@ -14,6 +17,8 @@ In this chapter, you will learn how to configure the EventReporter Service.
    ../mwagentspecific/clienttools
    ../mwagentspecific/usingfilebasedconfiguration
    ../mwagentspecific/generaloptions
+   core-concepts
    services
    filterconditions
    actions
+   multiple-rulesets-rules-actions

@@ -1,8 +1,12 @@
 FAQ
 ===
 
-Here you find FAQ about EventReporter:
+Use this section for direct answers to common EventReporter questions. The
+entries below are grouped by user intent so you can scan by task instead of by
+product component.
 
+Operation and troubleshooting
+-----------------------------
 
 .. toctree::
    :maxdepth: 1
@@ -10,23 +14,40 @@ Here you find FAQ about EventReporter:
    faq/log-rotation-file-handle-cleanup
    faq/log-rotation-naming-convention
    faq/log-rotation-short-delay
-   faq/eventreporter-iot2025-support
    faq/openssl-cve-impact
    faq/start-program-action-troubleshooting
    faq/queue-buildup-sql-server-cleanup
    faq/order-of-stopping-service
    faq/cluster-server-support
+   faq/export-settings-support-call
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/mariadb-odbc-support
 
+Deployment and administration
+-----------------------------
 
+.. toctree::
+   :maxdepth: 1
 
-further FAQ you find on `adiscon.com <https://www.adiscon.com/>`_ :
+   faq/mass-rollout-deployment
+   faq/copying-configuration
+   faq/printable-manual
+   faq/unc-path-support
+   faq/database-formats
+   faq/custom-event-logs
 
-- `FAQ <https://www.adiscon.com/frequently-asked-questions/>`_
+Licensing and purchasing
+------------------------
 
-and on `EventReporter <https://www.EventReporter.com/>`_ :
+.. toctree::
+   :maxdepth: 1
 
-- EventReporter FAQ: `general <https://www.EventReporter.com/category/faq/general/>`_,
-  `licensing <https://www.EventReporter.com/category/faq/licensing/>`_ and
-  `installation and updates <https://www.EventReporter.com/category/faq/installation-and-updates/>`_
+   faq/enter-license-information
+
+Platform and compatibility
+--------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   faq/eventreporter-iot2025-support

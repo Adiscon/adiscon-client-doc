@@ -3,37 +3,30 @@
 Services
 ========
 
-Services gather events data. For example, the Syslog server service accepts
-incoming Syslog messages and the Event Log Monitor extracts Windows Event Log
-data. There can be unlimited multiple services. Depending on the service type,
-there can also be multiple instances running, each one with different settings.
+Services are the EventReporter inputs. They collect Windows event data and pass
+it to rulesets for further processing.
 
-You must define at least one service, otherwise the product does not gather
-event data and hence does not perform any useful work at all. Sometimes,
-services are mistaken with service defaults those are pre-existing in the tree
-view. Service defaults are just the templates that carry the default properties
-assigned to a service, when one of the respective type is to be created.
-Service defaults are NOT executed and thus cannot gather any data.
+In EventReporter, the most important service types are the Windows Event Log
+monitor services. They read Windows events and make them available to the rule
+engine.
 
-Added a test mode for Services, currently EventLog Monitor V1 & V2 and File
-Monitor are supported. When enabling the test mode for a certain service, it
-will process its Events/Files over and over again. So only use this setting
-for testing purposes.
+Important behavior
+------------------
 
-Basic Services
---------------
+- You must define at least one service, otherwise EventReporter has no event
+  data to process.
+- A service instance is an active collector.
+- A service default is only a template. It does not collect anything until you
+  create an actual service instance from it.
+- Each service instance is bound to one ruleset.
+
+Service types used in EventReporter
+-----------------------------------
 
 .. toctree::
    :maxdepth: 1
 
    ../mwagentspecific/heartbeat
    ../mwagentspecific/monitorwareechoreply
-
-file system monitoring
-----------------------
-
-.. toctree::
-   :maxdepth: 1
-
    ../mwagentspecific/eventlogmonitorv1
    ../mwagentspecific/eventlogmonitorv2
