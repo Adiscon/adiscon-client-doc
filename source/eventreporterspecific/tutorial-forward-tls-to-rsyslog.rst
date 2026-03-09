@@ -21,9 +21,60 @@ Prerequisites
 - The CA certificate or client certificate files required by the receiver
 - A ruleset that receives events from an Event Log Monitor service
 
-This tutorial assumes the rsyslog side is already configured to accept syslog
-over TLS. EventReporter must use the same port, TLS trust model, and
-certificate files expected by that receiver.
+Configure the rsyslog receiver
+------------------------------
+
+Configure the rsyslog server first so that it accepts TLS-protected syslog over
+TCP. The examples below use RainerScript syntax and follow the local rsyslog
+documentation under `../rsyslog2/doc/source/`.
+
+Minimal TLS listener with anonymous authentication::
+
+   global(
+     defaultNetstreamDriver="gtls"
+     defaultNetstreamDriverCAFile="/etc/rsyslog.d/certs/ca.pem"
+     defaultNetstreamDriverCertFile="/etc/rsyslog.d/certs/server-cert.pem"
+     defaultNetstreamDriverKeyFile="/etc/rsyslog.d/certs/server-key.pem"
+   )
+
+   module(
+     load="imtcp"
+     streamDriver.name="gtls"
+     streamDriver.mode="1"
+     streamDriver.authMode="anon"
+   )
+
+   input(
+     type="imtcp"
+     port="6514"
+   )
+
+Stricter listener with certificate validation and client name matching::
+
+   global(
+     defaultNetstreamDriver="gtls"
+     defaultNetstreamDriverCAFile="/etc/rsyslog.d/certs/ca.pem"
+     defaultNetstreamDriverCertFile="/etc/rsyslog.d/certs/server-cert.pem"
+     defaultNetstreamDriverKeyFile="/etc/rsyslog.d/certs/server-key.pem"
+   )
+
+   module(
+     load="imtcp"
+     streamDriver.name="gtls"
+     streamDriver.mode="1"
+     streamDriver.authMode="x509/name"
+   )
+
+   input(
+     type="imtcp"
+     port="6514"
+     permittedPeer=["eventreporter01.example.net"]
+   )
+
+Use `x509/name` when the receiver should validate the client certificate and
+restrict accepted senders to the permitted certificate names. Use `anon` only
+when that weaker trust model is acceptable in your environment. In both cases,
+restart rsyslog after changing the listener configuration.
 
 Steps
 -----
@@ -72,9 +123,11 @@ Verification
 3. If forwarding fails, check:
 
    - target host and port
+   - rsyslog `imtcp` listener configuration
    - TCP framing mode
    - CA, certificate, and key files
    - TLS version compatibility
+   - `permittedPeer` entries on the rsyslog side when `x509/name` is used
    - firewall rules between EventReporter and rsyslog
 
 Next step
