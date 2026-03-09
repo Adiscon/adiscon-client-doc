@@ -1,3 +1,5 @@
+:orphan:
+
 Installing the product is straightforward because a familiar Windows setup
 program guides you through the process.
 

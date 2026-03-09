@@ -3,46 +3,52 @@
 System Requirements
 ===================
 
-EventReporter requires very limited resources of the machine to run optimally.
-The actual minimum requirements to run the application depend on the type of
-installation. If only the client is installed, they are a bit higher otherwise
-the service needs a few enabling it to run on a large variety of machines –
-even the highly utilized ones.
+EventReporter is designed to run on current Windows client and server systems
+with modest resource requirements.
 
-Client
-------
+Supported operating systems
+---------------------------
 
-* The client can be installed on Windows 10, Windows 11, and Windows Server
-  2016/2019/2022. The operating system variant (Workstation, Server …) is
-  irrelevant. Note: For legacy systems (Windows XP, Server 2003), older versions
-  are available - contact Adiscon for details.
+The current product is intended for:
 
-* The client is suited for 32bit and 64bit operating systems. It runs
-  automatically on each platform in 32Bit or 64Bit mode.
+- Windows 10
+- Windows 11
+- Windows Server 2016
+- Windows Server 2019
+- Windows Server 2022
+- Windows Server 2025
+- newer compatible Windows releases
 
-* The client uses Microsoft .Net Framework technology. The Installer will
-  automatically install the necessary .Net Framework components before
-  installation. A network connection maybe required in order to download
-  additional components.
+Do not assume that older end-of-life Windows versions are supported by current
+EventReporter releases. If you need documentation for legacy platforms, use the
+manual that matches the older product release.
 
-* The client requires roughly 8 MB RAM in addition to the operating system
-  minimum requirements. It also needs around 5 MB of disk space.
+Client requirements
+-------------------
 
-Service
--------
+The EventReporter Configuration Client:
 
-* The service has fewer requirements.
+- runs on supported 32-bit and 64-bit Windows environments where the current
+  product is supported
+- uses Microsoft .NET components that the installer can add if required
+- needs only modest disk space and memory for normal administration tasks
 
-* It works under the same operating system versions.
+Service requirements
+--------------------
 
-* At runtime, the base service requires 5 MB of main memory and less than 5 MB
-  of disk space. However, the actual resources used by the agent largely depend
-  on the services configured.
+The EventReporter service:
 
-* Please note that the 32Bit Service is limited to 2GB of usable memory. The
-  64Bit version does not have any limit. A typical Syslog message (including
-  overhead) takes roughly 4-8 KB. With 1024 MB, you can buffer up to
-  100,000-200,000 messages in 1024 MB.
+- runs as a Windows service in the background
+- uses comparatively little memory and disk space in its base state
+- consumes additional resources depending on queue size, action types, and
+  event volume
 
-* On Windows Server editions, additional event logs (such as "DNS Server", "File
-  Replication Service", and "Directory Service") are automatically supported.
+Operational notes
+-----------------
+
+- Database logging performance depends more on the database and DSN setup than
+  on the EventReporter core service.
+- Large queues, heavy filtering, or verbose debug logging will increase
+  resource use.
+- Additional Windows event channels available on server editions can also be
+  monitored when the operating system exposes them.

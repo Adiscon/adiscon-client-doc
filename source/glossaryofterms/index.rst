@@ -1,3 +1,5 @@
+:orphan:
+
 Glossary of Terms
 =================
 

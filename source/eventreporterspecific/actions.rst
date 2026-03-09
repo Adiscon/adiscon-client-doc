@@ -1,16 +1,18 @@
 Actions
 =======
 
-Actions tell the application that what to do with a given event. With actions,
-you can forward events to a mail recipient or Syslog server, store it in a
-file or database, or do many other things with it.
+Actions tell EventReporter what to do with an event after a rule matches.
+They store, forward, transform, or trigger follow-up behavior.
 
+Important behavior
+------------------
 
-There can be multiple actions for each rule.
-Actions are processed in the order they are configured.
-However you can change the order of the actions by moving them Up or Down.
+- A rule can contain multiple actions.
+- Actions run in the order they are configured.
+- Start with one simple output action during initial setup so the event path is
+  easy to verify.
 
-Storing Actions
+Storing actions
 ---------------
 
 .. toctree::
@@ -20,7 +22,7 @@ Storing Actions
    ../mwagentspecific/a-oledbdatabaseaction
    ../mwagentspecific/a-fileoptions
 
-forwarding actions
+Forwarding actions
 ------------------
 
 .. toctree::
@@ -33,7 +35,7 @@ forwarding actions
    ../mwagentspecific/a-forwardsyslogoptions
    ../mwagentspecific/a-senddtls
 
-internal actions
+Internal actions
 ----------------
 
 .. toctree::
@@ -46,7 +48,7 @@ internal actions
    ../mwagentspecific/a-setproperty
    ../mwagentspecific/a-setstatus
 
-other actions
+Other actions
 -------------
 
 .. toctree::

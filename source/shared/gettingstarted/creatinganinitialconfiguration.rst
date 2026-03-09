@@ -1,9 +1,13 @@
 Creating an Initial Configuration
 =================================
 
-MonitorWare Agent actually contains the features of five products in it. In
-order to get MonitorWare Agent running be sure to go through the :doc:`tutorial <monitorwareagenttutorial>`
-section, once you have read this section.
+MonitorWare Agent actually contains the features of five products in it.
+
+.. only:: mwagent
+
+   In order to get MonitorWare Agent running, be sure to go through the
+   :doc:`tutorial <monitorwareagenttutorial>` section once you have read this
+   section.
 
 MonitorWare Agent can work as:
 
