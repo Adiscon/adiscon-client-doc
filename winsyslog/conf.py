@@ -146,7 +146,18 @@ exclude_patterns = ['articles/index-mwagent.rst', 'articles/include-event-id-in-
    'index.syslogviewer.rst','index.winsyslog-j.rst','winsyslogspecific/winsyslog-j.rst','winsyslogspecific/generaloptions-j.rst',
    'winsyslogspecific/postprocessapps-options-j.rst','mwagentspecific/general-options.rst','winsyslogspecific/general-options-j.rst',
    'winsyslogspecific/configuringwinsyslog-j.rst','gettingstarted/multiple-rulesets-rules-actions.rst',
-   'mwagentspecific/faq.rst','mwagentspecific/faq/*.rst'
+   'mwagentspecific/faq.rst','mwagentspecific/faq/*.rst',
+   'shared/index.rst',
+   'shared/gettingstarted/*.rst',
+   'shared/references/index.rst',
+   'shared/references/commandlineswitches.rst',
+   'shared/references/editioncomparison.rst',
+   'shared/references/icmpcodes.rst',
+   'shared/references/mwagentservice2.rst',
+   'shared/references/mwagentshortcutkeys.rst',
+   'shared/supporting-labels.rst',
+   'shared/faq-supporting-labels.rst',
+   'shared/partials/installation-overview.rst'
 ]
 
 # The name of the Pygments (syntax highlighting) style to use.
