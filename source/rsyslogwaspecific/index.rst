@@ -1,23 +1,18 @@
 Getting Started
 ===============
 
-**rsyslog Windows Agent** can be used for simple as well as complex scenarios.
-
-This chapter provides a quick overview of the rsyslog Windows Agent and what
-can be done with it.
-
-Most importantly, it contains a tutorial touching many of the basic tasks that
-can be done with rsyslog Windows Agent as well as pointer on how to set up and
-configure.
-
-Be sure to at least briefly read this section and then decide where to go from
-here - it is definitely a worth time spent.
-
+Start here to understand what rsyslog Windows Agent is, how its main
+components work together, how Windows events move through it, and how to build
+a first working forwarding configuration.
 
 .. toctree::
    :maxdepth: 2
 
    installation
+   systemrequirements
+   understand-the-components
+   collect-and-forward-windows-events
    creatinganinitialconfiguration
-   obtainingaprintablemanual
-   rsyslogwatutorial
+   process-and-filter
+   store-and-forward
+   operate-and-troubleshoot

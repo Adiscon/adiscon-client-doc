@@ -1,19 +1,20 @@
 Services
 ========
 
-Services gather events data. For example, the Syslog server service accepts
-incoming Syslog messages and the Event Log Monitor extracts Windows Event Log
-data. There can be unlimited multiple services. Depending on the service type,
-there can also be multiple instances running, each one with different settings.
+Services are the input side of rsyslog Windows Agent. They collect or receive
+events and send them into the assigned ruleset.
 
-You must define at least one service, otherwise the product does not gather
-event data and hence does not perform any useful work at all. Sometimes,
-services are mistaken with service defaults those are pre-existing in the tree
-view. Service defaults are just the templates that carry the default properties
-assigned to a service, when one of the respective type is to be created.
-Service defaults are NOT executed and thus cannot gather any data.
+You must define at least one service. Without a service, the product does not
+collect or receive any event data.
 
-Basic Services
+Defaults vs. active services
+----------------------------
+
+Service defaults are templates. They provide starting values for new services,
+but they do not collect data by themselves. Actual processing only happens in
+the active service instances you create under **Running Services**.
+
+Basic services
 --------------
 
 .. toctree::
@@ -22,7 +23,7 @@ Basic Services
    ../mwagentspecific/heartbeat
    ../mwagentspecific/monitorwareechoreply
 
-network services
+Network services
 ----------------
 
 .. toctree::
@@ -30,8 +31,8 @@ network services
 
    ../mwagentspecific/syslogserver
 
-file system monitoring
-----------------------
+Windows and file monitoring
+---------------------------
 
 .. toctree::
    :maxdepth: 1

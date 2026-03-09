@@ -1,29 +1,38 @@
-References
-==========
+.. _rsyslogwa-reference-material:
 
-The following references provide in-depth information to some very specific things. You may want to review them if you are looking for one of these. Some references are placed on the web and some other are directly contained in this manual. We decided to provide web-links wherever we considered them useful.
+Reference
+=========
 
-* `Formats (XML and Database) <https://www.winsyslog.com/articles/formats/>`_
-* `ICMP Codes <https://www.adiscon.com/common/en/references/mwagent-icmp-20.php>`_
+Use this section for lookup material, not for first-time setup. It collects the
+pages you typically need while operating, troubleshooting, or fine-tuning an
+existing rsyslog Windows Agent deployment.
 
-.. toctree::
-   :maxdepth: 2
+Use ``Getting Started`` for first-time setup, ``Tutorials`` for task guidance,
+and ``Configuration`` for the main product setup pages.
 
-   ../shared/references/eventproperties
-
+Product controls and local operation
+------------------------------------
 
 .. toctree::
    :maxdepth: 1
 
-   ../shared/references/complexfilterconditions
    rsyslogwashortcutkeys
    commandlineswitches
    editioncomparison
-   ../shared/references/connecttocomputer
-   ../shared/references/microsoftsystemerrorcodes
 
+Technical lookup material
+-------------------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   ../shared/gettingstarted/informationforamassrollout
+   ../shared/references/eventproperties
+   ../shared/references/complexfilterconditions
+   ../shared/references/connecttocomputer
+   ../shared/references/microsoftsystemerrorcodes
+   glossaryofterms
+
+External reference
+------------------
+
+- `Version History <https://www.rsyslog.com/windows-agent/about-rsyslog-windows-agent/>`_

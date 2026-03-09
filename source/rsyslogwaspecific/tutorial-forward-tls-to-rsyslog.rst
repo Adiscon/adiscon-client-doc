@@ -1,16 +1,16 @@
-.. _eventreporter-tutorial-forward-tls-to-rsyslog:
+.. _rsyslogwa-tutorial-forward-tls-to-rsyslog:
 
 Tutorial: Forward Windows Events via TLS to rsyslog
 ===================================================
 
-Use this tutorial when EventReporter should forward selected Windows Event Log
-records to an rsyslog receiver over encrypted syslog transport.
+Use this tutorial when rsyslog Windows Agent should forward selected Windows
+Event Log records to an rsyslog receiver over encrypted syslog transport.
 
 Goal
 ----
 
-At the end of this procedure, EventReporter will forward matching Windows
-events to an rsyslog server over TCP with TLS enabled.
+At the end of this procedure, rsyslog Windows Agent will forward matching
+Windows events to an rsyslog server over TCP with TLS enabled.
 
 Prerequisites
 -------------
@@ -68,7 +68,7 @@ Stricter listener with certificate validation and client name matching::
    input(
      type="imtcp"
      port="6514"
-     permittedPeer=["eventreporter01.example.net"]
+     permittedPeer=["windows-agent01.example.net"]
    )
 
 Use `x509/name` when the receiver should validate the client certificate and
@@ -80,8 +80,7 @@ Steps
 -----
 
 1. Create or choose the ruleset whose events should be forwarded.
-2. Add a :doc:`Forward Syslog <../mwagentspecific/a-forwardsyslogoptions>`
-   action to that ruleset.
+2. Add a :doc:`Forward Syslog <a-forwardsyslogoptions>` action to that ruleset.
 3. Configure the target host and port.
 
    - Enter the rsyslog server host name or IP address.
@@ -99,7 +98,8 @@ Steps
    - Use certificate-based mode when the receiver expects CA validation or a
      client certificate.
 
-7. If the receiver requires certificate-based trust, provide the matching files.
+7. If the receiver requires certificate-based trust, provide the matching
+   files.
 
    - Select the common CA PEM file used to validate the receiver.
    - If mutual authentication is required, also select the client certificate
@@ -112,7 +112,7 @@ Steps
    - Use **TLS v1.2** or **TLS v1.3** when the receiver supports them.
 
 9. Save and apply the configuration.
-10. Restart the EventReporter service if required in your environment.
+10. Restart the rsyslog Windows Agent service if required in your environment.
 
 Verification
 ------------
@@ -128,12 +128,12 @@ Verification
    - CA, certificate, and key files
    - TLS version compatibility
    - `permittedPeer` entries on the rsyslog side when `x509/name` is used
-   - firewall rules between EventReporter and rsyslog
+   - firewall rules between rsyslog Windows Agent and rsyslog
 
 Next step
 ---------
 
 If forwarding works, continue with:
 
-- :doc:`../mwagentspecific/a-forwardsyslogoptions`
+- :doc:`a-forwardsyslogoptions`
 - :doc:`store-and-forward`

@@ -292,9 +292,10 @@ Use CEE enhanced Syslog Format
   property. Disable this option if you do not want the message itself in the
   CEE Format.
 
-  **Please note you can also make Event ID part of the actual Syslog message while forwarding to a Syslog server then you have to make some changes in
-  the Forward Syslog Action.**
-  `Click here <https://www.mwagent.com/faq/general-questions/how-can-i-make-event-id-part-of-the-actual-syslog-message-while-forwarding-to-a-syslog-server/>`_ to know the settings.
+  **Please note** you can also make the Event ID part of the actual syslog
+  message while forwarding to a syslog server. To do that, adjust the
+  forwarded message format so it includes the event ID property in the custom
+  message template.
 
 
 

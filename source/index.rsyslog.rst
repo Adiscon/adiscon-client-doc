@@ -1,50 +1,30 @@
-
 About rsyslog Windows Agent
 ===========================
 
-**The rsyslog Windows Agent is designed to work closely with rsyslog for Linux.**
-It is designed to provide a tight integration of both environments. Log
-consolidation at its best.  In addition, it can be easily integrated into an
-environment, where Adiscon's MonitorWare Line of products is already present.**
+**rsyslog Windows Agent collects Windows-originated events and forwards them to
+rsyslog and other downstream receivers. It is built for Windows systems that
+need reliable event forwarding, local filtering, and integration with Linux- or
+rsyslog-centered logging environments.**
 
-**The rsyslog Windows Agent relies on Adiscon's knowledge in reliable logging**
-environments for both Linux and Windows. It provides the possibility to
-consolidate logs from a Windows machine on a central Linux repository through
-rsyslog.**
+The product runs on the Windows systems that generate or relay events. It can
+collect Windows Event Log data, monitor text-based log files, receive syslog
+messages, and then process those events through rules before forwarding them.
 
-rsyslog Windows Agent runs on the systems to be monitored and provides the core
-functionality. It can gather the data from various sources, like the Windows
-event log, routers, switches, firewalls, and many more. It supports very
-flexible and powerful local filtering and processing of these gathered events
-based on a powerful rule processor, events can be forwarded, acted on, or
-discarded - all at the discretion of the system administrator. Even a
-stand-alone rsyslog Windows Agent can play a vital role in network management
-by performing a role like generating alert emails at the occurrences of
-specific events.
+rsyslog Windows Agent is especially useful when you want Windows systems to
+feed a central rsyslog deployment with better structure and control than a
+simple one-shot forwarder can provide. It supports syslog forwarding over UDP
+and TCP, secure forwarding with TLS, and RELP for scenarios where reliable
+transport matters.
 
-Larger environments consolidate rsyslog Windows Agent data in a central
-repository like the MonitorWare event database or combined log files. Database
-is the source of information for all reporting and analysis modules of the
-MonitorWare system. By default, database can be created with MySQL or MariaDB,
-Microsoft Access, or Microsoft SQL Server (including SQL Server Express). As
-standard SQL and ODBC are being used, it is easily adaptable to other database
-systems.
-For example, we know that many customers use it successfully with Oracle
-databases.
+The product is centered on two main runtime roles:
 
-A number of different modules work on this consolidated database or the log
-files to carry out various activities. These modules include scheduled
-reporting facilities like for analysis, a web interface, or reporting via
-`Adiscon LogAnalyzer <https://loganalyzer.adiscon.com>`_.
+- the **rsyslog Windows Agent service**, which collects and forwards events in
+  the background
+- the **rsyslog Windows Agent Configuration Client**, which defines services,
+  rulesets, filters, and forwarding actions
 
-rsyslog Windows Agent can also integrate with other network monitoring and
-management related Adiscon products like `EventReporter <https://www.EventReporter.com>`_, `WinSyslog <https://www.winsyslog.com>`_ and
-`MonitorWare Agent <https://www.mwagent.com>`_. In fact, it uses common terms and methods wherever possible,
-so upgrading from these solutions to the full MonitorWare system is easy.
-
-For a complete overview over the MonitorWare line of products, please visit
-`https://www.adiscon.com <https://www.adiscon.com/products>`_.
-
+This manual covers installation, first-time setup, configuration, tutorials,
+FAQ content, and reference material for rsyslog Windows Agent.
 
 Manual
 ======
@@ -52,18 +32,13 @@ Manual
 .. toctree::
    :maxdepth: 1
 
-   rsyslogwaspecific/introduction
    rsyslogwaspecific/index
-   rsyslogwaspecific/commonuses
-   rsyslogwaspecific/rsyslogwa
-   rsyslogwaspecific/gettinghelp
-   shared/sales/index
-   rsyslogwaspecific/articles
+   Tutorials <rsyslogwaspecific/stepbystepguides>
+   Configuration <rsyslogwaspecific/rsyslogwa>
    rsyslogwaspecific/faq
-   rsyslogwaspecific/references
-   rsyslogwaspecific/glossaryofterms
+   Licensing and purchasing <shared/sales/index>
+   Reference <rsyslogwaspecific/references>
    copyrights
-
 
 
 * :ref:`genindex`
