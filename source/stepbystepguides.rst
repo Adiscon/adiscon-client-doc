@@ -8,6 +8,7 @@ self-contained and focused on one practical outcome.
    :maxdepth: 1
 
    mwagentspecific/tutorial-enter-license-information
+   mwagentspecific/tutorial-use-with-loganalyzer
    mwagentspecific/tutorial-export-config-and-debug-log
    mwagentspecific/tutorial-forward-syslog
    mwagentspecific/tutorial-forward-setp

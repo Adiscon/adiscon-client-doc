@@ -361,6 +361,7 @@ PDF
 PDU
 PEM
 PHP
+phpMyAdmin
 PING
 PIX
 POP3

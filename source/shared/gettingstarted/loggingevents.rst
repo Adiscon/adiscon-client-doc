@@ -75,8 +75,8 @@ notepad. You should see many events originating from the event log. When you
 re-open the log file, new events should appear (if there were any new events in
 the Windows Event Log). The file is not easily readable. Most probably, you
 have created it for archiving purposes or to run some external scripts against
-it. For review, we recommend to try free `Adiscon Loganalyzer <http://loganalyzer.adiscon.com/>`_ open source
-project.
+it. For browser-based review of stored data, see
+:doc:`../tutorials/loganalyzer-setup-and-use`.
 
 **Please note that the current date is appended to the log file. This facilitates**
 **file management in archiving. The format is "logdata-YYYY-MM-DD.log".**
