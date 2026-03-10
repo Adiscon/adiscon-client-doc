@@ -28,6 +28,14 @@ Deployment and administration
    faq/copying-configuration
    faq/printable-manual
 
+Protocols and integration
+-------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   ../shared/faq/tls-listener-certificate-files
+
 Licensing and purchasing
 ------------------------
 

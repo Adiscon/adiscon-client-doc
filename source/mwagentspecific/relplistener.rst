@@ -104,8 +104,9 @@ Select common CA PEM
   szTLSCAFile
 
 **Description:**
-  Select the certificate from the common Certificate Authority (CA), the RELP
-  receiver should use the same CA.
+  Select the CA certificate or CA bundle used to validate certificates
+  presented by connecting clients. If you use a CA chain, include the
+  intermediate CA certificates first and the root CA certificate last.
 
 
 
@@ -116,7 +117,10 @@ Select Certificate PEM
   szTLSCertFile
 
 **Description:**
-  Select the client certificate (PEM Format).
+  Select the server certificate in PEM format. This is the certificate the
+  RELP listener presents to connecting clients. If needed, append the
+  intermediate CA certificates after the server certificate so clients can
+  validate the chain.
 
 
 
@@ -127,7 +131,8 @@ Select Key PEM
   szTLSKeyFile
 
 **Description:**
-  Select the keyfile for the client certificate (PEM Format).
+  Select the private key in PEM format that matches the server certificate.
+  Passphrase-protected private keys are not supported.
 
 
 

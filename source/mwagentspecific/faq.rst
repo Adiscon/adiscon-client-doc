@@ -39,6 +39,14 @@ Operation and troubleshooting
    ../shared/faq/mariadb-odbc-support
    ../shared/faq/palo-alto-log-format-change
 
+Protocols and integration
+-------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   ../shared/faq/tls-listener-certificate-files
+
 Platform and compatibility
 --------------------------
 
