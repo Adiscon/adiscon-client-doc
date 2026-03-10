@@ -254,6 +254,9 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 - Keep policy statements in one canonical page only (for example pricing policy, maintenance policy, licensing edge cases). Other pages should summarize briefly and link to the canonical page.
 - Avoid conflicting duplicate policy text across multiple pages. If duplicated text is unavoidable, keep one section marked as canonical and link back to it.
 - Prefer short, explicit answer blocks over narrative-only paragraphs so both humans and AI systems can retrieve precise answers.
+- When a support conversation reveals a concrete technical fact, check **all affected products** before deciding where to document it. Do not assume the fact is product-local unless the UI, feature, or implementation actually differs.
+- For cross-product support facts, first look for existing shared or reused pages that already carry the relevant concept. If the fact applies across products, prefer one shared canonical FAQ or reference update plus product-local FAQ links over separate duplicated product answers.
+- When the fact affects only a subset of products, record that scope explicitly in local helper notes so later cleanup passes do not re-evaluate the same question from scratch.
 
 ### 4.5 FAQ and Navigation Hygiene (IMPORTANT)
 

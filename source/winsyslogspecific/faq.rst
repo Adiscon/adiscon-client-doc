@@ -47,6 +47,7 @@ Protocols and integration
 .. toctree::
    :maxdepth: 1
 
+   ../shared/faq/tls-listener-certificate-files
    faq/originating-ip-address
    faq/setp-vs-syslog
    faq/non-standard-syslog-format
