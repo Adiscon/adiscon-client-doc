@@ -1,14 +1,12 @@
 Actions
 =======
 
-Actions tell the application that what to do with a given event. With actions,
-you can forward events to a mail recipient or Syslog server, store it in a
-file or database, or do many other things with it.
+Use this section to configure what MonitorWare Agent does after a rule matches.
+Actions can forward events, store them, enrich them, or trigger follow-up
+processing.
 
-There can be multiple actions for each rule. Actions are processed in the order
-they are configured.
-
-However you can change the order of the actions by moving them Up or Down.
+There can be multiple actions in one rule. They run in the order configured,
+and you can change that order by moving actions up or down.
 
 Storing Actions
 ---------------

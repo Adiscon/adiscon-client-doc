@@ -1,12 +1,11 @@
 Filter Conditions
 =================
 
-Filter conditions specify **when** to apply a rule. If the filter condition
-evaluates to true, the rule containing those conditions is treated as matching
-and the actions specified in that rule are carried out.
+Use filter conditions to decide **when** a rule should match. If the filter
+condition evaluates to true, the rule matches and its actions are carried out.
 
-Filter conditions can be as complex as needed. Full support for Boolean
-operations and nesting of conditions is supported.
+Filter conditions can be simple or complex. Boolean operations and nested
+expressions are supported.
 
 By default, the filter condition is empty, respective tree contains only a
 single "AND" at the top level. This is to facilitate adding filters (the top

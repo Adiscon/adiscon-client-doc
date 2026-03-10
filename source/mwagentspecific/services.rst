@@ -1,22 +1,24 @@
 Services
 ========
 
-Services gather events data. For example, the Syslog server service accepts
-incoming Syslog messages and the Event Log Monitor extracts Windows Event Log
-data. There can be unlimited multiple services. Depending on the service type,
-there can also be multiple instances running, each one with different settings.
+Use this section to configure how MonitorWare Agent collects data. Services are
+the product inputs. They gather events or measurements and pass them to the
+ruleset assigned to that service.
 
-You must define at least one service, otherwise the product does not gather
-event data and hence does not perform any useful work at all. Sometimes,
-services are mistaken with service defaults those are pre-existing in the tree
-view. Service defaults are just the templates that carry the default properties
-assigned to a service, when one of the respective type is to be created.
-Service defaults are NOT executed and thus cannot gather any data.
+For example, the Syslog Server service accepts incoming syslog messages and
+Event Log Monitor extracts Windows Event Log data. Multiple service instances
+can run at the same time when their settings do not conflict.
 
-There is a test mode for Services, currently EventLog Monitor V1 & V2 and File
-Monitor are supported. When enabling the testmode for a certain service, it
-will process its Events/Files over and over again. So only use this setting
-for testing purposes.
+You must define at least one enabled service, otherwise the product does not
+collect any data and cannot do useful work.
+
+Do not confuse configured services with **service defaults** in the tree view.
+Service defaults are templates. They provide default properties for new
+services but do not run and do not collect data by themselves.
+
+Test mode is available for selected services, including Event Log Monitor and
+File Monitor. Use it only for testing, because it can replay the same events
+or files repeatedly.
 
 Basic Services
 --------------
