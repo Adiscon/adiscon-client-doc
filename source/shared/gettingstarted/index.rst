@@ -20,7 +20,6 @@ here - it is definitely a worth time spent.
 
    installation
    creatinganinitialconfiguration
-   installingloganalyzer
    obtainingaprintablemanual
    exportsettings
    informationforamassrollout
