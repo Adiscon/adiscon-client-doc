@@ -13,10 +13,14 @@ Make sure that:
 
 - the target system runs a supported version of Windows
 - you have local administrative rights for the installation
-- the system can install required Microsoft .NET components if they are not yet
+- the system can install Microsoft .NET Framework 4.7.2 or a newer
+  .NET Framework 4.x release for the Configuration Client if it is not yet
   present
 - you know whether this system will run the full product or only the background
   service in a deployment scenario
+- if this is a service-only target, the Configuration Client is not required on
+  that system and the .NET Framework requirement applies where the client is
+  installed and used
 
 Supported platforms
 -------------------

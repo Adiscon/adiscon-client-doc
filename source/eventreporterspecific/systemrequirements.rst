@@ -30,8 +30,16 @@ The EventReporter Configuration Client:
 
 - runs on supported 32-bit and 64-bit Windows environments where the current
   product is supported
-- uses Microsoft .NET components that the installer can add if required
+- requires Microsoft .NET Framework 4.7.2 or a newer .NET Framework 4.x
+  release, such as .NET Framework 4.8 or 4.8.1
+- .NET Framework 4.x and .NET Core / .NET 5+ are different runtime families,
+  so .NET Core and .NET 5+ do not satisfy this requirement
+- the installer can add the required .NET Framework components if needed
 - needs only modest disk space and memory for normal administration tasks
+
+This requirement applies to systems where the EventReporter Configuration
+Client is installed. A service-only target does not require the Configuration
+Client.
 
 Service requirements
 --------------------

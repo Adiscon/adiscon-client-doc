@@ -50,4 +50,5 @@ Platform and compatibility
 .. toctree::
    :maxdepth: 1
 
+   ../shared/faq/dotnet-framework-vs-dotnet-core-and-dotnet
    faq/eventreporter-iot2025-support
