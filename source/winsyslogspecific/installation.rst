@@ -18,6 +18,12 @@ Installation
    - Decide whether you need only the WinSyslog service and configuration
      client, or also optional components such as Interactive Syslog Viewer.
    - Ensure you have local administrator rights on the target machine.
+   - Ensure the system can install Microsoft .NET Framework 4.7.2 or a newer
+     .NET Framework 4.x release for the Windows client components if needed.
+   - If you deploy only the background service on this system, the
+     Configuration Client is not required on this target. In that case, the
+     .NET Framework requirement applies where the Configuration Client is
+     installed and used.
 
    Installation steps
    ------------------
@@ -28,7 +34,7 @@ Installation
    3. Accept the license terms and continue through the installer wizard.
    4. Select the components you want to install.
    5. Finish the setup. The installer will add the WinSyslog program group and
-      install the required runtime components if needed.
+      install the required .NET Framework components for the client if needed.
 
    What gets installed
    -------------------

@@ -35,3 +35,11 @@ Licensing and purchasing
    :maxdepth: 1
 
    faq/enter-license-information
+
+Platform and compatibility
+--------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   ../shared/faq/dotnet-framework-vs-dotnet-core-and-dotnet

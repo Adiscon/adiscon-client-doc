@@ -19,10 +19,16 @@ Client
 * The client is suited for 32bit and 64bit operating systems. It runs
   automatically on each platform in 32Bit or 64Bit mode.
 
-* The client uses Microsoft .Net Framework technology. The Installer will
-  automatically install the necessary .Net Framework components before
-  installation. A network connection maybe required in order to download
-  additional components.
+* The client requires Microsoft .NET Framework 4.7.2 or a newer
+  .NET Framework 4.x release, such as .NET Framework 4.8 or 4.8.1.
+  .NET Framework 4.x and .NET Core / .NET 5+ are different runtime families,
+  so .NET Core and .NET 5+ do not satisfy this requirement. The installer can
+  add the required .NET Framework components if needed. A network connection
+  may be required in order to download additional components.
+
+* This requirement applies to systems where the WinSyslog Configuration Client
+  is installed. A service-only target system does not require the Configuration
+  Client.
 
 * The client requires roughly 8 MB RAM in addition to the operating system
   minimum requirements. It also needs around 5 MB of disk space.
@@ -69,10 +75,12 @@ InterActive SyslogViewer
 * SyslogViewer runs in 32Bit mode only. When accessing ODBC data sources, make
   sure to configure System DSN in the 32Bit ODBC Admin.
 
-* SyslogViewer uses Microsoft .Net Framework technology. The Installer will
-  automatically install the necessary .Net Framework components before
-  installation. A network connection maybe required in order to download
-  additional components.
+* SyslogViewer requires Microsoft .NET Framework 4.7.2 or a newer
+  .NET Framework 4.x release, such as .NET Framework 4.8 or 4.8.1.
+  .NET Framework 4.x and .NET Core / .NET 5+ are different runtime families,
+  so .NET Core and .NET 5+ do not satisfy this requirement. The installer can
+  add the required .NET Framework components if needed. A network connection
+  may be required in order to download additional components.
 
 * SyslogViewer requires roughly 15 MB RAM in addition to the operating system
   minimum requirements. It also needs around 2 MB of disk space.
