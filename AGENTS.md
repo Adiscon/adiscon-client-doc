@@ -309,6 +309,14 @@ pip install -r requirements.txt -r requirements-qa.txt
   module execution and runs `rstcheck` via CLI (with `python -m rstcheck`
   fallback if the CLI entrypoint is missing). If your system does not provide
   `python`, run with `make validate-rst PYTHON=python3`.
+- **Note on `rstcheck_core` warnings**: `rstcheck` can emit Python logging
+  warnings such as `WARNING:rstcheck_core.checker:An AttributeError error
+  occured...` while still exiting successfully with `Success! No issues
+  detected.` and exit code `0`. CI follows the command exit status, so these
+  messages do not fail the build on their own. Treat them as tool noise unless
+  you can reproduce a real bare `.. code-block::` / `.. code::` /
+  `.. sourcecode::` directive without an explicit language and fix that actual
+  source issue.
 
 ### 4.8 Pre-Change Checklist
 
