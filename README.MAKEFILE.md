@@ -102,6 +102,12 @@ make singlehtml-rsyslog
 # Build single-page HTML documentation for every project
 make all-singlehtml
 
+# Build HTMLHelp (CHM) for a specific project
+make htmlhelp-winsyslog
+
+# Build HTMLHelp (CHM) for all projects
+make all-htmlhelp
+
 # Build everything (all formats for all projects)
 make all
 
@@ -119,6 +125,31 @@ portable reference without the multi-page navigation scaffolding.
 - `make all-singlehtml` runs the single-page build for every project in the
   repository.
 - Output is written to `build/singlehtml/<project>/index.html`.
+
+### HTMLHelp / CHM Builds at a Glance
+
+HTMLHelp builds produce Windows `.chm` (Compiled HTML Help) files—the offline
+help format used by all Adiscon Windows applications.
+
+- `make htmlhelp-<project>` generates the HTMLHelp source tree under
+  `build/chm/<project>/` and, if the HTML Help Compiler (`hhc.exe`) is found,
+  compiles it into a `.chm` file and copies it to `build/`.
+- `make all-htmlhelp` runs the above for every project in the repository.
+- If `hhc.exe` is not on the `PATH`, the source tree is still generated and
+  you can compile it manually with HTML Help Workshop.
+- **Character encoding:** All CHM builds emit `<meta charset="utf-8" />` so
+  the CHM viewer displays correctly on any Windows locale, including Japanese
+  systems (cp932/Shift-JIS). Older builds used `cp1252` which caused garbled
+  characters on non-Western locales.
+- Output locations:
+  - HTMLHelp source: `build/chm/<project>/`
+  - Compiled CHM: `build/<project>.chm` (e.g. `build/WinSyslog.chm`)
+
+To set a custom `hhc.exe` path (e.g. in WSL or CI):
+
+```bash
+HHC="/mnt/c/Program Files (x86)/HTML Help Workshop/hhc.exe" make htmlhelp-winsyslog
+```
 
 ## Available Projects
 
@@ -167,7 +198,7 @@ Each project has its own configuration and can be built independently.
 |----------------|-------------|---------|
 | `html-<project>` | Build HTML for specific project | `make html-rsyslog` |
 | `singlehtml-<project>` | Build single-page HTML for specific project | `make singlehtml-rsyslog` |
-| `htmlhelp-<project>` | Build HTMLHelp (CHM) for specific project | `make htmlhelp-winsyslog` |
+| `htmlhelp-<project>` | Build HTMLHelp (CHM) source + compile .chm (if HHC found) | `make htmlhelp-winsyslog` |
 | `pdf-<project>` | Build PDF for specific project | `make pdf-mwagent` |
 
 ### Batch Build Targets
@@ -322,6 +353,24 @@ This usually means the virtual environment is not activated or Sphinx is not ins
 - **WSL**: Set `HHC=/mnt/c/Program\ Files\ (x86)/HTML\ Help\ Workshop/hhc.exe`
   before invoking `make htmlhelp-<project>`.
   The repository no longer ships `htmlhelp.exe` directly.
+
+### Garbled characters in CHM on Japanese (or other non-Western) Windows
+
+This was caused by Sphinx's HTMLHelp builder mapping `language = 'en'` to the
+`cp1252` codepage. The CHM viewer on Japanese Windows uses `cp932` (Shift-JIS)
+as the system fallback and misreads cp1252 bytes, scrambling the text.
+
+The fix is built into the project: `conf_common.py` contains
+`fix_htmlhelp_encoding()`, which overrides the builder's encoding to `utf-8`
+after Sphinx's language map runs. All product `conf.py` files call this via
+`setup(app)`. Rebuild the CHM files to get corrected output:
+
+```bash
+make all-htmlhelp
+```
+
+Verify the fix by checking that generated HTML files contain
+`<meta charset="utf-8" />` instead of `<meta charset="cp1252" />`.
 
 ### Build Warnings/Errors
 

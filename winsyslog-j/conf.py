@@ -31,6 +31,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from conf_common import (
     enable_json_ld,
     enable_spelling_extension,
+    fix_htmlhelp_encoding,
     get_spelling_word_list,
     get_shared_templates_path,
     load_linkcheck_ignore,
@@ -336,6 +337,7 @@ def _replace_legacy_name_in_output(app, exception):
 
 
 def setup(app):
+    fix_htmlhelp_encoding(app)
     app.connect('source-read', _replace_legacy_product_name)
     app.connect('build-finished', _replace_legacy_name_in_output)
     enable_json_ld(app)

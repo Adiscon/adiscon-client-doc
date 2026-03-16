@@ -156,3 +156,33 @@ def enable_json_ld(app) -> None:
         return
 
     app.connect("html-page-context", _inject_json_ld)
+
+
+def _apply_htmlhelp_utf8(app) -> None:
+    """Override the HTMLHelp builder encoding to UTF-8.
+
+    sphinxcontrib-htmlhelp maps ``language = 'en'`` to ``cp1252`` (Windows
+    Western-European codepage).  On Japanese Windows systems the CHM viewer
+    (IE/Trident engine) ignores the ``<meta charset>`` declaration and falls
+    back to the system ANSI code page (cp932/Shift-JIS).  Any cp1252 byte in
+    the range 0x81-0x9F is then consumed as a Shift-JIS double-byte lead byte,
+    swallowing the next ASCII character and garbling the text.
+
+    Forcing UTF-8 resolves this: the HTMLHelp builder already HTML-escapes all
+    non-ASCII body text to ``&#NNNN;`` entities, so the file content is
+    effectively 7-bit ASCII.  Declaring UTF-8 causes the CHM viewer on *any*
+    Windows locale to decode that ASCII-safe content correctly.
+    """
+    if getattr(app.builder, 'encoding', None) not in (None, 'utf-8'):
+        app.builder.encoding = 'utf-8'
+
+
+def fix_htmlhelp_encoding(app) -> None:
+    """Connect the UTF-8 encoding fix to the builder-inited event.
+
+    Call this from ``setup(app)`` in each product ``conf.py``::
+
+        def setup(app):
+            fix_htmlhelp_encoding(app)
+    """
+    app.connect('builder-inited', _apply_htmlhelp_utf8)

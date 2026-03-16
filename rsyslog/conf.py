@@ -30,6 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from conf_common import (
     enable_json_ld,
     enable_spelling_extension,
+    fix_htmlhelp_encoding,
     get_spelling_word_list,
     get_shared_templates_path,
     load_linkcheck_ignore,
@@ -293,4 +294,5 @@ pdf_documents = [
 
 
 def setup(app):
+    fix_htmlhelp_encoding(app)
     enable_json_ld(app)
