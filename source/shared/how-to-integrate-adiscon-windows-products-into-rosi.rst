@@ -42,15 +42,15 @@ Product positioning
 These products all sit on the Windows-side delivery path, but they fit
 different jobs:
 
-- ``rsyslog Windows Agent`` is the focused Windows collector and forwarder for
-  Windows-to-rsyslog delivery.
-- ``EventReporter`` is the Windows Event Log specialist with richer local
-  filtering, storage, actions, and forwarding.
-- ``WinSyslog`` is the Windows syslog specialist with richer local filtering,
-  storage, actions, and forwarding. It is not the Windows Event Log collector
-  in this product group.
-- ``MonitorWare Agent`` is the full solution with the broadest input and
-  processing scope.
+- `rsyslog Windows Agent <https://www.rsyslog.com/windows-agent/>`_ is the
+  focused Windows collector and forwarder for Windows-to-rsyslog delivery.
+- `EventReporter <https://www.eventreporter.com/>`_ is the Windows Event Log
+  specialist with richer local filtering, storage, actions, and forwarding.
+- `WinSyslog <https://www.winsyslog.com/>`_ is the Windows syslog specialist
+  with richer local filtering, storage, actions, and forwarding. It is not the
+  Windows Event Log collector in this product group.
+- `MonitorWare Agent <https://www.mwagent.com/>`_ is the full solution with
+  the broadest input and processing scope.
 
 All of them can apply local filtering or modification before forwarding, and
 all can participate in delivery paths where queuing and retry behavior matter.
