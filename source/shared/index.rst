@@ -20,6 +20,7 @@ independently when needed.
 .. toctree::
    :maxdepth: 2
 
+   how-to-integrate-adiscon-windows-products-into-rosi
    gettingstarted/index
    references/index
    contact-language-policy

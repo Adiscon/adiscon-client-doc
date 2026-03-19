@@ -23,6 +23,10 @@ Typical use cases include:
 EventReporter is focused on Windows Event Log collection. It complements, but
 is distinct from, products such as WinSyslog, which focus on syslog reception.
 
+For a neutral summary of how EventReporter and the other Adiscon Windows
+products can deliver data into ROSI-oriented deployments, see
+:doc:`shared/how-to-integrate-adiscon-windows-products-into-rosi`.
+
 This manual is organized around first-time setup, task-oriented tutorials,
 configuration reference, FAQ content, and reference material.
 
