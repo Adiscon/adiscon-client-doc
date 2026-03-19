@@ -20,6 +20,13 @@ messages. WinSyslog provides the Windows-side collection point for these events
 and lets you route them to the destinations and workflows your environment
 requires.
 
+WinSyslog is centered on syslog data. It is not the product for collecting and
+forwarding Windows Event Log data. When the source is Windows Event Log, use
+`EventReporter <https://www.eventreporter.com/>`_,
+`MonitorWare Agent <https://www.mwagent.com/>`_, or
+`rsyslog Windows Agent <https://www.rsyslog.com/windows-agent/>`_ instead,
+depending on the required scope.
+
 WinSyslog is designed for environments that need more than a basic message
 receiver. It can receive syslog over UDP and TCP, support secure syslog
 transport with TLS, and integrate with RELP-based forwarding for reliable log
@@ -56,6 +63,10 @@ analysis systems. In distributed logging pipelines, this also helps reduce
 unnecessary upstream traffic, storage volume, and processing load by dropping
 low-value events early and forwarding only the data that needs further
 retention or analysis.
+
+For a neutral summary of how WinSyslog and the other Adiscon Windows products
+can deliver data into ROSI-oriented deployments, see
+:doc:`shared/how-to-integrate-adiscon-windows-products-into-rosi`.
 
 This manual covers installation, features, configuration, operations, FAQ
 content, and reference material for WinSyslog. Use the sections below to get
