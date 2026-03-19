@@ -28,13 +28,13 @@ Choose by scenario
 ~~~~~~~~~~~~~~~~~~
 
 - If the main goal is Windows-to-rsyslog delivery, start with
-  ``rsyslog Windows Agent``.
+  `rsyslog Windows Agent <https://www.rsyslog.com/windows-agent/>`_.
 - If the source is Windows Event Log and richer local handling is needed, use
-  ``EventReporter``.
+  `EventReporter <https://www.eventreporter.com/>`_.
 - If the source is syslog and local handling is needed on Windows, use
-  ``WinSyslog``.
+  `WinSyslog <https://www.winsyslog.com/>`_.
 - If the Windows side needs the broadest set of inputs and services, use
-  ``MonitorWare Agent``.
+  `MonitorWare Agent <https://www.mwagent.com/>`_.
 
 Product positioning
 ~~~~~~~~~~~~~~~~~~~

@@ -22,8 +22,10 @@ requires.
 
 WinSyslog is centered on syslog data. It is not the product for collecting and
 forwarding Windows Event Log data. When the source is Windows Event Log, use
-EventReporter, MonitorWare Agent, or rsyslog Windows Agent instead, depending
-on the required scope.
+`EventReporter <https://www.eventreporter.com/>`_,
+`MonitorWare Agent <https://www.mwagent.com/>`_, or
+`rsyslog Windows Agent <https://www.rsyslog.com/windows-agent/>`_ instead,
+depending on the required scope.
 
 WinSyslog is designed for environments that need more than a basic message
 receiver. It can receive syslog over UDP and TCP, support secure syslog
