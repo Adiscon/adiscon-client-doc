@@ -14,3 +14,4 @@ configuration tasks.
    tutorial-forward-syslog
    tutorial-forward-email
    tutorial-database-logging
+   tutorial-custom-database-integration

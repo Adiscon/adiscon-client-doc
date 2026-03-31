@@ -16,6 +16,7 @@ Deployment and licensing
    faq/mass-update-rollout
    faq/diff-massroll-massupdateroll
    faq/cluster-server-support
+   faq/database-formats
 
 Operation and troubleshooting
 -----------------------------

@@ -18,6 +18,12 @@ Common storage targets
 - Databases: :doc:`Write to Database <../../mwagentspecific/a-databaseoptions>`
 - Windows Event Log: :doc:`Write to Event Log <../../mwagentspecific/a-eventlogoptions>`
 
+Database setup paths
+--------------------
+
+- Default supported schema: :doc:`../tutorial-database-logging`
+- Custom schema integration: :doc:`../tutorial-custom-database-integration`
+
 Common forwarding targets
 -------------------------
 
