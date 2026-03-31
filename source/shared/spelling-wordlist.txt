@@ -387,6 +387,7 @@ PostProcessAction
 PostProcessing
 PostgreSQL
 PowerShell
+plaintext
 ProcessID
 ProcessId
 ProcessName
@@ -476,6 +477,7 @@ SQL
 SQLEXPRESS
 SQLNCLI11
 SSL
+schemas
 SSL-encrypted
 SSL-protected
 SSL-secured

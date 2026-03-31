@@ -19,6 +19,12 @@ MonitorWare Agent commonly uses these actions:
 - :doc:`Mail <a-mailoptions>` or :doc:`Start Program <a-startprogram>` for
   alerting and operational response
 
+Database setup paths
+--------------------
+
+- Default supported schema: :doc:`tutorial-database-logging`
+- Custom schema integration: :doc:`tutorial-custom-database-integration`
+
 Choosing the first destination
 ------------------------------
 

@@ -15,5 +15,6 @@ self-contained and focused on one practical outcome.
    mwagentspecific/tutorial-forward-tls-to-rsyslog
    mwagentspecific/tutorial-write-to-file
    mwagentspecific/tutorial-database-logging
+   mwagentspecific/tutorial-custom-database-integration
    mwagentspecific/tutorial-eventlogmonitor-v2
    mwagentspecific/tutorial-syslog-server

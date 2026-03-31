@@ -1,56 +1,71 @@
+.. _oledb-database-action:
+
 OLEDB Database Action
 =====================
 
-Due the changes to x64, it became more important to also support the newer
-database layer from Microsoft called OLEDB. The OLEDB Action works similar to
-the ODBC Action from configuration point of few. The MS SQL OLEDB Provider and
-JET4.0 OLEDB Provider have been successfully tested in the Win32 environment.
-Unfortunately, the JET4.0 Provider has not been ported to the x64 platform yet.
-In our internal performance tests, there was an enhancement of up to 30%
-compared to ODBC. So this action may also be interesting for people with a huge
-amount of incoming data.
+Use this action to write matched events or messages to a database through an
+OLEDB provider.
 
-This Action allows writing incoming events directly to any OLEDB - compliant
-database.
+This action serves the same main use cases as
+:doc:`ODBC Database Options <a-databaseoptions>`, but it connects through OLEDB
+instead of an ODBC System DSN. It can write to the built-in Adiscon default
+schema or to a user-defined schema. Provider availability depends on your
+Windows environment and the database vendor's current OLEDB support.
 
-Once stored inside the database, different message viewers as well as custom
-applications can easily browse them. The defaults for the write database action
-are suitable for Adiscon Loganalyzer (web interface).
+When to choose OLEDB
+--------------------
 
-The database format can be fine-tuned. This is most useful if you intend to run
-some additional analysis on the database. Also, in high volume environments,
-tuning the database action to exactly those fields need helps getting best
-performance out of the database.
+- You already have a supported OLEDB provider for the target database.
+- Your environment standardizes on OLEDB rather than ODBC.
+- You need the same database-writing and field-mapping behavior but through an
+  OLEDB connection path.
 
-The main feature of the "OLEDB Database Action" property sheet is the field
-list. The default reflects the typical assignment of event properties to
-database columns. However, you can modify this assignment in any way you like.
+Use the ODBC action instead when your preferred or only supported driver path is
+ODBC.
 
-Connection Options
+Before you start
+----------------
+
+- Verify that the required OLEDB provider is installed on the Windows host.
+- Confirm the server, database, and authentication details that the provider
+  expects.
+- Decide whether you want the default Adiscon schema or an existing custom
+  schema.
+- Ensure the target account has the required database permissions.
+
+Minimal action path
+-------------------
+
+#. Configure the OLEDB connection.
+#. Use **Verify Database** to test the connection.
+#. Choose one of these paths:
+
+   - use **Create Database** for the default schema, or
+   - set the table name and field list for a custom schema
+
+#. Save and apply the configuration.
+#. Send a matching test event or message and verify that rows are inserted.
+
+Connection options
 ------------------
 
 .. image:: ../images/a-oledbdatabase-connection.png
    :width: 100%
 
-* Action - OLEDB Database Connection*
+*Action - OLEDB Database Connection*
+
+Buttons
+^^^^^^^
 
 **Configure OLEDB Connection**
-
-If you click on this button, it starts an OLEDB configuration wizard that will
-  help you configuring your OLEDB data source.
+  Starts the OLEDB configuration wizard for the provider and connection string.
 
 **Verify Database**
-
-The configuration client will attempt to establish a database connection to
-your configured OLEDB Connection.
+  Tests the current OLEDB connection settings.
 
 **Create Database**
-
-If you click on this button, the configuration client will create the default
-tables for SystemEvents and SystemEventsProperties into your configured OLEDB
-database.
-
-
+  Creates the default Adiscon tables in the target database. Use this only when
+  you intentionally want the default schema.
 
 SQL Connection Timeout
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -59,9 +74,7 @@ SQL Connection Timeout
   nSQLConnectionTimeOut
 
 **Description:**
-  Defines the Timeout for the connection
-
-
+  Maximum time to wait while opening the database connection.
 
 Provider
 ^^^^^^^^
@@ -70,10 +83,8 @@ Provider
   szProvider
 
 **Description:**
-  OleDB Provider like SQL Server Client (SQLNCLI11.1). Should be filled
-  automatically with Configure OLEDB Connection button.
-
-
+  OLEDB provider name. Use a provider that is actually installed and supported
+  in your environment.
 
 Data Source
 ^^^^^^^^^^^
@@ -82,11 +93,7 @@ Data Source
   szDataSource
 
 **Description:**
-  Data source is most often the server name or IP address like
-  SERVERNAME\SQLEXPRESS for example. Should be filled automatically with
-  Configure OLEDB Connection button.
-
-
+  Server, instance, or provider-specific data source identifier.
 
 Location
 ^^^^^^^^
@@ -95,10 +102,7 @@ Location
   szLocation
 
 **Description:**
-  OLEDB Location. Should be filled automatically with Configure OLEDB
-  Connection button.
-
-
+  Optional OLEDB location setting if your provider requires it.
 
 Data Catalog
 ^^^^^^^^^^^^
@@ -107,10 +111,7 @@ Data Catalog
   szDataCatalog
 
 **Description:**
-  Is the database name in most cases. Should be filled automatically with
-  Configure OLEDB Connection button.
-
-
+  Database name or catalog, depending on the provider.
 
 Username
 ^^^^^^^^
@@ -119,10 +120,7 @@ Username
   szUsername
 
 **Description:**
-  Username used for authentication. Should be filled automatically with
-  Configure OLEDB Connection button.
-
-
+  User name for database authentication, if required by the provider.
 
 Password
 ^^^^^^^^
@@ -131,22 +129,14 @@ Password
   szPassword
 
 **Description:**
-  Password used for authentication. Should be filled automatically with
-  Configure OLEDB Connection button.
-
-
+  Password for the configured user.
 
 Encrypt password
 ^^^^^^^^^^^^^^^^
 
-**File Configuration field:**
-  szPassword
-
 **Description:**
-  Password used for authentication. Should be filled automatically with
-  Configure OLEDB Connection button.
-
-
+  Enable password encryption if your build exposes this option. As with ODBC,
+  prefer encrypted storage unless you have a documented reason not to.
 
 Table Name
 ^^^^^^^^^^
@@ -155,14 +145,9 @@ Table Name
   szTableName
 
 **Description:**
-  The name of the table to log to. This name is used to create the SQL insert
-  statement and must match the database definition. Default is "SystemEvents".
-
-  **Please note that the default table name must be used when other members of the MonitorWare family (like the web interface or the MonitorWare Console)
-  should work with the database. This customization option is meant for those
-  customers that use third-party or custom software.**
-
-
+  Target table name for database writes. Keep the default ``SystemEvents`` when
+  you use the built-in schema. Set it to your existing table when integrating
+  with a custom schema.
 
 Statement Type
 ^^^^^^^^^^^^^^
@@ -171,13 +156,9 @@ Statement Type
   nSQLStatementType
 
 **Description:**
-  You can select between a INSERT and Call Statement, which is Microsoft
-  specific for Stored Procedures. This means also this type of SQL Statement
-  will only work if MSSQL is used as database. If you select MSSQL Call
-  Statement, the tablename field will automatically be used as stored procedure
-  name.
-
-
+  Selects whether the action uses a standard ``INSERT`` statement or a Microsoft
+  SQL Server call statement for stored procedures. The call-statement path is
+  Microsoft SQL Server specific.
 
 Output Encoding
 ^^^^^^^^^^^^^^^
@@ -186,39 +167,41 @@ Output Encoding
   nOutputEncoding
 
 **Description:**
-  This setting is most important for Asian languages. A good rule is to leave
-  it at "System Default" unless you definitely know you need a separate
-  encoding. "System Default" works perfect in the far majority of cases, even
-  on Asian (e.g. Japanese) Windows versions.
+  Controls how string data is encoded when written. In most environments,
+  **System Default** is the correct setting unless you have a confirmed
+  character-set requirement.
 
+Data mapping and custom schemas
+-------------------------------
 
+The field list works the same way as in
+:doc:`ODBC Database Options <a-databaseoptions>`. It controls which event
+properties are written to which destination columns.
 
+For custom integration:
 
-Enable Detail Property Logging
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- set the table name to your existing table
+- keep only the fields that exist in that table
+- make each field name, field type, and field content match the destination
+  schema deliberately
+
+For string fields, you can use property-replacer expressions such as
+``%msg:1:200%`` when you need truncation or transformation.
+
+If you use the default schema, keep the default field list unchanged unless you
+understand the compatibility impact on tools that expect the standard Adiscon
+layout.
+
+Detail property logging
+^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nPropertiesTable
 
 **Description:**
-  This option logs event properties other than the standard properties to the
-  SystemEventProperties table. A single event can potentially have multiple
-  properties, so selecting this option can result in multiple writes. With
-  Syslog data, however, there are seldom any additional properties. They most
-  often occur when you use the "Post Process" action to define your own
-  properties. Additional properties are typically found in SETP received data
-  originating from an Event Log Monitor, file monitor, or database monitor (plus
-  other monitors, but these are the most prominent ones).
-
-  For example, with Event Log data received via SETP, these properties contain
-  the actually Windows event properties and the event data. Please note that
-  this does not apply to event log messages received via Syslog, because they
-  are no native events but rather Syslog data.
-
-  Please make sure you actually need this before activating it. As a side note,
-  some of the MonitorWare Console reports may need detail logging.
-
-
+  Writes non-standard properties into a separate detail table. This increases
+  write volume and is usually needed only when you intentionally want those
+  additional properties retained.
 
 Detaildata Tablename
 ^^^^^^^^^^^^^^^^^^^^
@@ -227,9 +210,8 @@ Detaildata Tablename
   szPropertiesTableName
 
 **Description:**
-  Tablename for Detail Property Logging
-
-
+  Table name used for detail-property logging. In the default schema, this is
+  typically ``SystemEventProperties``.
 
 Maximum value length (Bytes)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -238,71 +220,7 @@ Maximum value length (Bytes)
   nMaxValueLength
 
 **Description:**
-  Maximum length in bytes for values stored in Detaildata table.
-
-Datafields
-----------
-
-The provided fieldnames are those that Adiscon's schema uses - you can add your
-own if you have a need for this.
-
-You can edit the field list by selecting a row and then modifying the text
-fields above the table. You can insert and delete rows by selecting the
-respective button. If you press delete, the currently selected row is deleted.
-
-For string data types, you can use the property replacer. This can be helpful
-if you would like to store a substring. For example, if you intend to store
-only the first 200 characters of each message, you can use "%msg:1:200%".
-
-
-.. image:: ../images/a-oledbdatabase-datafields.png
-   :width: 100%
-
-* Action - OLEDB Database Datafields*
-
-
-Fieldname
-^^^^^^^^^
-
-**File Configuration field:**
-  szFieldName_[n]
-
-**Description:**
-  The Fieldname is the database column name. It can be any field inside the
-  table.
-
-
-
-Fieldtype
-^^^^^^^^^
-
-**File Configuration field:**
-  nFieldType_[n]
-
-  * 1 = varchar
-  * 2 = int
-  * 3 = text
-  * 4 = DateTime
-
-**Description:**
-  Fieldtype is the data type of the database column. It must reflect the column
-  type selected in the database. It must also be consistent in type with the
-  actual property that must be stored. For example, an integer type property
-  like the syslogpriority can be stored in a varchar column. A string data type
-  like the syslogtag can - for obvious reasons - not be stored in an integer
-  column.
-
-
-
-Fieldcontent
-^^^^^^^^^^^^
-
-**File Configuration field:**
-  szFieldContent_[n]
-
-**Description:**
-  Finally, the Fieldcontent is the event property. For a complete list of
-  supported properties, see :doc:`event properties <../shared/references/eventspecificproperties>`
+  Maximum size in bytes for values written into the detail-property table.
 
 Action Queue Options
 --------------------
@@ -310,19 +228,17 @@ Action Queue Options
 .. image:: ../images/a-odbcdatabase-actionqueue.png
    :width: 100%
 
-* Action - Send RELP Action Queue*
+*Action - OLEDB Database Action Queue*
 
-
-Use Diskqueue if connection to Syslog server fails
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Use Diskqueue if connection to database fails
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nUseDiscQueue
 
 **Description:**
-  Enable diskqueuing syslog messages after unexpected connection loss.
-
-
+  Stores pending writes on disk when the database path is temporarily
+  unavailable.
 
 Split files if this size is reached
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -331,10 +247,7 @@ Split files if this size is reached
   nDiskQueueMaxFileSize
 
 **Description:**
-  Files will be split until they reach the configured size in bytes. The
-  maximum support file size is 10485760 bytes.
-
-
+  Maximum size of each queue file in bytes before a new file is created.
 
 Diskqueue Directory
 ^^^^^^^^^^^^^^^^^^^
@@ -343,10 +256,7 @@ Diskqueue Directory
   szDiskQueueDirectory
 
 **Description:**
-  The directory where the queue files will be generated in. The queuefiles will
-  be generated with a dynamic UUID bound to the action configuration.
-
-
+  Directory used to store queue files for pending database writes.
 
 Waittime between connection tries
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -355,10 +265,8 @@ Waittime between connection tries
   nDiskCacheWait
 
 **Description:**
-  The minimum waittime until the Syslog Action retries to establish a
-  connection to the Syslog server after failure.
-
-
+  Minimum wait time before the action retries the database connection after a
+  failure.
 
 Overrun Prevention Delay (ms)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -367,10 +275,8 @@ Overrun Prevention Delay (ms)
   nPreventOverrunDelay
 
 **Description:**
-  When the Action is processing syslog cache files, an overrun prevention delay
-  can be added to avoid flooding the target Syslog server.
-
-
+  Optional delay between replayed queue writes to avoid overwhelming the target
+  database after recovery.
 
 Double wait time after each retry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -379,9 +285,7 @@ Double wait time after each retry
   bCacheWaittimeDoubling
 
 **Description:**
-  If enabled, the configured waittime is doubled after each try.
-
-
+  Doubles the retry wait time after each failure.
 
 Limit wait time doubling to
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -390,9 +294,7 @@ Limit wait time doubling to
   nCacheWaittimeDoublingTimes
 
 **Description:**
-  How often the waittime is doubled after a failed connection try.
-
-
+  Maximum number of retry doublings after repeated failures.
 
 Enable random wait time delay
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -401,11 +303,8 @@ Enable random wait time delay
   bCacheRandomDelay
 
 **Description:**
-  If enabled, a some random time will be added into the waittime delay. When
-  using many syslog senders, this can avoid that all senders start sending
-  cached syslog data to the Syslog server at the same time.
-
-
+  Adds a randomized delay to retry timing. This can reduce synchronized retry
+  spikes when many senders reconnect at the same time.
 
 Maximum random delay
 ^^^^^^^^^^^^^^^^^^^^
@@ -414,5 +313,13 @@ Maximum random delay
   nCacheRandomDelayTime
 
 **Description:**
-  Maximum random delay time that will be added to the configured waittime if
-  Enable random wait time delay is enabled.
+  Upper bound for the additional randomized retry delay.
+
+Common pitfalls
+---------------
+
+- Assuming OLEDB is required when a supported ODBC path is simpler
+- Relying on provider names or examples from older Windows environments without
+  verifying that the provider is still installed and supported
+- Using the default field list unchanged while targeting a custom table
+- Expecting the action to design a custom schema automatically

@@ -14,4 +14,5 @@ self-contained and focuses on one outcome.
    tutorial-forward-setp
    tutorial-forward-email
    tutorial-database-logging
+   tutorial-custom-database-integration
    tutorial-export-config-and-debug-log

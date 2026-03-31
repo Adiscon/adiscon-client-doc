@@ -1,59 +1,128 @@
 .. _eventreporter-tutorial-database-logging:
 
-Tutorial: Write Windows Events to a Database
-============================================
+Tutorial: Write Windows Events to Microsoft SQL Server
+======================================================
 
-Use this tutorial when EventReporter should store matching events in an
-ODBC-accessible database.
+Use this tutorial when EventReporter should store matching Windows events in
+Microsoft SQL Server through an ODBC **System DSN** and the built-in default
+database schema.
 
 Goal
 ----
 
 At the end of this procedure, EventReporter will write matching events into a
-database table through an ODBC System DSN.
+default ``SystemEvents`` table in Microsoft SQL Server.
+
+Why this tutorial uses the default schema
+-----------------------------------------
+
+This is the fastest supported path for a first production deployment. It keeps
+the built-in field mapping, works with the **Create Database** button, and is
+the safest choice if you later want Adiscon-compatible tooling or predictable
+support behavior.
 
 Prerequisites
 -------------
 
-- A reachable database server
-- An ODBC **System DSN** on the EventReporter host
-- Credentials with the required permissions for inserts and table creation, if
-  applicable
+- Microsoft SQL Server and SQL Server Management Studio (SSMS)
+- Microsoft ODBC Driver 18 for SQL Server, or a compatible Microsoft SQL Server
+  ODBC driver installed on the EventReporter host
+- Database credentials with permission to connect, insert rows, and create the
+  default tables
+- Access to the EventReporter configuration client on the host where
+  EventReporter runs
 
 Steps
 -----
 
-1. Prepare the database connection outside EventReporter.
+1. Create the target database in SQL Server.
 
-   - Create an ODBC **System DSN** on the EventReporter host.
-   - Verify that the database is reachable and that the credentials are valid.
+   - Open SSMS and connect to the SQL Server instance that should receive the
+     EventReporter data.
+   - Create an empty database for this integration.
+   - Keep the database name available for the ODBC setup.
 
-2. Create or choose the ruleset whose events should be stored.
-3. Add a :doc:`Write to Database <../mwagentspecific/a-databaseoptions>`
-   action.
-4. Configure the database action.
+2. Create and test an ODBC **System DSN** on the EventReporter host.
 
-   - Select the System DSN.
-   - Enter credentials if the DSN requires them.
-   - Use the default table format unless you have a defined reason to change
+   - Open **Data Sources (ODBC)** on the EventReporter host.
+   - Create a new **System DSN** for SQL Server.
+   - Select the Microsoft SQL Server driver that matches your environment, for
+     example Microsoft ODBC Driver 18 for SQL Server.
+   - Point the DSN to the SQL Server instance and database created in the
+     previous step.
+   - Complete the DSN wizard and use its built-in connection test.
+
+3. Create or choose the EventReporter ruleset whose events should be stored.
+
+4. Add a :doc:`Write to Database <../mwagentspecific/a-databaseoptions>`
+   action to that ruleset.
+
+5. Configure the database action.
+
+   - Select the ODBC **System DSN** you created.
+   - Enter the database credentials if the DSN or driver requires them.
+   - Keep the default table name ``SystemEvents``.
+   - Keep the default field list unless you intentionally need a custom schema.
+   - Leave the SQL statement type at the normal ``INSERT`` path unless you have
+     a verified SQL Server stored-procedure design.
+
+   .. image:: ../images/a-odbcdatabase-connection.png
+      :width: 100%
+      :alt: Write to Database connection settings in the EventReporter client
+
+   *The connection tab is the main place to select the DSN, enter credentials,
+   verify the connection, and create the default tables.*
+
+6. Create the default database tables.
+
+   - Use the action's **Verify Database** button first.
+   - If the connection test succeeds, click **Create Database**.
+   - Confirm that EventReporter creates the default tables in the selected SQL
+     Server database.
+
+7. Save and apply the configuration.
+
+   - Restart the EventReporter service if your environment or workflow requires
      it.
 
-5. Save and apply the configuration.
-6. Restart the EventReporter service if required.
-7. Trigger a matching event.
+8. Trigger a matching Windows event.
+
+9. Verify the inserted rows in SQL Server.
+
+   - Open SSMS and query the ``SystemEvents`` table.
+   - Confirm that the test event appears there.
+
+   .. code-block:: sql
+
+      SELECT TOP (10) *
+      FROM dbo.SystemEvents;
 
 Verification
 ------------
 
-1. Confirm that the database connection succeeds.
-2. Query the target table and verify that the event was inserted.
-3. If no row appears, check the DSN type, credentials, table settings, and
-   database permissions.
+1. The ODBC **System DSN** test succeeds.
+2. The action's **Verify Database** button succeeds.
+3. The **Create Database** button creates the default tables.
+4. A test event produces a new row in ``SystemEvents``.
+
+Common issues
+-------------
+
+- The DSN was created as a user DSN instead of a **System DSN**.
+- The DSN points to the wrong SQL Server instance or database.
+- The SQL Server account can connect but does not have permission to create
+  tables or insert rows.
+- The default field list or table name was changed even though the goal is the
+  default supported schema.
+- Another tutorial path is actually needed because the destination must be an
+  existing custom table.
 
 Next step
 ---------
 
-If the basic insert path works, continue with:
+If the default schema path works and you want to keep it, continue with:
 
 - :doc:`../mwagentspecific/a-databaseoptions`
+- :doc:`tutorial-custom-database-integration`
+- :doc:`store-and-forward`
 - :doc:`faq/database-formats`
