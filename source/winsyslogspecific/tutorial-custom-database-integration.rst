@@ -83,6 +83,30 @@ table could look like this:
        message_text nvarchar(max) NOT NULL
    );
 
+Sample message and output
+-------------------------
+
+This example uses the same RFC 5424-style message as the quick start so you
+can compare the default and custom-schema paths directly.
+
+Sample input message:
+
+.. code-block:: text
+
+   <134>1 2026-04-01T08:15:00Z fw01 sshd 1234 ID47 - Accepted password for alice from 192.0.2.10 port 55221
+
+Expected output in the example custom table:
+
+.. code-block:: text
+
+   received_at   = 2026-04-01 08:15:00
+   source_host   = fw01
+   facility_text = Local0
+   severity_text = Informational
+   app_name      = sshd
+   raw_message   = <134>1 2026-04-01T08:15:00Z fw01 sshd 1234 ID47 - Accepted password for alice from 192.0.2.10 port 55221
+   message_text  = Accepted password for alice from 192.0.2.10 port 55221
+
 Steps
 -----
 
@@ -99,8 +123,23 @@ Steps
    - The DSN must point to the database that already contains your destination
      table.
    - Complete the DSN wizard and use its built-in test before you continue.
+   - If the DSN uses Windows authentication, remember that WinSyslog normally
+     runs under the default Windows ``Local System`` service account unless you
+     changed it. A DSN test that succeeds for the interactive admin user does
+     not prove that the WinSyslog service can connect to the same SQL Server
+     instance and database.
+   - For a remote SQL Server, either grant SQL access to the WinSyslog service
+     account context, change the WinSyslog service to run under an account
+     that already has SQL access, or use SQL authentication instead.
 
 3. Create or choose the ruleset whose messages should be stored.
+
+   - If you are starting from scratch, create a dedicated ruleset for the
+     database action.
+   - Bind the receiving service to that same ruleset before you test inserts.
+   - If you already use an existing ruleset, confirm that the service that
+     receives the message is bound to the ruleset that holds the database
+     action.
 
 4. Add a :doc:`Write to Database <../mwagentspecific/a-databaseoptions>`
    action to that ruleset.
