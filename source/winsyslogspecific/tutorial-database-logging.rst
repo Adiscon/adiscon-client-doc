@@ -91,7 +91,8 @@ Expected output in SQL Server:
 Prerequisites
 -------------
 
-- Microsoft SQL Server and SQL Server Management Studio (SSMS)
+- Microsoft SQL Server
+- SQL Server Management Studio (SSMS) if you want the GUI-based SQL workflow
 - Microsoft ODBC Driver 18 for SQL Server, or a compatible Microsoft SQL Server
   ODBC driver installed on the WinSyslog host
 - Database credentials with permission to connect, insert rows, and create
@@ -162,6 +163,10 @@ Steps
    After the script finishes, open **Data Sources (ODBC)** and test the new
    System DSN before you continue.
 
+   If the DSN uses Windows authentication, test it with the same account
+   context that WinSyslog will use. A successful interactive admin test does
+   not prove that the WinSyslog service account can connect to SQL Server.
+
    You can also run this small PowerShell connection test against the DSN:
 
    .. code-block:: powershell
@@ -184,9 +189,13 @@ Steps
 
 3. Create or choose the WinSyslog ruleset whose messages should be stored.
 
-   - If you are starting from scratch, use the ruleset that receives your
-     incoming syslog traffic.
-   - If you already have a working ruleset, reuse it.
+   - If you are starting from scratch, create a new ruleset for the database
+     action.
+   - Open the syslog listener service that should receive the test message and
+     bind it to that same ruleset.
+   - Make sure that service is enabled before you send the first test message.
+   - If you already have a working ruleset, confirm that the receiving service
+     is bound to the same ruleset that holds the database action.
 
 4. Add a :doc:`Write to Database <../mwagentspecific/a-databaseoptions>`
    action to that ruleset.
