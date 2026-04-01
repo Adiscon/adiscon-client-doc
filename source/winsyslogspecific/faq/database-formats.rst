@@ -16,6 +16,9 @@ Use the default WinSyslog database format when you want the fastest supported
 setup or compatibility with the standard Adiscon table layout. Use a custom
 schema when WinSyslog must integrate with an existing database design.
 
+If you want a hands-on Microsoft SQL Server example that you can reproduce
+immediately, start with :doc:`../tutorial-database-logging`.
+
 WinSyslog is not limited to an "internal schema" path. The database action can
 write to supported ODBC-accessible databases with user-defined schemas, as long
 as you configure the table name and field mapping correctly.

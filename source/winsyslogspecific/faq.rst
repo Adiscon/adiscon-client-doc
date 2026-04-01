@@ -22,6 +22,7 @@ Operation and troubleshooting
    faq/export-settings-support-call
    faq/order-of-stopping-service
    faq/cluster-server-support
+   faq/database-logging-troubleshooting
    faq/two-date-stamps
    faq/event-id-1011
    ../shared/faq/file-handle-conflicts-duplicate-paths
