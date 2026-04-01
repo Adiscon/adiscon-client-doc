@@ -98,6 +98,31 @@ Prerequisites
   tables
 - Access to the WinSyslog configuration client on the host where WinSyslog runs
 
+Required downloads
+------------------
+
+If you do not already have the Microsoft components installed, use these
+official download pages before you start the tutorial:
+
+- `Microsoft SQL Server downloads`_
+
+  Use the Express edition on this page if you need a free local SQL Server
+  instance for the demo database.
+
+- `SQL Server Management Studio`_
+
+  Use SSMS if you want to create the database and table in a GUI. The article
+  includes the current direct download link.
+
+- `Microsoft ODBC Driver for SQL Server`_
+
+  WinSyslog writes to SQL Server through ODBC, so install the driver that
+  matches the WinSyslog host architecture.
+
+.. _Microsoft SQL Server downloads: https://www.microsoft.com/en-US/sql-server/sql-server-downloads
+.. _SQL Server Management Studio: https://learn.microsoft.com/en-us/ssms/install/install
+.. _Microsoft ODBC Driver for SQL Server: https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver17
+
 Steps
 -----
 
