@@ -7,11 +7,11 @@ configuration tasks.
 .. toctree::
    :maxdepth: 1
 
-   tutorial-use-with-loganalyzer
    tutorial-write-to-file
+   tutorial-database-logging
+   tutorial-custom-database-integration
+   tutorial-use-with-loganalyzer
    tutorial-export-config-and-debug-log
    tutorial-setp-server
    tutorial-forward-syslog
    tutorial-forward-email
-   tutorial-database-logging
-   tutorial-custom-database-integration

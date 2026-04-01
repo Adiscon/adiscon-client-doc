@@ -6,6 +6,31 @@ Tutorial: Integrate WinSyslog with a Custom Database Schema
 Use this tutorial when WinSyslog should write into an existing database schema
 instead of the built-in ``SystemEvents`` layout.
 
+If you want the fastest first success path, start with
+:doc:`tutorial-database-logging` first and return here when you need to adapt
+the database layout to an existing application.
+
+Question
+--------
+
+How do I write WinSyslog data into an existing custom SQL table?
+
+Answer
+------
+
+Use an ODBC **System DSN**, point WinSyslog at the existing table, replace the
+default field list with the columns from your schema, and verify the insert
+with a test message. This path is for existing databases, not for first-time
+setup.
+
+At a glance
+-----------
+
+- Use this page only when the schema already exists
+- Keep the target table fixed and map each column deliberately
+- Test the DSN before debugging WinSyslog
+- Verify with one matching message and one SQL query
+
 Goal
 ----
 
@@ -22,7 +47,7 @@ Use this path when:
 - you want WinSyslog to feed an existing integration or reporting database
 
 Do not use this path just because database logging exists. If you want the
-fastest supported setup or Adiscon-compatible default tables, use
+fastest supported setup or a ready-made example, use
 :doc:`tutorial-database-logging` instead.
 
 What this tutorial does not do
@@ -51,8 +76,10 @@ table could look like this:
    CREATE TABLE dbo.IncomingSyslog (
        received_at datetime2 NOT NULL,
        source_host nvarchar(255) NOT NULL,
-       severity int NULL,
-       syslog_tag nvarchar(255) NULL,
+       facility_text nvarchar(32) NULL,
+       severity_text nvarchar(32) NULL,
+       app_name nvarchar(128) NULL,
+       raw_message nvarchar(max) NULL,
        message_text nvarchar(max) NOT NULL
    );
 
@@ -64,6 +91,8 @@ Steps
    - Confirm the exact table name.
    - Confirm each destination column name and data type.
    - Decide which WinSyslog property belongs in each column.
+   - Decide whether you want to keep the raw message, the parsed message text,
+     or both.
 
 2. Create and test an ODBC **System DSN** for the target database.
 
@@ -92,11 +121,13 @@ Steps
 
    For the example table above, a practical starting point is:
 
-   - ``received_at`` -> ``DateTime`` -> ``timegenerated``
+   - ``received_at`` -> ``DateTime`` -> ``timereported``
    - ``source_host`` -> ``varchar`` -> ``source``
-   - ``severity`` -> ``int`` -> ``syslogpriority``
-   - ``syslog_tag`` -> ``varchar`` -> ``syslogtag``
-   - ``message_text`` -> ``text`` -> ``msg``
+   - ``facility_text`` -> ``varchar`` -> ``syslogfacility_text``
+   - ``severity_text`` -> ``varchar`` -> ``syslogpriority_text``
+   - ``app_name`` -> ``varchar`` -> ``syslogappname``
+   - ``raw_message`` -> ``text`` -> ``rawsyslogmsg``
+   - ``message_text`` -> ``text`` -> ``msgPropertyDescribed``
 
    If a string column is shorter than the source property, use the property
    replacer to truncate or transform the value deliberately. For example,
@@ -122,8 +153,10 @@ Steps
       SELECT TOP (10)
           received_at,
           source_host,
-          severity,
-          syslog_tag,
+          facility_text,
+          severity_text,
+          app_name,
+          raw_message,
           message_text
       FROM dbo.IncomingSyslog;
 
@@ -145,14 +178,19 @@ Common issues
 - Clicking **Create Database** even though the goal is an existing custom schema
 - Assuming Adiscon tools that expect the default schema will continue to work
   unchanged against the custom table
+- Forgetting to test the DSN outside WinSyslog before debugging the action
+- Mapping ``msg`` to a short column when the real message text is longer than
+  the destination can hold
 
 Next step
 ---------
 
-If the custom integration path works, continue with:
-
-- :doc:`../mwagentspecific/a-databaseoptions`
-- :doc:`faq/database-formats`
-
 If you later decide that you need the built-in Adiscon table layout instead of
 your own schema, switch to :doc:`tutorial-database-logging`.
+
+See also
+--------
+
+- :doc:`../mwagentspecific/a-databaseoptions`
+- :doc:`faq/database-logging-troubleshooting`
+- :doc:`faq/database-formats`
