@@ -76,12 +76,17 @@ Action path
 1. Decide whether you need the default supported schema or integration with an
    existing custom schema.
 2. Create and test an ODBC **System DSN** on the WinSyslog host.
-3. In WinSyslog, add a :doc:`Write to Database action <../../mwagentspecific/a-databaseoptions>`
+3. If the DSN uses Windows authentication, remember that WinSyslog normally
+   runs under the default Windows ``Local System`` service account unless you
+   changed it. For a remote SQL Server, either grant SQL access to that
+   service context, change the service logon account, or use SQL
+   authentication.
+4. In WinSyslog, add a :doc:`Write to Database action <../../mwagentspecific/a-databaseoptions>`
    to the ruleset that should store messages.
-4. For the default schema path, follow :doc:`../tutorial-database-logging`.
-5. For the custom integration path, follow
+5. For the default schema path, follow :doc:`../tutorial-database-logging`.
+6. For the custom integration path, follow
    :doc:`../tutorial-custom-database-integration`.
-6. Send a test message and verify that a row is inserted into the intended
+7. Send a test message and verify that a row is inserted into the intended
    table.
 
 Related information

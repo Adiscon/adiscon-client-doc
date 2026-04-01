@@ -163,9 +163,16 @@ Steps
    After the script finishes, open **Data Sources (ODBC)** and test the new
    System DSN before you continue.
 
-   If the DSN uses Windows authentication, test it with the same account
-   context that WinSyslog will use. A successful interactive admin test does
-   not prove that the WinSyslog service account can connect to SQL Server.
+   If the DSN uses Windows authentication, remember that WinSyslog normally
+   runs under the default Windows ``Local System`` service account unless you
+   changed it. A successful interactive admin test does not prove that the
+   WinSyslog service can connect to SQL Server.
+
+   For a remote SQL Server, either grant SQL access to the WinSyslog service
+   account context, change the WinSyslog service to run under an account that
+   already has SQL access, or use SQL authentication instead. The practical
+   verification step is to restart the WinSyslog service, send a test message,
+   and then check whether the row is inserted.
 
    You can also run this small PowerShell connection test against the DSN:
 

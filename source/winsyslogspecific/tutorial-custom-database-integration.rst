@@ -123,9 +123,14 @@ Steps
    - The DSN must point to the database that already contains your destination
      table.
    - Complete the DSN wizard and use its built-in test before you continue.
-   - If the DSN uses Windows authentication, confirm that the WinSyslog
-     service account can also connect to the same SQL Server instance and
-     database.
+   - If the DSN uses Windows authentication, remember that WinSyslog normally
+     runs under the default Windows ``Local System`` service account unless you
+     changed it. A DSN test that succeeds for the interactive admin user does
+     not prove that the WinSyslog service can connect to the same SQL Server
+     instance and database.
+   - For a remote SQL Server, either grant SQL access to the WinSyslog service
+     account context, change the WinSyslog service to run under an account
+     that already has SQL access, or use SQL authentication instead.
 
 3. Create or choose the ruleset whose messages should be stored.
 

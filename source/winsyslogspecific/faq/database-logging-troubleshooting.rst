@@ -16,8 +16,8 @@ The most common causes are:
 
 - the DSN was created as a user DSN instead of a **System DSN**
 - the ODBC driver does not match the WinSyslog service architecture
-- the DSN works for the interactive user but not for the WinSyslog service
-  account
+- the DSN works for the interactive user but not for WinSyslog running under
+  its default ``Local System`` service account
 - the SQL account can connect but cannot insert into the target table
 - the table name in WinSyslog does not match the real table name
 - the field list still reflects the default schema instead of the custom table
@@ -45,8 +45,12 @@ Quick checks
    - Confirm that the DSN is a **System DSN**.
    - Confirm that the driver connects to the intended SQL Server instance and
      database.
-   - If the DSN uses Windows authentication, confirm that the WinSyslog
-     service account can also connect with the same DSN and database access.
+   - If the DSN uses Windows authentication, remember that WinSyslog normally
+     runs under the default Windows ``Local System`` service account unless you
+     changed it.
+   - A DSN test that succeeds for the interactive admin user does not prove
+     that the WinSyslog service can connect with the same DSN and database
+     access.
 
 2. Test the WinSyslog action connection.
 
@@ -90,9 +94,13 @@ Common failure patterns
 - **The DSN test works for the admin user, but WinSyslog still cannot write**
 
   This usually means the DSN or SQL permissions were only validated for the
-  interactive user account. Recheck the authentication mode and make sure the
-  WinSyslog service account can reach the same SQL Server instance and
-  database.
+  interactive user account. WinSyslog normally runs under the default Windows
+  ``Local System`` service account unless you changed it, so a remote SQL
+  Server may see a different account than your admin session.
+
+  Recheck the authentication mode and either grant SQL access to the WinSyslog
+  service account context, change the WinSyslog service to run under an
+  account that already has SQL access, or use SQL authentication instead.
 
 - **Rows appear, but values are missing or truncated**
 
