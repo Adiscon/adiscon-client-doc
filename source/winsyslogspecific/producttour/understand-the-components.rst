@@ -30,7 +30,7 @@ The four components
 4. **Adiscon LogAnalyzer**
    This is an optional analysis component for working with stored logs,
    especially in files or databases. It is for browsing and reviewing retained
-   data, not for live message intake.
+   data, not for live message intake. We also recommend the third-party log viewer `Retrospective <https://www.centeractive.com/products>`_ by centeractive, which is exceptionally easy to use for analyzing log files.
 
 How they fit together
 ---------------------

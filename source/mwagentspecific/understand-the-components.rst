@@ -45,6 +45,8 @@ Adiscon LogAnalyzer
 supported database. Use it when you need browser-based review and analysis of
 historical events instead of live event viewing.
 
+We also recommend the third-party log viewer `Retrospective <https://www.centeractive.com/products>`_ by centeractive, which is exceptionally easy to use for analyzing log files.
+
 How They Work Together
 ----------------------
 

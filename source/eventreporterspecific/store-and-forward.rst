@@ -32,6 +32,13 @@ Common forwarding targets
 - SETP: :doc:`Forward via SETP <../mwagentspecific/a-forwardsetpoptions>`
 - Email: :doc:`Send Email <../mwagentspecific/a-mailoptions>`
 
+Related analysis component
+--------------------------
+
+- For reviewing stored logs later, Adiscon LogAnalyzer works with file- and
+  database-based storage.
+- We also recommend the third-party log viewer `Retrospective <https://www.centeractive.com/products>`_ by centeractive, which is exceptionally easy to use.
+
 Recommended setup path
 ----------------------
 

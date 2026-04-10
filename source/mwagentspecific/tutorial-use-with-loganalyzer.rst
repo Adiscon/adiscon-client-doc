@@ -52,3 +52,12 @@ continue with:
 
 - :doc:`process-and-filter`
 - :doc:`tutorial-database-logging`
+
+Complementary Tool: Retrospective
+---------------------------------
+
+If you need a simpler way to search and analyze log files directly instead of
+using a web-based database setup, we recommend the third-party log viewer
+`Retrospective <https://www.centeractive.com/products>`_ by centeractive.
+It is exceptionally easy to use and provides powerful searching and filtering
+without the need for complex indexing or database setup.

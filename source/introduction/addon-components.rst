@@ -115,3 +115,20 @@ A special highlighting option assists in reviewing logs. You can define
 rules to highlight any keyword or phrase, associating terms with
 specific colors. This feature proves particularly useful when searching
 for specific errors or other log entries.
+
+Complementary Third-party Tools
+===============================
+
+Adiscon collaborates with other software vendors to offer users additional
+options for log analysis and viewing.
+
+Retrospective Log Viewer
+------------------------
+
+In addition to Adiscon LogAnalyzer, we recommend the third-party log viewer
+`Retrospective <https://www.centeractive.com/products>`_ by centeractive.
+
+Retrospective is simple but exceptionally easy to use. It is particularly
+well-suited for administrators who need to quickly search and analyze large
+volumes of log files across different systems without the need for complex
+indexing or database setup.
