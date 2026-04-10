@@ -54,6 +54,10 @@ same port then an error message is logged into Windows Event Log that more than
 one instance of Syslog server is running. After which WinSyslog wouldn't be
 able to perform the desired action.
 
+For the general listener conflict rule, including why TCP and TCP+TLS cannot
+share the same IP address and port, see
+:doc:`../shared/faq/listener-binding-rules`.
+
 Theoretically, you can run a few hundred services in a single service instance.
 However, both from a usage scenario point of view as well as concerning
 operating system resources, we recommend limiting the services to a maximum of

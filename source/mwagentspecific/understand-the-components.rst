@@ -55,3 +55,6 @@ A typical setup looks like this:
 3. Events can be forwarded live to Interactive Syslog Viewer.
 4. Events can be stored in files or a database for later analysis in Adiscon
    LogAnalyzer.
+
+For the current split between remote administration and browser-based review,
+see :doc:`../shared/faq/remote-administration-and-browser-based-review`.

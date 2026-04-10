@@ -39,3 +39,8 @@ Recommended setup path
 2. Add forwarding after filtering behaves the way you expect.
 3. Test remote targets early so host, port, authentication, and protocol
    mismatches are found before production rollout.
+
+For browser-based review of stored data, use Adiscon LogAnalyzer as a separate
+component. For the current split between service administration and
+browser-based review, see
+:doc:`../shared/faq/remote-administration-and-browser-based-review`.

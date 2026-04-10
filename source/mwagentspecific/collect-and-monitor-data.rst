@@ -20,6 +20,10 @@ MonitorWare Agent commonly starts with one or more of these service types:
 - probe and monitor services such as :doc:`pingprobe`, :doc:`portprobe`,
   :doc:`diskspacemonitor`, :doc:`cpumonitor`, and :doc:`ntservicemonitor`
 
+If you run multiple listener-style services, see
+:doc:`../shared/faq/listener-binding-rules` before reusing a protocol, IP
+address, and port combination.
+
 A practical first design
 ------------------------
 

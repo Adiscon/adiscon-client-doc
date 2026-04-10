@@ -19,6 +19,10 @@ For WinSyslog, the recommended LogAnalyzer path is database-backed storage.
 This avoids file-parser dependencies and is the most stable integration path in
 the current manual.
 
+LogAnalyzer is the browser-based review component for stored data. It is not
+the WinSyslog service administration interface. For that distinction, see
+:doc:`../shared/faq/remote-administration-and-browser-based-review`.
+
 Prerequisites
 -------------
 

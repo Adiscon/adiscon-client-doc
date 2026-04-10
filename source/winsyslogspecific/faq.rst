@@ -38,6 +38,7 @@ Deployment and administration
 
    faq/mass-rollout-deployment
    faq/copying-configuration
+   ../shared/faq/remote-administration-and-browser-based-review
    faq/printable-manual
    faq/unc-path-support
    faq/database-formats
@@ -48,6 +49,7 @@ Protocols and integration
 .. toctree::
    :maxdepth: 1
 
+   ../shared/faq/listener-binding-rules
    ../shared/faq/tls-listener-certificate-files
    faq/originating-ip-address
    faq/setp-vs-syslog

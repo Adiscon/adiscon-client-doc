@@ -27,6 +27,9 @@ How they fit together
 - The service continues using the currently applied configuration until you
   save or apply changes from the client.
 
+For the current split between remote administration and browser-based review,
+see :doc:`../shared/faq/remote-administration-and-browser-based-review`.
+
 Optional downstream tools
 -------------------------
 

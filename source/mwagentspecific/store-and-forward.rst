@@ -34,3 +34,8 @@ useful.
 
 If reliable delivery across temporary outages matters, configure disk-backed
 queues where the action supports them.
+
+For browser-based review of stored data, use Adiscon LogAnalyzer as a separate
+component. For the current split between service administration and
+browser-based review, see
+:doc:`../shared/faq/remote-administration-and-browser-based-review`.

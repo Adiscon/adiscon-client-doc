@@ -28,6 +28,8 @@ Where to configure it:
 - :doc:`RELP listener <../../mwagentspecific/relplistener>` receives RELP.
 - :doc:`SETP server <../../mwagentspecific/setpserver>` receives SETP.
 - :doc:`SNMP trap receiver <../../mwagentspecific/snmptrapreceiver>` receives SNMP traps.
+- If you run multiple listeners, see :doc:`../../shared/faq/listener-binding-rules`
+  before reusing a port for another service.
 
 Quick verification:
 
