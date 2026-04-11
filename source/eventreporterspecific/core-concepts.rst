@@ -9,11 +9,15 @@ Concept map
 
 EventReporter processing follows this model:
 
-1. A **service** collects Windows Event Log data.
+1. An **input service** collects Windows Event Log data.
 2. The collected data becomes an **information unit** inside EventReporter.
 3. The **rule engine** evaluates the event against **rules** and
    **filter conditions**.
 4. Matching **actions** store, forward, or transform the event.
+
+In plain language, you can read this as:
+
+``input service -> ruleset -> action``
 
 Canonical concept pages
 -----------------------
@@ -33,7 +37,7 @@ Why this matters
 
 Understanding these concepts helps you:
 
-- design rulesets with predictable behavior
+- design rulesets with predictable behavior for each input service
 - avoid duplicate or conflicting processing paths
 - choose the right action type for storage, forwarding, or alerting
 - troubleshoot why an event did or did not match a rule

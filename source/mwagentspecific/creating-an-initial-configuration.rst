@@ -9,6 +9,9 @@ Goal
 Create a first working MonitorWare Agent configuration that collects Windows
 Event Log records and writes matching events to a local file.
 
+In this manual, **input** is the plain-language concept, while the configured
+object is a **service**.
+
 Prerequisites
 -------------
 
@@ -22,14 +25,14 @@ Steps
 1. Open the MonitorWare Agent Configuration Client.
 2. Under **Running Services**, add an
    :doc:`Event Log Monitor V2 <eventlogmonitorv2>` service.
-3. Assign that service to a new ruleset, for example `Initial Windows Events`.
+3. Assign that input service to a new ruleset, for example `Initial Windows Events`.
 4. In the ruleset, create one rule.
 5. Leave the filter condition broad for the first test, or add one simple
    filter such as an event source or event ID condition.
 6. Add a :doc:`Write to File <a-fileoptions>` action to the rule.
 7. Configure a local test path and filename.
 8. Save and apply the configuration in the Configuration Client so the running
-   service uses the new settings.
+   input service uses the new settings.
 9. Restart the MonitorWare Agent service if your environment or change-control
    process requires it.
 
@@ -40,7 +43,7 @@ How to verify
 2. Confirm that the configured output file is created or updated.
 3. If no output appears, check:
 
-   - whether the service is enabled
+   - whether the input service is enabled
    - whether the ruleset is assigned to that service
    - whether the filter condition is too restrictive
    - whether the output path is writable by the service account

@@ -2,15 +2,19 @@ Services
 ========
 
 Use this section to configure how MonitorWare Agent collects data. Services are
-the product inputs. They gather events or measurements and pass them to the
-ruleset assigned to that service.
+the configured product inputs and generators. They gather events or
+measurements and pass them to the ruleset assigned to that service.
+
+In this manual, **input** is the clearest plain-language concept, while
+**service** remains the operational term for the configured MonitorWare Agent
+object.
 
 For example, the Syslog Server service accepts incoming syslog messages and
 Event Log Monitor extracts Windows Event Log data. Multiple service instances
 can run at the same time when their settings do not conflict.
 
-You must define at least one enabled service, otherwise the product does not
-collect any data and cannot do useful work.
+You must define at least one enabled input service, otherwise the product does
+not collect any data and cannot do useful work.
 
 Do not confuse configured services with **service defaults** in the tree view.
 Service defaults are templates. They provide default properties for new

@@ -1,8 +1,8 @@
 Core concepts
 =============
 
-Use this section to understand the core MonitorWare Agent model: services,
-information units, filter conditions, actions, rules, and SETP.
+Use this section to understand the core MonitorWare Agent model: input
+services, information units, filter conditions, actions, rules, and SETP.
 
 These concepts explain how the product collects monitoring data, evaluates it,
 and decides what to do next.

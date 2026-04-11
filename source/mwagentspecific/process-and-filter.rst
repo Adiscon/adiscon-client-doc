@@ -3,7 +3,7 @@ Process and Filter
 
 MonitorWare Agent processes incoming monitoring data in a consistent sequence:
 
-1. a service produces an information unit
+1. an input service produces an information unit
 2. the information unit enters the assigned ruleset
 3. each rule evaluates its filter conditions
 4. matching rules execute their actions in order
@@ -14,7 +14,8 @@ verified.
 What to filter on
 -----------------
 
-The available filter fields depend on the service type. Typical examples are:
+The available filter fields depend on the input service type. Typical examples
+are:
 
 - event ID, source, level, and channel for Event Log Monitor services
 - sender, facility, and severity for syslog input

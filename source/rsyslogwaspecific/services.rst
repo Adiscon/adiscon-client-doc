@@ -1,11 +1,15 @@
 Services
 ========
 
-Services are the input side of rsyslog Windows Agent. They collect or receive
-events and send them into the assigned ruleset.
+Services are the configured input side of rsyslog Windows Agent. They collect
+or receive events and send them into the assigned ruleset.
 
-You must define at least one service. Without a service, the product does not
-collect or receive any event data.
+In this manual, **input** is the clearest plain-language concept, while
+**service** remains the operational term for the configured rsyslog Windows
+Agent object.
+
+You must define at least one input service. Without a service, the product does
+not collect or receive any event data.
 
 Defaults vs. active services
 ----------------------------

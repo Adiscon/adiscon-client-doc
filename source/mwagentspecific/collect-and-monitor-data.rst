@@ -8,7 +8,8 @@ more specialized manuals in this doc set.
 Typical input sources
 ---------------------
 
-MonitorWare Agent commonly starts with one or more of these service types:
+MonitorWare Agent commonly starts with one or more of these input service
+types:
 
 - :doc:`Event Log Monitor V2 <eventlogmonitorv2>` for Windows Event Log
   channels
@@ -20,8 +21,8 @@ MonitorWare Agent commonly starts with one or more of these service types:
 - probe and monitor services such as :doc:`pingprobe`, :doc:`portprobe`,
   :doc:`diskspacemonitor`, :doc:`cpumonitor`, and :doc:`ntservicemonitor`
 
-If you run multiple listener-style services, see
-:doc:`../shared/faq/listener-binding-rules` before reusing a protocol, IP
+If you run multiple input services, see
+:doc:`../shared/faq/listener-binding-rules` before reusing a transport, IP
 address, and port combination.
 
 A practical first design
@@ -29,8 +30,8 @@ A practical first design
 
 For a first working deployment, keep the design small:
 
-1. Choose one service that collects the data you care about first.
-2. Attach that service to a dedicated ruleset.
+1. Choose one input service that collects the data you care about first.
+2. Attach that input service to a dedicated ruleset.
 3. Add one simple action, such as write to file or forward via syslog.
 4. Verify that the expected events arrive.
 

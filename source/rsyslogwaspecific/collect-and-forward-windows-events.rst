@@ -4,7 +4,8 @@ Collect and Forward Windows Events
 ==================================
 
 rsyslog Windows Agent is primarily used to collect Windows-originated events
-and forward them to rsyslog or another downstream receiver.
+through configured input services and forward them to rsyslog or another
+downstream receiver.
 
 What the product collects
 -------------------------
@@ -32,13 +33,13 @@ Where to configure it
   need to watch text-based log files.
 - :doc:`Syslog server <../mwagentspecific/syslogserver>` is available when the
   agent should relay incoming syslog.
-- If you run multiple listener-style services, see
-  :doc:`../shared/faq/listener-binding-rules` before reusing a protocol, IP
+- If you run multiple input services, see
+  :doc:`../shared/faq/listener-binding-rules` before reusing a transport, IP
   address, and port combination.
 
 Quick verification
 ------------------
 
-- Configure one collection service.
+- Configure one collection input service.
 - Bind it to a ruleset with a visible forwarding action.
 - Apply the configuration and confirm that new events reach the receiver.

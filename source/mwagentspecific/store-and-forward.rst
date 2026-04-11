@@ -1,8 +1,8 @@
 Store and Forward
 =================
 
-After MonitorWare Agent collects and filters data, actions determine what
-happens next.
+After MonitorWare Agent collects and filters data through its input services,
+actions determine what happens next.
 
 Common destinations
 -------------------

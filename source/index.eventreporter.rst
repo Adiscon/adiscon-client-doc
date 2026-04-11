@@ -24,6 +24,11 @@ EventReporter is focused on Windows Event Log collection. It complements, but
 is distinct from products such as
 `WinSyslog <https://www.winsyslog.com/>`_, which focus on syslog reception.
 
+Inside the product, collected data is configured through **services** that feed
+events into rulesets. In plain language, you can read those services as the
+configured inputs that collect Windows Event Log data and hand it to the rule
+engine.
+
 For a neutral summary of how EventReporter and the other Adiscon Windows
 products can deliver data into ROSI-oriented deployments, see
 :doc:`shared/how-to-integrate-adiscon-windows-products-into-rosi`.

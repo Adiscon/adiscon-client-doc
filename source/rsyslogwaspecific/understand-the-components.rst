@@ -11,21 +11,23 @@ The two main components
 
 1. **rsyslog Windows Agent Service**
    This is the runtime component. It runs in the background as a Windows
-   service, collects events, evaluates rules, and forwards matching data.
+   service, runs the configured input services, evaluates rules, and forwards
+   matching data.
 2. **rsyslog Windows Agent Configuration Client**
-   This is the administrative user interface. You use it to define services,
-   rulesets, filters, and actions. Changes are made in the Configuration
-   Client and then applied so the running service can use the new
+   This is the administrative user interface. You use it to define input
+   services, rulesets, filters, and actions. Changes are made in the
+   Configuration Client and then applied so the running service can use the new
    configuration.
 
 How they fit together
 ---------------------
 
-- The **service** performs the actual collection, filtering, and forwarding
-  work.
-- The **configuration client** defines what the service should do.
-- The service continues using the currently applied configuration until you
-  save or apply changes from the client.
+- The **rsyslog Windows Agent service** performs the actual collection,
+  filtering, and forwarding work through the configured input services.
+- The **configuration client** defines what those input services, rulesets,
+  and actions should do.
+- The runtime service continues using the currently applied configuration until
+  you save or apply changes from the client.
 
 For the current split between remote administration and browser-based review,
 see :doc:`../shared/faq/remote-administration-and-browser-based-review`.
