@@ -3,8 +3,9 @@
 Collect Windows Events
 ======================
 
-EventReporter collects Windows Event Log data and turns it into internal events
-that can be filtered, stored, and forwarded.
+EventReporter collects Windows Event Log data through configured input
+services and turns it into internal events that can be filtered, stored, and
+forwarded.
 
 What EventReporter receives
 ---------------------------
@@ -34,7 +35,7 @@ reason to use it for compatibility or legacy behavior.
 Quick verification
 ------------------
 
-- Configure one Event Log Monitor service.
+- Configure one Event Log Monitor input service.
 - Bind it to a ruleset with a visible action such as
   :doc:`Write to File <../mwagentspecific/a-fileoptions>`.
 - Apply the configuration and confirm that new Windows events reach the target.

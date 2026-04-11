@@ -23,6 +23,10 @@ The product is centered on two main runtime roles:
 - the **rsyslog Windows Agent Configuration Client**, which defines services,
   rulesets, filters, and forwarding actions
 
+Inside the product, data enters through configured **services**. In plain
+language, you can read those services as the configured inputs that collect or
+receive events before rulesets and actions process them.
+
 This manual covers installation, first-time setup, configuration, tutorials,
 FAQ content, and reference material for rsyslog Windows Agent.
 

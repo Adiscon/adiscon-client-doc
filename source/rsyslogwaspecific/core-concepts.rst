@@ -9,11 +9,15 @@ Concept map
 
 rsyslog Windows Agent processing follows this model:
 
-1. A **service** collects or receives an event.
+1. An **input service** collects or receives an event.
 2. The collected data becomes an **information unit** inside the product.
 3. The **rule engine** evaluates the event against **rules** and
    **filter conditions**.
 4. Matching **actions** forward, transform, or discard the event.
+
+In plain language, you can read this as:
+
+``input service -> ruleset -> action``
 
 Canonical concept pages
 -----------------------

@@ -12,8 +12,8 @@ MonitorWare Agent Service
 The **MonitorWare Agent Service** is the core runtime component. It runs in the
 background and performs the actual work:
 
-- receives data from services such as Event Log Monitor, Syslog Server, SETP
-  Server, File Monitor, and probes
+- receives data from configured input services such as Event Log Monitor,
+  Syslog Server, SETP Server, File Monitor, and probes
 - evaluates rules and filter conditions
 - executes actions such as writing to file or database, forwarding via syslog
   or SETP, or sending notifications
@@ -22,7 +22,8 @@ Configuration Client
 --------------------
 
 The **MonitorWare Agent Configuration Client** is the administrative user
-interface. Use it to create services, rulesets, rules, filters, and actions.
+interface. Use it to create input services, rulesets, rules, filters, and
+actions.
 
 Changes made in the Configuration Client do not affect the running service
 until you save and apply the configuration. In operational terms, the client is
@@ -50,7 +51,7 @@ How They Work Together
 
 A typical setup looks like this:
 
-1. The Configuration Client defines services, rulesets, and actions.
+1. The Configuration Client defines input services, rulesets, and actions.
 2. The MonitorWare Agent Service runs that configuration in the background.
 3. Events can be forwarded live to Interactive Syslog Viewer.
 4. Events can be stored in files or a database for later analysis in Adiscon

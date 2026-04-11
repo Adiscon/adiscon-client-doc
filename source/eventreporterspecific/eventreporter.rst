@@ -9,6 +9,10 @@ processes them through rules, and stores or forwards the results.
 If you are new to the product, start with ``Getting Started`` for the first
 working setup and return here for the detailed configuration pages.
 
+In this manual, **input** is the clearest plain-language concept for anything
+that collects events, while **service** remains the operational term for the
+configured EventReporter object.
+
 .. toctree::
    :maxdepth: 2
 

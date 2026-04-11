@@ -6,6 +6,9 @@ Creating an Initial Configuration
 Use this page to build the first working rsyslog Windows Agent configuration:
 collect Windows Event Log events and forward them to an rsyslog receiver.
 
+In this manual, **input** is the plain-language concept, while the configured
+object is a **service**.
+
 Goal
 ----
 
@@ -45,13 +48,13 @@ Steps
    - Under :doc:`Services <services>`, add an
      :doc:`Event Log Monitor V2 <../mwagentspecific/eventlogmonitorv2>`
      service.
-   - Bind that service to the ruleset you created.
+   - Bind that input service to the ruleset you created.
    - Select at least one Windows event log or channel to monitor.
 
 4. Save and apply the configuration.
 
-   - Apply or save the changes in the Configuration Client so the service can
-     use them.
+   - Apply or save the changes in the Configuration Client so the input
+     service can use them.
    - Until you apply the changes, the running service continues to use the
      previous configuration.
 
@@ -66,7 +69,7 @@ How to verify
 
    - the rsyslog Windows Agent service is running
    - the event collection service is enabled
-   - the service is bound to the correct ruleset
+   - the input service is bound to the correct ruleset
    - the forwarding action is inside that ruleset
    - the receiver host, port, and transport mode are correct
 

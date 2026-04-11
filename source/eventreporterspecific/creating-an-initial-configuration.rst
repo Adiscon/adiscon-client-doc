@@ -6,6 +6,9 @@ Creating an Initial Configuration
 Use this page to build the first working EventReporter configuration: collect
 Windows Event Log events and write them to a local file.
 
+In this manual, **input** is the plain-language concept, while the configured
+object is a **service**.
+
 Goal
 ----
 
@@ -36,17 +39,17 @@ Steps
    - Inside the ruleset, add a :doc:`Write to File <../mwagentspecific/a-fileoptions>` action.
    - Choose an easy-to-find test file path.
 
-3. Create one event log monitor service.
+3. Create one event collection service.
 
    - Under :doc:`Services <services>`, add an
      :doc:`Event Log Monitor V2 <../mwagentspecific/eventlogmonitorv2>` service.
-   - Bind that service to the ruleset you created.
+   - Bind that input service to the ruleset you created.
    - Select at least one Windows event log or channel to monitor.
 
 4. Save and apply the configuration.
 
-   - Apply or save the changes in the Configuration Client so the service can
-     use them.
+   - Apply or save the changes in the Configuration Client so the input
+     service can use them.
    - Until you apply the changes, the running service continues to use the
      previous configuration.
 
@@ -60,8 +63,8 @@ How to verify
 3. If nothing arrives, check:
 
    - the EventReporter service is running
-   - the event log monitor service is enabled
-   - the service is bound to the correct ruleset
+   - the event collection service is enabled
+   - the input service is bound to the correct ruleset
    - the file action is inside that ruleset
    - the selected event log or channel actually produces events
 
