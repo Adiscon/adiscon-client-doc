@@ -6,6 +6,10 @@ Tutorial: Create a Simple Syslog Server and Write to a File
 Use this tutorial when you want WinSyslog to receive syslog messages and store
 them in a local text file.
 
+In this manual, **input** is the clearest plain-language concept, while the
+configured object is a **service**. In the GUI, that specific input service is
+named ``Syslog server``.
+
 Goal
 ----
 
@@ -20,7 +24,7 @@ Prerequisites
 
 - A writable target directory for log files
 - At least one ruleset for incoming messages
-- A service that will bind to that ruleset
+- An input service that will be attached to that ruleset
 
 Steps
 -----
@@ -56,9 +60,9 @@ Steps
    - Enable **Include Source in Filename** only if you explicitly want
      separate files per sender.
 
-5. Bind message intake to the ruleset.
+5. Attach message intake to the ruleset.
 
-   - Ensure at least one service, for example a
+   - Ensure at least one input service, for example a
      :doc:`Syslog server service <../mwagentspecific/syslogserver>`, is bound
      to the ruleset that contains the file action.
 

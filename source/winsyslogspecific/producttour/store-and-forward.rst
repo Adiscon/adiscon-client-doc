@@ -3,8 +3,8 @@
 Store and Forward
 =================
 
-Once WinSyslog receives an event and it matches a rule, actions can store it
-locally and forward it to downstream systems.
+Once WinSyslog receives an event through an input service and it matches a
+rule, actions can store it locally and forward it to downstream systems.
 
 Where to configure
 ------------------
@@ -49,4 +49,5 @@ Recommended setup path
 Next steps
 ----------
 
-- If you need reliable ingestion on the input side, see :doc:`RELP listener <../../mwagentspecific/relplistener>`.
+- If you need reliable intake on the input side, see
+  :doc:`RELP Listener service <../../mwagentspecific/relplistener>`.

@@ -15,6 +15,10 @@ At the end of this procedure, WinSyslog will:
 - process them through a ruleset
 - write them to a local file
 
+For terminology: in this manual, the plain-language concept is **input**, while
+the configured object is a **service**. The current GUI name for the syslog
+input service is ``Syslog server`` service.
+
 Prerequisites
 -------------
 
@@ -36,18 +40,18 @@ Steps
    - Inside the ruleset, add a :doc:`Write to File <../mwagentspecific/a-fileoptions>` action.
    - Choose an easy-to-find test file path.
 
-3. Create one syslog listener service.
+3. Create one input service to receive syslog.
 
    - Under :doc:`Services <services>`, add a
      :doc:`Syslog server service <../mwagentspecific/syslogserver>`.
-   - Bind that service to the ruleset you created.
-   - Keep the default listener settings unless you already know you need a
+   - Bind that input service to the ruleset you created.
+   - Keep the default input settings unless you already know you need a
      different port or protocol.
 
 4. Save the configuration.
 
-   - Apply or save the changes in the Configuration Client so the service can
-     use them.
+   - Apply or save the changes in the Configuration Client so the input
+     service can use them.
    - Until you apply the changes, the running service continues to use the
      previous configuration.
 
@@ -64,8 +68,8 @@ How to verify
 2. Confirm that the message is written to the file configured in the action.
 3. If nothing arrives, check:
 
-   - the syslog service is enabled
-   - the service is bound to the correct ruleset
+   - the ``Syslog server`` service is enabled
+   - the input service is bound to the correct ruleset
    - the file action is inside that ruleset
    - the WinSyslog service is running
 

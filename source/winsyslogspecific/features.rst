@@ -34,16 +34,23 @@ WinSyslog is a strong fit when you need one or more of the following:
 Processing and routing
 ----------------------
 
-WinSyslog uses services, rulesets, filter conditions, and actions to control
-how messages move through the product. This allows you to:
+WinSyslog uses input services, rulesets, filter conditions, and actions to
+control how messages move through the product. This allows you to:
 
 - receive different inputs on different ports or protocols
 - route different event classes to different outputs
 - store, forward, or alert on only the events that matter
-- run multiple listener instances when ports and settings do not conflict
+- run multiple input service instances when ports and settings do not conflict
 
 For the underlying model, see :doc:`winsyslogconcepts` and
 :doc:`multiple-rulesets-rules-actions`.
+
+In this manual, **input** is the clearest plain-language concept for receive
+configuration, while **service** remains the main operational term for the
+configured WinSyslog object. Some individual GUI pages still use names such as
+``Syslog server`` or ``RELP Listener``. Those are exact service names, not
+separate product concepts. For the terminology mapping, see
+:doc:`faq/services-listeners-and-servers`.
 
 Storage, forwarding, and visibility
 -----------------------------------
@@ -92,4 +99,4 @@ A few product features are useful but should be understood in context:
 - **Interactive viewing** is available, but it requires WinSyslog to forward
   events to the Interactive Syslog Viewer.
 - **IPv6** is supported in network-related facilities, but some service types
-  require separate listener instances depending on protocol behavior.
+  require separate service instances depending on protocol behavior.

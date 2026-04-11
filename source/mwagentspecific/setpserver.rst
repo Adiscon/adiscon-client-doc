@@ -1,12 +1,12 @@
 SETP Server
 ===========
 
-Configures a SETP server service. A :doc:`setp <../glossaryofterms/setp>`
-server is used inside the :doc:`monitorware line of products <../glossaryofterms/mwlineofproducts>` to ensure reliable receiving of
-events from other systems. There are only few configuration options, as SETP
-takes the original message from the sender and uses the exact settings that the
-sender was configured for. No alteration occurs at the SETP server side; as
-such, no values need to be configured for the message format.
+Configures the ``SETP Server`` service. In practice, this is an input service
+that receives :doc:`setp <../glossaryofterms/setp>` events from other Adiscon
+systems. There are only few configuration options, as SETP takes the original
+message from the sender and uses the exact settings that the sender was
+configured for. No alteration occurs on the receiving side, so no values need
+to be configured for the message format.
 
 
 .. image:: ../images/setpserver.png
@@ -35,7 +35,7 @@ Listener Port
   nListenPort
 
 **Description:**
-  The port the :doc:`setp <../glossaryofterms/setp>` server listens on. The
+  The port the ``SETP Server`` service listens on. The
   default value is 5432. This should be changed only if there is a definite need
   for it. Such a need typically arises from security concerns. If the port is
   changed, all reporting devices must also be configured to use the non-standard
@@ -50,11 +50,11 @@ Listener IP Address
   szMyIPAddress
 
 **Description:**
-  The SETP server service can be bound to a specific IP Address. You can either
+  The ``SETP Server`` service can be bound to a specific IP address. You can either
   use an IPv4, an IPv6 Address, or a Hostname that resolves to an IPv4 or IPv6
   Address. This feature is useful for multihome environments where you want to
-  run different Syslog Servers on different IP Addresses. Please note that the
-  default IP Address 0.0.0.0 means ANY IP Address.
+  run different input services on different IP addresses. Please note that the
+  default IP address ``0.0.0.0`` means any IP address.
 
 
 
@@ -81,11 +81,11 @@ Enable SSL/TLS
   nUseSSL
 
 **Description:**
-  If this option is enabled then this action connects to SSL / TLS :doc:`setp <../glossaryofterms/setp>` servers. Please make sure that you want this
-  option to be enabled.
+  If this option is enabled then the ``SETP Server`` service accepts SSL / TLS
+  :doc:`setp <../glossaryofterms/setp>` connections only.
 
-  Please note: If this option is enabled, this action will not be able to
-  connect to NON-SSL SETP Servers.
+  Please note: If this option is enabled, non-SSL SETP senders will not be
+  able to connect.
 
 
 
@@ -121,7 +121,7 @@ Notify Sender about Rule Action Errors?
   An example: you have a machine running an EventLog Monitor and sending these
   events via SETP, and on the other side have all incoming events written into
   a database. If the database would be offline and the events not being written
-  into it, the SETP server would return as the last message that the action
+  into it, the ``SETP Server`` service would return as the last message that the action
   failed (as long as this option is enabled) and generate an error event with
   ID 1005 (and generate a Success Event with ID 1012 if successful again). The
   sender would then halt and retry sending the event. This is because SETP is
@@ -131,7 +131,8 @@ Notify Sender about Rule Action Errors?
   This happens because the Event Log Monitor (as well as the file monitor and
   others) is a restartable event source. It uses the outcome of actions to
   decide if the action is to be retried in another run of the same source.
-  Other event sources have different behavior. The Syslog server, for example,
+  Other event sources have different behavior. The ``Syslog server`` service,
+  for example,
   does not retry failed actions. This is due to the lossy nature of syslog, in
   which losing syslog messages is explicitly permitted (and favorable over
   taking up too many system resources by trying to buffer them).

@@ -49,6 +49,7 @@ Protocols and integration
 .. toctree::
    :maxdepth: 1
 
+   faq/services-listeners-and-servers
    ../shared/faq/listener-binding-rules
    ../shared/faq/tls-listener-certificate-files
    faq/originating-ip-address

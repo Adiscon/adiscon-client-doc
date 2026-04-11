@@ -33,6 +33,12 @@ transport with TLS, and integrate with RELP-based forwarding for reliable log
 delivery. It also runs as a native Windows service and fits naturally into
 Windows administration and monitoring practices.
 
+Inside the product, incoming data is configured through **services** that feed
+events into rulesets. Some GUI pages use older technical labels such as
+``Syslog server`` and ``RELP Listener`` for specific service types. In this
+manual, **service** is the main operational term and the exact GUI label is
+used when you need to match what the client shows.
+
 .. figure:: /images/winsyslog-edge-collector-architecture.jpg
    :alt: WinSyslog as a Windows edge collector that receives noisy log streams, filters and normalizes them, and forwards cleaner events to downstream systems
    :align: center
@@ -67,6 +73,9 @@ retention or analysis.
 For a neutral summary of how WinSyslog and the other Adiscon Windows products
 can deliver data into ROSI-oriented deployments, see
 :doc:`shared/how-to-integrate-adiscon-windows-products-into-rosi`.
+
+For the terminology used throughout the manual, see
+:doc:`winsyslogspecific/faq/services-listeners-and-servers`.
 
 This manual covers installation, features, configuration, operations, FAQ
 content, and reference material for WinSyslog. Use the sections below to get

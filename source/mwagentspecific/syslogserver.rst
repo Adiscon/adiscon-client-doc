@@ -1,8 +1,10 @@
 Syslog server
 =============
 
-Configures a Syslog server service. Multiple protocols (IPv4/IPv6
-and UDP/TCP) can be configured and are supported.
+Configures the ``Syslog server`` service. In practice, this is the WinSyslog or
+MonitorWare Agent input service that receives incoming syslog messages.
+Multiple protocols (IPv4/IPv6 and UDP/TCP) can be configured and are
+supported.
 
 When configuring Syslog Services, the functionality can be checked
 using the Test Syslog server button. It will open the Syslog Test
@@ -37,10 +39,10 @@ Protocol Type
 **Description:**
   Syslog messages can be received via :doc:`udp <../glossaryofterms/udp>`, :doc:`tcp <../glossaryofterms/tcp>` or
   :doc:`rfc 3195 <../glossaryofterms/rfc3195>` RAW. One
-  listener can only listen to one of the protocols. Typically, Syslog
+  service instance can only use one of the protocols at a time. Typically, syslog
   messages are received via UDP protocol, which is the default. The
-  Syslog server also can receive Syslog messages via TCP and reliable
-  Syslog messages via TCP using the RFC 3195 RAW standard.
+  ``Syslog server`` service also can receive syslog messages via TCP and reliable
+  syslog messages via TCP using the RFC 3195 RAW standard.
   Depending on which protocol type you choose, you get different option
   tabs. General and encoding are the same for everyone.
 
@@ -54,10 +56,10 @@ IP Address
   szMyIPAddress
 
 **Description:**
-  The Syslog server can now be bound to a specific IP address. You can
+  The ``Syslog server`` service can now be bound to a specific IP address. You can
   either use an IPv4, an IPv6 Address, or a Hostname that resolves to an
   IPv4 or IPv6 Address. This feature is useful for multihome environments
-  where you want to run different Syslog Servers on different IP Addresses.
+  where you want to run different syslog input services on different IP addresses.
   Please note that the default IP ``address 0.0.0.0`` means ANY IP Address.
 
 
@@ -69,7 +71,7 @@ Listener Port
   nListenPort
 
 **Description:**
-  The port the Syslog server listens on. The typical (standard) value
+  The port the ``Syslog server`` service listens on. The typical (standard) value
   is 514. This should be changed only if there is a definite need for
   it. Such a need typically arises from security concerns. If the port
   is changed, all reporting devices (routers, printers …) must also be

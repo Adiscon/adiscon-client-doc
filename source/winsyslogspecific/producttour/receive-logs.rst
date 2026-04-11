@@ -11,8 +11,13 @@ can be processed by rules.
    :alt: Diagram showing log sources feeding WinSyslog through Syslog UDP/TCP, RELP, SETP, and SNMP traps, then being processed by services, rulesets, and actions before output to file, database, Windows Event Log, forwarded syslog, or email.
 
 *WinSyslog can receive logs from multiple source types, process them through
-services, rulesets, and actions, and then store or forward them to downstream
-targets.*
+input services, rulesets, and actions, and then store or forward them to
+downstream targets.*
+
+In this manual, **input** is the clearest plain-language concept for receive
+configuration, while **service** remains the main operational term. Some GUI
+pages still use exact labels such as ``Syslog server``, ``RELP Listener``, and
+``SETP Server`` for specific service types.
 
 What you can receive:
 
@@ -23,13 +28,15 @@ What you can receive:
 
 Where to configure it:
 
-- :doc:`Services <../services>` provide the inputs.
+- :doc:`Services <../services>` provide the configured input services.
 - :doc:`Syslog server service <../../mwagentspecific/syslogserver>` receives syslog.
-- :doc:`RELP listener <../../mwagentspecific/relplistener>` receives RELP.
-- :doc:`SETP server <../../mwagentspecific/setpserver>` receives SETP.
-- :doc:`SNMP trap receiver <../../mwagentspecific/snmptrapreceiver>` receives SNMP traps.
-- If you run multiple listeners, see :doc:`../../shared/faq/listener-binding-rules`
-  before reusing a port for another service.
+- :doc:`RELP Listener service <../../mwagentspecific/relplistener>` receives RELP.
+- :doc:`SETP Server service <../../mwagentspecific/setpserver>` receives SETP.
+- :doc:`SNMP Trap Receiver service <../../mwagentspecific/snmptrapreceiver>` receives SNMP traps.
+- If you run multiple input services, see
+  :doc:`../../shared/faq/listener-binding-rules` before reusing a port for
+  another service. In that FAQ, ``listener`` refers to the network side of a
+  service.
 
 Quick verification:
 
