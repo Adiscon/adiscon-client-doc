@@ -38,3 +38,8 @@ Recommended setup path
 3. Add internal actions only after the forwarding path behaves as expected.
 4. If you need outage tolerance, configure disk-backed queues where the action
    supports it.
+
+If stored data is reviewed later in a browser, treat Adiscon LogAnalyzer as a
+separate downstream component. For the current split between service
+administration and browser-based review, see
+:doc:`../shared/faq/remote-administration-and-browser-based-review`.

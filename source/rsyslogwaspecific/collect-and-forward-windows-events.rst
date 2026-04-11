@@ -32,6 +32,9 @@ Where to configure it
   need to watch text-based log files.
 - :doc:`Syslog server <../mwagentspecific/syslogserver>` is available when the
   agent should relay incoming syslog.
+- If you run multiple listener-style services, see
+  :doc:`../shared/faq/listener-binding-rules` before reusing a protocol, IP
+  address, and port combination.
 
 Quick verification
 ------------------

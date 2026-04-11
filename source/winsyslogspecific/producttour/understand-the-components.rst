@@ -44,6 +44,9 @@ How they fit together
 - **LogAnalyzer** works on stored log data after the service has written it to
   a file or database.
 
+For the current split between remote administration and browser-based review,
+see :doc:`../../shared/faq/remote-administration-and-browser-based-review`.
+
 What to read next
 -----------------
 

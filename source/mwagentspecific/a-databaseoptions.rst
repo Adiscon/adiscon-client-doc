@@ -369,7 +369,7 @@ Limit wait time doubling to
   nCacheWaittimeDoublingTimes
 
 **Description:**
-  Maximum number of retry doublings after repeated failures.
+  Maximum number of retry wait-time increases after repeated failures.
 
 Enable random wait time delay
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

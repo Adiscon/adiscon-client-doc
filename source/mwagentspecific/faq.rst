@@ -12,6 +12,7 @@ Deployment and licensing
 
    faq/enter-license-information
    faq/printable-manual
+   ../shared/faq/remote-administration-and-browser-based-review
    faq/mass-rollout-deployment
    faq/mass-update-rollout
    faq/diff-massroll-massupdateroll
@@ -46,6 +47,7 @@ Protocols and integration
 .. toctree::
    :maxdepth: 1
 
+   ../shared/faq/listener-binding-rules
    ../shared/faq/tls-listener-certificate-files
 
 Platform and compatibility
