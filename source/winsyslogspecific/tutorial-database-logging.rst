@@ -198,7 +198,7 @@ Steps
 
    - If you are starting from scratch, create a new ruleset for the database
      action.
-   - Open the syslog listener service that should receive the test message and
+   - Open the ``Syslog server`` service that should receive the test message and
      bind it to that same ruleset.
    - Make sure that service is enabled before you send the first test message.
    - If you already have a working ruleset, confirm that the receiving service

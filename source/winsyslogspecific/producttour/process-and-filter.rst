@@ -16,7 +16,8 @@ Where to configure
 Recommended setup path
 ----------------------
 
-1. Start with one input under :doc:`Services <../services>` and attach it to a ruleset.
+1. Start with one input service under :doc:`Services <../services>` and attach
+   it to a ruleset.
 2. In the target ruleset, add one rule with a single, simple action (for example,
    :doc:`Write to File <../../mwagentspecific/a-fileoptions>`).
 3. Add filter conditions to narrow down the events:
@@ -28,8 +29,10 @@ Things that commonly trip people up
 -----------------------------------
 
 - Rule order matters: rules are evaluated top-to-bottom inside a ruleset.
-- A service decides which ruleset sees an event. If events "disappear", verify the service-to-ruleset binding first.
-- Defaults are templates. They do not process events until you create an actual service/action instance.
+- An input service decides which ruleset sees an event. If events "disappear",
+  verify the service-to-ruleset association first.
+- Defaults are templates. They do not process events until you create an
+  actual service or action instance.
 
 Next steps
 ----------

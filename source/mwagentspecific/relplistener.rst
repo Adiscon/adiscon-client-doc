@@ -1,15 +1,16 @@
 RELP Listener
 =============
 
-The :doc:`relp <../glossaryofterms/relp>` listener support the new reliable
-event logging protocol (RELP), which enables a more reliable transmission of
-messages than plain tcp syslog protocol. The service permits to accept messages
-from senders who themselves support RELP.
+The ``RELP Listener`` service receives messages over the
+:doc:`relp <../glossaryofterms/relp>` protocol. In practice, it is an input
+service for reliable event delivery and accepts messages from senders that
+support RELP.
 
-Other than that it is using a different communications protocol, the RELP
-listener is functionally equivalent to the syslog listener. The RELP Listener
-will automatically listen on all available IP Addresses which includes IPv4 and
-IPv6. This is due the librelp implementation method.
+Other than using a different application protocol over TCP, the
+``RELP Listener`` service is functionally equivalent to the
+``Syslog server`` service. It automatically listens on all available IP
+addresses, including IPv4 and IPv6. This is due to the librelp implementation
+method.
 
 
 .. image:: ../images/relplistener.png
@@ -39,7 +40,8 @@ Listener Port
   nListenPort
 
 **Description:**
-  The port the RELP Listener listens on. The typical (standard) value is 20514.
+  The port the ``RELP Listener`` service listens on. The typical (standard)
+  value is 20514.
   This should be changed only if there is a definite need for it. Such a need
   typically arises from security concerns. If the port is changed, all
   reporting devices must also be configured to use the non-standard port.
@@ -64,9 +66,9 @@ Enable SSL / TLS Encryption
   nUseSSL
 
 **Description:**
-  This option enables SSL / TLS encryption for your RELP Server. Please note,
-  that with this option enabled, the server only accepts SSL / TLS enabled
-  senders.
+  This option enables SSL / TLS encryption for the ``RELP Listener`` service.
+  Please note that with this option enabled, the service only accepts SSL / TLS
+  enabled senders.
 
 
 
@@ -85,7 +87,8 @@ TLS Mode
 
   **x509/name (certificate validation and name authentication)**
   When this mode is selected, the subject within the client certificate will be
-  checked against the permitted peers list. This means the RELP Server will
+  checked against the permitted peers list. This means the ``RELP Listener``
+  service will
   only accept the secured connection if it finds the permitted peer in the
   subject.
 
@@ -118,7 +121,7 @@ Select Certificate PEM
 
 **Description:**
   Select the server certificate in PEM format. This is the certificate the
-  RELP listener presents to connecting clients. If needed, append the
+  ``RELP Listener`` service presents to connecting clients. If needed, append the
   intermediate CA certificates after the server certificate so clients can
   validate the chain.
 

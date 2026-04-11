@@ -16,13 +16,13 @@ The four components
 
 1. **WinSyslog Service**
    This is the main runtime component. It runs in the background as a Windows
-   service, receives log data, processes it through rules, and stores or
-   forwards the results.
+   service, receives log data through configured input services, processes it
+   through rulesets and actions, and stores or forwards the results.
 2. **WinSyslog Configuration Client**
-   This is the administrative user interface. You use it to configure services,
-   rulesets, filters, and actions. Changes are made in the Configuration
-   Client and then applied to the WinSyslog service. It is also where you send
-   a test syslog message from the ``Tools`` menu.
+   This is the administrative user interface. You use it to configure input
+   services, rulesets, filters, and actions. Changes are made in the
+   Configuration Client and then applied to the WinSyslog service. It is also
+   where you send a test syslog message from the ``Tools`` menu.
 3. **Interactive Syslog Viewer**
    This is the live-view component for interactive monitoring. It does not show
    data automatically by itself. WinSyslog must forward messages to it via a
@@ -35,14 +35,15 @@ The four components
 How they fit together
 ---------------------
 
-- The **service** does the actual receiving, processing, storing, and
-  forwarding.
-- The **configuration client** defines what the service should do and is where
-  configuration changes are applied before the service uses them.
+- The **WinSyslog service** runs the configured input services, rulesets, and
+  actions that do the actual receiving, processing, storing, and forwarding.
+- The **configuration client** defines what those input services, rulesets,
+  and actions should do and is where configuration changes are applied before
+  the runtime service uses them.
 - The **Interactive Syslog Viewer** can display incoming messages live if the
-  service forwards them there.
-- **LogAnalyzer** works on stored log data after the service has written it to
-  a file or database.
+  WinSyslog service forwards them there.
+- **LogAnalyzer** works on stored log data after the WinSyslog service has
+  written it to a file or database.
 
 For the current split between remote administration and browser-based review,
 see :doc:`../../shared/faq/remote-administration-and-browser-based-review`.

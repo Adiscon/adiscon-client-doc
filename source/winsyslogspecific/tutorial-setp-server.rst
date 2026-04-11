@@ -6,6 +6,9 @@ Tutorial: Configure a SETP Server Service
 Use this tutorial when another Adiscon product should forward events to
 WinSyslog via SETP.
 
+In this manual, SETP reception is described as a **service**. In the GUI, that
+service is named ``SETP Server``.
+
 Goal
 ----
 
@@ -29,7 +32,7 @@ Steps
      action is the simplest choice.
 
 3. Add a :doc:`SETP Server <../mwagentspecific/setpserver>` service.
-4. Configure the listener settings.
+4. Configure the input settings.
 
    - Keep the default port unless your environment requires a different one.
    - Bind to a specific IP address only if you need that behavior.
