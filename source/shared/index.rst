@@ -25,4 +25,5 @@ independently when needed.
    references/index
    contact-language-policy
    faq/mariadb-odbc-support
+   faq/log-rotation-guarantees
    sales/index
