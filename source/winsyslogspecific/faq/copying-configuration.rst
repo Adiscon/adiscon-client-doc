@@ -38,6 +38,6 @@ will be present.
 See Also
 --------
 
-* :doc:`mass-rollout-deployment` - How to perform a mass rollout of WinSyslog
+* :doc:`repeatable-deployment` - How to perform a repeatable deployment of WinSyslog
 * :doc:`export-settings-support-call` - How to export WinSyslog settings for a
   support call

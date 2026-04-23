@@ -37,7 +37,7 @@ work in one of these ways:
 
 - connect to another machine from the client
 - export and import configuration
-- use a rollout process for repeated deployments
+- use a repeatable deployment process for repeated deployments
 
 This means remote administration is a client-and-deployment workflow, not a
 built-in browser administration console.
@@ -90,5 +90,5 @@ Related information
 - :doc:`../tutorials/loganalyzer-setup-and-use`
 - Use the product-specific remote-connect page when the Configuration Client
   can connect to another machine directly.
-- Use the product-specific rollout or configuration-copy guidance when you need
+- Use the product-specific deployment or configuration-copy guidance when you need
   repeatable deployment across multiple systems.

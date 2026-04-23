@@ -1,12 +1,12 @@
-.. _mass-rollout-deployment-eventreporter:
+.. _repeatable-deployment-eventreporter:
 
-How to Perform a Mass Rollout of EventReporter
-==============================================
+How Do I Perform a Repeatable Deployment of EventReporter?
+==========================================================
 
 Question
 --------
 
-How can I deploy EventReporter to many systems efficiently?
+How can I deploy EventReporter consistently to multiple systems?
 
 Answer
 ------
@@ -18,14 +18,18 @@ through your normal software deployment tooling.
 Details
 -------
 
-A mass rollout is appropriate when many systems should use the same or nearly
-the same EventReporter setup. The exact deployment mechanism depends on your
-environment, but the overall pattern stays the same:
+A repeatable deployment is appropriate when more than one system should use the
+same or nearly the same EventReporter setup. The exact deployment mechanism
+depends on your environment, but the overall pattern stays the same:
 
 - create and test one reference configuration
 - export that configuration
 - distribute the software and configuration together
 - adjust only host-specific values where needed
+
+This is a deployment method, not a size category. It is worthwhile for staged
+pilot groups and broader deployments alike, but it is usually unnecessary for a
+single one-off installation.
 
 Action path
 -----------
@@ -46,7 +50,7 @@ Important notes
 
 - Review machine-specific settings such as file paths, service accounts,
   credentials, and target addresses.
-- Test on a non-production system before broad rollout.
+- Test on a non-production system before broader deployment.
 - Keep the configuration export in text form so it can be reviewed and tracked.
 
 Related information

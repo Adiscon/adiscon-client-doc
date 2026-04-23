@@ -1,8 +1,8 @@
-.. _mass-rollout-deployment-winsyslog:
+.. _repeatable-deployment-winsyslog:
 
 
-How to Perform a Mass Rollout of WinSyslog
-===========================================
+How Do I Perform a Repeatable Deployment of WinSyslog?
+======================================================
 
 .. meta::
    :author: Adiscon GmbH
@@ -13,37 +13,41 @@ How to Perform a Mass Rollout of WinSyslog
 Overview
 --------
 
-This FAQ explains how to efficiently deploy WinSyslog to multiple machines using automated mass rollout techniques. This approach is ideal for organizations deploying WinSyslog across multiple systems with identical or similar configurations.
+This FAQ explains how to deploy WinSyslog to multiple machines by reusing one
+validated reference configuration. This approach is useful whenever more than
+one system should receive the same or similar WinSyslog setup.
 
-When to Use Mass Rollout
--------------------------
+When to Use Repeatable Deployment
+---------------------------------
 
-A mass rollout is appropriate when:
+A repeatable deployment is appropriate when:
 
-* Deploying to 5 or more machines
-* Automating distribution across multiple systems
-* Setting up remote offices with identical configurations
-* Standardizing syslog infrastructure across an organization
+* more than one machine should use the same baseline configuration
+* you want to automate distribution across multiple systems
+* you are setting up remote offices with consistent configurations
+* you want to standardize syslog infrastructure across an organization
 
-**Note:** For fewer than 5 systems, manual installation may be more economical unless configurations are very complex.
+**Note:** For a single one-off install, manual setup is usually simpler. The
+repeatable method becomes useful as soon as you want to reuse the same package
+and configuration across multiple systems.
 
 Approach Overview
 -----------------
 
-The mass rollout process involves:
+The repeatable deployment process involves:
 
-1. Creating a master configuration on one system
+1. Creating a reference configuration on one system
 2. Exporting the configuration to a registry file
 3. Distributing the registry file and service executable to target systems
 4. Importing the configuration and starting the service
 
-Step-by-Step Automated Rollout
--------------------------------
+Step-by-Step Repeatable Deployment
+----------------------------------
 
-Step 1: Create Master Configuration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Step 1: Create Reference Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Install WinSyslog on a master system
+1. Install WinSyslog on a reference system
 2. Configure all rules, services, and actions as desired
 3. Test the configuration thoroughly
 4. Export the configuration using the Configuration Client
@@ -72,7 +76,7 @@ Step 4: Automated Installation Script
 Create a batch file to automate the installation::
 
     @echo off
-    REM Mass Rollout Script for WinSyslog
+    REM Repeatable Deployment Script for WinSyslog
     REM This script installs and configures WinSyslog on target machines
 
     REM Copy service executable from network share

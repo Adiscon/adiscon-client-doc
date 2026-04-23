@@ -36,5 +36,5 @@ Action path
 Related information
 -------------------
 
-* :doc:`mass-rollout-deployment`
+* :doc:`repeatable-deployment`
 * :doc:`export-settings-support-call`
