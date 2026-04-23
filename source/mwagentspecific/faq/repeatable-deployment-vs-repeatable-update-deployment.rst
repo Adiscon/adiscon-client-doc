@@ -1,7 +1,7 @@
 .. _repeatable_deployment_vs_repeatable_update_deployment:
 
 Differences Between Repeatable Deployment and Repeatable Update Deployment
-=========================================================================
+==========================================================================
 
 While repeatable deployment and repeatable update deployment are closely
 related, there are important distinctions in how they are planned and carried
