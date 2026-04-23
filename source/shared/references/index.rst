@@ -39,4 +39,4 @@ Manual:
 .. toctree::
    :maxdepth: 2
 
-   ../gettingstarted/informationforamassrollout
+   ../gettingstarted/repeatable-deployment

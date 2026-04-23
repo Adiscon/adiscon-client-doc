@@ -24,7 +24,7 @@ Deployment and administration
 .. toctree::
    :maxdepth: 1
 
-   faq/mass-rollout-deployment
+   faq/repeatable-deployment
    faq/copying-configuration
    faq/printable-manual
 

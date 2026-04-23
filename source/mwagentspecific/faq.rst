@@ -13,9 +13,9 @@ Deployment and licensing
    faq/enter-license-information
    faq/printable-manual
    ../shared/faq/remote-administration-and-browser-based-review
-   faq/mass-rollout-deployment
-   faq/mass-update-rollout
-   faq/diff-massroll-massupdateroll
+   faq/repeatable-deployment
+   faq/repeatable-update-deployment
+   faq/repeatable-deployment-vs-repeatable-update-deployment
    faq/cluster-server-support
    faq/database-formats
 

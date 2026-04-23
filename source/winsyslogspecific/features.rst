@@ -83,7 +83,7 @@ For deployment constraints and platform questions, see:
 
 - :doc:`systemrequirements`
 - :doc:`faq/winsyslog-iot2025-support`
-- :doc:`faq/mass-rollout-deployment`
+- :doc:`faq/repeatable-deployment`
 
 Feature notes
 -------------

@@ -20,7 +20,7 @@ Windows service and performs the actual work.
 The service is the only component you need to install on a
 monitored system. We call the MonitorWare Agent service the
 product's "engine". Consequently, we refer to systems with
-only the service installed as :doc:`engine-only <../shared/gettingstarted/informationforamassrollout>` installations.
+only the service installed as :doc:`engine-only <../shared/gettingstarted/repeatable-deployment>` installations.
 
 The service operates in the background without user intervention.
 You can control it via the Control Panel's "Services" applet or

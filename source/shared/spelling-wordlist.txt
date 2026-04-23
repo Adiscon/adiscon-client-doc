@@ -824,7 +824,7 @@ default-timevalues-setting
 deleter
 delimiter-based
 detecting-password-attacks-on-windows
-diff-massroll-massupdateroll
+diff-repeatable-deployment-repeatable-update-deployment
 diff-setstatus-setproperty-action
 difference-setp-and-syslog
 diskcache
@@ -974,8 +974,10 @@ how-to-configure-a-syslog-server
 how-to-enter-the-license-
 how-to-enter-the-license-information
 how-to-monitor-windows-machines-and-syslog-devices
-how-to-perform-a-mass-rollout
-how-to-perform-a-mass-update-rollout
+how-do-i-perform-a-repeatable-deployment
+how-do-i-perform-a-repeatable-deployment-of-eventreporter
+how-do-i-perform-a-repeatable-deployment-of-winsyslog
+how-do-i-perform-a-repeatable-update-deployment
 how-to-setup-EventReporter-to-view-windows-eventlogs-in-adiscon-loganalyzer
 how-to-setup-a-control-nt-service
 how-to-setup-a-control-nt-service-action

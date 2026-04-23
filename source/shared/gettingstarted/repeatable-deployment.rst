@@ -1,17 +1,23 @@
-Information for a Mass Rollout
-==============================
+.. _repeatable-deployment:
 
-A mass rollout in this context means deploying an Adiscon client (for example
-MonitorWare Agent, EventReporter, or WinSyslog) to more than a handful of
-systems in an automated way. The aim is to invest the upfront effort needed to
-create a consistent "master" configuration once and then reuse it for every
-target machine. For guidance on differentiating between initial and update
-rollouts, see the MWAgent FAQ section.
+Information for Repeatable Deployment
+=====================================
 
-Preparing the Baseline
-----------------------
+A repeatable deployment in this context means deploying an Adiscon client (for
+example MonitorWare Agent, EventReporter, or WinSyslog) to multiple systems by
+reusing one validated reference configuration. The goal is to build and verify
+the package once, then apply the same software and settings consistently across
+each target machine. This method is useful whenever you need more than a
+one-off manual install, including small pilot groups and broader staged
+deployments.
 
-#. Install the product on a single master system and configure it exactly as
+For guidance on differentiating between initial and update deployments, see the
+MWAgent FAQ section.
+
+Preparing the Reference Configuration
+-------------------------------------
+
+#. Install the product on a single reference system and configure it exactly as
    desired. Verify that the configuration works before continuing.
 #. Export the configuration to a :doc:`registry file
    <../../glossaryofterms/registry-file>` via the configuration client
@@ -24,12 +30,12 @@ Preparing the Baseline
      files (``Microsoft.VC90.CRT.manifest``, ``libeay32.dll``, ``ssleay32.dll``,
      ``msvcm90.dll``, ``msvcp90.dll``, ``msvcr90.dll``).
 
-Automated Rollout Example
--------------------------
+Repeatable Deployment Example
+-----------------------------
 
-Once the master system is prepared, copy the required files to a network share
-or removable media and automate the rollout with a script similar to the
-following:
+Once the reference system is prepared, copy the required files to a network
+share or removable media and automate the deployment with a script similar to
+the following:
 
 .. code-block:: bat
 
@@ -40,8 +46,8 @@ following:
    regedit /s \\server\share\configParams.reg
    net start "AdisconMonitorWareAgent"
 
-``configParams.reg`` represents the registry export taken from the master
-system. Because the rollout ships only the engine files, this approach works
+``configParams.reg`` represents the registry export taken from the reference
+system. Because this deployment ships only the engine files, the approach works
 well for DMZ environments where RPC or file sharing cannot be opened.
 
 .. note::
@@ -50,8 +56,8 @@ well for DMZ environments where RPC or file sharing cannot be opened.
    products) only registers the Windows service. It assumes the binaries already
    exist in the current directory, so copy the files before running the command.
 
-Branch Office Rollouts
-----------------------
+Branch Office Deployments
+-------------------------
 
 For branch offices or semi-automated deployments, distribute the prepared
 package and have the local administrator perform the following steps:
@@ -69,12 +75,11 @@ package and have the local administrator perform the following steps:
    The directory that hosts the engine files **is** the installation directory.
    Deleting it removes the binaries and effectively uninstalls the product.
 
-Updating Existing Rollouts
---------------------------
+Updating Existing Deployments
+-----------------------------
 
-To upgrade an engine-only installation, update the master system first, export
+To upgrade an engine-only installation, update the reference system first, export
 the revised configuration, and distribute the refreshed files using the same
 process. Uninstallation is unnecessary as long as you overwrite the files in
 place, but always stop the Windows service before copying the new binaries. For
-a walkthrough focused on update scenarios, refer to
-the MWAgent FAQ section.
+a walkthrough focused on update scenarios, refer to the MWAgent FAQ section.

@@ -22,7 +22,7 @@ here - it is definitely a worth time spent.
    creatinganinitialconfiguration
    obtainingaprintablemanual
    exportsettings
-   informationforamassrollout
+   repeatable-deployment
    loggingevents
    emailnotifications
    alarmingvianetsend
