@@ -3,25 +3,25 @@
 Why does log rotation fail when using ZIP compression in EventReporter?
 ========================================================================
 
-This article explains why log rotation operations fail when the rotation action delay setting is configured too short, causing ZIP compression to be interrupted by the move operation before completion.
+This article explains why log rotation preparation can time out before the service detaches a file for background compression or move processing.
 
 Problem
 -------
 
-Log rotation operations fail when the rotation action delay setting is configured too short, causing ZIP compression to be interrupted by the move operation before completion.
+Log rotation preparation can fail when the "Maximum wait time for log rotation" setting is too short for the File Action to acquire the rotation mutex while the service is busy.
 
 Symptoms
 --------
 
 * Log files are compressed into ZIP format but remain in the live logging directory
-* Move operations fail after the configured delay period
+* Rotation is skipped or deferred because the rotation preparation mutex could not be acquired in time
 * Incomplete log rotation leaves compressed files in active directories
 * Current day logs may be archived prematurely when using time-based rotation triggers
 
 Root Cause
 ----------
 
-The "Maximum wait time for log rotation" setting in the EventReporter Configuration Client controls the waiting period between when log rotation is triggered and when move operations begin. When this delay is too short (such as the default 15 seconds), ZIP compression processes that take longer than the delay period get interrupted by the move operation, causing the rotation to fail.
+The "Maximum wait time for log rotation" setting in the EventReporter Configuration Client controls how long rotation preparation waits to acquire the File Action rotation mutex. Compression and move operations run afterward as detached background work. When this wait is too short, the file may not be detached for rotation under load.
 
 Solution
 --------
@@ -47,14 +47,14 @@ Option 2: Switch to Size-Based Rotation
 Best Practices
 --------------
 
-* Set rotation action delay to at least 60 seconds when using ZIP compression
+* Set the rotation wait time to at least 60 seconds when the service is busy or storage is slow
 * Consider increasing to 120 seconds for large log files or slow storage systems
 * Use size-based rotation instead of time-based to prevent current-day log pre-archiving
 
 Related Settings
 ----------------
 
-* **Maximum wait time for log rotation**: Controls the delay between rotation trigger and move operations (in milliseconds)
+* **Maximum wait time for log rotation**: Controls how long rotation preparation waits for the File Action rotation mutex (in milliseconds)
 * **Rotation trigger**: Determines when rotation begins (time-based vs size-based)
 * **Compression method**: Affects processing time (ZIP compression takes longer than other methods)
 

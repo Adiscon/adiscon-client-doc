@@ -441,10 +441,10 @@ Enable Log Rotation
 ^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
-  nCircularLogging
+  nLogEnableRotate
 
 **Description:**
-  When enabled log files are created and over written in a cycle.
+  Enables the log rotation post-processing subsystem for this File Action.
 
 
 
@@ -463,13 +463,13 @@ Maximum number of rotated log files to keep
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
-  nNumberOfLogfiles
+  nLogRotateMaxFiles
 
 **Description:**
-  Once the last log file is reached, circular logging begins and overwrites the
-  first log file again. If set to 0, log files will not be rotated but can still
-  be processed by Rotate Post Processing (for example compression or backup)
-  along with the Rotate Conditions.
+  Maximum number of rotated log file generations to keep. If set to 0, log
+  files will not be renamed into numbered generations but can still be processed
+  by Rotate Post Processing (for example compression or backup) along with the
+  Rotate Conditions.
 
 
 
