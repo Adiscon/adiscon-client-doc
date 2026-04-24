@@ -323,6 +323,33 @@ Session Timeout
   milliseconds to disable it.
 
 
+Maximum concurrent TCP sessions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nTCPMaxSessions
+
+**Description:**
+  Limits how many TCP sessions this listener accepts at the same time. The
+  default is ``1024``. A value of ``0`` disables the cap. For internet-facing
+  or untrusted networks, keep a finite limit so stalled connections cannot
+  consume an unbounded number of receiver threads.
+
+
+
+TLS handshake timeout
+^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nTLSHandshakeTimeout
+
+**Description:**
+  Sets the timeout, in milliseconds, used while a new TLS connection completes
+  its handshake. The default is ``30000``. This setting applies before the
+  normal TCP session timeout and helps disconnect clients that open a TLS
+  socket but do not complete the handshake.
+
+
 
 Messages are separated by the following sequence
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -409,19 +436,24 @@ TLS Mode
 
   **Anonymous authentication**
   Default option, which means any client certificate will be accepted, or even
-  none.
+  none. This provides encryption without peer authentication. Use it only when
+  that is intentional for the deployment; use one of the x509 modes when peer
+  authenticity matters.
 
   **x509/name (certificate validation and name authentication)**
   When this mode is selected, the subject within the client certificate will be
   checked against the permitted peers list. This means the Syslog server will
   only accept the secured connection if it finds the permitted peer in the
-  subject.
+  subject. Newer hardened configurations can disable the legacy subject
+  substring match and rely on certificate name checks instead.
 
-  **509/fingerprint (certificate fingerprint authentication)**
+  **x509/fingerprint (certificate fingerprint authentication)**
   This mode creates a SHA1 Fingerprint from the client certificate it receives,
   and compares it to fingerprints from the permitted peers list. You can use
   the debuglog to see fingerprints of client certificates which were not
-  permitted.
+  permitted. SHA-1 fingerprint labels remain supported for RFC 5425
+  interoperability. Hardened configurations can disable legacy substring
+  matching and use exact normalized SHA-1 or SHA-256 fingerprints.
 
   **x509/certvalid (certificate validation only)**
   A Syslog Sender is accepted when the client certificate is valid.
@@ -485,6 +517,26 @@ Permitted Peername / SHA1 / etc.
   list holds a list of permitted SHA1 fingerprints. The fingerprints can
   either be generated with OpenSSL Tools or grabbed from the debug logfile.
   The format is like described in RFC 5425, for example: ``SHA1:2C:CA:F9:19:B8:F5:6C:37:BF:30:59:64:D5:9A:8A:B2:79:9D:77:A0``.
+
+
+TLS hardening compatibility options
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration fields:**
+  nTLSAllowExpiredCerts, nTLSLegacyPeerNameMatch, nTLSLegacyFingerprintMatch
+
+**Description:**
+  These compatibility options control stricter certificate handling for
+  authenticated TLS modes. The defaults preserve legacy behavior:
+  ``nTLSAllowExpiredCerts=1`` accepts expired client certificates,
+  ``nTLSLegacyPeerNameMatch=1`` allows the historic subject substring match
+  for x509/name mode, and ``nTLSLegacyFingerprintMatch=1`` allows the historic
+  SHA-1 fingerprint substring match.
+
+  Recommended hardened values are ``0`` for all three settings. With those
+  values, expired client certificates are rejected, x509/name mode uses
+  certificate name matching, and x509/fingerprint mode requires exact
+  normalized SHA-1 or SHA-256 fingerprints.
 
 
 
@@ -589,3 +641,17 @@ When setting advanced configuration commands, we highly recommend to enable
  debug logging and review it after changes have been made. An error will be
  logged in the debug logfile if a configuration command cannot be processed
  successfully.
+
+
+Fail on TLS configuration command error
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nTLSFailOnConfigCommandError
+
+**Description:**
+  Controls whether the listener fails to start TLS when an OpenSSL
+  configuration command cannot be applied. The default is ``0``, which keeps
+  compatibility by logging the error and continuing. Set this value to ``1``
+  for hardened deployments where a weaker-than-intended TLS configuration
+  should stop the listener instead of being accepted.
