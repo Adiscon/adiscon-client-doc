@@ -2,6 +2,7 @@
 sphinx==7.2.6
 furo==2024.1.29
 rst2pdf==0.101
+reportlab==4.2.5
 sphinxcontrib-spelling==8.0.0
 pyenchant==3.2.2
 sphinxcontrib-htmlhelp==2.0.0

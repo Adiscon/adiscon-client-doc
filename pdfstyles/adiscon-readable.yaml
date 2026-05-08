@@ -1,0 +1,124 @@
+styles:
+  bodytext:
+    alignment: TA_LEFT
+    hyphenation: false
+    parent: normal
+    spaceAfter: 3
+    spaceBefore: 4
+  bullet-list:
+    colWidths:
+    - 16
+    - null
+    parent: bodytext
+  bullet-list-item:
+    parent: bodytext
+    spaceAfter: 2
+    spaceBefore: 2
+  definition-list-term:
+    fontName: fontSansBold
+    parent: normal
+    spaceAfter: 1
+    spaceBefore: 5
+  heading:
+    backColor: null
+    borderColor: null
+    borderPadding: 0
+    borderWidth: 0
+    fontName: fontSansBold
+    parent: normal
+    spaceAfter: 7
+    spaceBefore: 16
+    textColor: '#20435C'
+  heading1:
+    fontSize: 190%
+    spaceAfter: 10
+    spaceBefore: 18
+  heading2:
+    fontSize: 155%
+  heading3:
+    fontSize: 130%
+  heading4:
+    fontSize: 115%
+  heading5:
+    fontSize: 105%
+  heading6:
+    fontSize: 100%
+  title:
+    alignment: TA_CENTER
+    fontSize: 220%
+    keepWithNext: false
+    parent: heading
+    spaceAfter: 20
+    spaceBefore: 20
+  subtitle:
+    alignment: TA_CENTER
+    fontSize: 90%
+    parent: title
+    spaceAfter: 12
+    spaceBefore: 8
+  author:
+    alignment: TA_CENTER
+    fontName: fontSansBold
+    fontSize: 115%
+    parent: bodytext
+  toc:
+    fontSize: 95%
+    leading: 12
+    parent: normal
+    spaceAfter: 1
+    spaceBefore: 1
+  toc1:
+    fontName: fontSansBold
+    leftIndent: 0
+    parent: toc
+  toc2:
+    leftIndent: 14
+    parent: toc
+  toc3:
+    leftIndent: 28
+    parent: toc
+  table:
+    alignment: TA_CENTER
+    parent: normal
+    spaceAfter: 8
+    spaceBefore: 6
+  table-body:
+    fontSize: 90%
+    leading: 10
+    parent: normal
+  table-heading:
+    alignment: TA_LEFT
+    fontName: fontSansBold
+    fontSize: 90%
+    leading: 10
+    parent: normal
+  literal:
+    firstLineIndent: 0
+    fontName: fontMono
+    fontSize: 90%
+    hyphenation: false
+    parent: normal
+  code:
+    backColor: '#F6F8FA'
+    borderColor: '#D6DCE2'
+    borderPadding: 6
+    borderWidth: 0.4
+    leftIndent: 0
+    parent: literal
+    spaceAfter: 9
+    spaceBefore: 7
+  admonition:
+    backColor: '#F7FAFC'
+    borderColor: '#AEB7C0'
+    borderPadding: 8
+    borderWidth: 0.4
+    parent: normal
+    spaceAfter: 9
+    spaceBefore: 9
+  admonition-title:
+    fontName: fontSansBold
+    parent: normal
+  note:
+    parent: admonition
+  warning:
+    parent: admonition

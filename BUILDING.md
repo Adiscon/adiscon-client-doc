@@ -182,6 +182,7 @@ CSS features like custom properties.
 script from Windows (cmd or PowerShell) to compile all CHM files:
 
 ```cmd
+source venv/bin/activate
 make all-htmlhelp   REM from WSL – generates HTMLHelp files, skips CHM
 build-chm.bat       REM from Windows – compiles all .hhp to .chm
 ```
