@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import importlib
 import os
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional
 from urllib.parse import urljoin
@@ -56,6 +57,174 @@ def enable_spelling_extension(extensions: List[str]) -> List[str]:
         pass
 
     return extensions
+
+
+def get_sphinx_builder_name() -> str:
+    """Return the requested Sphinx builder from env or command-line args."""
+    builder = os.environ.get("SPHINX_BUILDER")
+    if builder:
+        return builder
+
+    for index, arg in enumerate(sys.argv):
+        if arg in {"-b", "--builder"} and index + 1 < len(sys.argv):
+            return sys.argv[index + 1]
+        if arg.startswith("--builder="):
+            return arg.split("=", 1)[1]
+
+    return ""
+
+
+def configure_builder_extensions(extensions: List[str]) -> List[str]:
+    """Remove extensions that are only useful for specific Sphinx builders."""
+    builder = get_sphinx_builder_name()
+    if builder and builder not in {"html", "dirhtml", "singlehtml"}:
+        extensions = [extension for extension in extensions if extension != "sphinx_sitemap"]
+
+    return extensions
+
+
+def configure_pdf_defaults(config: Dict) -> None:
+    """Apply PDF defaults shared by all product manuals."""
+    pdf_style_dir = str(Path(__file__).resolve().parent / "pdfstyles")
+    existing_style_path = config.get("pdf_style_path", [])
+    if isinstance(existing_style_path, str):
+        existing_style_path = [existing_style_path]
+
+    config["pdf_break_level"] = -1
+    config["pdf_breakside"] = "any"
+    config["pdf_cover_template"] = "pdf-cover.tmpl"
+    config["pdf_fit_mode"] = "shrink"
+    config["pdf_style_path"] = [
+        pdf_style_dir,
+        *[path for path in existing_style_path if path != pdf_style_dir],
+    ]
+    config["pdf_stylesheets"] = ["sphinx", "a4", "adiscon-readable"]
+    config["pdf_toc_depth"] = 3
+    config["pdf_use_coverpage"] = True
+
+
+def relax_pdf_odd_page_breaks(app) -> None:
+    """Avoid blank filler pages caused by rst2pdf's hardcoded odd-page breaks."""
+    if getattr(app.builder, "name", "") != "pdf":
+        return
+
+    try:
+        from docutils import nodes
+        from sphinx import addnodes
+        import rst2pdf.flowables as flowables
+        import rst2pdf.genelements as genelements
+        import rst2pdf.pdfbuilder as pdfbuilder
+        import rst2pdf.utils as utils
+    except Exception:
+        return
+
+    if getattr(utils.parseRaw, "_adiscon_relaxed", False):
+        return
+
+    original_parse_raw = utils.parseRaw
+
+    def parse_raw_without_odd_breaks(data, node):
+        return original_parse_raw(data.replace("OddPageBreak", "PageBreak"), node)
+
+    parse_raw_without_odd_breaks._adiscon_relaxed = True
+    utils.parseRaw = parse_raw_without_odd_breaks
+    genelements.parseRaw = parse_raw_without_odd_breaks
+
+    if getattr(pdfbuilder.PDFContents.build_contents, "_adiscon_source_pages", False):
+        return
+
+    def build_source_page_contents(self, node, source_depth=0):
+        entries = []
+        max_source_depth = self.toc_depth
+
+        def source_page_sections(parent, parent_depth):
+            for child in parent.children:
+                if isinstance(child, addnodes.start_of_file):
+                    child_depth = parent_depth + 1
+                    if child_depth <= max_source_depth:
+                        for section in child.children:
+                            if isinstance(section, nodes.section):
+                                yield section, child_depth
+                elif isinstance(child, nodes.section):
+                    if parent_depth == 0 and any(
+                        isinstance(descendant, addnodes.start_of_file)
+                        for descendant in child.traverse(addnodes.start_of_file)
+                    ):
+                        yield child, parent_depth
+                    else:
+                        yield from source_page_sections(child, parent_depth)
+                elif isinstance(child, nodes.compound):
+                    yield from source_page_sections(child, parent_depth)
+
+        for section, section_depth in source_page_sections(node, source_depth):
+            section["pdf_toc_source_page"] = True
+            section["pdf_source_depth"] = section_depth
+            title = section[0]
+            auto = title.get("auto")
+            entrytext = self.copy_and_filter(title)
+            reference = nodes.reference("", "", refid=section["ids"][0], *entrytext)
+            ref_id = self.document.set_id(reference)
+            entry = nodes.paragraph("", "", reference)
+            item = nodes.list_item("", entry)
+
+            if (
+                self.backlinks in ("entry", "top")
+                and title.next_node(nodes.reference) is None
+            ):
+                if self.backlinks == "entry":
+                    title["refid"] = ref_id
+                elif self.backlinks == "top":
+                    title["refid"] = self.toc_id
+
+            if section_depth < max_source_depth:
+                item += self.build_contents(section, section_depth)
+
+            entries.append(item)
+
+        if not entries:
+            return []
+
+        contents = nodes.bullet_list("", *entries)
+        if auto:
+            contents["classes"].append("auto-toc")
+        return contents
+
+    build_source_page_contents._adiscon_source_pages = True
+    pdfbuilder.PDFContents.build_contents = build_source_page_contents
+
+    if not getattr(genelements.HandleTitle.gather_elements, "_adiscon_source_breaks", False):
+        original_gather_title_elements = genelements.HandleTitle.gather_elements
+
+        def gather_title_elements_with_source_breaks(self, client, node, style):
+            elements = original_gather_title_elements(self, client, node, style)
+            section = getattr(node, "parent", None)
+            if (
+                isinstance(section, nodes.section)
+                and section.get("pdf_toc_source_page", False)
+                and section.get("pdf_source_depth", 0) >= 3
+            ):
+                elements.insert(0, flowables.MyPageBreak(breakTo="any"))
+                node.elements = elements
+            return elements
+
+        gather_title_elements_with_source_breaks._adiscon_source_breaks = True
+        genelements.HandleTitle.gather_elements = gather_title_elements_with_source_breaks
+
+    if getattr(flowables.MyTableOfContents.notify, "_adiscon_source_pages", False):
+        return
+
+    original_notify = flowables.MyTableOfContents.notify
+
+    def notify_source_page_entries(self, kind, stuff):
+        if self.parent is None:
+            node = stuff[4]
+            section = getattr(node, "parent", None)
+            if section is None or not section.get("pdf_toc_source_page", False):
+                return
+        return original_notify(self, kind, stuff)
+
+    notify_source_page_entries._adiscon_source_pages = True
+    flowables.MyTableOfContents.notify = notify_source_page_entries
 
 
 def _extract_faq_entries(doctree: Optional[nodes.document]) -> List[Dict]:

@@ -1,0 +1,13 @@
+# Custom PDF stylesheet for WinSyslog documentation
+# Controls page breaks and improves layout
+
+pageSetup:
+    size: A4
+
+pageTemplates:
+    coverPage:
+        frames:
+            - [0cm, 0cm, 100%, 100%]
+        showHeader: false
+        showFooter: false
+

@@ -28,12 +28,15 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from conf_common import (
+    configure_builder_extensions,
+    configure_pdf_defaults,
     enable_json_ld,
     enable_spelling_extension,
     fix_htmlhelp_encoding,
     get_spelling_word_list,
     get_shared_templates_path,
     load_linkcheck_ignore,
+    relax_pdf_odd_page_breaks,
 )
 
 
@@ -52,6 +55,7 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinx_sitemap',
     'rst2pdf.pdfbuilder']
+extensions = configure_builder_extensions(extensions)
 extensions = enable_spelling_extension(extensions)
 
 # Add any paths that contain templates here, relative to this directory.
@@ -316,9 +320,10 @@ pdf_documents = [
      'System Tools'),
 ]
 
+configure_pdf_defaults(globals())
+
 
 def setup(app):
     fix_htmlhelp_encoding(app)
+    app.connect('builder-inited', relax_pdf_odd_page_breaks)
     enable_json_ld(app)
-
-

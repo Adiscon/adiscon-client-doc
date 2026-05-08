@@ -1,0 +1,52 @@
+.. role:: normal
+
+{% set cover_logo = none %}
+{% if 'EventReporter' in title %}
+{% set cover_logo = '../logos/EventReporter\ Logo.png' %}
+{% elif 'MonitorWare' in title %}
+{% set cover_logo = '../logos/MonitorWare\ Agent\ Logo.png' %}
+{% elif 'rsyslog Windows Agent' in title %}
+{% set cover_logo = '../logos/RSyslog\ WA.png' %}
+{% elif 'WinSyslog' in title %}
+{% set cover_logo = '../logos/WinSyslog\ Logo.png' %}
+{% endif %}
+
+{% if cover_logo: %}
+
+.. image:: {{ cover_logo }}
+   :width: 10cm
+   :align: center
+
+{% endif %}
+
+{% if title: %}
+
+.. cssclass:: title
+
+{{ title }}
+
+{% endif %}
+
+{% if subtitle: %}
+
+.. cssclass:: subtitle
+
+{{ subtitle }}
+
+{% endif %}
+
+{% for author in authors: %}
+
+.. cssclass:: author
+
+{{ author }}
+
+{% endfor %}
+
+.. cssclass:: author
+
+:normal:`{{ date }}`
+
+.. raw:: pdf
+
+   PageBreak
