@@ -1109,6 +1109,7 @@ multihome
 multiple-rulesets-rules-actions
 multithread-capable
 multithreaded
+mutex
 mwa-flowchart
 mwa42
 mwagent
@@ -1240,10 +1241,12 @@ nLicenseKey4
 nLicenseKey5
 nListenPort
 nLogDoNotRotateOnShutdown
+nLogEnableRotate
 nLogEnableRotateTimeOfTheDay
 nLogEnableRotateTimeout
 nLogFileType
 nLogMoveAfterRotate
+nLogRotateMaxFiles
 nLogRotateMaxWait
 nLogRotateOnClose
 nLogRotateOnSizeLimit
