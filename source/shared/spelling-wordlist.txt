@@ -305,6 +305,7 @@ McAfee
 MessageID
 Microsoft-Windows-Security-Auditing
 Microsystems
+mitigations
 MointorWare
 MoniLog
 MonitorWare
