@@ -23,11 +23,10 @@ Features
 Requirements
 ------------
 
-Any Windows-Windows based operating system like Windows XP, Vista, 7, 8, 10,
-2003, 2008, 2012, 2016, 2019.
+Windows 10, Windows 11, and Windows Server 2016/2019/2022/2025 (and newer versions).
 
-You need at least .NET 2.0 framework installed in order to run Adiscon's Syslog
-Viewer.
+SyslogViewer requires Microsoft .NET Framework. The installer will guide you
+through required prerequisites.
 
 Hardware requirements:
-- 32MB RAM
+- 256 MB RAM or more (depending on workload and database connectivity)

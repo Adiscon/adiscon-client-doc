@@ -86,7 +86,7 @@ A monitoring agent for Windows systems that:
 -   Provides alerting capabilities
 -   Integrates with central monitoring systems
 
-### Rsyslog
+### rsyslog
 The enhanced syslog daemon for Linux/Unix systems featuring:
 -   High-performance log processing
 -   Reliable event logging with queuing
@@ -180,10 +180,17 @@ Common path mappings for "General Options":
 
 Never use `../general-options` (hyphenated) for WinSyslog pages; that file name does not exist and will break builds.
 
+**Rule 4a: Preferred cross-reference strategy (in order)**
+
+1. Use `:ref:` to a stable label on a shared page when possible.
+2. Use `:doc:` for same-manual links and guaranteed shared pages.
+3. Use guarded `.. only::` blocks for product-specific cross-manual links.
+4. Use external URLs only when an internal target cannot be made build-safe.
+
 ### 4.3 Common Patterns in This Repository
 
 **Rule 4: Product name consistency**
-- Always use exact capitalization: `WinSyslog`, `EventReporter`, `MonitorWare Agent`, `Rsyslog`, `SyslogViewer`
+- Always use exact capitalization: `WinSyslog`, `EventReporter`, `MonitorWare Agent`, `rsyslog`, `SyslogViewer`
 - Never use variations like `Winsyslog`, `eventreporter`, `MW Agent`
 
 **Rule 5: Windows terminology**
@@ -239,7 +246,19 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 ```
 
 **Rule 9a: FileConfig variable names are case-sensitive and must be preserved exactly**
-### 4.4 FAQ and Navigation Hygiene (IMPORTANT)
+### 4.4 AI Ingestibility and Canonical Answers (IMPORTANT)
+
+- For high-traffic user intents (sales questions, troubleshooting, policy topics), prefer **one intent/question per page**.
+- Each such page should include a stable structure: `Question`, `Answer`, `Details`, `Action path`, and `Related information`.
+- Add a stable label (`.. _label-name:`) to key pages so other pages can cross-link with `:ref:`.
+- Keep policy statements in one canonical page only (for example pricing policy, maintenance policy, licensing edge cases). Other pages should summarize briefly and link to the canonical page.
+- Avoid conflicting duplicate policy text across multiple pages. If duplicated text is unavoidable, keep one section marked as canonical and link back to it.
+- Prefer short, explicit answer blocks over narrative-only paragraphs so both humans and AI systems can retrieve precise answers.
+- When a support conversation reveals a concrete technical fact, check **all affected products** before deciding where to document it. Do not assume the fact is product-local unless the UI, feature, or implementation actually differs.
+- For cross-product support facts, first look for existing shared or reused pages that already carry the relevant concept. If the fact applies across products, prefer one shared canonical FAQ or reference update plus product-local FAQ links over separate duplicated product answers.
+- When the fact affects only a subset of products, record that scope explicitly in local helper notes so later cleanup passes do not re-evaluate the same question from scratch.
+
+### 4.5 FAQ and Navigation Hygiene (IMPORTANT)
 
 - **Do NOT include `source/shared/faq-supporting-labels.rst` or `source/shared/supporting-labels.rst` inside product FAQ articles OR shared FAQ files.** These helpers inject hidden toctrees that can pollute FAQ sidebars with unrelated entries from other manuals. Include them only on dedicated supporting pages – not on actual FAQ articles.
 - **Shared FAQ files that are referenced from product-specific toctrees MUST use `:orphan:` directive** to avoid "document isn't included in any toctree" errors when building shared content in isolation. Example:
@@ -256,13 +275,13 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 - Keep FAQ pages self-contained. Avoid "Related Information" sections that cross-link to other manuals unless they are guarded with `.. only::` tags per Rule 4 above.
 - If a page truly needs labels from other manuals, prefer plain hyperlinks or guard the cross-manual `:doc:` links with `.. only::`.
 
-### 4.7 Exclude Patterns for Per-Product Builds
+### 4.6 Exclude Patterns for Per-Product Builds
 
 - The `exclude_patterns` in each `<product>/conf.py` should exclude other manuals to speed up builds, but never exclude pages that are referenced in that product's `index.<product>.rst` toctree. Excluding a toctree target causes the error: "document isn't included in any toctree".
 - `winsyslog` and `winsyslog-j` should be kept in parity. The `winsyslog-j` build is the same as `winsyslog` but with extra Japanese-specific files; it should not exclude the whole WinSyslog FAQ toctree.
 - When adding new cross-manual FAQ entries, verify that other products either exclude those files or guard links with `.. only::` to avoid leaking content into sidebars.
 
-### 4.8 Environment Setup Gotchas
+### 4.7 Environment Setup Gotchas
 
 - `sphinx-build`, `doc8`, and other tools are installed under `~/.local/bin` by default. Prepend this to PATH before running `make`:
 
@@ -289,9 +308,20 @@ pip install -r requirements.txt -r requirements-qa.txt
 - Always preserve the exact variable names as they appear in the original documentation
 - This includes preserving typos, unusual capitalization, and non-standard formatting
 
-- **Note on doc8**: If the `doc8` command is not found when running `make validate-rst`, use `python -m doc8` instead. The Makefile has been updated to use this form.
+- **Note on linter invocation**: `make validate-rst` runs `doc8` via Python
+  module execution and runs `rstcheck` via CLI (with `python -m rstcheck`
+  fallback if the CLI entrypoint is missing). If your system does not provide
+  `python`, run with `make validate-rst PYTHON=python3`.
+- **Note on `rstcheck_core` warnings**: `rstcheck` can emit Python logging
+  warnings such as `WARNING:rstcheck_core.checker:An AttributeError error
+  occured...` while still exiting successfully with `Success! No issues
+  detected.` and exit code `0`. CI follows the command exit status, so these
+  messages do not fail the build on their own. Treat them as tool noise unless
+  you can reproduce a real bare `.. code-block::` / `.. code::` /
+  `.. sourcecode::` directive without an explicit language and fix that actual
+  source issue.
 
-### 4.4 Pre-Change Checklist
+### 4.8 Pre-Change Checklist
 
 Before making any changes:
 
@@ -306,7 +336,7 @@ Before making any changes:
 9. **Preserve FileConfig variable names**: Never change spelling, capitalization, or formatting of FileConfig variable names - they are part of the actual configuration system
 10. **Consult RST_RULES.md**: For comprehensive RST syntax rules and examples, refer to the `RST_RULES.md` file which provides detailed guidelines for correct reStructuredText formatting
 
-### 4.5 Post-Change Validation
+### 4.9 Post-Change Validation
 
 **CRITICAL REQUIREMENT**: After making ANY changes to `.rst` files, you MUST run the full build process and all validation checks to ensure no warnings or errors are introduced.
 
@@ -321,7 +351,8 @@ Before making any changes:
    - Checks for RST syntax errors, formatting issues, and style violations
    - Uses `doc8` for style checking and `rstcheck` for syntax validation
    - Fixes common issues like missing newlines at end of file, trailing whitespace, and invalid directives
-   - **Note**: If `doc8` command is not found, use `python -m doc8` instead
+   - **Note**: If your environment lacks `python`, run
+     `make validate-rst PYTHON=python3`
 
 3. **Run spelling check**: `make spelling`
    - Validates spelling across all documentation products
@@ -343,6 +374,16 @@ Before making any changes:
    - Changes to files in `/source/` affect multiple documentation sets
    - Each product must build cleanly: eventreporter, mwagent, rsyslog, syslogviewer, winsyslog, winsyslog-j
 
+### 4.9a Local Working Notes for Structural Cleanup
+
+- When a task changes documentation structure, migration rules, or reusable
+  cleanup patterns, also update the local helper notes if they exist:
+  - `LOCAL_NOTES_cross_product_doc_transformations.md`
+  - `LOCAL_SUMMARY_<product>_*.md`
+- These local note files are working aids for later cross-product cleanup and
+  should stay aligned with the current migration approach.
+- Do **not** commit these local note files unless the user explicitly asks.
+
 **Why This Matters:**
 - RST formatting errors propagate across documentation sets
 - Small syntax errors can break multiple product builds
@@ -351,7 +392,7 @@ Before making any changes:
 - Spelling errors reduce documentation credibility
 - Consistent formatting improves readability and maintainability
 
-### 4.6 Pre-Pull Request Checklist
+### 4.10 Pre-Pull Request Checklist
 
 **MANDATORY**: Before creating a pull request, you MUST run all validation checks to ensure the codebase is ready for review.
 
@@ -397,6 +438,13 @@ make linkcheck                 # Check for broken links
 - The CI/CD pipeline will run these same checks and fail if issues are found
 - Fixing issues before PR submission saves time and reduces review cycles
 
+### 4.11 JSON-LD Structured Data (HTML Builds)
+
+- HTML manuals inject Schema.org JSON-LD via `conf_common.py` and each product `conf.py` `setup(app)` hook.
+- Keep this integration in place for all product manuals. Do not remove `enable_json_ld` imports or `setup(app)` wiring.
+- Default behavior is enabled. Disable only when explicitly required by setting `DISABLE_JSON_LD=1` (or `true`/`yes`) in the build environment.
+- When changing Sphinx config/template behavior, verify generated HTML still contains `<script type="application/ld+json">`.
+
 ## 5. How to Use AI Agents: Prompt Recipes
 
 To ensure consistency and efficiency, please use the following prompt templates when instructing an AI agent to perform tasks. These recipes are designed to provide clear, actionable instructions that help AI agents understand the context and requirements.
@@ -436,7 +484,7 @@ Act as a senior technical writer. Your task is to perform a deep content cleanup
 1. Recursively scan all `.rst` files in the specified directory.
 
 2. Enforce terminological consistency:
-   - Product names must be spelled exactly as: WinSyslog, EventReporter, MonitorWare Agent, Rsyslog (not RSyslog), SyslogViewer
+   - Product names must be spelled exactly as: WinSyslog, EventReporter, MonitorWare Agent, rsyslog (not RSyslog), SyslogViewer
    - Use "Windows" not "windows" when referring to the operating system
    - Use "Linux" not "linux" when referring to the operating system
    - Standardize technical terms: "syslog" (not "sys log"), "event log" (not "eventlog")
@@ -678,6 +726,9 @@ When working with this repository, AI agents should follow these best practices:
 3. Preserve existing Sphinx directives and markup
 4. Commit changes with clear, descriptive messages
 5. Do **not** "correct" spelling inside URLs or hyperlink targets—even if a URL looks misspelled, keep the original form.
+6. When structural cleanup work changes the reusable migration pattern, update
+   the local helper notes and summaries as part of the same task, but keep them
+   uncommitted unless explicitly requested.
 
 ### Quality Assurance
 1. **MANDATORY**: Always run `make all-html SPHINXOPTS="-W"` after making changes
@@ -736,7 +787,7 @@ When working with this repository, AI agents should follow these best practices:
 **Problem:** "WARNING: document isn't included in any toctree"
 **Solution:** Add the document to an appropriate `toctree` directive or mark it as `:orphan:`. For shared FAQ files that are only referenced from product-specific toctrees, always use `:orphan:` to avoid build errors when building shared content in isolation.
 
-**Problem:** FAQ pages showing wrong items in sidebar/TOC (e.g., MWAgent pages appearing in Rsyslog FAQ)
+**Problem:** FAQ pages showing wrong items in sidebar/TOC (e.g., MWAgent pages appearing in rsyslog FAQ)
 **Solution:** This is caused by including `supporting-labels.rst` or `faq-supporting-labels.rst` in shared FAQ files. These files contain hidden toctrees with cross-manual references that pollute all product FAQ sidebars. Remove the include directive from shared FAQ files. If the file only references glossary terms, it doesn't need the supporting-labels include. Also ensure shared FAQ files use `:orphan:` directive if they're only referenced from product-specific toctrees.
 
 **Problem:** "WARNING: duplicate label"

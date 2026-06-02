@@ -13,7 +13,7 @@ are hard to find.
 
 :doc:`adiscon's monitorware line of products <../glossaryofterms/mwlineofproducts>` implement the core RFC 3195 protocol
 (actually, `Adiscon was the first one to do this on the Windows platform <https://www.adiscon.com/monitorwareagent/monitorware-agent-1-3-released/>`_). Under
-UNIX `Rsyslog <https://www.Rsyslog.com/>`_ and `SDSC syslog <https://security.sdsc.edu/index.php/Main_Page>`_ are known to support RFC 3195. Our `liblogging <https://www.Rsyslog.com/liblogging/>`_
+UNIX `rsyslog <https://www.Rsyslog.com/>`_ and `SDSC syslog <https://security.sdsc.edu/index.php/Main_Page>`_ are known to support RFC 3195. Our `liblogging <https://www.Rsyslog.com/liblogging/>`_
 project enables your own applications to "talk" 3195.
 
 The formal specification for RFC 3195 can be found in the `IETF RFC repository <https://www.ietf.org/rfc/rfc3195.txt>`_ .

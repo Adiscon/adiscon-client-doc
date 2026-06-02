@@ -1,3 +1,5 @@
+:orphan:
+
 .. index:: Comparison of Properties
 
 Comparison of properties

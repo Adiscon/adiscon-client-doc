@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
+import json
 import importlib
+import os
+import sys
 from pathlib import Path
-from typing import List
+from typing import Dict, List, Optional
+from urllib.parse import urljoin
+
+from docutils import nodes
 
 
 def _shared_directory(current_file: str) -> Path:
@@ -34,17 +40,318 @@ def get_spelling_word_list(current_file: str) -> str:
     return str(word_list)
 
 
+def get_shared_templates_path() -> str:
+    """Return path to shared templates (e.g. for CHM localStorage compatibility)."""
+    return str(Path(__file__).resolve().parent / "_templates")
+
+
 def enable_spelling_extension(extensions: List[str]) -> List[str]:
-    """Ensure the spelling builder is available when dependencies are installed."""
+    """Add spelling extension only when the package and Enchant C library are available."""
     if "sphinxcontrib.spelling" in extensions:
         return extensions
 
     try:
-        has_extension = importlib.util.find_spec("sphinxcontrib.spelling") is not None
-    except Exception:  # pragma: no cover - defensive guard for importlib issues
-        has_extension = False
-
-    if has_extension:
+        import sphinxcontrib.spelling  # noqa: F401
         extensions.append("sphinxcontrib.spelling")
+    except Exception:  # pragma: no cover - e.g. Enchant C library not installed
+        pass
 
     return extensions
+
+
+def get_sphinx_builder_name() -> str:
+    """Return the requested Sphinx builder from env or command-line args."""
+    builder = os.environ.get("SPHINX_BUILDER")
+    if builder:
+        return builder
+
+    for index, arg in enumerate(sys.argv):
+        if arg in {"-b", "--builder"} and index + 1 < len(sys.argv):
+            return sys.argv[index + 1]
+        if arg.startswith("--builder="):
+            return arg.split("=", 1)[1]
+
+    return ""
+
+
+def configure_builder_extensions(extensions: List[str]) -> List[str]:
+    """Remove extensions that are only useful for specific Sphinx builders."""
+    builder = get_sphinx_builder_name()
+    if builder and builder not in {"html", "dirhtml", "singlehtml"}:
+        extensions = [extension for extension in extensions if extension != "sphinx_sitemap"]
+
+    return extensions
+
+
+def configure_pdf_defaults(config: Dict) -> None:
+    """Apply PDF defaults shared by all product manuals."""
+    pdf_style_dir = str(Path(__file__).resolve().parent / "pdfstyles")
+    existing_style_path = config.get("pdf_style_path", [])
+    if isinstance(existing_style_path, str):
+        existing_style_path = [existing_style_path]
+
+    config["pdf_break_level"] = -1
+    config["pdf_breakside"] = "any"
+    config["pdf_cover_template"] = "pdf-cover.tmpl"
+    config["pdf_fit_mode"] = "shrink"
+    config["pdf_style_path"] = [
+        pdf_style_dir,
+        *[path for path in existing_style_path if path != pdf_style_dir],
+    ]
+    config["pdf_stylesheets"] = ["sphinx", "a4", "adiscon-readable"]
+    config["pdf_toc_depth"] = 3
+    config["pdf_use_coverpage"] = True
+
+
+def relax_pdf_odd_page_breaks(app) -> None:
+    """Avoid blank filler pages caused by rst2pdf's hardcoded odd-page breaks."""
+    if getattr(app.builder, "name", "") != "pdf":
+        return
+
+    try:
+        from docutils import nodes
+        from sphinx import addnodes
+        import rst2pdf.flowables as flowables
+        import rst2pdf.genelements as genelements
+        import rst2pdf.pdfbuilder as pdfbuilder
+        import rst2pdf.utils as utils
+    except Exception:
+        return
+
+    if getattr(utils.parseRaw, "_adiscon_relaxed", False):
+        return
+
+    original_parse_raw = utils.parseRaw
+
+    def parse_raw_without_odd_breaks(data, node):
+        return original_parse_raw(data.replace("OddPageBreak", "PageBreak"), node)
+
+    parse_raw_without_odd_breaks._adiscon_relaxed = True
+    utils.parseRaw = parse_raw_without_odd_breaks
+    genelements.parseRaw = parse_raw_without_odd_breaks
+
+    if getattr(pdfbuilder.PDFContents.build_contents, "_adiscon_source_pages", False):
+        return
+
+    def build_source_page_contents(self, node, source_depth=0):
+        entries = []
+        max_source_depth = self.toc_depth
+
+        def source_page_sections(parent, parent_depth):
+            for child in parent.children:
+                if isinstance(child, addnodes.start_of_file):
+                    child_depth = parent_depth + 1
+                    if child_depth <= max_source_depth:
+                        for section in child.children:
+                            if isinstance(section, nodes.section):
+                                yield section, child_depth
+                elif isinstance(child, nodes.section):
+                    if parent_depth == 0 and any(
+                        isinstance(descendant, addnodes.start_of_file)
+                        for descendant in child.traverse(addnodes.start_of_file)
+                    ):
+                        yield child, parent_depth
+                    else:
+                        yield from source_page_sections(child, parent_depth)
+                elif isinstance(child, nodes.compound):
+                    yield from source_page_sections(child, parent_depth)
+
+        for section, section_depth in source_page_sections(node, source_depth):
+            section["pdf_toc_source_page"] = True
+            section["pdf_source_depth"] = section_depth
+            title = section[0]
+            auto = title.get("auto")
+            entrytext = self.copy_and_filter(title)
+            reference = nodes.reference("", "", refid=section["ids"][0], *entrytext)
+            ref_id = self.document.set_id(reference)
+            entry = nodes.paragraph("", "", reference)
+            item = nodes.list_item("", entry)
+
+            if (
+                self.backlinks in ("entry", "top")
+                and title.next_node(nodes.reference) is None
+            ):
+                if self.backlinks == "entry":
+                    title["refid"] = ref_id
+                elif self.backlinks == "top":
+                    title["refid"] = self.toc_id
+
+            if section_depth < max_source_depth:
+                item += self.build_contents(section, section_depth)
+
+            entries.append(item)
+
+        if not entries:
+            return []
+
+        contents = nodes.bullet_list("", *entries)
+        if auto:
+            contents["classes"].append("auto-toc")
+        return contents
+
+    build_source_page_contents._adiscon_source_pages = True
+    pdfbuilder.PDFContents.build_contents = build_source_page_contents
+
+    if not getattr(genelements.HandleTitle.gather_elements, "_adiscon_source_breaks", False):
+        original_gather_title_elements = genelements.HandleTitle.gather_elements
+
+        def gather_title_elements_with_source_breaks(self, client, node, style):
+            elements = original_gather_title_elements(self, client, node, style)
+            section = getattr(node, "parent", None)
+            if (
+                isinstance(section, nodes.section)
+                and section.get("pdf_toc_source_page", False)
+                and section.get("pdf_source_depth", 0) >= 3
+            ):
+                elements.insert(0, flowables.MyPageBreak(breakTo="any"))
+                node.elements = elements
+            return elements
+
+        gather_title_elements_with_source_breaks._adiscon_source_breaks = True
+        genelements.HandleTitle.gather_elements = gather_title_elements_with_source_breaks
+
+    if getattr(flowables.MyTableOfContents.notify, "_adiscon_source_pages", False):
+        return
+
+    original_notify = flowables.MyTableOfContents.notify
+
+    def notify_source_page_entries(self, kind, stuff):
+        if self.parent is None:
+            node = stuff[4]
+            section = getattr(node, "parent", None)
+            if section is None or not section.get("pdf_toc_source_page", False):
+                return
+        return original_notify(self, kind, stuff)
+
+    notify_source_page_entries._adiscon_source_pages = True
+    flowables.MyTableOfContents.notify = notify_source_page_entries
+
+
+def _extract_faq_entries(doctree: Optional[nodes.document]) -> List[Dict]:
+    """Build FAQPage entries from section titles and paragraph content."""
+    faq_entries: List[Dict] = []
+    if doctree is None:
+        return faq_entries
+
+    for section in doctree.traverse(nodes.section):
+        title_node = section.next_node(nodes.title)
+        if title_node is None:
+            continue
+
+        question = title_node.astext().strip()
+        if not question:
+            continue
+
+        answers: List[str] = []
+        for child in section.children:
+            if isinstance(child, nodes.title):
+                continue
+
+            text = child.astext().strip()
+            if text:
+                answers.append(text)
+
+        if not answers:
+            continue
+
+        faq_entries.append(
+            {
+                "@type": "Question",
+                "name": question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "\n\n".join(answers),
+                },
+            }
+        )
+
+    return faq_entries
+
+
+def _inject_json_ld(app, pagename, templatename, context, doctree):
+    """Inject schema.org JSON-LD into HTML page metatags."""
+    if app.builder.format != "html":
+        return
+
+    baseurl = app.config.html_baseurl
+    if not baseurl:
+        return
+
+    canonical_url = urljoin(baseurl, f"{pagename}.html")
+    meta = context.get("meta")
+
+    author_name = None
+    if isinstance(meta, dict):
+        author_name = meta.get("author") or meta.get("authors")
+        if isinstance(author_name, list):
+            author_name = author_name[0] if author_name else None
+
+    if not author_name:
+        author_name = context.get("author") or app.config.author
+
+    faq_entries = _extract_faq_entries(doctree) if pagename.startswith("faq/") else []
+
+    json_ld = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage" if faq_entries else "TechArticle",
+        "headline": context.get("title", pagename),
+        "author": author_name,
+        "url": canonical_url,
+        "inLanguage": context.get("language", app.config.language) or "en",
+    }
+
+    if faq_entries:
+        json_ld["mainEntity"] = faq_entries
+
+    description = None
+    if isinstance(meta, dict):
+        description = meta.get("description")
+        if isinstance(description, list) and description:
+            description = description[0]
+
+    if description:
+        json_ld["description"] = description
+
+    metatags = context.get("metatags", "")
+    json_ld_string = json.dumps(json_ld, indent=2)
+    script_tag = f'\n<script type="application/ld+json">\n{json_ld_string}\n</script>\n'
+    context["metatags"] = metatags + script_tag
+
+
+def enable_json_ld(app) -> None:
+    """Enable JSON-LD unless disabled via DISABLE_JSON_LD env variable."""
+    disable_json_ld = os.environ.get("DISABLE_JSON_LD", "").lower() in {"1", "true", "yes"}
+    if disable_json_ld:
+        return
+
+    app.connect("html-page-context", _inject_json_ld)
+
+
+def _apply_htmlhelp_utf8(app) -> None:
+    """Override the HTMLHelp builder encoding to UTF-8.
+
+    sphinxcontrib-htmlhelp maps ``language = 'en'`` to ``cp1252`` (Windows
+    Western-European codepage).  On Japanese Windows systems the CHM viewer
+    (IE/Trident engine) ignores the ``<meta charset>`` declaration and falls
+    back to the system ANSI code page (cp932/Shift-JIS).  Any cp1252 byte in
+    the range 0x81-0x9F is then consumed as a Shift-JIS double-byte lead byte,
+    swallowing the next ASCII character and garbling the text.
+
+    Forcing UTF-8 resolves this: the HTMLHelp builder already HTML-escapes all
+    non-ASCII body text to ``&#NNNN;`` entities, so the file content is
+    effectively 7-bit ASCII.  Declaring UTF-8 causes the CHM viewer on *any*
+    Windows locale to decode that ASCII-safe content correctly.
+    """
+    if getattr(app.builder, 'encoding', None) not in (None, 'utf-8'):
+        app.builder.encoding = 'utf-8'
+
+
+def fix_htmlhelp_encoding(app) -> None:
+    """Connect the UTF-8 encoding fix to the builder-inited event.
+
+    Call this from ``setup(app)`` in each product ``conf.py``::
+
+        def setup(app):
+            fix_htmlhelp_encoding(app)
+    """
+    app.connect('builder-inited', _apply_htmlhelp_utf8)

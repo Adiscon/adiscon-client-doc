@@ -1,8 +1,10 @@
 Syslog server
 =============
 
-Configures a Syslog server service. Multiple protocols (IPv4/IPv6
-and UDP/TCP) can be configured and are supported.
+Configures the ``Syslog server`` service. In practice, this is the WinSyslog or
+MonitorWare Agent input service that receives incoming syslog messages.
+Multiple protocols (IPv4/IPv6 and UDP/TCP) can be configured and are
+supported.
 
 When configuring Syslog Services, the functionality can be checked
 using the Test Syslog server button. It will open the Syslog Test
@@ -37,10 +39,10 @@ Protocol Type
 **Description:**
   Syslog messages can be received via :doc:`udp <../glossaryofterms/udp>`, :doc:`tcp <../glossaryofterms/tcp>` or
   :doc:`rfc 3195 <../glossaryofterms/rfc3195>` RAW. One
-  listener can only listen to one of the protocols. Typically, Syslog
+  service instance can only use one of the protocols at a time. Typically, syslog
   messages are received via UDP protocol, which is the default. The
-  Syslog server also can receive Syslog messages via TCP and reliable
-  Syslog messages via TCP using the RFC 3195 RAW standard.
+  ``Syslog server`` service also can receive syslog messages via TCP and reliable
+  syslog messages via TCP using the RFC 3195 RAW standard.
   Depending on which protocol type you choose, you get different option
   tabs. General and encoding are the same for everyone.
 
@@ -54,10 +56,10 @@ IP Address
   szMyIPAddress
 
 **Description:**
-  The Syslog server can now be bound to a specific IP address. You can
+  The ``Syslog server`` service can now be bound to a specific IP address. You can
   either use an IPv4, an IPv6 Address, or a Hostname that resolves to an
   IPv4 or IPv6 Address. This feature is useful for multihome environments
-  where you want to run different Syslog Servers on different IP Addresses.
+  where you want to run different syslog input services on different IP addresses.
   Please note that the default IP ``address 0.0.0.0`` means ANY IP Address.
 
 
@@ -69,7 +71,7 @@ Listener Port
   nListenPort
 
 **Description:**
-  The port the Syslog server listens on. The typical (standard) value
+  The port the ``Syslog server`` service listens on. The typical (standard) value
   is 514. This should be changed only if there is a definite need for
   it. Such a need typically arises from security concerns. If the port
   is changed, all reporting devices (routers, printers …) must also be
@@ -321,6 +323,33 @@ Session Timeout
   milliseconds to disable it.
 
 
+Maximum concurrent TCP sessions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nTCPMaxSessions
+
+**Description:**
+  Limits how many TCP sessions this listener accepts at the same time. The
+  default is ``1024``. A value of ``0`` disables the cap. For internet-facing
+  or untrusted networks, keep a finite limit so stalled connections cannot
+  consume an unbounded number of receiver threads.
+
+
+
+TLS handshake timeout
+^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nTLSHandshakeTimeout
+
+**Description:**
+  Sets the timeout, in milliseconds, used while a new TLS connection completes
+  its handshake. The default is ``30000``. This setting applies before the
+  normal TCP session timeout and helps disconnect clients that open a TLS
+  socket but do not complete the handshake.
+
+
 
 Messages are separated by the following sequence
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -407,19 +436,24 @@ TLS Mode
 
   **Anonymous authentication**
   Default option, which means any client certificate will be accepted, or even
-  none.
+  none. This provides encryption without peer authentication. Use it only when
+  that is intentional for the deployment; use one of the x509 modes when peer
+  authenticity matters.
 
   **x509/name (certificate validation and name authentication)**
   When this mode is selected, the subject within the client certificate will be
   checked against the permitted peers list. This means the Syslog server will
   only accept the secured connection if it finds the permitted peer in the
-  subject.
+  subject. Newer hardened configurations can disable the legacy subject
+  substring match and rely on certificate name checks instead.
 
-  **509/fingerprint (certificate fingerprint authentication)**
+  **x509/fingerprint (certificate fingerprint authentication)**
   This mode creates a SHA1 Fingerprint from the client certificate it receives,
   and compares it to fingerprints from the permitted peers list. You can use
   the debuglog to see fingerprints of client certificates which were not
-  permitted.
+  permitted. SHA-1 fingerprint labels remain supported for RFC 5425
+  interoperability. Hardened configurations can disable legacy substring
+  matching and use exact normalized SHA-1 or SHA-256 fingerprints.
 
   **x509/certvalid (certificate validation only)**
   A Syslog Sender is accepted when the client certificate is valid.
@@ -434,8 +468,9 @@ Select common CA PEM
   szTLSCAFile
 
 **Description:**
-  Select the certificate from the common Certificate Authority (CA), the syslog
-  receiver should use the same CA.
+  Select the CA certificate or CA bundle used to validate certificates
+  presented by connecting clients. If you use a CA chain, include the
+  intermediate CA certificates first and the root CA certificate last.
 
 
 
@@ -446,7 +481,10 @@ Select Certificate PEM
   szTLSCertFile
 
 **Description:**
-  Select the client certificate (PEM Format).
+  Select the server certificate in PEM format. This is the certificate the
+  Syslog server presents to connecting clients. If needed, append the
+  intermediate CA certificates after the server certificate so clients can
+  validate the chain.
 
 
 
@@ -457,7 +495,8 @@ Select Key PEM
   szTLSKeyFile
 
 **Description:**
-  Select the keyfile for the client certificate (PEM Format).
+  Select the private key in PEM format that matches the server certificate.
+  Passphrase-protected private keys are not supported.
 
 
 
@@ -478,6 +517,26 @@ Permitted Peername / SHA1 / etc.
   list holds a list of permitted SHA1 fingerprints. The fingerprints can
   either be generated with OpenSSL Tools or grabbed from the debug logfile.
   The format is like described in RFC 5425, for example: ``SHA1:2C:CA:F9:19:B8:F5:6C:37:BF:30:59:64:D5:9A:8A:B2:79:9D:77:A0``.
+
+
+TLS hardening compatibility options
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration fields:**
+  nTLSAllowExpiredCerts, nTLSLegacyPeerNameMatch, nTLSLegacyFingerprintMatch
+
+**Description:**
+  These compatibility options control stricter certificate handling for
+  authenticated TLS modes. The defaults preserve legacy behavior:
+  ``nTLSAllowExpiredCerts=1`` accepts expired client certificates,
+  ``nTLSLegacyPeerNameMatch=1`` allows the historic subject substring match
+  for x509/name mode, and ``nTLSLegacyFingerprintMatch=1`` allows the historic
+  SHA-1 fingerprint substring match.
+
+  Recommended hardened values are ``0`` for all three settings. With those
+  values, expired client certificates are rejected, x509/name mode uses
+  certificate name matching, and x509/fingerprint mode requires exact
+  normalized SHA-1 or SHA-256 fingerprints.
 
 
 
@@ -582,3 +641,17 @@ When setting advanced configuration commands, we highly recommend to enable
  debug logging and review it after changes have been made. An error will be
  logged in the debug logfile if a configuration command cannot be processed
  successfully.
+
+
+Fail on TLS configuration command error
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nTLSFailOnConfigCommandError
+
+**Description:**
+  Controls whether the listener fails to start TLS when an OpenSSL
+  configuration command cannot be applied. The default is ``0``, which keeps
+  compatibility by logging the error and continuing. Set this value to ``1``
+  for hardened deployments where a weaker-than-intended TLS configuration
+  should stop the listener instead of being accepted.

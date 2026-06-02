@@ -1,11 +1,18 @@
 Alarming via Net Send
 =====================
 
-**Attention! Due changes in all supported Windows Version, the net send functionality has been disabled by default.**
-**Using the Net Send Action will not work unless you enable certain policies on your Windows Installations.**
+.. warning::
+
+   **Deprecated:** The Windows Messenger service (``net send`` pop-up messages)
+   is not available by default on modern Windows versions, and may not be
+   available at all depending on your environment. As a result, NetSend
+   notifications are unreliable and the feature is disabled by default.
+
+   Prefer modern alerting methods like the **Send Email** action, forwarding to
+   syslog, or other destinations supported by your product version.
 
 Again, we add another rule to our ruleset. This time, we would like to receive
-notification via the Windows messenger service (aka "net send").
+notification via the Windows Messenger service (aka ``net send``).
 
 Please bear in mind that the Windows messenger service is not the instant
 messaging service that many people nowadays associate with it. The messenger
@@ -37,7 +44,7 @@ The message text itself goes into "Message to send".
 
 Alarming via Net Send - 2
 
-After saving the configuration and restarting the MonitorWare Agent, we receive
+After saving the configuration and restarting the service, we receive
 notifications if the filter condition evaluates to true.
 A sample message might look like this (slightly obscured in this sample):
 

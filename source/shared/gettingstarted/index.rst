@@ -6,9 +6,11 @@ Getting Started
 This chapter provides a quick overview of the MonitorWare Agent and what can be
 done with it.
 
-Most importantly, it contains a tutorial touching many of the basic tasks that
-can be done with MonitorWare Agent, as well as hints for setting up and
-configuring.
+.. only:: mwagent
+
+   Most importantly, it contains a tutorial touching many of the basic tasks
+   that can be done with MonitorWare Agent, as well as hints for setting up
+   and configuring.
 
 Read this section at least briefly and then decide where to go from
 here - it is definitely a worth time spent.
@@ -18,7 +20,28 @@ here - it is definitely a worth time spent.
 
    installation
    creatinganinitialconfiguration
-   installingloganalyzer
    obtainingaprintablemanual
    exportsettings
-   monitorwareagenttutorial
+   repeatable-deployment
+   loggingevents
+   emailnotifications
+   alarmingvianetsend
+   filterconditions
+   ignoringevents
+   timebasedfilters
+   multiple-rulesets-rules-actions
+   startingscriptsandapplications
+   monitoringexternaldevicesping
+   monitoringexternaldevicesportprobe
+   monitoringftpserver
+   monitoringharddiskspace
+   monitoringimapserver
+   monitoringnntpserver
+   monitoringsmtpserver
+
+.. only:: mwagent
+
+   .. toctree::
+      :maxdepth: 2
+
+      monitorwareagenttutorial

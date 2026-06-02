@@ -292,9 +292,10 @@ Use CEE enhanced Syslog Format
   property. Disable this option if you do not want the message itself in the
   CEE Format.
 
-  **Please note you can also make Event ID part of the actual Syslog message while forwarding to a Syslog server then you have to make some changes in
-  the Forward Syslog Action.**
-  `Click here <https://www.mwagent.com/faq/general-questions/how-can-i-make-event-id-part-of-the-actual-syslog-message-while-forwarding-to-a-syslog-server/>`_ to know the settings.
+  If you want the Event ID to appear directly inside the forwarded syslog
+  message text, use the custom message format in the Forward Syslog action and
+  insert the Event ID property explicitly. This is useful when the receiving
+  system primarily parses the message text instead of structured properties.
 
 
 
@@ -727,14 +728,13 @@ Enable IP Spoofing for the UDP Protocol
 **File Configuration field:**
   nSpoofIPAddress
 
-**Description:**
+  **Description:**
   This option enables you to spoof the IP Address when sending Syslog messages
   over UDP. Some notes regarding the support of IP Spoofing. It is only
-  supported the UDP Protocol and IPv4. IPv6 is not possible yet. Due system
-  limitations introduced by Microsoft, IP Spoofing is only possible on Windows
-  Server 2003, 2008, or higher. It is NOT possible in Windows XP, VISTA, 7, or
-  higher. For more information see the Microsoft explanation. Also please note
-  that most routers and gateways may drop network packages with spoofed IP
+  supported the UDP Protocol and IPv4. IPv6 is not possible yet. Due to system
+  limitations introduced by Microsoft, IP spoofing support is limited and may
+  not be available on Windows client editions (for example Windows 10/11).
+  Also please note that most routers and gateways may drop network packages with spoofed IP
   Addresses, so it may only work in local networks.
 
 

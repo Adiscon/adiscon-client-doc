@@ -152,9 +152,11 @@ help:
 	@echo "    all-html             - Build HTML for all projects"
 	@echo "    all-singlehtml       - Build single-page HTML for all projects"
 	@echo ""
-	@echo "  $(COLOR_YELLOW)HTMLHelp Targets:$(COLOR_RESET)"
-	@echo "    htmlhelp-<project>   - Build HTMLHelp (CHM) for specific project"
+	@echo "  $(COLOR_YELLOW)HTMLHelp / CHM Targets:$(COLOR_RESET)"
+	@echo "    htmlhelp-<project>   - Build HTMLHelp source + compile .chm (hhc.exe required for .chm)"
 	@echo "    all-htmlhelp         - Build HTMLHelp for all projects"
+	@echo "    (Output: build/chm/<project>/  |  compiled: build/<name>.chm)"
+	@echo "    (UTF-8 encoding is forced - safe for all Windows locales incl. Japanese)"
 	@echo ""
 	@echo "  $(COLOR_YELLOW)PDF Targets:$(COLOR_RESET)"
 	@echo "    pdf-<project>        - Build PDF for specific project"
@@ -170,11 +172,16 @@ help:
 	@echo "$(COLOR_GREEN)Available projects:$(COLOR_RESET) $(PROJECTS)"
 	@echo ""
 	@echo "$(COLOR_GREEN)Examples:$(COLOR_RESET)"
-	@echo "    make html-rsyslog    - Build HTML docs for rsyslog"
-	@echo "    make singlehtml-rsyslog - Build single-page HTML docs for rsyslog"
-	@echo "    make all-html        - Build HTML docs for all projects"
-	@echo "    make clean           - Clean all build artifacts"
-	@echo "    make all             - Build everything"
+	@echo "    make html-rsyslog        - Build HTML docs for rsyslog"
+	@echo "    make singlehtml-rsyslog  - Build single-page HTML docs for rsyslog"
+	@echo "    make htmlhelp-winsyslog  - Build CHM source + compile (needs hhc.exe)"
+	@echo "    make all-htmlhelp        - Build CHM for all projects"
+	@echo "    make all-html            - Build HTML docs for all projects"
+	@echo "    make clean               - Clean all build artifacts"
+	@echo "    make all                 - Build everything"
+	@echo ""
+	@echo "$(COLOR_GREEN)HTMLHelp output:$(COLOR_RESET)  build/chm/<project>/   (source)   build/*.chm (compiled)"
+	@echo "$(COLOR_GREEN)Encoding note:$(COLOR_RESET)    CHM files use UTF-8 - displays correctly on all Windows locales"
 	@echo ""
 	@echo "$(COLOR_BLUE)=============================================================================$(COLOR_RESET)"
 
@@ -235,10 +242,10 @@ htmlhelp-%: FORCE
 	$(call check_project,$*)
 	$(call print_build_start,$*,HTMLHelp)
 	@$(MKDIR) $(BUILDDIR)/chm/$*
-	@$(SPHINXBUILD) -b htmlhelp -c $* $(SPHINXOPTS) $(SOURCEDIR) $(BUILDDIR)/chm/$*
+	@SPHINX_BUILDER=htmlhelp $(SPHINXBUILD) -b htmlhelp -c $* $(SPHINXOPTS) $(SOURCEDIR) $(BUILDDIR)/chm/$*
 	@if [ -n "$(HHC)" ]; then \
 		echo "$(COLOR_YELLOW)Compiling CHM file for $*...$(COLOR_RESET)"; \
-		$(HHC) $(BUILDDIR)/chm/$*/*.hhp || true; \
+		"$(HHC)" $(BUILDDIR)/chm/$*/*.hhp || true; \
 		if [ -f $(BUILDDIR)/chm/$*/*.chm ]; then \
 			$(CP) $(BUILDDIR)/chm/$*/*.chm $(BUILDDIR)/ 2>$(NULL_DEVICE) || true; \
 			echo "$(COLOR_GREEN)✓ CHM file created for $*$(COLOR_RESET)"; \
@@ -353,17 +360,29 @@ DOC8_MAX_LINE_LENGTH ?= 1000
 RSTCHECK_IGNORE_DIRECTIVES ?= toctree,index,only,highlight
 RSTCHECK_IGNORE_ROLES ?= doc,ref
 RSTCHECK_IGNORE_LANGUAGES ?= none
+PYTHON ?= python3
 
 .PHONY: validate-rst
 validate-rst:
 	@echo "$(COLOR_BLUE)Running doc8...$(COLOR_RESET)"
-	@python -m doc8 --max-line-length $(DOC8_MAX_LINE_LENGTH) $(RST_LINT_PATHS)
+	@$(PYTHON) -m doc8 --max-line-length $(DOC8_MAX_LINE_LENGTH) $(RST_LINT_PATHS)
 	@echo "$(COLOR_BLUE)Running rstcheck...$(COLOR_RESET)"
-	@rstcheck --recursive --report-level WARNING \
-	        --ignore-directives $(RSTCHECK_IGNORE_DIRECTIVES) \
-	        --ignore-roles $(RSTCHECK_IGNORE_ROLES) \
-	        --ignore-languages $(RSTCHECK_IGNORE_LANGUAGES) \
-	        $(RST_LINT_PATHS)
+	@if command -v rstcheck >/dev/null 2>&1; then \
+		rstcheck --recursive --report-level WARNING \
+			--ignore-directives $(RSTCHECK_IGNORE_DIRECTIVES) \
+			--ignore-roles $(RSTCHECK_IGNORE_ROLES) \
+			--ignore-languages $(RSTCHECK_IGNORE_LANGUAGES) \
+			$(RST_LINT_PATHS); \
+	elif $(PYTHON) -m rstcheck --help >/dev/null 2>&1; then \
+		$(PYTHON) -m rstcheck --recursive --report-level WARNING \
+			--ignore-directives $(RSTCHECK_IGNORE_DIRECTIVES) \
+			--ignore-roles $(RSTCHECK_IGNORE_ROLES) \
+			--ignore-languages $(RSTCHECK_IGNORE_LANGUAGES) \
+			$(RST_LINT_PATHS); \
+	else \
+		echo "$(COLOR_RED)Error: rstcheck is not installed. Install QA dependencies with 'pip install -r requirements-qa.txt'.$(COLOR_RESET)"; \
+		exit 1; \
+	fi
 	@echo "$(COLOR_GREEN)✓ reStructuredText linting completed$(COLOR_RESET)"
 
 # -----------------------------------------------------------------------------

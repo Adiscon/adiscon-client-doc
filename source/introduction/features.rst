@@ -231,8 +231,8 @@ Server 2003 is available in older product versions only.
 
 
 only partially available. Only a minimal service installation may
-be possible. For more details, see: :doc:`information for a mass
-rollout <../shared/gettingstarted/informationforamassrollout>`
+be possible. For more details, see: :doc:`information for repeatable
+deployment <../shared/gettingstarted/repeatable-deployment>`
 
 On request, versions for Compaq (Digital) ALPHA processors are also
 available on platforms supporting this processor (engine only).

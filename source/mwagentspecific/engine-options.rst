@@ -70,8 +70,13 @@ Wait time if log rotation is running on service shutdown
 
 **Description**
    When service is being shutdown, this defines how much time the logrotate
-   background worker thread has left to finish its log rotations before a
-   forceful termination.
+   background worker thread has left to finish its log rotations before the
+   service exits.
+
+   If a queued or already active detached rotation does not finish within this
+   bounded wait time, the unfinished detached work is saved and resumed on the
+   next startup instead of extending shutdown indefinitely. For the full
+   guarantee, see :doc:`../shared/faq/log-rotation-guarantees`.
 
 Network specific Options
 ------------------------

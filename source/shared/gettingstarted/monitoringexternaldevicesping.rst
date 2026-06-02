@@ -73,6 +73,6 @@ you receive a mail. This mail looks as follows:
 
 
 
-A ping probe service can monitor a single device in this version of MonitorWare
-Agent. Therefore, if you would like to monitor multiple devices, you need to
+A ping probe service can monitor a single device in this product version.
+Therefore, if you would like to monitor multiple devices, you need to
 create multiple ping probe services.

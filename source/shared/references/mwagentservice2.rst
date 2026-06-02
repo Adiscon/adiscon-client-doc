@@ -9,14 +9,14 @@ system service during setup. It typically runs on each machine being monitored.
 However, some machines can also be dedicated to run it for housekeeping
 functions (for example log consolidation).
 
-The MonitorWare Agent can be :doc:`engine only <../gettingstarted/informationforamassrollout>`. In this case, only the
+The MonitorWare Agent can be :doc:`engine only <../gettingstarted/repeatable-deployment>`. In this case, only the
 service is installed onto a machine. It can be customized either by directly
 editing the registry or by copying a registry snapshot from a machine with
 installed client. Please note that "Engine Only" installs need a full
 MonitorWare Agent license.
 
 The MonitorWare Agent service 2.x program is called "mwagent.exe". It is the
-sole executable that needs to be distributed for mass rollouts.
+sole executable that needs to be distributed for repeatable deployments.
 
 **The Service Account** - NT Services must utilize an NT logon account in order to
 

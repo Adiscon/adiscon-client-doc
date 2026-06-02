@@ -21,15 +21,22 @@
 # sys.path.insert(0, os.path.abspath('.'))
 
 import importlib
+import os
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from conf_common import (
+    configure_builder_extensions,
+    configure_pdf_defaults,
+    enable_json_ld,
     enable_spelling_extension,
+    fix_htmlhelp_encoding,
     get_spelling_word_list,
+    get_shared_templates_path,
     load_linkcheck_ignore,
+    relax_pdf_odd_page_breaks,
 )
 
 
@@ -48,10 +55,13 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinx_sitemap',
     'rst2pdf.pdfbuilder']
+extensions = configure_builder_extensions(extensions)
 extensions = enable_spelling_extension(extensions)
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+# CHM uses Alabaster (no shared Furo override needed); HTML uses Furo + localStorage fix
+_building_htmlhelp = os.environ.get('SPHINX_BUILDER') == 'htmlhelp'
+templates_path = ['_templates'] if _building_htmlhelp else ['_templates', get_shared_templates_path()]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -64,7 +74,7 @@ master_doc = 'index.syslogviewer'
 
 # General information about the project.
 project = u'InterActive SyslogViewer'
-copyright = u'2020, Adiscon GmbH'
+copyright = u'1996-2026, Adiscon GmbH'
 author = u'Adiscon GmbH'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -143,11 +153,10 @@ _raw_exclude_patterns = [
     'interactivesyslogviewer/index.rst',
     'index.mwagent.rst',
     'index.rsyslog.rst',
-    'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/start-program-action-troubleshooting.rst',
-    'rsyslogwaspecific/faq/config-reload-high-load.rst',
+    'rsyslogwaspecific/*.rst','rsyslogwaspecific/faq/*.rst',
     'index.eventreporter.rst','eventreporterspecific/*.rst','eventreporterspecific/faq/*.rst',
     'index.winsyslog.rst','producttour/*.rst','purchasingmwagent.rst','references/*.rst',
-    'winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst','winsyslogspecific/glossaryofterms.rst',
+    'winsyslogspecific/*.rst','winsyslogspecific/faq/*.rst','winsyslogspecific/producttour/*.rst','winsyslogspecific/glossaryofterms.rst',
     'glossaryofterms/index.rst','glossaryofterms/*.rst','glossaryofterms/wsconcepts-*.rst','stepbystepguides.rst','stepbystepguides/*.rst',
     'monitorwareconcepts.rst','mwagent/*.rst','index.winsyslog-j.rst',
     'faq/*.rst','mwagentspecific/faq/*.rst',
@@ -189,15 +198,19 @@ todo_include_todos = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-# Base URL for sitemap generation
-html_baseurl = 'https://www.adiscon.com/adiscon-tools/adiscons-interactive-syslogviewer/manual/'
+# Base URL for sitemap generation (override via env for custom builds, e.g. GitHub Pages)
+html_baseurl = os.environ.get('SPHINX_HTML_BASEURL') or 'https://www.adiscon.com/adiscon-tools/adiscons-interactive-syslogviewer/manual/'
 
 # Sitemap configuration to remove language/version from URLs
 sitemap_url_scheme = "{link}"
 sitemap_localtolinks = False
 sitemap_filename = "sitemap.xml"
 
-if importlib.util.find_spec("furo") is not None:
+# CHM viewer uses IE/Trident engine - Furo's CSS variables fail; use Alabaster for htmlhelp
+if _building_htmlhelp:
+    html_theme = "alabaster"
+    html_theme_options = {}
+elif importlib.util.find_spec("furo") is not None:
     html_theme = "furo"
     html_theme_options = {
         # Furo theme options (removed 'show_related' as it's not supported)
@@ -307,7 +320,10 @@ pdf_documents = [
      'System Tools'),
 ]
 
+configure_pdf_defaults(globals())
 
 
-
-
+def setup(app):
+    fix_htmlhelp_encoding(app)
+    app.connect('builder-inited', relax_pdf_odd_page_breaks)
+    enable_json_ld(app)

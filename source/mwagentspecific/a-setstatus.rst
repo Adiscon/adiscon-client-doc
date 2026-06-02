@@ -60,3 +60,17 @@ Status Variable Value
   Please note that the field content can be configured with
   :doc:`event properties <../shared/references/eventspecificproperties>` are described in the
   :doc:`property replacer section <../shared/references/eventproperties>`.
+
+Difference from Set Property
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`Set Status` and `Set Property` look similar, but they solve different
+problems:
+
+* A **property** belongs to the current message and exists only while that
+  message is processed.
+* A **status variable** is global and remains available across multiple
+  messages until another action changes it.
+
+Use `Set Status` when you need shared state across messages, for example a
+counter, workflow state, or a flag that later filters can evaluate.

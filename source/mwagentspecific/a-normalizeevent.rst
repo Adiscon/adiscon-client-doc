@@ -6,7 +6,7 @@ normalization result is stored into an internal property which can be used
 for filtering decisions as well as for output actions.
 
 The action uses liblognorm (http://www.liblognorm.com/files/manual/index.html)
-which is also used by Rsyslog. Rulebases created for liblognorm can easily be
+which is also used by rsyslog. Rulebases created for liblognorm can easily be
 used and adapted.
 
 

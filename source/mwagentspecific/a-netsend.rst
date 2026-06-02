@@ -1,6 +1,14 @@
 Net Send
 ========
 
+.. warning::
+
+   **Deprecated:** The Windows Messenger service (``net send`` pop-up messages)
+   is not available by default on modern Windows versions and may be blocked or
+   unavailable in managed environments. As a result, delivery is often
+   unreliable. Prefer modern alerting methods like the **Send Email** action or
+   forwarding to syslog.
+
 With the "Net Send" action, short alert messages can be sent via the Windows
 "net send" facility. These messages are delivered on a best-effort basis. If
 the recipient can be reached, they will pop up in a message box on the

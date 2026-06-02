@@ -1,13 +1,13 @@
+:orphan:
+
 Introduction
 ============
 
-In this first chapter we describe the features, components
-and system requirements.
+This legacy page is no longer part of the active rsyslog Windows Agent
+navigation.
 
-.. toctree::
-   :maxdepth: 1
+For the current product path, start with:
 
-   features
-   editioncomparison
-   components
-   systemrequirements
+- :doc:`index`
+- :doc:`installation`
+- :doc:`creatinganinitialconfiguration`

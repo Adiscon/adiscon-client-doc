@@ -32,6 +32,40 @@ This document provides structured rules and guidelines for creating and editing 
 - In literal blocks, no escaping is needed
 - In URIs, backslash-escaped whitespace represents a single space
 
+## Repository Conventions (AI + Human Readability)
+
+These conventions complement valid RST syntax and should be treated as
+repository policy for high-value content.
+
+### Canonical Answer Pattern
+
+For FAQ, troubleshooting, sales, licensing, and support topics:
+
+1. Prefer one intent/question per page.
+2. Include explicit sections in this order where applicable:
+   - `Question`
+   - `Answer`
+   - `Details`
+   - `Action path`
+   - `Related information`
+3. Add a stable page label (`.. _label-name:`) for cross-linking with `:ref:`.
+
+### Canonical Policy Location
+
+- Keep policy text (for example maintenance, licensing edge cases, pricing rules)
+  in exactly one canonical page.
+- In other pages, provide a short summary and link to the canonical page.
+- Avoid maintaining multiple full copies of policy wording.
+
+### Reference Strategy
+
+When linking between documents, use this priority:
+
+1. `:ref:` to a stable label.
+2. `:doc:` within guaranteed build scope.
+3. Guarded cross-manual links via `.. only::`.
+4. External URL only if an internal build-safe target is not possible.
+
 ## Text Formatting
 
 ### Inline Markup

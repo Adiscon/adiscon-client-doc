@@ -14,8 +14,8 @@ following products are available:
 
 * `EventReporter <https://www.EventReporter.com>`_
 * `MonitorWare Agent <https://www.mwagent.com>`_
-* `WinSyslog <https://www.WinSyslog.com>`_
-* `Rsyslog Windows Agent <https://www.Rsyslog.com/windows-agent/>`_
+* `WinSyslog <https://www.winsyslog.com>`_
+* `rsyslog Windows Agent <https://www.Rsyslog.com/windows-agent/>`_
 
 There is also an open source syslog library available for programmers wishing
 to integrate syslog into their C/C++ programs:

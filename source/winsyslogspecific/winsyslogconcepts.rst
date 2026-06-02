@@ -1,32 +1,47 @@
-Concepts
-========
+Core concepts
+=============
 
-WinSyslog offers advanced monitoring capabilities. It not only monitors the
-system it is installed on; it also includes information received from
-Syslog-enabled devices. To fully unleash WinSyslog's power, you need to learn
-a bit about its concepts. These web resources (provided links) describe each
-element in detail.
+Use this section to understand how WinSyslog thinks about incoming events and
+how configuration objects interact. These pages are the conceptual backbone for
+input services, rulesets, filters, and actions.
 
+If you are new to the product, read this section after ``Getting Started`` and
+before deep configuration work.
 
-WinSyslog operates on a set of elements. These are
+Concept map
+-----------
 
+WinSyslog processing follows this model:
 
-* :doc:`services <../winsyslogspecific/wsconcepts-services>`
+1. An **input service** receives or generates an event.
+2. The event becomes an **information unit** inside WinSyslog.
+3. The **rule engine** evaluates the event against **rules** and
+   **filter conditions**.
+4. Matching **actions** store, forward, display, or transform the event.
 
-* :doc:`information units <../glossaryofterms/mwconcepts-informationunit>`
+In plain language, you can read this as:
 
-* :doc:`filter conditions <../winsyslogspecific/wsconcepts-filterconditions>`
+``input service -> ruleset -> action``
 
-* :doc:`actions <../glossaryofterms/mwconcepts-actions>`
+Canonical concept pages
+-----------------------
 
-* :doc:`rules <../glossaryofterms/rules>`
+.. toctree::
+   :maxdepth: 1
 
-* :doc:`rule engine <../glossaryofterms/ruleengine>`
+   wsconcepts-services
+   ../glossaryofterms/mwconcepts-informationunit
+   ../glossaryofterms/rules
+   ../glossaryofterms/ruleengine
+   wsconcepts-filterconditions
+   ../glossaryofterms/mwconcepts-actions
 
-* :doc:`the setp protocol <../glossaryofterms/setp>`
+Why this matters
+----------------
 
+Understanding these concepts helps you:
 
-It is vital to understand each element and the way they interact. WinSyslog has
-multiple and very powerful capabilities. This enables very quick
-configuration of highly efficient and comprehensive systems. On the other hand,
-the concepts must be fully understood to make such complex systems really work
+- design rulesets with predictable behavior for each input service
+- avoid duplicate or conflicting processing paths
+- choose the right action type for storage, forwarding, or alerting
+- troubleshoot why an event did or did not match a rule

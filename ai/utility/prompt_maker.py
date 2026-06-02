@@ -52,7 +52,7 @@ class PromptMaker:
             "EventReporter",
             "MonitorWare Agent",
             "WinSyslog",
-            "Rsyslog Windows Agent",
+            "rsyslog Windows Agent",
             "EventReporter",
             "MonitorWare Agent, EventReporter",
             "MonitorWare Agent, WinSyslog",
@@ -126,7 +126,7 @@ Create a **{{ARTICLE_TYPE}}** for the Adiscon product documentation.
 
 1. **Title:** {{ARTICLE_TITLE}}
    - Use title case
-   - Include relevant product names (EventReporter, MonitorWare Agent, WinSyslog, Rsyslog Windows Agent)
+   - Include relevant product names (EventReporter, MonitorWare Agent, WinSyslog, rsyslog Windows Agent)
    - Be specific about the topic or problem being addressed
 
 2. **Metadata:**

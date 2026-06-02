@@ -3,12 +3,12 @@
 .. _glossary-mwconcepts-services:
 .. supporting-labels-marker
 
-MonitorWare Agent - Services
-============================
+Services
+========
 
-Services inside the MonitorWare Agent gather the data that is processed by
-rules. Each service type reflects a specific set of code inside the MonitorWare
-Agent. For example, a Syslog Service represents an instance of a Syslog server
+Services inside the product gather the data that is processed by rules. Each
+service type reflects a specific set of code inside the product. For example, a
+Syslog Service represents an instance of a Syslog server
 and an NT Event Log Monitor Service represents an instance of an NT Log Monitor
 (periodically pulling out log information).
 
@@ -53,7 +53,7 @@ notifications.
 **Event Log Monitor**
 
 Monitors Windows event logs. As soon as new events are detected, these are
-forwarded to MonitorWare processing. This service is similar to the Adiscon
+forwarded to the product processing pipeline. This service is similar to the Adiscon
 EventReporter functionality.
 
 **Database Monitor**
@@ -61,7 +61,7 @@ EventReporter functionality.
 The Database Monitor read a table from an ODBC data source and generates
 InfoUnits out of it. These InfoUnits have properties (names by the table
 fields) which are filled dynamically depending on which field your table has.
-Each property can be used like other properties with in the MonitorWare Agent.
+Each property can be used like other properties within the product.
 
 In short it is used to Monitor Database tables. It periodically checks a
 database table for new records and if it finds them, generates an event from
@@ -93,27 +93,27 @@ contains some (few) standard items, as the version, community etc.
 **File monitor**
 
 Monitors text files. As soon as new lines at the end of the file are detected,
-these are forwarded to MonitorWare Agent for processing. They can be forwarded
+these are forwarded to the product for processing. They can be forwarded
 either one line at a time or in fixed chunks as set by the administrator.
 
 **Heartbeat**
 
 This service generates a special information type. Its primary purpose is to
-notify an upstream system that the MonitorWare Agent set for heart beating is
-still alive. So the upstream system can be configured to raise alarms (or
+notify an upstream system that the product configured for heart beating is still
+alive. So the upstream system can be configured to raise alarms (or
 corrective action) if it does not receive heartbeats from the downstream system.
 
 **Ping Probe**
 
 The ping probe pings a configured (remote) system on a schedule. If no ping
 response (echo reply) is received within a configured interval, an event is
-generated. This way, MonitorWare can check if a remote system is responding, at
+generated. This way, the product can check if a remote system is responding, at
 least at the IP stack level.
 
 **Port Probe**
 
 This is similar to the ping probe, but works at the application level. It can
-be used with any TCP based service. Basically, the MonitorWare Agent goes out
+be used with any TCP based service. Basically, the product goes out
 and periodically tries to connect to a specific TCP port on a specific (remote)
 machine. If the connection request fails, an event is generated. As such,
 failing services (like database or mail servers) can be detected.
@@ -143,9 +143,9 @@ Each instance of a service has an associated ruleset. This allows easy
 creation of customized rulesets on a per service basis. Of course, all
 services can also operate on a common ruleset.
 
-All services are executed as multiple threads inside the MonitorWare Agent.
-From the operating point of view, there is only one system service called the
-"MonitorWare Agent". If the service configuration of the MonitorWare Agent is
-modified, the MonitorWare system service needs to be restarted in order to
+All services are executed as multiple threads inside the product.
+From the operating point of view, there is only one system service. If the
+service configuration of the product is modified, the product service needs to
+be restarted in order to
 activate the new configuration. Later releases will have some options to
 automate this task.

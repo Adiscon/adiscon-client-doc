@@ -1,71 +1,117 @@
+.. _odbc-database-options:
+
 ODBC Database Options
 =====================
 
-Use database logging to store messages into a database.
+Use this action to write matched events or messages to a database through ODBC.
 
-Database logging allows writing incoming events directly to any ODBC -
-compliant database (virtually any database system currently available for the
-Windows operating system supports ODBC). We support any database system
-that provides OLEDB or ODBC drivers. This includes Microsoft
-JET databases (as used by Microsoft Access), Microsoft SQL Server, MySQL,
-Oracle, PostgreSQL, Sybase, and many other database systems.
+The ODBC database action is an integration feature. It can write to the
+built-in Adiscon default schema or to a user-defined schema in any supported
+ODBC database. Use the default schema when you want the fastest supported setup
+or compatibility with Adiscon tools. Use custom mapping when the product needs
+to write into an existing database design.
 
-Once stored inside the database, different message viewers as well as custom
-applications can easily browse them. The defaults for the write database action
-are suitable Adiscon Loganalyzer (web interface).
+Common usage patterns
+---------------------
 
-The database format can be fine-tuned. This is most useful if you intend to run
-some additional analysis on the database. Also, in high volume environments,
-tuning the database action to exactly those fields need helps getting best
-performance out of the database.
+- **Default schema:** Use the built-in ``SystemEvents`` and
+  ``SystemEventProperties`` tables when you want the shortest supported setup or
+  when downstream Adiscon tools expect the standard schema.
+- **Custom schema integration:** Map event properties to an existing table with
+  your own column names and data types.
+- **Microsoft SQL Server stored procedures:** Use the call-statement option only
+  when your SQL Server design requires a stored procedure instead of a standard
+  ``INSERT`` statement.
 
-The main feature of the "Write To Database" property sheet is the field list.
-The default reflects the typical assignment of event properties to database
-columns. However, you can modify this assignment in any way you like. You only
-need to keep in mind that Adiscon analysis products need the database contents
-as specified. As such, malfunctions may occur if you modify the database
-assignments and then use these tools.
+Out of scope
+------------
 
-Connection Options
+This action does not design your database for you. It does not decide table
+layout, indexes, retention policy, reporting logic, or broader analytics
+architecture. For custom integration, you own the destination schema and the
+mapping decisions.
+
+Before you start
+----------------
+
+- Install a supported ODBC driver on the Windows host that runs the service.
+- Create an **ODBC System DSN** for the target database. User DSNs and file DSNs
+  are not suitable for the service path.
+- Verify that the database server is reachable and that the configured
+  credentials have the required permissions.
+- Decide whether the action should:
+
+  - create and use the default Adiscon tables, or
+  - write into an existing user-defined table
+
+Minimal action path
+-------------------
+
+#. Create and test an ODBC **System DSN** outside the product.
+#. Add a **Write to Database** action to the relevant ruleset.
+#. Configure the DSN, credentials, and connection settings.
+#. Choose one of these paths:
+
+   - keep the default schema and use **Create Database**, or
+   - set the table name and field list for a custom schema
+
+#. Save and apply the configuration.
+#. Send a matching test event or message and verify that rows are inserted.
+
+Default schema versus custom schema
+-----------------------------------
+
+Default schema
+^^^^^^^^^^^^^^
+
+Use the default schema when you want a predictable starting point or when you
+need compatibility with other Adiscon components that expect the standard table
+layout. In this path, the action can create the default tables for you.
+
+Custom schema integration
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Use a custom schema when your organization already has a database design that
+WinSyslog, EventReporter, or MonitorWare Agent must write into. In this path,
+the action does not infer the schema. You must set the target table name and
+map each field deliberately.
+
+If you diverge from the default schema, do not assume that Adiscon tools that
+expect the standard layout will continue to work unchanged.
+
+Connection options
 ------------------
 
 .. image:: ../images/a-odbcdatabase-connection.png
    :width: 100%
 
-* Action - ODBC Database Connection*
+*Action - ODBC Database Connection*
 
+Buttons
+^^^^^^^
 
 **Configure DSN**
-  If you click on this button, it starts the ODBC administrator of the operating
-  system where you can add, edit, or remove a data source(s).
+  Opens the Windows ODBC administrator so you can add, edit, or remove data
+  sources.
 
-  **Note:** The DSN must be a System DSN. **Verify Database**
-  The configuration client will attempt to establish a database connection to
-  your configured ODBC System DSN.
-
+**Verify Database**
+  Attempts to connect to the configured ODBC System DSN with the current
+  settings. Use this before you save the action into production.
 
 **Create Database**
-  If you click on this button, it will create the default tables for SystemEvents
-  and SystemEventsProperties into the database specified in the DSN.
+  Creates the default Adiscon tables in the target database. Use this only when
+  you intentionally want the default schema.
 
-
-DNS
+DSN
 ^^^
 
 **File Configuration field:**
   szODBCDsn
 
 **Description:**
-  This is the name of the system data source (DSN - data source name) to be
-  used when connecting to the database. Create this in ODBC manager (can be
-  found in control panel under Windows). Press the "Data Sources (ODBC)"
-  button to start the operating system ODBC administrator where data sources
-  can be added, edited, and removed.
-
-  **Note:** The DSN must be a system DSN, not a user or file DSN. The DSN must be configured to have the correct connection parameters (for example database
-  type and name, server name, authentication mode etc.).
-
-
+  Name of the ODBC **System DSN** used for the database connection. The DSN
+  must already contain the correct driver and target-database connection
+  details.
 
 User-ID
 ^^^^^^^
@@ -74,12 +120,7 @@ User-ID
   szODBCUid
 
 **Description:**
-  The User-ID used to connect to the database. It is dependent on the database
-  system used if it is to be specified (e.g. Microsoft Access does not need
-  one, while Microsoft SQL Server can force you to use one). If in doubt,
-  please see your database administrator
-
-
+  User name for database authentication, if the DSN and driver require it.
 
 Password
 ^^^^^^^^
@@ -88,12 +129,8 @@ Password
   szODBCPwd
 
 **Description:**
-  The password used to connect to the database. It must match the "User-ID".
-  Like the User ID, it is dependent on the database system if a password is
-  needed. Passwords can be stored either encrypted or unencrypted. We highly
-  recommend storing them encrypted.
-
-
+  Password for the configured user ID. Use an account with only the permissions
+  needed for this action.
 
 Enable Encryption
 ^^^^^^^^^^^^^^^^^
@@ -102,15 +139,8 @@ Enable Encryption
   nODBCEnCryption
 
 **Description:**
-  Check to store the ODBC password encrypted. If left unchecked, the password
-  is stored unencrypted. We strongly recommend checking this box.
-
-  If you store the password unencrypted for some reason, please be aware of the
-  security implications. In this case, we recommend using an account with
-  limited access privileges. Even when stored encrypted, we recommend using
-  limited privileges accounts. We are not applying strong cryptography here.
-
-
+  Stores the configured ODBC password encrypted instead of plaintext. Enable
+  this unless you have a documented reason not to.
 
 SQL Connection Timeout
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -119,12 +149,10 @@ SQL Connection Timeout
   nSQLConnectionTimeOut
 
 **Description:**
-  Defines the Timeout for the connection.
+  Maximum time to wait while opening the database connection.
 
-
-
-SQL Options
-^^^^^^^^^^^
+SQL options
+-----------
 
 Table Name
 ^^^^^^^^^^
@@ -133,10 +161,9 @@ Table Name
   szTableName
 
 **Description:**
-  The name of the table to log to. This name is used to create the SQL insert
-  statement and must match the database definition. Default is "SystemEvents".
-
-
+  Target table name for database writes. Keep the default ``SystemEvents`` when
+  you use the built-in schema. Set it to your existing table name when
+  integrating with a custom schema.
 
 SQL Statement Type
 ^^^^^^^^^^^^^^^^^^
@@ -145,13 +172,9 @@ SQL Statement Type
   nSQLStatementType
 
 **Description:**
-  You can select between a INSERT and Call Statement, which is Microsoft
-  specific for Stored Procedures. This means also this type of SQL Statement
-  will only work if MSSQL is used as database. If you select MSSQL Call
-  Statement, the tablename field will automatically be used as stored procedure
-  name.
-
-
+  Selects whether the action uses a normal ``INSERT`` statement or a Microsoft
+  SQL Server call statement for stored procedures. The call-statement path is
+  Microsoft SQL Server specific.
 
 Output Encoding
 ^^^^^^^^^^^^^^^
@@ -160,91 +183,36 @@ Output Encoding
   nOutputEncoding
 
 **Description:**
-  This setting is most important for Asian languages. A good rule is to leave
-  it at "System Default" unless you definitely know you need a separate
-  encoding. "System Default" works perfect in the far majority of cases, even
-  on Asian (e.g. Japanese) Windows versions.
-
-
+  Controls how string data is encoded when written. In most environments,
+  **System Default** is the correct setting unless you have a confirmed
+  character-set requirement.
 
 Insert NULL Value if string is empty
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**File Configuration field:**
-  nSQLConnectionTimeOut
-
 **Description:**
-  This option inserts a NULL value, if a property is empty.
-
-
-
-
-Enable Detail Property Logging
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**File Configuration field:**
-  nPropertiesTable
-
-**Description:**
-  This option logs event properties other than the standard properties to the
-  SystemEventProperties table. A single event can potentially have multiple
-  properties, so selecting this option can result in multiple writes. With
-  Syslog data, however, there are seldom any additional properties. They most
-  often occur when you use the "Post Process" action to define your own
-  properties. Additional properties are typically found in SETP received data
-  originating from an Event Log Monitor, file monitor, or database monitor (plus
-  other monitors, but these are the most prominent ones).
-
-  For example, with Event Log data received via SETP, these properties contain
-  the actually Windows event properties and the event data. Please note that
-  this does not apply to event log messages received via Syslog, because they
-  are no native events but rather Syslog data.
-
-  Please make sure you actually need this before activating it. As a side note:
-  some of the MonitorWare Console reports may need detail logging.
-
-
-
-Detaildata Tablename
-^^^^^^^^^^^^^^^^^^^^
-
-**File Configuration field:**
-  szPropertiesTableName
-
-**Description:**
-  Tablename for Detail Property Logging
-
-
-
-Maximum value length (Bytes)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**File Configuration field:**
-  nMaxValueLength
-
-**Description:**
-  Maximum length in bytes for values stored in Detaildata table.
+  Writes ``NULL`` instead of an empty string for empty string properties. Use
+  this only if your schema and downstream queries intentionally distinguish
+  between empty text and ``NULL``.
 
 Datafields
 ----------
 
-The provided fieldnames are those that Adiscon's schema uses - you can add your
-own if you have a need for this.
+The field list controls how event properties are written into the destination
+table. This is the most important part of custom integration work.
 
-You can edit the field list by selecting a row and then modifying the text
-fields above the table. You can insert and delete rows by selecting the
-respective button. If you press delete, the currently selected row is deleted.
+For the default schema, the built-in field list already reflects the standard
+Adiscon table layout. For a custom schema, keep only the rows that correspond
+to actual destination columns and adjust them deliberately.
 
-For string data types, you can use the property replacer. This can be helpful
-if you would like to store a substring. For example, if you intend to store
-only the first 200 characters of each message, you can use ``%msg:1:200%``.
-
+For string data types, you can use the property replacer. For example, the
+expression ``%msg:1:200%`` stores only the first 200 characters of the message.
+For simple mappings, use the relevant event property directly.
 
 .. image:: ../images/a-odbcdatabase-datafields.png
    :width: 100%
 
-* Action - ODBC Database Datafields*
-
+*Action - ODBC Database Datafields*
 
 Fieldname
 ^^^^^^^^^
@@ -253,10 +221,7 @@ Fieldname
   szFieldName_[n]
 
 **Description:**
-  The Fieldname is the database column name. It can be any field inside the
-  table.
-
-
+  Database column name in the destination table.
 
 Fieldtype
 ^^^^^^^^^
@@ -264,20 +229,14 @@ Fieldtype
 **File Configuration field:**
   nFieldType_[n]
 
-  * 1 = varchar
-  * 2 = int
-  * 3 = text
-  * 4 = DateTime
+- 1 = varchar
+- 2 = int
+- 3 = text
+- 4 = DateTime
 
 **Description:**
-  Fieldtype is the data type of the database column. It must reflect the column
-  type selected in the database. It must also be consistent in type with the
-  actual property that must be stored. For example, an integer type property
-  like the syslogpriority can be stored in a varchar column. A string data type
-  like the syslogtag can - for obvious reasons - not be stored in an integer
-  column.
-
-
+  Data type of the destination column. It must match both the database schema
+  and the kind of property you are storing.
 
 Fieldcontent
 ^^^^^^^^^^^^
@@ -286,8 +245,57 @@ Fieldcontent
   szFieldContent_[n]
 
 **Description:**
-  Finally, the Fieldcontent is the event property. For a complete list of
-  supported properties, see :doc:`event properties <../shared/references/eventspecificproperties>`
+  Event property or property-replacer expression written into the destination
+  column. See :doc:`event properties <../shared/references/eventspecificproperties>`
+  and :doc:`property access and replacer syntax <../shared/references/accessingproperties>`.
+
+Practical mapping guidance
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For a custom syslog-oriented table, a minimal mapping often includes:
+
+- a timestamp column populated from ``timegenerated`` or ``timereported``
+- a source column populated from ``source``
+- a severity column populated from ``syslogpriority``
+- a tag or application column populated from ``syslogtag`` or ``syslogappname``
+- a message column populated from ``msg``
+
+If a destination column is shorter than the source property, truncate or
+transform the value explicitly instead of hoping the driver or database will do
+the right thing.
+
+Detail property logging
+-----------------------
+
+Enable Detail Property Logging
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nPropertiesTable
+
+**Description:**
+  Writes non-standard properties into a separate detail table. This can be
+  useful when additional event metadata must be retained, but it also increases
+  write volume.
+
+Detaildata Tablename
+^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  szPropertiesTableName
+
+**Description:**
+  Table name used for detail-property logging. In the default schema, this is
+  typically ``SystemEventProperties``.
+
+Maximum value length (Bytes)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nMaxValueLength
+
+**Description:**
+  Maximum size in bytes for values written into the detail-property table.
 
 Action Queue Options
 --------------------
@@ -295,19 +303,17 @@ Action Queue Options
 .. image:: ../images/a-odbcdatabase-actionqueue.png
    :width: 100%
 
-* Action - Send RELP Action Queue*
+*Action - ODBC Database Action Queue*
 
-
-Use Diskqueue if connection to Syslog server fails
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Use Diskqueue if connection to database fails
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
   nUseDiscQueue
 
 **Description:**
-  Enable diskqueuing syslog messages after unexpected connection loss.
-
-
+  Stores pending writes on disk when the database path is temporarily
+  unavailable.
 
 Split files if this size is reached
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -316,10 +322,7 @@ Split files if this size is reached
   nDiskQueueMaxFileSize
 
 **Description:**
-  Files will be split until they reach the configured size in bytes. The
-  maximum support file size is 10485760 bytes.
-
-
+  Maximum size of each queue file in bytes before a new file is created.
 
 Diskqueue Directory
 ^^^^^^^^^^^^^^^^^^^
@@ -328,10 +331,7 @@ Diskqueue Directory
   szDiskQueueDirectory
 
 **Description:**
-  The directory where the queue files will be generated in. The queuefiles will
-  be generated with a dynamic UUID bound to the action configuration.
-
-
+  Directory used to store queue files for pending database writes.
 
 Waittime between connection tries
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -340,10 +340,8 @@ Waittime between connection tries
   nDiskCacheWait
 
 **Description:**
-  The minimum waittime until the Syslog Action retries to establish a
-  connection to the Syslog server after failure.
-
-
+  Minimum wait time before the action retries the database connection after a
+  failure.
 
 Overrun Prevention Delay (ms)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -352,10 +350,8 @@ Overrun Prevention Delay (ms)
   nPreventOverrunDelay
 
 **Description:**
-  When the Action is processing syslog cache files, an overrun prevention delay
-  can be added to avoid flooding the target Syslog server.
-
-
+  Optional delay between replayed queue writes to avoid overwhelming the target
+  database after recovery.
 
 Double wait time after each retry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -364,9 +360,7 @@ Double wait time after each retry
   bCacheWaittimeDoubling
 
 **Description:**
-  If enabled, the configured waittime is doubled after each try.
-
-
+  Doubles the retry wait time after each failure.
 
 Limit wait time doubling to
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -375,9 +369,7 @@ Limit wait time doubling to
   nCacheWaittimeDoublingTimes
 
 **Description:**
-  How often the waittime is doubled after a failed connection try.
-
-
+  Maximum number of retry wait-time increases after repeated failures.
 
 Enable random wait time delay
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -386,11 +378,8 @@ Enable random wait time delay
   bCacheRandomDelay
 
 **Description:**
-  If enabled, a some random time will be added into the waittime delay. When
-  using many syslog senders, this can avoid that all senders start sending
-  cached syslog data to the Syslog server at the same time.
-
-
+  Adds a randomized delay to retry timing. This can reduce synchronized retry
+  spikes when many senders reconnect at the same time.
 
 Maximum random delay
 ^^^^^^^^^^^^^^^^^^^^
@@ -399,5 +388,26 @@ Maximum random delay
   nCacheRandomDelayTime
 
 **Description:**
-  Maximum random delay time that will be added to the configured waittime if
-  Enable random wait time delay is enabled.
+  Upper bound for the additional randomized retry delay.
+
+Verification
+------------
+
+- Use **Verify Database** before enabling production traffic.
+- Send a matching test event or message after saving the action.
+- Query the destination table and confirm that:
+
+  - rows are inserted
+  - values appear in the expected columns
+  - data types and lengths are compatible with the schema
+
+Common pitfalls
+---------------
+
+- Using a user DSN instead of a **System DSN**
+- Leaving the default field list unchanged while targeting a custom table
+- Using **Create Database** when the goal is an existing custom schema
+- Mapping text properties into integer or datetime columns
+- Using the SQL Server call-statement mode on non-Microsoft SQL Server targets
+- Forgetting that custom schemas may break compatibility with tools that expect
+  the default Adiscon layout

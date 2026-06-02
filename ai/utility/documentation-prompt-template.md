@@ -17,7 +17,7 @@ Fill in these variables at the top - they will be used throughout the prompt:
 
 **UPDATED_DATE** = [Last update date in YYYY-MM-DD format]
 
-**APPLICABLE_PRODUCTS** = [List of relevant products: EventReporter, MonitorWare Agent, WinSyslog, Rsyslog Windows Agent, etc.]
+**APPLICABLE_PRODUCTS** = [List of relevant products: EventReporter, MonitorWare Agent, WinSyslog, rsyslog Windows Agent, etc.]
 
 **ARTICLE_DESCRIPTION** = [Brief description of what the article covers]
 
@@ -51,7 +51,7 @@ Create a **{{ARTICLE_TYPE}}** for the Adiscon product documentation.
 
 1. **Title:** {{ARTICLE_TITLE}}
    - Use title case
-   - Include relevant product names (EventReporter, MonitorWare Agent, WinSyslog, Rsyslog Windows Agent)
+   - Include relevant product names (EventReporter, MonitorWare Agent, WinSyslog, rsyslog Windows Agent)
    - Be specific about the topic or problem being addressed
 
 2. **Metadata:**
@@ -161,7 +161,7 @@ Create a **Step-by-Step Guide** for the Adiscon product documentation.
 
 1. **Title:** How to Configure MonitorWare Agent to Forward Logs to a Remote Syslog Server
    - Use title case
-   - Include relevant product names (EventReporter, MonitorWare Agent, WinSyslog, Rsyslog Windows Agent)
+   - Include relevant product names (EventReporter, MonitorWare Agent, WinSyslog, rsyslog Windows Agent)
    - Be specific about the topic or problem being addressed
 
 2. **Metadata:**

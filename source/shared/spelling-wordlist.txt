@@ -362,9 +362,11 @@ PDF
 PDU
 PEM
 PHP
+phpMyAdmin
 PING
 PIX
 POP3
+POSIX
 POST
 PROGRA
 Palo
@@ -386,6 +388,7 @@ PostProcessAction
 PostProcessing
 PostgreSQL
 PowerShell
+plaintext
 ProcessID
 ProcessId
 ProcessName
@@ -440,8 +443,6 @@ RestOfMessage
 Right-click
 Rollout
 Rollouts
-Rsyslog
-Rsyslog-windows-agent-eula
 RsyslogConfigClient
 RuleSet
 RuleSets
@@ -477,6 +478,7 @@ SQL
 SQLEXPRESS
 SQLNCLI11
 SSL
+schemas
 SSL-encrypted
 SSL-protected
 SSL-secured
@@ -528,7 +530,6 @@ TCP-based
 TCP-specific
 TIMED
 TIMETICKS
-timeframes
 TLS
 TLS1
 TLSv1
@@ -713,6 +714,7 @@ adiscons-interactive-SyslogViewer
 adisconteam
 agent-4-0
 agent-setup
+air-gapped
 all-new
 an-unix-like-logger-for-windows
 anti-SPAM
@@ -738,6 +740,7 @@ bUseCustomEventLog
 bUseLegacyFormat
 back-end
 backend
+backends
 bb982727
 bdata
 best-effort
@@ -755,6 +758,7 @@ centralized-monitoring-and-report
 centralized-monitoring-and-reporting
 cfg
 checkboxes
+cloud-init
 co-exist
 co-ordinated
 code-block
@@ -821,7 +825,7 @@ default-timevalues-setting
 deleter
 delimiter-based
 detecting-password-attacks-on-windows
-diff-massroll-massupdateroll
+diff-repeatable-deployment-repeatable-update-deployment
 diff-setstatus-setproperty-action
 difference-setp-and-syslog
 diskcache
@@ -937,6 +941,7 @@ fromPos
 fromhost
 front-end
 full-featured
+gapped
 general-options
 general-options-j
 general-questions
@@ -970,12 +975,15 @@ how-to-configure-a-syslog-server
 how-to-enter-the-license-
 how-to-enter-the-license-information
 how-to-monitor-windows-machines-and-syslog-devices
-how-to-perform-a-mass-rollout
-how-to-perform-a-mass-update-rollout
+how-do-i-perform-a-repeatable-deployment
+how-do-i-perform-a-repeatable-deployment-of-eventreporter
+how-do-i-perform-a-repeatable-deployment-of-winsyslog
+how-do-i-perform-a-repeatable-update-deployment
 how-to-setup-EventReporter-to-view-windows-eventlogs-in-adiscon-loganalyzer
 how-to-setup-a-control-nt-service
 how-to-setup-a-control-nt-service-action
 how-to-setup-a-failover-syslog-server
+failover
 how-to-setup-a-file-logging-action
 how-to-setup-a-forward-via-syslog-action
 how-to-setup-a-set-property-action
@@ -1348,13 +1356,20 @@ nSyslogSendPort
 nSystemID
 nTLSAllowSSLv
 nTLSAllowSSLv3
+nTLSAllowExpiredCerts
 nTLSAllowTLS
 nTLSAllowTLS10
 nTLSAllowTLS11
 nTLSAllowTLS12
 nTLSAllowTLS13
+nTLSFailOnConfigCommandError
+nTLSHandshakeTimeout
+nTLSLegacyFingerprintMatch
+nTLSLegacyPeerNameMatch
 nTLSMode
 nTLSUseConfigurationCommands
+nTCPMaxSessions
+untrusted
 nTabSelection
 nTakeSourceSysFromSyslogMsg
 nTimeMode
@@ -1439,7 +1454,6 @@ performance-intense
 performance-optimizing-syslog-server
 performance-tests-and-results
 permittedsenders-options
-php-syslog-ng
 playsound-action
 pop3
 pop3probe
@@ -1527,10 +1541,12 @@ rswaconcepts-actions
 rswaconcepts-filterconditions
 rswaconcepts-services
 rsyslog
+rsyslog-windows-agent-eula
 rule-based
 rulebase
 ruleset
 rulesets
+runbooks
 rver-mwa30-2
 s-ip
 s-mwa42
@@ -1742,6 +1758,7 @@ this-is-a-step-by-step-guide-which-describes-how-to-windows-update-log
 three-character
 three-quarters
 time-based
+timeframes
 timereported
 timestamp-type
 tls-ca
@@ -1769,7 +1786,6 @@ unchecking
 unconfigured
 unencrypted
 unparsed
-upgrade-insurance
 url
 user-assgined
 user-specific
@@ -1787,7 +1803,6 @@ vbs
 vendor-specific
 version-history
 verticaltab
-w-to-setup-phpsyslogng-with-monitorware-products
 wa42
 waittime
 walkthrough
@@ -1830,5 +1845,3 @@ year-month-day
 yy
 zLib
 ö
-POSIX
-runbooks

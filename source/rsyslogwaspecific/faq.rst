@@ -1,21 +1,53 @@
 FAQ
 ===
 
-Here you find FAQ for Rsyslog:
+Use this section for direct answers to common rsyslog Windows Agent questions.
+The entries below are grouped by user intent so you can scan by task instead of
+by product component.
 
+Operation and troubleshooting
+-----------------------------
 
 .. toctree::
    :maxdepth: 1
 
+   faq/openssl-cve-impact
    faq/start-program-action-troubleshooting
    faq/config-reload-high-load
+   faq/export-settings-support-call
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support
-   ../shared/faq/openssl-cve-impact
-   ../shared/faq/palo-alto-log-format-change
 
+Deployment and administration
+-----------------------------
 
+.. toctree::
+   :maxdepth: 1
 
-further FAQ you find on `adiscon.com <https://www.adiscon.com/>`_ :
+   faq/repeatable-deployment
+   faq/copying-configuration
+   faq/printable-manual
 
-- `FAQ <https://www.adiscon.com/frequently-asked-questions/>`_
+Protocols and integration
+-------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   ../shared/faq/tls-listener-certificate-files
+
+Licensing and purchasing
+------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   faq/enter-license-information
+
+Platform and compatibility
+--------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   ../shared/faq/dotnet-framework-vs-dotnet-core-and-dotnet

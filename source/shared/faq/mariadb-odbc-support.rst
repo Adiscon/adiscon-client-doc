@@ -50,10 +50,45 @@ To use MariaDB with the ODBC action:
 
 **Note:** The configuration process is identical to configuring MySQL, as MariaDB uses MySQL-compatible drivers and protocols.
 
+Modern Deployment Recommendations
+---------------------------------
+
+For current MariaDB deployments, we recommend the following:
+
+1. **Use a current MariaDB server and connector**
+   - Use currently supported MariaDB server releases
+   - Use a current MariaDB Connector/ODBC package from the official source
+
+2. **Use a dedicated database account**
+   - Create a dedicated user for the Adiscon product
+   - Grant only the required privileges on the target database/schema
+
+3. **Enable secure transport for remote database connections**
+   - Use TLS between the Adiscon host and MariaDB server when traffic crosses networks
+   - Configure certificate settings in the DSN/driver according to your security policy
+
+4. **Use UTF-8 consistently**
+   - Prefer UTF-8/``utf8mb4`` settings for server, database, and connector
+   - This prevents character conversion issues in international log messages
+
+5. **Validate end-to-end before production rollout**
+   - Use "Verify Database" in the ODBC action
+   - Insert sample messages and verify they are written and readable as expected
+
+Common Modern Troubleshooting Checks
+------------------------------------
+
+If connection tests fail, verify:
+
+* Driver architecture matches the product runtime (32-bit vs 64-bit)
+* Host, port, database name, and credentials in the DSN are correct
+* MariaDB user authentication method is supported by the installed connector
+* TLS requirements (if enabled) match server and connector configuration
+* Firewall rules allow database traffic
+
 Additional Information
 -----------------------
 
 For more information about database actions, see the ODBC Database Options documentation in your product's manual.
 
 For MariaDB-specific information, visit the `official MariaDB website <https://mariadb.org/>`_.
-

@@ -9,7 +9,7 @@ Multiple RuleSets - Rules - Actions
 
 
 
-With Rsyslog Windows Agent as many "RuleSets", "Rules" and "Actions" as
+With rsyslog Windows Agent as many "RuleSets", "Rules" and "Actions" as
 necessary can be defined.
 
 You can create a separate "RuleSet" for each Service used, or just one
