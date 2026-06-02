@@ -1,15 +1,24 @@
 .. _log-rotation-file-handle-cleanup-winsyslog:
 
 
-Why are Logfiles sometimes not rotated in WinSyslog 17.5 or lower?
-====================================================================
+Why were dynamic log files sometimes not rotated in older WinSyslog versions?
+=============================================================================
 
-This article explains why log files may sometimes not be rotated as expected in WinSyslog versions 17.5 and earlier, and provides solutions for this issue.
+Older WinSyslog versions could miss some scheduled rotations when dynamic
+filenames were combined with file-handle cleanup. That historical behavior was
+improved in later versions of the shared log rotation subsystem.
+
+For the guarantees of the current subsystem, including graceful shutdown,
+restart recovery, reload behavior, and dynamic filename support, see
+:doc:`../../shared/faq/log-rotation-guarantees`.
 
 Background
 ----------
 
-In WinSyslog versions 17.5 and earlier, there is a feature called "Automatic File Handle Cleanup" that can interfere with log file rotation under certain circumstances. This feature was redesigned in WinSyslog version 18.1 to resolve these issues.
+In older WinSyslog versions, the automatic file handle cleanup logic could
+close an inactive dynamic log file before the scheduled rotation time arrived.
+Later versions improved the shared log rotation subsystem to handle this more
+reliably.
 
 The Problem
 -----------
@@ -57,3 +66,19 @@ If upgrading is not immediately possible:
 4. This adjustment will reduce the likelihood of missing log rotations
 
 **Important:** The longer cleanup interval may increase memory usage, so monitor your system's resource utilization accordingly.
+.. _log-rotation-file-handle-cleanup-winsyslog:
+
+Why were dynamic log files sometimes not rotated in older WinSyslog versions?
+=============================================================================
+
+Older WinSyslog versions could miss some scheduled rotations when dynamic
+filenames were combined with file-handle cleanup. That historical behavior was
+improved in later versions of the shared log rotation subsystem.
+
+For the guarantees of the current subsystem, including graceful shutdown,
+restart recovery, reload behavior, and dynamic filename support, see
+:doc:`../../shared/faq/log-rotation-guarantees`.
+
+If you are still running one of the older affected builds, increasing the file
+handle cleanup timeout can reduce the chance of a missed scheduled rotation,
+but the recommended long-term solution is to upgrade to a current release.

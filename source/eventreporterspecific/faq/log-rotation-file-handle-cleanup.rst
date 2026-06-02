@@ -1,15 +1,24 @@
 .. _log-rotation-file-handle-cleanup-eventreporter:
 
 
-Why are Logfiles sometimes not rotated in EventReporter 18.5 to 19.1?
-=====================================================================
+Why were dynamic log files sometimes not rotated in older EventReporter versions?
+=================================================================================
 
-This article explains why log files may sometimes not be rotated as expected in EventReporter versions 18.5 to 19.1, and provides solutions for this issue.
+Older EventReporter versions could miss some scheduled rotations when dynamic
+filenames were combined with file-handle cleanup. That historical behavior was
+improved in later versions of the shared log rotation subsystem.
+
+For the guarantees of the current subsystem, including graceful shutdown,
+restart recovery, reload behavior, and dynamic filename support, see
+:doc:`../../shared/faq/log-rotation-guarantees`.
 
 Background
 ----------
 
-In EventReporter versions 18.5 to 19.1, there are several factors that can interfere with log file rotation under certain circumstances. These issues were addressed in later versions with improved rotation handling.
+In older EventReporter versions, file-handle cleanup and scheduled rotation
+could interfere with each other when a dynamic log file had already become
+inactive before the scheduled rotation time arrived. Later versions improved
+the shared log rotation subsystem to handle this more reliably.
 
 The Problem
 -----------
@@ -65,3 +74,19 @@ If upgrading is not immediately possible, try these workarounds:
    * Consider load balancing if multiple instances are logging simultaneously
 
 **Important:** Monitor your logging environment closely when implementing these workarounds, as they may affect overall system performance.
+.. _log-rotation-file-handle-cleanup-eventreporter:
+
+Why were dynamic log files sometimes not rotated in older EventReporter versions?
+=================================================================================
+
+Older EventReporter versions could miss some scheduled rotations when dynamic
+filenames were combined with file-handle cleanup. That historical behavior was
+improved in later versions of the shared log rotation subsystem.
+
+For the guarantees of the current subsystem, including graceful shutdown,
+restart recovery, reload behavior, and dynamic filename support, see
+:doc:`../../shared/faq/log-rotation-guarantees`.
+
+If you are still running one of the older affected builds, increasing the file
+handle cleanup timeout can reduce the chance of a missed scheduled rotation,
+but the recommended long-term solution is to upgrade to a current release.

@@ -497,6 +497,11 @@ Do not rotate files on Shutdown
   Do not rotate log files if service is stopped even with "Rotate each time a
   file is closed" enabled.
 
+  Detached log rotation work that was already queued or already active in the
+  background worker is still recovered on the next startup. This setting only
+  suppresses starting an additional rotate-on-close operation because the
+  service is shutting down.
+
 
 
 
@@ -570,6 +575,11 @@ Compress File After log rotation
 **Description:**
   Enable file compression after log rotation.
 
+  Compression runs in the asynchronous log rotation worker after the live file
+  has already been detached. If graceful shutdown happens while compression is
+  still running, the unfinished detached work is resumed on the next startup
+  instead of being abandoned.
+
 
 
 Compression Format
@@ -609,6 +619,10 @@ Move file after log rotation
 **Description:**
   Move logfile after rotation & compression.
 
+  Move-after-rotate uses the same asynchronous recovery model as compression.
+  If shutdown reaches the configured worker wait timeout before the move
+  finishes, the detached work is resumed on the next startup.
+
 
 Target directory
 ^^^^^^^^^^^^^^^^
@@ -618,3 +632,6 @@ Target directory
 
 **Description:**
   Location where to move the logfile after rotation & compression.
+
+For an overview of shutdown, restart, reload, and dynamic-filename guarantees,
+see :doc:`../shared/faq/log-rotation-guarantees`.
