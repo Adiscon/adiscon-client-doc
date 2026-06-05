@@ -21,6 +21,7 @@ independently when needed.
    :maxdepth: 2
 
    how-to-integrate-adiscon-windows-products-into-rosi
+   retrospective-log-viewer
    gettingstarted/index
    references/index
    contact-language-policy
