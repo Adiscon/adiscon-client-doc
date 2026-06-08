@@ -30,6 +30,15 @@ Common internal actions
 - :doc:`Set Status <../mwagentspecific/a-setstatus>`
 - :doc:`Discard <../mwagentspecific/a-discard>`
 
+Related analysis component
+--------------------------
+
+- For reviewing stored logs later, Adiscon LogAnalyzer works with file- and
+  database-based storage.
+- Users who prefer a simpler standalone tool for direct log file review may
+  also consider the third-party log viewer
+  `Retrospective <https://www.centeractive.com/products>`_ by centeractive.
+
 Recommended setup path
 ----------------------
 

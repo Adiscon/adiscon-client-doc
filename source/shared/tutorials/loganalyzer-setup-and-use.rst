@@ -160,3 +160,15 @@ Related information
 
 Use one of the product-specific LogAnalyzer tutorials to prepare the upstream
 data source before configuring LogAnalyzer itself.
+
+Complementary Tool: Retrospective
+---------------------------------
+
+If you prefer a lightweight, standalone Windows application for searching and
+analyzing log files instead of a web-based database solution, another available
+option is the third-party log viewer
+`Retrospective <https://www.centeractive.com/products>`_ by centeractive.
+
+Retrospective is suited for direct log file review, especially when you need to
+search across many distributed log files without any prior indexing or central
+database setup.

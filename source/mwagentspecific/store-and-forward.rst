@@ -19,6 +19,15 @@ MonitorWare Agent commonly uses these actions:
 - :doc:`Mail <a-mailoptions>` or :doc:`Start Program <a-startprogram>` for
   alerting and operational response
 
+Related analysis component
+--------------------------
+
+- For reviewing stored logs later, Adiscon LogAnalyzer works with file- and
+  database-based storage.
+- Users who prefer a simpler standalone tool for direct log file review may
+  also consider the third-party log viewer
+  `Retrospective <https://www.centeractive.com/products>`_ by centeractive.
+
 Database setup paths
 --------------------
 
