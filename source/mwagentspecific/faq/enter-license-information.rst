@@ -6,41 +6,53 @@ How Do I Enter MonitorWare Agent License Information?
 Answer
 ------
 
-Open the MonitorWare Agent Configuration Client, go to **General** ->
-**License**, enter the registration name exactly as provided, import the
-license key, save the configuration, and restart the service.
+On **MonitorWare Agent 2026** and later, deploy the ``license.alic`` file
+through **General** → **License** → **License File** in the configuration
+client, save, and restart the service. On **pre-2026** majors, use **Legacy
+License** with the registration name and numeric keys from Adiscon.
 
 Details
 -------
 
-After you purchase MonitorWare Agent, Adiscon sends the license information by
-email. That message contains:
+**2026 and later (License V2)**
 
-- the registration name
-- the license key
+MonitorWare Agent 2026 requires a signed ``license.alic`` file from Adiscon.
+Legacy keys from MonitorWare Agent 15.x do **not** authorize the 2026 major.
 
-The registration name is case-sensitive and must match the delivered value
-exactly.
+Default file location:
 
-For Event Log Monitor deployments, licensing is based on the source systems
-whose Windows Event Logs are collected or forwarded. A license is required for
-each monitored system, regardless of whether that source system is a physical
-server, a workstation, or a virtual machine.
+``%ProgramData%\\Adiscon\\MonitorWare\\license.alic``
 
-Action path
------------
+See :ref:`license-v2` for the full reference.
+
+**Pre-2026 majors (legacy keys)**
+
+``license.alic`` files **do not work** on MonitorWare Agent 15.x and earlier.
+Contact Adiscon support or sales for a manually issued legacy license if you
+must remain on a legacy major.
+
+Action path (2026+)
+--------------------
+
+1. Obtain ``license.alic`` from Adiscon for your edition.
+2. Open the MonitorWare Agent Configuration Client.
+3. Expand **General** and select **License**.
+4. Open the **License File** tab and deploy ``license.alic``.
+5. Save the configuration and restart the MonitorWare Agent service.
+
+Action path (legacy majors)
+-----------------------------
 
 1. Open the MonitorWare Agent Configuration Client.
-2. In the left pane, expand **General** and select **License**.
-3. Copy the registration name from the delivery email into
-   **Registration Name**.
-4. Copy the full license key and click **Import from Clipboard**.
-5. Save and apply the configuration.
-6. Restart the MonitorWare Agent service so the updated license state is
-   applied.
+2. Expand **General** and select **License**.
+3. Open the **Legacy License** tab.
+4. Enter the registration name and import the license key.
+5. Save the configuration and restart the service.
 
 Related information
 -------------------
 
-* :doc:`../tutorial-enter-license-information`
+* :ref:`license-v2`
+* :ref:`version-numbering-2026`
+* `MonitorWare Agent edition comparison <https://www.mwagent.com/product-info/edition-comparison/>`_
 * :doc:`../../shared/sales/how-to-contact-sales`

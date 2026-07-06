@@ -59,10 +59,14 @@ network.
 Net Send
 --------
 
-The message will be forwarded via the Windows "net send" functionality. Please
-note that the Windows function is not very reliable and requires the user to be
-logged in. As such, we recommend using "Net Send" only in combination with
-other actions.
+.. warning::
+
+   **Removed from configuration client (2026-07).** Retained for reference only.
+
+The message was forwarded via the Windows ``net send`` functionality. The
+Windows Messenger service is unreliable on modern Windows and is no longer
+available from the configuration client. Use **Send Email**, **HTTP REST
+Output**, or other forwarding actions instead.
 
 Start Program
 -------------

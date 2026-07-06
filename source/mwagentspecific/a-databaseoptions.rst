@@ -154,6 +154,32 @@ SQL Connection Timeout
 SQL options
 -----------
 
+The client organizes ODBC database settings across **General Options**, **SQL
+Options**, and **Action Queue Options** tabs.
+
+Commit batching (SQL Options tab)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nCommitBatchSize
+
+**Description:**
+  Number of messages to batch before committing (Messages per commit). Increase
+  for higher throughput when the database can sustain larger batches; decrease
+  for more frequent commits.
+
+**File Configuration field:**
+  nCommitTimeoutMs
+
+**Description:**
+  Maximum time in milliseconds to wait before flushing a partial batch.
+
+**File Configuration field:**
+  nSessionTimeoutMs
+
+**Description:**
+  Idle timeout in milliseconds for the database session.
+
 Table Name
 ^^^^^^^^^^
 

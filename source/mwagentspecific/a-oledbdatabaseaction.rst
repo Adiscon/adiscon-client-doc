@@ -138,6 +138,29 @@ Encrypt password
   Enable password encryption if your build exposes this option. As with ODBC,
   prefer encrypted storage unless you have a documented reason not to.
 
+Commit batching (SQL Options tab)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nCommitBatchSize
+
+**Description:**
+  Number of messages to batch before committing (Messages per commit). Tune for
+  throughput versus commit frequency under load.
+
+**File Configuration field:**
+  nCommitTimeoutMs
+
+**Description:**
+  Maximum time in milliseconds to wait before flushing a partial batch (Commit
+  timeout).
+
+**File Configuration field:**
+  nSessionTimeoutMs
+
+**Description:**
+  Idle timeout in milliseconds for the database session (Session idle timeout).
+
 Table Name
 ^^^^^^^^^^
 

@@ -29,16 +29,27 @@ Support Status
 Guidance for Server Core Deployments
 ------------------------------------
 
-Windows Server IoT 2025 Server Core does not provide a graphical user interface. For headless deployments, we recommend configuring WinSyslog using Adiscon Config Files (``*.cfg``), a portable, file-based configuration format.
+Windows Server IoT 2025 Server Core does not provide a graphical user interface.
+For headless deployments, use legacy Adiscon Config Files (``.cfg``) with file
+config mode. The **2026** configuration client can also export **YAML**
+(``.yaml``) for import on another GUI workstation; Server Core service
+deployment still uses ``szFileConfig`` with a legacy ``.cfg`` path.
 
 Recommended workflow:
 
 1. Create the configuration on a GUI-enabled machine
+
    - Install WinSyslog and open the Configuration Client
    - Configure rules, services, and actions as required
-   - Export the configuration as Adiscon Config Files (``*.cfg``)
+   - Export the configuration as legacy Config Files (``.cfg``) for Server Core
+   - Optional on **2026** clients: also export YAML (``.yaml``) for backup or
+     re-import on another GUI machine
+
 2. Transfer the configuration to Server Core
-   - Copy the exported ``.cfg`` to the Server Core system (e.g., via PowerShell Remoting or SMB)
+
+   - Copy the exported ``.cfg`` file to the Server Core system (e.g., via
+     PowerShell Remoting or SMB)
+
 3. Enable File Config Mode and set paths via registry
 
    Registry path: ``HKEY_LOCAL_MACHINE\SOFTWARE\Adiscon\WinSyslog\Settings``

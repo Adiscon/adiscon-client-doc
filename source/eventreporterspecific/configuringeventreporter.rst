@@ -56,3 +56,10 @@ service. Within the ruleset:
 - actions define what happens when the rule matches
 
 The following sections describe the detailed properties of each element.
+
+2026 configuration client
+-------------------------
+
+See :doc:`../shared/references/configuration-client-2026` for License V2 UI,
+YAML import/export, service toolbar changes, and the next-generation client
+preview.

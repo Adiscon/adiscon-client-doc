@@ -56,6 +56,7 @@ Common editing tasks
 What to read next
 -----------------
 
+- :doc:`../shared/references/configuration-client-2026`
 - :doc:`core-concepts`
 - :doc:`services`
 - :doc:`filterconditions`

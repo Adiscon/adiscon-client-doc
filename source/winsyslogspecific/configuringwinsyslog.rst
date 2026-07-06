@@ -103,3 +103,10 @@ In the tree view, filter conditions and actions are beneath the rule they are
 associated with. Finally, beneath actions are all actions to carry out.
 
 The following sections describe each element's properties.
+
+2026 configuration client
+-------------------------
+
+See :doc:`../shared/references/configuration-client-2026` for License V2 UI,
+YAML import/export, service toolbar changes, and the next-generation client
+preview.

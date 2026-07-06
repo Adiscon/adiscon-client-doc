@@ -1,0 +1,17 @@
+{# Override Furo's base template to fix CHM/JavaScript errors in restricted hosts.
+   Furo's ``body`` block contains only the theme bootstrap script:
+   ``document.body.dataset.theme = localStorage.getItem("theme")``.
+   That fails when ``localStorage`` or ``dataset`` is unavailable (CHM viewer,
+   legacy WebView). Page layout and content come from ``page.html``, which
+   calls ``{{ super() }}`` and then renders the full UI — so we replace the
+   parent ``body`` block here without calling ``super()``. #}
+{% extends "!base.html" %}
+{% block body %}
+<script>
+  var theme = "auto";
+  try {
+    theme = localStorage.getItem("theme") || "auto";
+  } catch (e) {}
+  document.body.setAttribute("data-theme", theme);
+</script>
+{% endblock %}

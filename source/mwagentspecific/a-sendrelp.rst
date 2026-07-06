@@ -73,6 +73,20 @@ Send / Receive Timeout
   firewall configurations).
 
 
+RELP Window Size
+^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nSelpWindowSize
+
+**Description:**
+  Configures the RELP send window size (0–4096). When greater than ``1``, the
+  value is passed to the RELP client library to control how many messages can
+  be in flight before acknowledgment. Use ``0`` or ``1`` for default librelp
+  behavior. Tune this when you need higher throughput on reliable links or
+  stricter flow control on constrained links.
+
+
 
 Output Encoding
 ^^^^^^^^^^^^^^^

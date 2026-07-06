@@ -3,11 +3,15 @@ Net Send
 
 .. warning::
 
+   **Removed from configuration client (2026-07):** You cannot create new Net Send
+   actions in WinSyslog, EventReporter, or MonitorWare Agent from the **2026.07**
+   configuration client onward. Existing configurations that still contain Net
+   Send may load with a skip or warning; use **Send Email**, :doc:`HTTP REST
+   Output <a-restoutput>`, or **Start Program** for alerting instead.
+
    **Deprecated:** The Windows Messenger service (``net send`` pop-up messages)
    is not available by default on modern Windows versions and may be blocked or
-   unavailable in managed environments. As a result, delivery is often
-   unreliable. Prefer modern alerting methods like the **Send Email** action or
-   forwarding to syslog.
+   unavailable in managed environments.
 
 With the "Net Send" action, short alert messages can be sent via the Windows
 "net send" facility. These messages are delivered on a best-effort basis. If

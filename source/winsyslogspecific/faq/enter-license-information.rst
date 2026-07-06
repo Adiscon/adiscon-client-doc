@@ -6,52 +6,65 @@ How Do I Enter WinSyslog License Information?
 Answer
 ------
 
-Open the WinSyslog Configuration Client, go to **General** -> **License**,
-enter the registration name exactly as provided, import the license key, save
-the configuration, and restart the WinSyslog service.
+On **WinSyslog 2026** and later, deploy the ``license.alic`` file through
+**General** → **License** → **License File** in the configuration client, save,
+and restart the service. On **pre-2026** majors, use **Legacy License** with
+the registration name and numeric keys from Adiscon.
 
 Details
 -------
 
-After you purchase WinSyslog, Adiscon sends the license information by email.
-That message contains:
+**2026 and later (License V2)**
 
-* the registration name
-* the license key
+WinSyslog 2026 requires a signed ``license.alic`` file from Adiscon. Legacy
+registration name and numeric keys from WinSyslog 18.x do **not** authorize
+the 2026 major.
 
-The registration name is case-sensitive and must match the delivered value
-exactly. Do not add quotation marks, leading spaces, or trailing spaces.
+Default file location:
 
-Action Path
------------
+``%ProgramData%\\Adiscon\\WinSyslog\\license.alic``
+
+You can set ``szLicenseV2Path`` to another path. See :ref:`license-v2` for the
+full reference.
+
+**Pre-2026 majors (legacy keys)**
+
+``license.alic`` files **do not work** on WinSyslog 18.x and earlier. If you
+must stay on a legacy major, contact Adiscon support or sales for a manually
+issued legacy license.
+
+Action Path (2026+)
+--------------------
+
+1. Obtain ``license.alic`` from Adiscon for your edition.
+2. Open the WinSyslog Configuration Client.
+3. Expand **General** and select **License**.
+4. Open the **License File** tab.
+5. Browse for ``license.alic``, or drag-and-drop the file, or paste the file path.
+6. Save the configuration and verify license status in the client.
+7. Restart the WinSyslog service.
+
+Action Path (legacy majors)
+-----------------------------
 
 1. Open the WinSyslog Configuration Client.
-2. In the left pane, expand **General** and select **License**.
-
-.. image:: ../../images/license-mw.png
-   :width: 100%
-
-3. Copy the registration name from the delivery email into
-   **Registration Name**.
-4. Copy the full license key and click **Import from Clipboard**.
-
-.. image:: ../../images/generaloptions-license.png
-   :width: 100%
-
-5. Save the configuration.
-6. Restart the WinSyslog service so the updated license state is applied.
+2. Expand **General** and select **License**.
+3. Open the **Legacy License** tab.
+4. Enter the registration name exactly as provided.
+5. Import the license key blocks or use **Import from Clipboard**.
+6. Save the configuration and restart the service.
 
 Verification
 ------------
 
-After the service restart, reopen the license page and confirm that the
-license information is shown without validation errors. If the key is rejected,
-check for mismatched characters, missing key blocks, or unwanted spaces in the
-registration name.
+After the service restart, reopen the license page and confirm that license
+status is shown without validation errors.
 
 Related Information
 -------------------
 
+* :ref:`license-v2`
+* :ref:`version-numbering-2026`
 * :doc:`what-is-freeware-mode`
 * :doc:`../installation`
 * :doc:`../../shared/sales/how-to-contact-sales`
