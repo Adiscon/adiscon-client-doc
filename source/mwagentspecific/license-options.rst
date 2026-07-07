@@ -58,12 +58,12 @@ Use the **License File** tab to apply ``license.alic``.
   organization). A version mismatch between the license file and the installed
   service may show a warning banner until you apply a matching license.
 
-Legacy License (pre-26 versions)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+License Keys
+^^^^^^^^^^^^
 
-The **Legacy License** tab retains the registration name and numeric key fields
-for deployments on pre-26 versions. On version 26 and later service builds,
-these fields are **not** used for authorization.
+The **License Keys** tab contains registration name and numeric key fields. On
+version 26 and later service builds, these fields are **not** used for
+authorization.
 
 .. only:: mwagent
 
@@ -79,9 +79,6 @@ these fields are **not** used for authorization.
 
    .. image:: ../images/license-legacy-tab-shared.png
       :width: 100%
-
-``license.alic`` files do **not** work on pre-26 product versions. Contact
-Adiscon if you need a legacy license key for an older version.
 
 Registration Name
 ^^^^^^^^^^^^^^^^^

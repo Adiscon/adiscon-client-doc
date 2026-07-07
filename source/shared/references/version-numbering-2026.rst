@@ -42,8 +42,8 @@ The last product versions before the version 26 line are:
 - **MonitorWare Agent**: 15.x
 - **rsyslog Windows Agent**: 8.x
 
-Upgrading from any of these versions to version 26 or later requires a
-``license.alic`` file. See :ref:`licensing-version-26-and-later`.
+Version 26 and later uses a ``license.alic`` file. See
+:ref:`licensing-version-26-and-later`.
 
 Version 26 release notes
 ------------------------

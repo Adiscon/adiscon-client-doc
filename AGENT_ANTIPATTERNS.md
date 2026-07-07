@@ -12,10 +12,11 @@ the same issue does not return in later cleanup passes.
 - Do not expose "License V2" as a user-facing concept. Use "licensing",
   "license file", or a specific user task such as "apply the license file".
 - Do not describe version 26 as a "major" in user documentation. Prefer
-  "version 26 and later" and "pre-26 versions".
+  "version 26 and later" for current-version pages.
 - Do not lead with signed or encrypted implementation details for license
   files. Users usually need to know that `license.alic` is the license file and
   how to apply it.
-- Do not mix license entitlement with delivery format. Explain that current
-  entitlements can cover older versions, but pre-26 builds need the legacy
-  registration name and numeric license key format.
+- Do not repeat older-version licensing details across normal licensing pages.
+  Keep the older-version entitlement note in an FAQ-style answer: current
+  licenses can cover older versions, but users may need to request a free
+  license key from Adiscon for older product versions.

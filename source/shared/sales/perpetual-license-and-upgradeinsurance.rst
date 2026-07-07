@@ -37,11 +37,7 @@ working. What changes is entitlement to later version-line upgrades and the
 additional benefits covered by active UpgradeInsurance.
 
 **Version 26 and license files:** Upgrading to version 26 or later requires a
-``license.alic`` file from Adiscon. Legacy registration name and numeric keys
-from earlier versions do not authorize version 26 builds. Conversely,
-``license.alic`` files do not work on pre-26 product versions; contact Adiscon
-for a legacy license key if you must remain on an older version. See
-:ref:`licensing-version-26-and-later`.
+``license.alic`` file from Adiscon. See :ref:`licensing-version-26-and-later`.
 
 For detailed renewal and reinstatement policy, see
 :ref:`upgradeinsurance-explainer`.

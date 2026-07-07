@@ -15,12 +15,6 @@ Starting with version 26, Adiscon provides a ``license.alic`` license file.
 Apply this file through the configuration client's **License File** tab, save
 the configuration, and verify the license status.
 
-Pre-26 product versions use the older registration name and numeric license key
-format. If you need to keep using a pre-26 version, contact Adiscon support or
-sales and request a legacy license key for that version. Your entitlement can
-cover older product versions, but Adiscon must issue the license in the legacy
-key format for pre-26 builds.
-
 Details
 -------
 
@@ -60,16 +54,12 @@ How to apply the license file
 7. Reopen the license page or check the main window status bar and confirm that
    the license status is valid.
 
-Using pre-26 versions
----------------------
+FAQ: Can I use an older product version?
+----------------------------------------
 
-``license.alic`` files are for version 26 and later product versions. Pre-26
-versions use a registration name and numeric license key blocks.
-
-If you need to stay on a pre-26 version, contact Adiscon support or sales and
-request a legacy license key. State the product, edition, and older product
-version you need to run. Your entitlement can cover older versions, but Adiscon
-must provide the license in the legacy key format for those builds.
+Yes. Your license entitlement can cover older product versions. If the older
+product version does not accept ``license.alic`` files, contact Adiscon support
+or sales and request a free license key for that product version.
 
 Troubleshooting license file problems
 -------------------------------------
