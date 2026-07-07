@@ -6,14 +6,13 @@ How Do I Enter WinSyslog License Information?
 Answer
 ------
 
-On **WinSyslog version 26** and later, apply the ``license.alic`` file through
-**General** -> **License** -> **License File** in the configuration client,
-save, and restart the service.
+Apply the ``license.alic`` file through **General** -> **License** ->
+**License File** in the configuration client, save, and restart the service.
 
 Details
 -------
 
-WinSyslog version 26 requires a ``license.alic`` file from Adiscon.
+Current WinSyslog builds require a ``license.alic`` file from Adiscon.
 
 Default file location:
 
@@ -42,7 +41,6 @@ status is shown without validation errors.
 Related information
 -------------------
 
-* :ref:`version-numbering-2026`
 * :doc:`what-is-freeware-mode`
 * :doc:`../installation`
 * :doc:`../../shared/sales/how-to-contact-sales`

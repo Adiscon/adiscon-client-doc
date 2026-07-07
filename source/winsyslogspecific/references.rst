@@ -37,7 +37,6 @@ troubleshooting.
    ../shared/references/connecttocomputer
    ../shared/references/registrypaths
    ../shared/references/microsoftsystemerrorcodes
-   ../shared/references/version-numbering-2026
    ../shared/references/configuration-client-2026
    glossaryofterms
 
@@ -45,4 +44,4 @@ External reference
 ------------------
 
 - `Version History <https://www.winsyslog.com/version-history/>`_
-- `WinSyslog version 26 release notes <https://www.winsyslog.com/version-history/>`_
+- `WinSyslog 26.07 release notes <https://www.winsyslog.com/version-history/>`_

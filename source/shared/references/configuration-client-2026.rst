@@ -2,8 +2,8 @@
 
 .. _configuration-client-2026:
 
-Configuration client (version 26 release line)
-==============================================
+Configuration client changes in 26.07
+=====================================
 
 The **26.07** installer ships two configuration clients:
 
@@ -12,9 +12,9 @@ The **26.07** installer ships two configuration clients:
 - **Next-generation Configuration Client Preview** — a WinUI-based workbench
   (``adiscon-client-ng``), shipped as a **preview** alongside the classic client.
 
-The preview is optional. The classic client supports license file application and
-full configuration editing for version 26. See your product website's version
-26 **Upgrade** article for the customer-facing preview description.
+The preview is optional. The classic client supports license file application
+and full configuration editing. See your product website's **Upgrade** article
+for the customer-facing preview description.
 
 Property window toolbar
 -----------------------
@@ -73,4 +73,4 @@ See the file-based configuration chapter in your product manual and
 Related information
 -------------------
 
-- :ref:`version-numbering-2026`
+- :ref:`version-numbering-change`

@@ -14,7 +14,7 @@ rsyslog WindowsAgent.
 
 The license screen can be found on the left side of the client under the item
 General. Applying the license is very straightforward with only a few steps.
-For product version 26 and later, Adiscon provides a ``license.alic`` file.
+For current product versions, Adiscon provides a ``license.alic`` file.
 
 Under General - on the left side of the Configuration Client - you will find
 the menu entry: License.
@@ -24,7 +24,7 @@ the menu entry: License.
 
 
 If you click on it, you will find the license screen on the right. On product
-version 26 and later, use the **License File** tab to apply
+current product versions, use the **License File** tab to apply
 ``license.alic``.
 
 Browse for the file, drag-and-drop it onto the client, or paste the file path.

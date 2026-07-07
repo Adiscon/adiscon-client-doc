@@ -21,10 +21,10 @@ support or sales and request a free license key for that product version.
 Details
 -------
 
-Current products use a ``license.alic`` license file. Older products before
-version 26 use a registration name and license key instead. Tell Adiscon which
-product and version you need to run so the license can be issued in the right
-format.
+Current products use a ``license.alic`` license file. Older products that do
+not support license files use a registration name and license key instead.
+Tell Adiscon which product and version you need to run so the license can be
+issued in the right format.
 
 Related information
 -------------------

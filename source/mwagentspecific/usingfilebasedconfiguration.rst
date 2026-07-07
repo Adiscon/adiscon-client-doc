@@ -220,16 +220,16 @@ Using File based configuration
 Adiscon YAML configuration format
 ---------------------------------
 
-From the **26.07** configuration client onward, you can import and export
-**Adiscon YAML Config Format** (``.yaml``) files in addition to the legacy
-``.cfg`` format (**Adiscon Legacy Format** in the File menu).
+The configuration client can import and export **Adiscon YAML Config Format**
+(``.yaml``) files in addition to the legacy ``.cfg`` format
+(**Adiscon Legacy Format** in the File menu).
 
 Use YAML when you want a structured, text-based format that aligns with
-Himalaya service configuration. Use legacy ``.cfg`` when you need maximum
-compatibility with older clients or existing automation.
+Himalaya service configuration. Use legacy ``.cfg`` only when you need maximum
+compatibility with older clients, file config mode, or existing automation.
 
-**Import / export:** Use **File** → import or export and select the YAML or
-legacy CFG format as appropriate.
+**Import / export:** Use **File** → import or export and select the YAML
+format. Select legacy CFG only when your workflow requires that format.
 
 .. image:: ../images/file-menu-yaml.png
    :width: 100%

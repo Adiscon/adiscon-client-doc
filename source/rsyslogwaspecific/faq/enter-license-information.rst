@@ -6,14 +6,14 @@ How Do I Enter rsyslog Windows Agent License Information?
 Answer
 ------
 
-On **rsyslog Windows Agent version 26** and later, apply the ``license.alic``
-file through **General** -> **License** -> **License File** in the
-configuration client, save, and restart the service.
+Apply the ``license.alic`` file through **General** -> **License** ->
+**License File** in the configuration client, save, and restart the service.
 
 Details
 -------
 
-rsyslog Windows Agent version 26 requires a ``license.alic`` file from Adiscon.
+Current rsyslog Windows Agent builds require a ``license.alic`` file from
+Adiscon.
 
 Default file location:
 
@@ -34,6 +34,5 @@ Action path
 Related information
 -------------------
 
-* :ref:`version-numbering-2026`
 * :doc:`../installation`
 * :doc:`../../shared/sales/how-to-contact-sales`

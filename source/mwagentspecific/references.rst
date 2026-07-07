@@ -14,7 +14,6 @@ Product controls and local operation
 
    ../shared/references/commandlineswitches
    ../shared/references/mwagentshortcutkeys
-   ../shared/references/version-numbering-2026
    ../shared/references/configuration-client-2026
 
 Technical lookup material
@@ -35,4 +34,4 @@ External reference
 ------------------
 
 - `Version History <https://www.mwagent.com/version-history/>`_
-- `MonitorWare Agent version 26 release notes <https://www.mwagent.com/version-history/>`_
+- `MonitorWare Agent 26.07 release notes <https://www.mwagent.com/version-history/>`_

@@ -4,10 +4,10 @@ License
 =======
 
 Licensing options are on **General** -> **License** in the configuration client.
-From version 26 onward, MonitorWare Agent uses a ``license.alic`` license file.
+Current MonitorWare Agent builds use a ``license.alic`` license file.
 
-License File (version 26 and later)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+License File
+^^^^^^^^^^^^
 
 Use the **License File** tab to apply ``license.alic``.
 
@@ -61,7 +61,7 @@ License Keys
 ^^^^^^^^^^^^
 
 The **License Keys** tab contains registration name and numeric key fields. In
-version 26 and later, these fields do not activate the product.
+current builds, these fields do not activate the product.
 
 .. only:: mwagent
 

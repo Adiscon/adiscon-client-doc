@@ -36,8 +36,8 @@ When UpgradeInsurance expires, the licensed product version does not stop
 working. What changes is entitlement to later version-line upgrades and the
 additional benefits covered by active UpgradeInsurance.
 
-**Version 26 and license files:** Upgrading to version 26 or later requires a
-``license.alic`` file from Adiscon.
+**License files:** Current product versions use a ``license.alic`` file from
+Adiscon.
 
 For detailed renewal and reinstatement policy, see
 :ref:`upgradeinsurance-explainer`.

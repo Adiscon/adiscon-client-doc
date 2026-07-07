@@ -30,7 +30,6 @@ Technical lookup material
    ../shared/references/complexfilterconditions
    ../shared/references/connecttocomputer
    ../shared/references/microsoftsystemerrorcodes
-   ../shared/references/version-numbering-2026
    ../shared/references/configuration-client-2026
    glossaryofterms
 
@@ -38,4 +37,4 @@ External reference
 ------------------
 
 - `Version History <https://www.rsyslog.com/windows-agent/about-rsyslog-windows-agent/>`_
-- `rsyslog Windows Agent version 26 release notes <https://www.rsyslog.com/windows-agent/about-rsyslog-windows-agent/>`_
+- `rsyslog Windows Agent 26.07 release notes <https://www.rsyslog.com/windows-agent/about-rsyslog-windows-agent/>`_

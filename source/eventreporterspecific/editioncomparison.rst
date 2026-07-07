@@ -13,5 +13,4 @@ systems and virtual machines alike.
 
 `EventReporter edition comparison <https://www.eventreporter.com/edition-comparision/>`_
 
-**Version 26:** Licensing uses a ``license.alic`` file on version 26 and later
-builds.
+**License file:** Current builds use a ``license.alic`` file.

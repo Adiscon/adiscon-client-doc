@@ -6,14 +6,13 @@ How Do I Enter MonitorWare Agent License Information?
 Answer
 ------
 
-On **MonitorWare Agent version 26** and later, apply the ``license.alic`` file
-through **General** -> **License** -> **License File** in the configuration
-client, save, and restart the service.
+Apply the ``license.alic`` file through **General** -> **License** ->
+**License File** in the configuration client, save, and restart the service.
 
 Details
 -------
 
-MonitorWare Agent version 26 requires a ``license.alic`` file from Adiscon.
+Current MonitorWare Agent builds require a ``license.alic`` file from Adiscon.
 
 Default file location:
 
@@ -34,6 +33,5 @@ Action path
 Related information
 -------------------
 
-* :ref:`version-numbering-2026`
 * `MonitorWare Agent edition comparison <https://www.mwagent.com/product-info/edition-comparison/>`_
 * :doc:`../../shared/sales/how-to-contact-sales`

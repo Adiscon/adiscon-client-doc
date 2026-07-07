@@ -65,6 +65,7 @@ Licensing and product positioning
    faq/enter-license-information
    faq/what-is-freeware-mode
    faq/winsyslog-vs-kiwi-syslog-server
+   ../shared/faq/version-numbering-change
    ../shared/faq/unsupported-configuration-blocks
    ../shared/faq/netsend-removed-2026
    ../shared/faq/rest-output-getting-started

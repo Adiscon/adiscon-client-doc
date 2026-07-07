@@ -5,8 +5,8 @@ There are tools within the configuration client that you can use to test
 certain services or debug the application in general. Some can be found in
 the Tools menu.
 
-Service control (version 26)
-----------------------------
+Service control
+---------------
 
 From the **main window** toolbar: **Start**, **Stop**, **Restart**, **Kill**,
 and **Open Windows Services**. **Kill** ends an orphan process when the service

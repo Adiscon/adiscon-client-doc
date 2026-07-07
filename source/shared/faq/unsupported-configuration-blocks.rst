@@ -41,4 +41,3 @@ Related information
 
 - See the file-based configuration chapter in the WinSyslog, EventReporter,
   MonitorWare Agent, or rsyslog Windows Agent manual.
-- :ref:`version-numbering-2026`
