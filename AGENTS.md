@@ -46,6 +46,10 @@ This repository uses a unified, product-centric directory structure. All documen
 
 -   **`AGENTS.md`**: This file - the guide for AI agents and contributors.
 
+-   **`AGENT_ANTIPATTERNS.md`**: Durable list of repeated documentation review
+    findings that agents must avoid reintroducing. Read it before documentation
+    work when it exists.
+
 ### File Naming Conventions
 
 -   All documentation source files use the `.rst` extension and live under `/source/`
@@ -257,6 +261,8 @@ Never use `../general-options` (hyphenated) for WinSyslog pages; that file name 
 - When a support conversation reveals a concrete technical fact, check **all affected products** before deciding where to document it. Do not assume the fact is product-local unless the UI, feature, or implementation actually differs.
 - For cross-product support facts, first look for existing shared or reused pages that already carry the relevant concept. If the fact applies across products, prefer one shared canonical FAQ or reference update plus product-local FAQ links over separate duplicated product answers.
 - When the fact affects only a subset of products, record that scope explicitly in local helper notes so later cleanup passes do not re-evaluate the same question from scratch.
+- If review identifies a repeated documentation mistake, capture the pattern in
+  `AGENT_ANTIPATTERNS.md` so future agents can avoid reintroducing it.
 
 ### 4.5 FAQ and Navigation Hygiene (IMPORTANT)
 
@@ -325,16 +331,18 @@ pip install -r requirements.txt -r requirements-qa.txt
 
 Before making any changes:
 
-1. **Run a test build first**: `make html-<project> SPHINXOPTS="-W"`
-2. **Check for existing patterns**: Look at similar files for formatting conventions
-3. **Validate references**: Ensure all `:doc:` and `:ref:` targets exist
-4. **Test emphasis closure**: Count asterisks - they should always be even
-5. **Check list formatting**: Ensure blank lines after all lists
-6. **Verify file names**: All lowercase, use hyphens not underscores
-7. **Check inline literals**: Ensure spaces before and after double backticks
-8. **Verify field lists**: Ensure blank lines between section headers and field lists
-9. **Preserve FileConfig variable names**: Never change spelling, capitalization, or formatting of FileConfig variable names - they are part of the actual configuration system
-10. **Consult RST_RULES.md**: For comprehensive RST syntax rules and examples, refer to the `RST_RULES.md` file which provides detailed guidelines for correct reStructuredText formatting
+1. **Read anti-pattern guidance**: If `AGENT_ANTIPATTERNS.md` exists, read it
+   before documentation work and avoid reintroducing listed patterns.
+2. **Run a test build first**: `make html-<project> SPHINXOPTS="-W"`
+3. **Check for existing patterns**: Look at similar files for formatting conventions
+4. **Validate references**: Ensure all `:doc:` and `:ref:` targets exist
+5. **Test emphasis closure**: Count asterisks - they should always be even
+6. **Check list formatting**: Ensure blank lines after all lists
+7. **Verify file names**: All lowercase, use hyphens not underscores
+8. **Check inline literals**: Ensure spaces before and after double backticks
+9. **Verify field lists**: Ensure blank lines between section headers and field lists
+10. **Preserve FileConfig variable names**: Never change spelling, capitalization, or formatting of FileConfig variable names - they are part of the actual configuration system
+11. **Consult RST_RULES.md**: For comprehensive RST syntax rules and examples, refer to the `RST_RULES.md` file which provides detailed guidelines for correct reStructuredText formatting
 
 ### 4.9 Post-Change Validation
 
