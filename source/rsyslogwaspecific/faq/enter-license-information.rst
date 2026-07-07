@@ -19,8 +19,8 @@ Default file location:
 
 ``%ProgramData%\\Adiscon\\RSyslogAgent\\license.alic``
 
-See :ref:`licensing-version-26-and-later` for license file details and
-troubleshooting.
+Use the default location unless Adiscon support or your deployment process
+requires another path.
 
 Action path
 -----------
@@ -34,7 +34,6 @@ Action path
 Related information
 -------------------
 
-* :ref:`licensing-version-26-and-later`
 * :ref:`version-numbering-2026`
 * :doc:`../installation`
 * :doc:`../../shared/sales/how-to-contact-sales`

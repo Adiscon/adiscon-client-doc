@@ -73,5 +73,4 @@ See the file-based configuration chapter in your product manual and
 Related information
 -------------------
 
-- :ref:`licensing-version-26-and-later`
 - :ref:`version-numbering-2026`

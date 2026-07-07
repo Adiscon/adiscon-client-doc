@@ -76,6 +76,7 @@ For common licensing and deployment questions, see these canonical answers:
 * :ref:`sales-offline-installation-activation`
 * :ref:`sales-online-verification-after-activation`
 * :ref:`sales-perpetual-license-upgradeinsurance`
+* :ref:`use-older-version-with-license`
 
 Purchase methods
 ~~~~~~~~~~~~~~~~

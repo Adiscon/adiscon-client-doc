@@ -20,9 +20,8 @@ Default file location:
 ``%ProgramData%\\Adiscon\\EventReporter\\license.alic``
 
 For Event Log Monitor deployments, licensing is based on the source systems
-whose Windows Event Logs are collected or forwarded. See
-:ref:`licensing-version-26-and-later` and your edition comparison for
-entitlement limits, license file details, and troubleshooting.
+whose Windows Event Logs are collected or forwarded. See your edition
+comparison for product limits.
 
 Action path
 -----------
@@ -36,7 +35,6 @@ Action path
 Related information
 -------------------
 
-* :ref:`licensing-version-26-and-later`
 * :ref:`version-numbering-2026`
 * :doc:`../installation`
 * :doc:`../editioncomparison`

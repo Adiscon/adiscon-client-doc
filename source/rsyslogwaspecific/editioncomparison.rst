@@ -18,4 +18,4 @@ and capabilities are included in the edition you plan to deploy:
 `rsyslog Windows Agent edition comparison <https://www.rsyslog.com/windows-agent/edition-comparison/>`_
 
 **Version 26:** Licensing uses a ``license.alic`` file on version 26 and later
-builds. See :ref:`licensing-version-26-and-later`.
+builds.

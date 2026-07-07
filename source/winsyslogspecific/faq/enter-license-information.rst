@@ -19,9 +19,8 @@ Default file location:
 
 ``%ProgramData%\\Adiscon\\WinSyslog\\license.alic``
 
-You can set ``szLicenseV2Path`` to another path. See
-:ref:`licensing-version-26-and-later` for license file details and
-troubleshooting.
+You can set ``szLicenseV2Path`` to another path if you do not use the default
+location.
 
 Action path
 -----------
@@ -43,7 +42,6 @@ status is shown without validation errors.
 Related information
 -------------------
 
-* :ref:`licensing-version-26-and-later`
 * :ref:`version-numbering-2026`
 * :doc:`what-is-freeware-mode`
 * :doc:`../installation`
