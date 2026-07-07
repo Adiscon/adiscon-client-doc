@@ -5,8 +5,8 @@ How to enter the license information
 
 Article created 2021-10-05 by adiscon team
 
-This article describes how to enter the license information you received via
-mail by buying one of our products.
+This article describes how to enter the license information you received when
+buying one of our products.
 
 The Article is applicable to EventReporter, MonitorWare Agent, WinSyslog and
 rsyslog WindowsAgent.
@@ -14,25 +14,30 @@ rsyslog WindowsAgent.
 
 The license screen can be found on the left side of the client under the item
 General. Applying the license is very straightforward with only a few steps.
-After purchase, you will receive an email from us that contains the license
-name and key.
+For product versions 2026 and later, Adiscon provides a signed
+``license.alic`` file. Older product versions use a legacy registration name
+and license key.
 
 Under General - on the left side of the Configuration Client - you will find
 the menu entry: License.
 
 .. image:: ../images/license-mw.png
-   :width: 100%
+   :width: 320px
 
 
-If you click on it, you will find the license screen on the right.
+If you click on it, you will find the license screen on the right. On product
+versions 2026 and later, use the **License File** tab to deploy
+``license.alic``.
 
-.. image:: ../images/generaloptions-license.png
-   :width: 100%
+Browse for the file, drag-and-drop it onto the client, or paste the file path.
+Use **Verify License** to check the selected file.
 
-The easiest way is to copy and paste the license name without quotation marks
-into the field "Registration Name" because it is case sensitive and must be
-entered exactly as given. Leading and trailing spaces are also part of the
-registration name. Be careful not to enter any.
+For pre-2026 product versions, open the **Legacy License** tab.
+
+Copy and paste the license name without quotation marks into the field
+"Registration Name" because it is case sensitive and must be entered exactly as
+given. Leading and trailing spaces are also part of the registration name. Be
+careful not to enter any.
 
 Copy the full license key and use the button "Import from Clipboard" to paste
 it into the key fields. The client detects invalid registration numbers and

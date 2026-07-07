@@ -35,6 +35,12 @@ When UpgradeInsurance expires, the licensed product version does not stop
 working. What changes is entitlement to later major upgrades and the additional
 benefits covered by active UpgradeInsurance.
 
+**2026 major and License V2:** Upgrading to a 2026 calendar-year major requires
+a new ``license.alic`` file from Adiscon. Legacy registration name and numeric
+keys from earlier majors do not authorize 2026 builds. Conversely,
+``license.alic`` files do not work on pre-2026 product versions; contact Adiscon
+for a legacy license if you must remain on an older major. See :ref:`license-v2`.
+
 For detailed renewal and reinstatement policy, see
 :ref:`upgradeinsurance-explainer`.
 
@@ -48,4 +54,5 @@ Related information
 -------------------
 
 - :doc:`upgradeinsurance`
+- :doc:`license-v2`
 - :ref:`sales-online-verification-after-activation`

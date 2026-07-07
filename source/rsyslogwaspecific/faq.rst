@@ -43,6 +43,7 @@ Licensing and purchasing
    :maxdepth: 1
 
    faq/enter-license-information
+   ../shared/faq/unsupported-configuration-blocks
 
 Platform and compatibility
 --------------------------

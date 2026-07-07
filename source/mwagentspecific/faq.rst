@@ -12,6 +12,9 @@ Deployment and licensing
 
    faq/enter-license-information
    faq/printable-manual
+   ../shared/faq/unsupported-configuration-blocks
+   ../shared/faq/netsend-removed-2026
+   ../shared/faq/rest-output-getting-started
    ../shared/faq/remote-administration-and-browser-based-review
    faq/repeatable-deployment
    faq/repeatable-update-deployment

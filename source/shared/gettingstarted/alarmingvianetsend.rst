@@ -3,13 +3,13 @@ Alarming via Net Send
 
 .. warning::
 
+   **Historical tutorial:** Net Send was removed from the configuration client
+   in the **2026.07** release. Prefer **Send Email**, **HTTP REST Output**, or
+   syslog forwarding for alerting.
+
    **Deprecated:** The Windows Messenger service (``net send`` pop-up messages)
    is not available by default on modern Windows versions, and may not be
-   available at all depending on your environment. As a result, NetSend
-   notifications are unreliable and the feature is disabled by default.
-
-   Prefer modern alerting methods like the **Send Email** action, forwarding to
-   syslog, or other destinations supported by your product version.
+   available at all depending on your environment.
 
 Again, we add another rule to our ruleset. This time, we would like to receive
 notification via the Windows Messenger service (aka ``net send``).

@@ -27,6 +27,7 @@ forwarding actions
 
    a-eventlogoptions
    a-mailoptions
+   a-restoutput
    a-netsend
    a-sendtocommunicationsport
    a-sendmsqueue
@@ -35,6 +36,7 @@ forwarding actions
    a-sendsnmptrap
    a-forwardsyslogoptions
    a-senddtls
+   a-httprequest
 
 internal actions
 ----------------
@@ -58,8 +60,5 @@ other actions
    :maxdepth: 1
 
    a-controlntservice
-   a-httprequest
-
-
    a-playsound
    a-startprogram

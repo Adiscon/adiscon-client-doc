@@ -161,6 +161,12 @@ r for carriage return
 ``replacechar%``
 
 
+**minlength=N**
+
+Pads the transformed output on the right with spaces until it contains at least
+``N`` characters. For example, ``%msg:1:3:minlength=10%`` emits the first three
+message characters followed by seven spaces. Options compose: ``%msg:1:3:uppercase,minlength=10%``.
+
 ``*`` = control characters like e.g. carriage return, line feed, tab, ...*
 
 

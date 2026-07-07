@@ -8,9 +8,12 @@ Messenger service (``net send``).
 
 .. warning::
 
+   **Removed from configuration client (2026-07):** Net Send cannot be created
+   in the **2026.07** configuration client. See :doc:`../mwagentspecific/a-netsend`
+   for legacy reference and alternatives.
+
    **Deprecated:** ``net send`` pop-up messages are not available by default on
-   modern Windows versions and are unreliable in many environments. Prefer
-   modern alerting methods like sending email or forwarding to syslog.
+   modern Windows versions.
 
 
 .. image:: ../images/a-netsend.png
@@ -18,6 +21,8 @@ Messenger service (``net send``).
 
 * Net Send*
 
-Here is an example how to receive :doc:`notifications via net send <../shared/gettingstarted/alarmingvianetsend>`.
+This page is retained for historical reference. For current alerting, use
+**Send Email**, :doc:`HTTP REST Output <../mwagentspecific/a-restoutput>`, or
+syslog forwarding.
 
-Further details can be found here: :doc:`net send <../mwagentspecific/a-netsend>`.
+Further details: :doc:`net send <../mwagentspecific/a-netsend>`.

@@ -5,6 +5,25 @@ There are tools within the configuration client that you can use to test
 certain services or debug the application in general. Some can be found in
 the Tools menu.
 
+Service control (2026)
+----------------------
+
+From the **main window** toolbar: **Start**, **Stop**, **Restart**, **Kill**,
+and **Open Windows Services**. **Kill** ends an orphan process when the service
+manager state is inconsistent. When the service is paused during configuration
+reload, stop and restart may be unavailable until reload completes.
+
+The property window toolbar (shown below) provides **Start**, **Stop**,
+**Restart**, and **Reset Changes** while editing a service or action. **Kill**
+and **Open Windows Services** are on the main window toolbar only.
+
+.. image:: ../images/service-toolbar-2026.png
+   :width: 100%
+
+See :doc:`../shared/references/configuration-client-2026` for **Reset to
+default** (selected item vs entire configuration), YAML import/export, and the
+next-generation client preview.
+
 
 Syslog Test Message
 ^^^^^^^^^^^^^^^^^^^

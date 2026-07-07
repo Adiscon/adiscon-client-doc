@@ -28,6 +28,7 @@ Forwarding and notification actions
 
    ../mwagentspecific/a-eventlogoptions
    ../mwagentspecific/a-mailoptions
+   ../mwagentspecific/a-restoutput
    ../mwagentspecific/a-netsend
    ../mwagentspecific/a-sendtocommunicationsport
    ../mwagentspecific/a-sendmsqueue
@@ -36,6 +37,7 @@ Forwarding and notification actions
    ../mwagentspecific/a-sendsnmptrap
    a-forwardsyslogoptions
    ../mwagentspecific/a-senddtls
+   ../mwagentspecific/a-httprequest
 
 Internal processing actions
 ---------------------------

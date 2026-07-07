@@ -3,11 +3,86 @@
 License
 =======
 
-After the purchase, the licensing information can be entered here.
+Licensing options are on **General** → **License** in the configuration client.
+From the 2026 major onward, MonitorWare Agent uses **License V2** (a signed
+``license.alic`` file). See :ref:`license-v2` for the canonical reference.
 
-.. image:: ../images/generaloptions-license.png
-   :width: 100%
+License File (2026 and later)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Use the **License File** tab to deploy ``license.alic``.
+
+.. only:: mwagent
+
+   .. image:: ../images/generaloptions-license.png
+      :width: 100%
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/generaloptions-license-winsyslog.png
+      :width: 100%
+
+.. only:: eventreporter or rsyslog
+
+   .. image:: ../images/generaloptions-license-shared.png
+      :width: 100%
+
+**File Configuration field:**
+  szLicenseV2Path
+
+**Description:**
+  Optional path to the License V2 file. When empty, the service uses the
+  default location:
+
+  .. only:: mwagent
+
+     ``%ProgramData%\\Adiscon\\MonitorWare\\license.alic``
+
+  .. only:: winsyslog or winsyslog_j
+
+     ``%ProgramData%\\Adiscon\\WinSyslog\\license.alic``
+
+  .. only:: eventreporter
+
+     ``%ProgramData%\\Adiscon\\EventReporter\\license.alic``
+
+  .. only:: rsyslog
+
+     ``%ProgramData%\\Adiscon\\RSyslogAgent\\license.alic``
+
+  You can browse for the file, drag-and-drop it onto the client, or paste a
+  file path. The license is validated and deployed when you save the
+  configuration.
+
+  The main window status bar shows license status (for example, the licensed
+  organization). A major-version mismatch between the license file and the
+  installed service may show a warning banner until you deploy a matching
+  license.
+
+Legacy License (pre-2026 majors)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The **Legacy License** tab retains the registration name and numeric key fields
+for deployments on pre-2026 majors. On 2026+ service builds, these fields are
+**not** used for authorization.
+
+.. only:: mwagent
+
+   .. image:: ../images/license-legacy-tab.png
+      :width: 100%
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/license-legacy-tab-winsyslog.png
+      :width: 100%
+
+.. only:: eventreporter or rsyslog
+
+   .. image:: ../images/license-legacy-tab-shared.png
+      :width: 100%
+
+``license.alic`` files do **not** work on pre-2026 product versions. Contact
+Adiscon if you need a legacy license for an older major.
 
 Registration Name
 ^^^^^^^^^^^^^^^^^
@@ -50,4 +125,5 @@ If the key has been copied to the clipboard it can be imported with this button.
 Verify License
 ^^^^^^^^^^^^^^
 
-Here it can be verified if the license is valid.
+Use this control to verify that the configured license is valid before or after
+you save.

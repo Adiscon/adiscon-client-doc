@@ -162,7 +162,7 @@ Using File based configuration
 
    1000 = ODBC Database
    1001 = Send Syslog
-   1008 = Net Send
+   1008 = Net Send (legacy; removed from 2026.07 configuration client)
    1009 = Start Program
    1011 = Send SETP
    1012 = Set Property
@@ -181,6 +181,7 @@ Using File based configuration
    1028 = Send MS Queue
    1029 = Normalize Event
    1030 = Syslog Queue
+   1032 = HTTP REST Output
 
 
 
@@ -214,3 +215,56 @@ Using File based configuration
   files for each configured ruleset. The main configuration file will then use
   the includeconfig statement to include all these configuration files by using a
   pattern. When deleting a ruleset, its configuration file will be deleted as well
+
+
+Adiscon YAML configuration format
+---------------------------------
+
+From the **2026.07** configuration client onward, you can import and export
+**Adiscon YAML Config Format** (``.yaml``) files in addition to the legacy
+``.cfg`` format (**Adiscon Legacy Format** in the File menu).
+
+Use YAML when you want a structured, text-based format that aligns with
+Himalaya service configuration. Use legacy ``.cfg`` when you need maximum
+compatibility with older clients or existing automation.
+
+**Import / export:** Use **File** → import or export and select the YAML or
+legacy CFG format as appropriate.
+
+.. image:: ../images/file-menu-yaml.png
+   :width: 100%
+
+**Unsupported blocks:** If you open a configuration that contains blocks this
+client version does not understand (for example newer service features), the
+client skips them and may show a warning. Saving from an older client can drop
+those sections. See :ref:`unsupported-configuration-blocks`.
+
+**License V2 path in general options:**
+
+.. code-block:: text
+
+   general(name="License") {
+    $szLicenseV2Path C:\\ProgramData\\Adiscon\\MonitorWare\\license.alic
+   }
+
+**Send RELP window size example:**
+
+.. code-block:: text
+
+   action(type="1027" name="Forward RELP") {
+    $nSelpWindowSize 128
+    ...
+   }
+
+**HTTP REST Output example:**
+
+.. code-block:: text
+
+   action(type="1032" name="REST Out") {
+    $szProfile
+    $szServer api.example.com
+    $szPath /v1/events
+    $bUseTLS true
+    $szMethod POST
+    ...
+   }

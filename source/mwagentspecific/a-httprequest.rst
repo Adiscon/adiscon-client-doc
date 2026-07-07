@@ -1,19 +1,14 @@
 HTTP Request
 ============
 
-With the "Net Send" action, short alert messages can be sent via the Windows
-"net send" facility. These messages are delivered on a best-effort basis. If
-the recipient can be reached, they will pop up in a message box on the
-recipient's machine. If the recipient cannot be reached, they will simply be
-discarded. No buffering takes place. Consequently, the rule engine does not
-check if the message can be delivered. It will never flag an action to be in
-error due to a reported delivery problem with "net send".
-
+The **HTTP Request** action sends an HTTP or HTTPS request to a remote host.
+It is listed under **Forwarding** in the configuration client. Use it for
+simple HTTP callbacks where the **HTTP REST Output** action is not required.
 
 .. image:: ../images/a-httprequest.png
    :width: 100%
 
-* Action - HTTP Request*
+*Action - HTTP Request*
 
 
 Host

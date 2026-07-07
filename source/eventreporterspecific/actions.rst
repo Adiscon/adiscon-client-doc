@@ -30,10 +30,12 @@ Forwarding actions
 
    ../mwagentspecific/a-eventlogoptions
    ../mwagentspecific/a-mailoptions
+   ../mwagentspecific/a-restoutput
    ../mwagentspecific/a-netsend
    ../mwagentspecific/a-forwardsetpoptions
    ../mwagentspecific/a-forwardsyslogoptions
    ../mwagentspecific/a-senddtls
+   ../mwagentspecific/a-httprequest
 
 Internal actions
 ----------------
