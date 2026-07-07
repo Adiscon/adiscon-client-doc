@@ -16,27 +16,39 @@ The preview is optional. The classic client supports License V2 deployment and
 full configuration editing for the 2026 major. See your product website's 2026
 major-release **Upgrade** article for the customer-facing preview description.
 
-Service toolbar
----------------
+Property window toolbar
+-----------------------
 
-The main window toolbar provides service control:
+When you open a service or action property window, the toolbar provides
+**Save**, **Verify Configuration**, **Connect**, **Start**, **Stop**,
+**Restart**, **Reset Changes**, and **Quit**. **Reset Changes** discards
+unsaved edits on the open form only; it does not restore factory defaults for
+the selected item.
 
-- **Start**, **Stop**, and **Restart** with clearer status text when an action
-  is unavailable (for example, during configuration reload).
-- **Kill** — ends an orphan service process when the service manager state is
-  inconsistent.
-- **Open Windows Services** — opens ``services.msc`` for Windows Service
-  management.
+.. image:: ../../images/service-toolbar-2026.png
+   :width: 100%
+
+The **main window** (rules tree) has a separate toolbar with **Start**,
+**Stop**, **Restart**, **Kill**, and **Open Windows Services** for the
+background service. **Kill** ends an orphan process when the service manager
+state is inconsistent. **Open Windows Services** opens ``services.msc`` for
+Windows Service management.
 
 When the service is **paused** during configuration reload, stop and restart
 may be disabled until reload completes.
 
-Reset to default
-----------------
+Reset configuration to default
+------------------------------
 
-The context menu and toolbar provide **Reset** on a selected service or action
-to restore that item's settings to factory defaults. This is separate from
-**Reset Changes** on an open property form, which discards unsaved edits only.
+The **File** menu provides **Reset Configuration to Default**, which resets the
+whole deployed configuration:
+
+.. image:: ../../images/reset-to-default-menu.png
+   :width: 100%
+
+This is separate from **Reset Changes** on an open property form. It is also
+separate from the context menu or toolbar **Reset** command for a selected
+service or action, which restores only that selected item to factory defaults.
 
 Event Viewer
 ------------
@@ -48,6 +60,9 @@ File formats
 ------------
 
 The **File** menu supports:
+
+.. image:: ../../images/file-menu-yaml.png
+   :width: 100%
 
 - **Adiscon YAML Config Format** (``.yaml``) — import and export
 - **Adiscon Legacy Format** (``.cfg``) — legacy text configuration

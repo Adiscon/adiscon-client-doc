@@ -138,6 +138,11 @@ Encrypt password
   Enable password encryption if your build exposes this option. As with ODBC,
   prefer encrypted storage unless you have a documented reason not to.
 
+.. image:: ../images/a-oledbdatabase-sql-options.png
+   :width: 100%
+
+*Action - OLEDB Database SQL Options*
+
 Commit batching (SQL Options tab)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

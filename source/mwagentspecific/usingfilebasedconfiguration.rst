@@ -231,6 +231,9 @@ compatibility with older clients or existing automation.
 **Import / export:** Use **File** → import or export and select the YAML or
 legacy CFG format as appropriate.
 
+.. image:: ../images/file-menu-yaml.png
+   :width: 100%
+
 **Unsupported blocks:** If you open a configuration that contains blocks this
 client version does not understand (for example newer service features), the
 client skips them and may show a warning. Saving from an older client can drop
@@ -265,4 +268,3 @@ those sections. See :ref:`unsupported-configuration-blocks`.
     $szMethod POST
     ...
    }
-

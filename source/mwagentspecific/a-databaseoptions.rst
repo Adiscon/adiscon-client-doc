@@ -157,6 +157,11 @@ SQL options
 The client organizes ODBC database settings across **General Options**, **SQL
 Options**, and **Action Queue Options** tabs.
 
+.. image:: ../images/a-odbcdatabase-sql-options.png
+   :width: 100%
+
+*Action - ODBC Database SQL Options*
+
 Commit batching (SQL Options tab)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

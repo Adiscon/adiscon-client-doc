@@ -14,6 +14,9 @@ call.
 
 *Action - HTTP REST Output - General*
 
+.. image:: ../images/a-restoutput-general.png
+   :width: 100%
+
 General tab
 -----------
 
@@ -91,6 +94,9 @@ Request tab
 
 *Action - HTTP REST Output - Request*
 
+.. image:: ../images/a-restoutput-request.png
+   :width: 100%
+
 Method
 ^^^^^^
 
@@ -150,6 +156,9 @@ Advanced tab
 ------------
 
 *Action - HTTP REST Output - Advanced*
+
+.. image:: ../images/a-restoutput-advanced.png
+   :width: 100%
 
 Timeout
 ^^^^^^^
