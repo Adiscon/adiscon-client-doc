@@ -4,13 +4,13 @@ License
 =======
 
 Licensing options are on **General** → **License** in the configuration client.
-From the 2026 major onward, MonitorWare Agent uses **License V2** (a signed
-``license.alic`` file). See :ref:`license-v2` for the canonical reference.
+From version 26 onward, MonitorWare Agent uses a ``license.alic`` license file.
+See :ref:`licensing-version-26-and-later` for the canonical reference.
 
-License File (2026 and later)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+License File (version 26 and later)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Use the **License File** tab to deploy ``license.alic``.
+Use the **License File** tab to apply ``license.alic``.
 
 .. only:: mwagent
 
@@ -31,8 +31,8 @@ Use the **License File** tab to deploy ``license.alic``.
   szLicenseV2Path
 
 **Description:**
-  Optional path to the License V2 file. When empty, the service uses the
-  default location:
+  Optional path to the license file. When empty, the service uses the default
+  location:
 
   .. only:: mwagent
 
@@ -51,20 +51,19 @@ Use the **License File** tab to deploy ``license.alic``.
      ``%ProgramData%\\Adiscon\\RSyslogAgent\\license.alic``
 
   You can browse for the file, drag-and-drop it onto the client, or paste a
-  file path. The license is validated and deployed when you save the
+  file path. The license is validated and applied when you save the
   configuration.
 
   The main window status bar shows license status (for example, the licensed
-  organization). A major-version mismatch between the license file and the
-  installed service may show a warning banner until you deploy a matching
-  license.
+  organization). A version mismatch between the license file and the installed
+  service may show a warning banner until you apply a matching license.
 
-Legacy License (pre-2026 majors)
+Legacy License (pre-26 versions)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The **Legacy License** tab retains the registration name and numeric key fields
-for deployments on pre-2026 majors. On 2026+ service builds, these fields are
-**not** used for authorization.
+for deployments on pre-26 versions. On version 26 and later service builds,
+these fields are **not** used for authorization.
 
 .. only:: mwagent
 
@@ -81,8 +80,8 @@ for deployments on pre-2026 majors. On 2026+ service builds, these fields are
    .. image:: ../images/license-legacy-tab-shared.png
       :width: 100%
 
-``license.alic`` files do **not** work on pre-2026 product versions. Contact
-Adiscon if you need a legacy license for an older major.
+``license.alic`` files do **not** work on pre-26 product versions. Contact
+Adiscon if you need a legacy license key for an older version.
 
 Registration Name
 ^^^^^^^^^^^^^^^^^

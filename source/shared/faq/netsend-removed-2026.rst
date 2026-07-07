@@ -13,14 +13,14 @@ I cannot add a Net Send action in the configuration client. Where did it go?
 Answer
 ------
 
-Net Send was **removed from the configuration client** in the **2026.07** release
+Net Send was **removed from the configuration client** in the **26.07** release
 for WinSyslog, EventReporter, and MonitorWare Agent.
 
 Details
 -------
 
 The Windows Messenger service (``net send``) is deprecated on modern Windows and
-was unreliable for production alerting. The **2026.07** client no longer offers
+was unreliable for production alerting. The **26.07** client no longer offers
 Net Send in the action list.
 
 Existing configurations that still reference Net Send may load with a skip or

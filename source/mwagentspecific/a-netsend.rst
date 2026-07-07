@@ -3,8 +3,8 @@ Net Send
 
 .. warning::
 
-   **Removed from configuration client (2026-07):** You cannot create new Net Send
-   actions in WinSyslog, EventReporter, or MonitorWare Agent from the **2026.07**
+   **Removed from configuration client (26.07):** You cannot create new Net Send
+   actions in WinSyslog, EventReporter, or MonitorWare Agent from the **26.07**
    configuration client onward. Existing configurations that still contain Net
    Send may load with a skip or warning; use **Send Email**, :doc:`HTTP REST
    Output <a-restoutput>`, or **Start Program** for alerting instead.

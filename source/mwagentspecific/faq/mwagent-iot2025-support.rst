@@ -34,7 +34,7 @@ Guidance for Server Core Deployments
 
 Windows Server IoT 2025 Server Core does not provide a graphical user interface.
 For headless deployments, use legacy Adiscon Config Files (``.cfg``) with file
-config mode. The **2026** configuration client can also export **YAML**
+config mode. The **version 26** configuration client can also export **YAML**
 (``.yaml``) for import on another GUI workstation; Server Core service
 deployment still uses ``szFileConfig`` with a legacy ``.cfg`` path.
 
@@ -45,7 +45,7 @@ Recommended workflow:
    - Install MonitorWare Agent and open the Configuration Client
    - Configure rules, services, and actions as required
    - Export the configuration as legacy Config Files (``.cfg``) for Server Core
-   - Optional on **2026** clients: also export YAML (``.yaml``) for backup or
+   - Optional on **version 26** clients: also export YAML (``.yaml``) for backup or
      re-import on another GUI machine
 
 2. Transfer the configuration to Server Core
@@ -70,4 +70,3 @@ Recommended workflow:
 ..
 
 ..
-

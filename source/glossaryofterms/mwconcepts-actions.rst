@@ -61,7 +61,7 @@ Net Send
 
 .. warning::
 
-   **Removed from configuration client (2026-07).** Retained for reference only.
+   **Removed from configuration client (26.07).** Retained for reference only.
 
 The message was forwarded via the Windows ``net send`` functionality. The
 Windows Messenger service is unreliable on modern Windows and is no longer

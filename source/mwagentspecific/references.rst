@@ -35,4 +35,4 @@ External reference
 ------------------
 
 - `Version History <https://www.mwagent.com/version-history/>`_
-- `MonitorWare Agent 2026 major release notes <https://www.mwagent.com/version-history/>`_
+- `MonitorWare Agent version 26 release notes <https://www.mwagent.com/version-history/>`_

@@ -10,7 +10,7 @@ Configuration is created in the **MonitorWare Agent Configuration Client** and
 then applied to the **MonitorWare Agent Service**. Save and apply changes after
 editing so the running service uses the updated configuration.
 
-For **2026.07** client features (License V2, YAML, service toolbar, WinUI
+For **26.07** client features (license file UI, YAML, service toolbar, WinUI
 preview), see :doc:`../shared/references/configuration-client-2026`.
 
 In this manual, **input** is the clearest plain-language concept for anything

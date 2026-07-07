@@ -6,35 +6,36 @@ How Do I Enter WinSyslog License Information?
 Answer
 ------
 
-On **WinSyslog 2026** and later, deploy the ``license.alic`` file through
+On **WinSyslog version 26** and later, apply the ``license.alic`` file through
 **General** → **License** → **License File** in the configuration client, save,
-and restart the service. On **pre-2026** majors, use **Legacy License** with
+and restart the service. On **pre-26** versions, use **Legacy License** with
 the registration name and numeric keys from Adiscon.
 
 Details
 -------
 
-**2026 and later (License V2)**
+**Version 26 and later (license file)**
 
-WinSyslog 2026 requires a signed ``license.alic`` file from Adiscon. Legacy
+WinSyslog version 26 requires a ``license.alic`` file from Adiscon. Legacy
 registration name and numeric keys from WinSyslog 18.x do **not** authorize
-the 2026 major.
+version 26.
 
 Default file location:
 
 ``%ProgramData%\\Adiscon\\WinSyslog\\license.alic``
 
-You can set ``szLicenseV2Path`` to another path. See :ref:`license-v2` for the
-full reference.
+You can set ``szLicenseV2Path`` to another path. See
+:ref:`licensing-version-26-and-later` for license file details and troubleshooting.
 
-**Pre-2026 majors (legacy keys)**
+**Pre-26 versions (legacy keys)**
 
 ``license.alic`` files **do not work** on WinSyslog 18.x and earlier. If you
-must stay on a legacy major, contact Adiscon support or sales for a manually
-issued legacy license.
+must stay on an older version, contact Adiscon support or sales for a legacy
+license key. Current licenses can cover older versions, but older builds need
+the legacy key format.
 
-Action Path (2026+)
---------------------
+Action Path (version 26+)
+-------------------------
 
 1. Obtain ``license.alic`` from Adiscon for your edition.
 2. Open the WinSyslog Configuration Client.
@@ -44,7 +45,7 @@ Action Path (2026+)
 6. Save the configuration and verify license status in the client.
 7. Restart the WinSyslog service.
 
-Action Path (legacy majors)
+Action Path (legacy versions)
 -----------------------------
 
 1. Open the WinSyslog Configuration Client.
@@ -63,7 +64,7 @@ status is shown without validation errors.
 Related Information
 -------------------
 
-* :ref:`license-v2`
+* :ref:`licensing-version-26-and-later`
 * :ref:`version-numbering-2026`
 * :doc:`what-is-freeware-mode`
 * :doc:`../installation`

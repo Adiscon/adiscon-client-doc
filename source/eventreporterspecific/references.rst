@@ -39,4 +39,4 @@ External reference
 ------------------
 
 - `Version History <https://www.eventreporter.com/version-history/>`_
-- `EventReporter 2026 major release notes <https://www.eventreporter.com/version-history/>`_
+- `EventReporter version 26 release notes <https://www.eventreporter.com/version-history/>`_

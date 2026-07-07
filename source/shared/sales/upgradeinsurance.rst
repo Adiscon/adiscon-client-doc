@@ -6,7 +6,7 @@ UpgradeInsurance
 Short answer
 ------------
 
-UpgradeInsurance provides major-version upgrade rights and priority support
+UpgradeInsurance provides version-line upgrade rights and priority support
 while active; if coverage has lapsed, reinstatement is possible with back-dated
 start rules.
 
@@ -26,7 +26,7 @@ Details
 What it includes
 ----------------
 
-* Free major version upgrades during active coverage
+* Free version-line upgrades during active coverage
 * Priority support handling
 
 Coverage period

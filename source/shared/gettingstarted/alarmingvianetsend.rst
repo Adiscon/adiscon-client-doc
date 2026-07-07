@@ -4,7 +4,7 @@ Alarming via Net Send
 .. warning::
 
    **Historical tutorial:** Net Send was removed from the configuration client
-   in the **2026.07** release. Prefer **Send Email**, **HTTP REST Output**, or
+   in the **26.07** release. Prefer **Send Email**, **HTTP REST Output**, or
    syslog forwarding for alerting.
 
    **Deprecated:** The Windows Messenger service (``net send`` pop-up messages)

@@ -45,4 +45,4 @@ External reference
 ------------------
 
 - `Version History <https://www.winsyslog.com/version-history/>`_
-- `WinSyslog 2026 major release notes <https://www.winsyslog.com/version-history/>`_
+- `WinSyslog version 26 release notes <https://www.winsyslog.com/version-history/>`_

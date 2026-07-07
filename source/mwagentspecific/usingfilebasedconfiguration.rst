@@ -162,7 +162,7 @@ Using File based configuration
 
    1000 = ODBC Database
    1001 = Send Syslog
-   1008 = Net Send (legacy; removed from 2026.07 configuration client)
+   1008 = Net Send (legacy; removed from 26.07 configuration client)
    1009 = Start Program
    1011 = Send SETP
    1012 = Set Property
@@ -220,7 +220,7 @@ Using File based configuration
 Adiscon YAML configuration format
 ---------------------------------
 
-From the **2026.07** configuration client onward, you can import and export
+From the **26.07** configuration client onward, you can import and export
 **Adiscon YAML Config Format** (``.yaml``) files in addition to the legacy
 ``.cfg`` format (**Adiscon Legacy Format** in the File menu).
 
@@ -239,7 +239,7 @@ client version does not understand (for example newer service features), the
 client skips them and may show a warning. Saving from an older client can drop
 those sections. See :ref:`unsupported-configuration-blocks`.
 
-**License V2 path in general options:**
+**License file path in general options:**
 
 .. code-block:: text
 

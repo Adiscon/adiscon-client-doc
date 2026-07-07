@@ -22,7 +22,7 @@ Details
 -------
 
 The **HTTP REST Output** action (type **1032**, ``RestOutput``) is available on
-WinSyslog, EventReporter, and MonitorWare Agent from the **2026.07** service and
+WinSyslog, EventReporter, and MonitorWare Agent from the **26.07** service and
 client release line. It is listed under **Forwarding** in the action list.
 
 Action path

@@ -38,4 +38,4 @@ External reference
 ------------------
 
 - `Version History <https://www.rsyslog.com/windows-agent/about-rsyslog-windows-agent/>`_
-- `rsyslog Windows Agent 2026 major release notes <https://www.rsyslog.com/windows-agent/about-rsyslog-windows-agent/>`_
+- `rsyslog Windows Agent version 26 release notes <https://www.rsyslog.com/windows-agent/about-rsyslog-windows-agent/>`_

@@ -2,58 +2,55 @@
 
 .. _version-numbering-2026:
 
-Version numbering from 2026
-===========================
+Version numbering from version 26
+=================================
 
-Adiscon products on the **2026** calendar-year major use a new version scheme
-and monthly release cadence.
+Adiscon products use calendar-based version numbers starting with version 26.
+In ``26.07``, ``26`` means the calendar year 2026 and ``07`` means July.
 
 Version format
 --------------
 
 Customer-visible versions use four components:
 
-``YEAR.MONTH.0.BUILD``
+``YY.MM.0.BUILD``
 
-- **YEAR** — calendar year of the build (major version), for example ``2026``
-- **MONTH** — calendar month of the release (minor version), always two digits
-  zero-padded, for example ``07`` for July
-- **Third component** — always ``0`` (reserved)
-- **BUILD** — incrementing build number per release
+- **YY**: two-digit calendar year, for example ``26`` for 2026
+- **MM**: calendar month, always two digits, for example ``07`` for July
+- **Third component**: always ``0`` (reserved)
+- **BUILD**: incrementing build number per release
 
-The About dialog may insert spaces after dots (for example ``2026. 07. 0. 785``).
+The About dialog may insert spaces after dots, for example
+``26. 07. 0. 785``.
 
 Service and configuration client builds from the same release month share the
-same ``YEAR.MONTH`` line (for example **2026.07**).
+same ``YY.MM`` line, for example **26.07**.
 
 Release cadence
 ---------------
 
-- One **major** per calendar year (2026, 2027, …)
-- **Minor** bumps with each calendar month within that year
-- Regular monthly builds with fixes and improvements
+Adiscon publishes regular monthly builds with fixes and improvements. The
+first general-availability release in the version 26 line is **26.07**.
 
-The first general-availability minor for the 2026 announcement is **2026.07**.
+Earlier version mapping
+-----------------------
 
-Legacy major mapping
---------------------
+The last product versions before the version 26 line are:
 
-**Last sequential majors** before the 2026 calendar-year line:
+- **WinSyslog**: 18.x
+- **EventReporter**: 19.x
+- **MonitorWare Agent**: 15.x
+- **rsyslog Windows Agent**: 8.x
 
-- **WinSyslog** — 18.x
-- **EventReporter** — 19.x
-- **MonitorWare Agent** — 15.x
-- **rsyslog Windows Agent** — 8.x
+Upgrading from any of these versions to version 26 or later requires a
+``license.alic`` file. See :ref:`licensing-version-26-and-later`.
 
-Upgrading from any of these majors to **2026** requires a new License V2 file.
-See :ref:`license-v2`.
-
-2026 major release notes
+Version 26 release notes
 ------------------------
 
-Each product website publishes upgrade guidance and release notes for the
-2026 major. Use those pages for the customer-facing upgrade story; use this
-manual for configuration and technical reference.
+Each product website publishes upgrade guidance and release notes for version
+26. Use those pages for the customer-facing upgrade story; use this manual for
+configuration and technical reference.
 
 - `WinSyslog version history <https://www.winsyslog.com/version-history/>`__
 - `MonitorWare Agent version history <https://www.mwagent.com/version-history/>`__
