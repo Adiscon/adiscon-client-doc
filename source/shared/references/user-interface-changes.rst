@@ -1,20 +1,23 @@
 :orphan:
 
-.. _configuration-client-2026:
+.. _user-interface-changes:
 
-Configuration client changes in 26.07
-=====================================
+User Interface changes
+======================
 
-The **26.07** installer ships two configuration clients:
+The **26.07** installer includes the established configuration client and the
+new product-specific User Interface:
 
-- **Established configuration client** — the WinForms client documented in this
-  manual (primary reference for setup steps and screenshots).
-- **Next-generation Configuration Client Preview** — a WinUI-based workbench
-  (``adiscon-client-ng``), shipped as a **preview** alongside the classic client.
+- **Established configuration client** - the WinForms client documented in this
+  manual and the primary reference for setup steps and screenshots.
+- **Product User Interface** - the newer WinUI-based interface
+  (``adiscon-client-ng``), such as the WinSyslog User Interface or
+  EventReporter User Interface, available alongside the established
+  configuration client.
 
-The preview is optional. The classic client supports license file application
-and full configuration editing. See your product website's **Upgrade** article
-for the customer-facing preview description.
+The established configuration client supports license file application and full
+configuration editing. See your product website's **Upgrade** article for the
+customer-facing description of the Product User Interface.
 
 Property window toolbar
 -----------------------
@@ -64,8 +67,8 @@ The **File** menu supports:
 .. image:: ../../images/file-menu-yaml.png
    :width: 100%
 
-- **Adiscon YAML Config Format** (``.yaml``) — import and export
-- **Adiscon Legacy Format** (``.cfg``) — legacy text configuration
+- **Adiscon YAML Config Format** (``.yaml``) - import and export
+- **Adiscon Legacy Format** (``.cfg``) - legacy text configuration
 
 See the file-based configuration chapter in your product manual and
 :ref:`unsupported-configuration-blocks`.

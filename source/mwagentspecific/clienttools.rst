@@ -20,9 +20,9 @@ and **Open Windows Services** are on the main window toolbar only.
 .. image:: ../images/service-toolbar-2026.png
    :width: 100%
 
-See :doc:`../shared/references/configuration-client-2026` for **Reset to
+See :doc:`../shared/references/user-interface-changes` for **Reset to
 default** (selected item vs entire configuration), YAML import/export, and the
-next-generation client preview.
+MonitorWare Agent User Interface.
 
 
 Syslog Test Message

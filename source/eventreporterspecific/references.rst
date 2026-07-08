@@ -31,7 +31,7 @@ Technical lookup material
    ../shared/references/complexfilterconditions
    ../shared/references/connecttocomputer
    ../shared/references/microsoftsystemerrorcodes
-   ../shared/references/configuration-client-2026
+   ../shared/references/user-interface-changes
    glossary
 
 External reference

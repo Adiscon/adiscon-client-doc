@@ -7,7 +7,7 @@ In this chapter, you will learn how to configure WinSyslog.
 
 The WinSyslog runtime service runs in the background once it is configured.
 There is no manual intervention needed to operate it. As such, this chapter
-focuses on the WinSyslog configuration Client application. It is used to
+focuses on the WinSyslog Configuration Client application. It is used to
 configure input services, rulesets, actions, and related settings.
 
 To run the WinSyslog Configuration Client, simply click its icon present in the
@@ -21,7 +21,7 @@ similar to the following one appears:
 * Configuration Client*
 
 
-The configuration Client ("the Client") has two elements. On the left hand side
+The Configuration Client ("the Client") has two elements. On the left hand side
 is a tree view that allows you to select the various elements of the WinSyslog
 system. On the right hand side are parameters specific to the element selected
 in the tree view. In the sample above, the right hand side displays the
@@ -103,9 +103,8 @@ associated with. Finally, beneath actions are all actions to carry out.
 
 The following sections describe each element's properties.
 
-Configuration client changes in 26.07
--------------------------------------
+User Interface changes in 26.07
+-------------------------------
 
-See :doc:`../shared/references/configuration-client-2026` for license file UI,
-YAML import/export, service toolbar changes, and the next-generation client
-preview.
+See :doc:`../shared/references/user-interface-changes` for license file UI,
+YAML import/export, service toolbar changes, and the WinSyslog User Interface.

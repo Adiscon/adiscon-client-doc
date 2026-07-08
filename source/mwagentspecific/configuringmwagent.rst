@@ -10,9 +10,9 @@ Configuration is created in the **MonitorWare Agent Configuration Client** and
 then applied to the **MonitorWare Agent Service**. Save and apply changes after
 editing so the running service uses the updated configuration.
 
-For configuration client changes introduced with **26.07** (license file UI,
-YAML, service toolbar, WinUI preview), see
-:doc:`../shared/references/configuration-client-2026`.
+For User Interface changes introduced with **26.07** (license file UI, YAML,
+service toolbar, and the MonitorWare Agent User Interface), see
+:doc:`../shared/references/user-interface-changes`.
 
 In this manual, **input** is the clearest plain-language concept for anything
 that collects or receives data, while **service** remains the operational term

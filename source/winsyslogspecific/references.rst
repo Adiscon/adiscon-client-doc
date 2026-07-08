@@ -37,7 +37,7 @@ troubleshooting.
    ../shared/references/connecttocomputer
    ../shared/references/registrypaths
    ../shared/references/microsoftsystemerrorcodes
-   ../shared/references/configuration-client-2026
+   ../shared/references/user-interface-changes
    glossaryofterms
 
 External reference

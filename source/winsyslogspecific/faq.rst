@@ -67,7 +67,7 @@ Licensing and product positioning
    faq/winsyslog-vs-kiwi-syslog-server
    ../shared/faq/version-numbering-change
    ../shared/faq/unsupported-configuration-blocks
-   ../shared/faq/netsend-removed-2026
+   ../shared/faq/netsend-removed-from-client
    ../shared/faq/rest-output-getting-started
 
 Platform and compatibility

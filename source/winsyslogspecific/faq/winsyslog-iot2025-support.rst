@@ -47,7 +47,7 @@ Recommended workflow:
 
 2. Transfer the configuration to Server Core
 
-   - Copy the exported ``.cfg`` file to the Server Core system (e.g., via
+   - Copy the exported ``.yaml`` file to the Server Core system (e.g., via
      PowerShell Remoting or SMB)
 
 3. Enable File Config Mode and set paths via registry

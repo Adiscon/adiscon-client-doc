@@ -1,6 +1,6 @@
 :orphan:
 
-.. _netsend-removed-2026:
+.. _netsend-removed-from-client:
 
 Why is Net Send no longer available in the configuration client?
 ================================================================

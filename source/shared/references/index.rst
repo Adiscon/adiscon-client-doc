@@ -32,7 +32,7 @@ Manual:
    mwagentshortcutkeys
    registrypaths
    editioncomparison
-   configuration-client-2026
+   user-interface-changes
    microsoftsystemerrorcodes
 
 

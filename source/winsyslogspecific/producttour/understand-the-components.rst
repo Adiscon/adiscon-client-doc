@@ -19,7 +19,7 @@ The four components
    service, receives log data through configured input services, processes it
    through rulesets and actions, and stores or forwards the results.
 2. **WinSyslog Configuration Client**
-   This is the administrative user interface. You use it to configure input
+   This is the administrative tool. You use it to configure input
    services, rulesets, filters, and actions. Changes are made in the
    Configuration Client and then applied to the WinSyslog service. It is also
    where you send a test syslog message from the ``Tools`` menu.

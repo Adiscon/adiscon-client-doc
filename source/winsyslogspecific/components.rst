@@ -15,7 +15,7 @@ For the canonical component overview, use
 That page explains:
 
 - the WinSyslog Service as the core runtime component
-- the Configuration Client as the administrative UI
+- the Configuration Client as the administrative tool
 - the Interactive Syslog Viewer as the live-view component
 - Adiscon LogAnalyzer as the stored-log analysis component
 

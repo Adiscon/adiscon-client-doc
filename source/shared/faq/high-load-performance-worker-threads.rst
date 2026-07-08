@@ -51,7 +51,7 @@ The most important setting for high-load systems is the Worker Threads configura
 
 **For WinSyslog:**
 
-1. Open WinSyslog Config Client
+1. Open the WinSyslog Configuration Client
 2. Navigate to **General Options > Queue Manager** section
 3. Set **Number of worker threads** to at least **half the CPU core count**
 
@@ -65,7 +65,7 @@ The most important setting for high-load systems is the Worker Threads configura
 
 **For MonitorWare Agent:**
 
-1. Open MonitorWare Agent Config Client
+1. Open the MonitorWare Agent Configuration Client
 2. Navigate to **General Options > Queue Manager** section
 3. Set **Number of worker threads** to at least **half the CPU core count**
 
@@ -109,7 +109,8 @@ For busy production systems, avoid making large configuration changes directly:
 2. Verify the changes work correctly on the test system
 3. Import the verified configuration into the production system
 4. If automatic configuration reload is enabled, the service will reload automatically after saving
-5. If automatic configuration reload is disabled, manually restart the service (from Config Client or Windows Services Management Console)
+5. If automatic configuration reload is disabled, manually restart the service
+   from the Configuration Client or Windows Services Management Console
 6. Monitor system performance after the change
 
 **Use Windows Services Management Console for Service Operations**

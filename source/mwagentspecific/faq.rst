@@ -14,7 +14,7 @@ Deployment and licensing
    faq/printable-manual
    ../shared/faq/version-numbering-change
    ../shared/faq/unsupported-configuration-blocks
-   ../shared/faq/netsend-removed-2026
+   ../shared/faq/netsend-removed-from-client
    ../shared/faq/rest-output-getting-started
    ../shared/faq/remote-administration-and-browser-based-review
    faq/repeatable-deployment
