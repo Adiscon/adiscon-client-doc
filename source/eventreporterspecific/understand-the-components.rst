@@ -14,7 +14,7 @@ The two main components
    service, runs the configured input services, evaluates rules, and then
    stores or forwards matching events.
 2. **EventReporter Configuration Client**
-   This is the administrative user interface. You use it to define input
+   This is the administrative tool. You use it to define input
    services, rulesets, filters, and actions. Changes are made in the
    Configuration Client and then applied so the running EventReporter service
    can use the new configuration.

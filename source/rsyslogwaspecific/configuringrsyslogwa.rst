@@ -10,7 +10,7 @@ How configuration works
 -----------------------
 
 The rsyslog Windows Agent service runs in the background once it is installed
-and configured. The Configuration Client is the administrative UI used to define
+and configured. The Configuration Client is the administrative tool used to define
 services, rulesets, filters, and actions.
 
 Changes are made in the Configuration Client and then applied so the running
@@ -56,7 +56,7 @@ Common editing tasks
 What to read next
 -----------------
 
-- :doc:`../shared/references/configuration-client-2026`
+- :doc:`../shared/references/user-interface-changes`
 - :doc:`core-concepts`
 - :doc:`services`
 - :doc:`filterconditions`

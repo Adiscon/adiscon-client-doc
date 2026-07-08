@@ -40,7 +40,7 @@ Installation steps
 3. Select the components you want to install.
 
    - The **EventReporter Service** is the runtime component.
-   - The **EventReporter Configuration Client** is the administrative UI.
+   - The **EventReporter Configuration Client** is the administrative tool.
 
 4. Finish the installer.
 5. Start the EventReporter Configuration Client.

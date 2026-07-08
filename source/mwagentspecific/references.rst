@@ -14,7 +14,7 @@ Product controls and local operation
 
    ../shared/references/commandlineswitches
    ../shared/references/mwagentshortcutkeys
-   ../shared/references/configuration-client-2026
+   ../shared/references/user-interface-changes
 
 Technical lookup material
 -------------------------

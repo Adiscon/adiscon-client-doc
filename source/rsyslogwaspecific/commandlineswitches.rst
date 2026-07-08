@@ -29,18 +29,19 @@ The ``-v`` switch gives you information about the version of the service.
 - ``rsyslogd.exe -i CustomServiceName``
 - ``rsyslogd.exe -u CustomServiceName``
 
-You can import Adiscon Config Format (cfg) configuration files via the
-command line as well. The syntax is quite easy. Simply execute the rsyslog
-Windows Agent configuration client and append the name of the configuration
-file.
+You can import configuration files via the command line as well. Use YAML
+(``.yaml``) for new imports. The legacy Adiscon Config Format (``.cfg``) remains
+supported for compatibility with existing files and support workflows. The
+syntax is quite easy: execute the rsyslog Windows Agent configuration client and
+append the name of the configuration file.
 
 **Sample:**
 
-RsyslogConfigClient.exe example.cfg
+RsyslogConfigClient.exe example.yaml
 
 or
 
-RsyslogConfigClient.exe "example.cfg"
+RsyslogConfigClient.exe "example.yaml"
 
 After this is executed, you will see the splash screen of the configuration
 client and then the import dialogue, which you have to confirm manually.
@@ -48,4 +49,4 @@ client and then the import dialogue, which you have to confirm manually.
 For doing a silent import, the ``/f`` parameter has to be appended. This will
 look like this:
 
-``RsyslogConfigClient.exe "example.cfg" /f``
+``RsyslogConfigClient.exe "example.yaml" /f``
