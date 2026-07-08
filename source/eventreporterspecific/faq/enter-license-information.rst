@@ -6,8 +6,8 @@ How Do I Enter EventReporter License Information?
 Answer
 ------
 
-Apply the ``license.alic`` file through **General** -> **License** ->
-**License File** in the configuration client, save, and restart the service.
+Apply the ``license.alic`` file through **General** -> **License** in the
+configuration client, save, and restart the service.
 
 Details
 -------
@@ -28,7 +28,7 @@ Action path
 1. Obtain ``license.alic`` from Adiscon for your edition.
 2. Open the EventReporter Configuration Client.
 3. Expand **General** and select **License**.
-4. Open the **License File** tab and apply ``license.alic``.
+4. Browse for ``license.alic``, drag-and-drop the file, or paste the file path.
 5. Save the configuration and restart the EventReporter service.
 
 Related information
