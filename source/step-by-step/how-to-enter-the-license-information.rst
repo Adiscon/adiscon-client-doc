@@ -23,9 +23,8 @@ the menu entry: License.
    :width: 320px
 
 
-If you click on it, you will find the license screen on the right. On product
-current product versions, use the **License File** tab to apply
-``license.alic``.
+If you click on it, you will find the license screen on the right. In current
+product versions, use the license page to apply ``license.alic``.
 
 Browse for the file, drag-and-drop it onto the client, or paste the file path.
 Use **Verify License** to check the selected file.
