@@ -6,54 +6,33 @@ How Do I Enter rsyslog Windows Agent License Information?
 Answer
 ------
 
-On **rsyslog Windows Agent 2026** and later, deploy the ``license.alic`` file
-through **General** → **License** → **License File** in the configuration
-client, save, and restart the service. On **pre-2026** majors, use **Legacy
-License** with the registration name and numeric keys from Adiscon.
+Apply the ``license.alic`` file through **General** -> **License** ->
+**License File** in the configuration client, save, and restart the service.
 
 Details
 -------
 
-**2026 and later (License V2)**
-
-rsyslog Windows Agent 2026 requires a signed ``license.alic`` file from
-Adiscon. Legacy keys from rsyslog Windows Agent 8.x do **not** authorize the
-2026 major.
+Current rsyslog Windows Agent builds require a ``license.alic`` file from
+Adiscon.
 
 Default file location:
 
 ``%ProgramData%\\Adiscon\\RSyslogAgent\\license.alic``
 
-See :ref:`license-v2` for the full reference.
+Use the default location unless Adiscon support or your deployment process
+requires another path.
 
-**Pre-2026 majors (legacy keys)**
-
-``license.alic`` files **do not work** on rsyslog Windows Agent 8.x and
-earlier. Contact Adiscon support or sales for a manually issued legacy license
-if you must remain on a legacy major.
-
-Action path (2026+)
---------------------
+Action path
+-----------
 
 1. Obtain ``license.alic`` from Adiscon for your edition.
 2. Open the rsyslog Windows Agent Configuration Client.
 3. Expand **General** and select **License**.
-4. Open the **License File** tab and deploy ``license.alic``.
-5. Save the configuration and restart the service.
-
-Action path (legacy majors)
------------------------------
-
-1. Open the rsyslog Windows Agent Configuration Client.
-2. Expand **General** and select **License**.
-3. Open the **Legacy License** tab.
-4. Enter the registration name and import the license key.
+4. Open the **License File** tab and apply ``license.alic``.
 5. Save the configuration and restart the service.
 
 Related information
 -------------------
 
-* :ref:`license-v2`
-* :ref:`version-numbering-2026`
 * :doc:`../installation`
 * :doc:`../../shared/sales/how-to-contact-sales`

@@ -21,8 +21,8 @@ Quick actions
   :doc:`purchase-orders-and-billing`.
 * I need product licensing and ordering links:
   :doc:`licensing-and-ordering`.
-* I need License V2 details (2026 and later):
-  :doc:`license-v2`.
+* I need to use an older product version with my license:
+  :doc:`use-older-version-with-license`.
 * I need to confirm offline or air-gapped licensing behavior:
   :doc:`air-gapped-environments`.
 * I need UpgradeInsurance policy details:
@@ -36,7 +36,7 @@ Quick actions
    what-happens-after-sales-ticket
    purchase-orders-and-billing
    licensing-and-ordering
-   license-v2
+   use-older-version-with-license
    air-gapped-environments
    offline-installation-and-activation
    online-verification-after-activation

@@ -10,6 +10,4 @@ Sheet which identifies the differences between different available versions.
 See the following link which Edition provides which services, actions and other
 features: https://www.mwagent.com/product-info/edition-comparison/
 
-**2026 major:** Licensing uses License V2 (``license.alic``) on 2026 builds.
-Legacy keys and V2 files are not interchangeable across major versions. See
-:ref:`license-v2`.
+**License file:** Current builds use a ``license.alic`` file.

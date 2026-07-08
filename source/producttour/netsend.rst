@@ -8,8 +8,8 @@ Messenger service (``net send``).
 
 .. warning::
 
-   **Removed from configuration client (2026-07):** Net Send cannot be created
-   in the **2026.07** configuration client. See :doc:`../mwagentspecific/a-netsend`
+   **Removed from configuration client (26.07):** Net Send cannot be created
+   in the **26.07** configuration client. See :doc:`../mwagentspecific/a-netsend`
    for legacy reference and alternatives.
 
    **Deprecated:** ``net send`` pop-up messages are not available by default on

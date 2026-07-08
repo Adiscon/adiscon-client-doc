@@ -44,6 +44,7 @@ Licensing and purchasing
    :maxdepth: 1
 
    faq/enter-license-information
+   ../shared/faq/version-numbering-change
    ../shared/faq/unsupported-configuration-blocks
    ../shared/faq/netsend-removed-2026
    ../shared/faq/rest-output-getting-started

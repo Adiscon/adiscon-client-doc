@@ -32,7 +32,6 @@ Manual:
    mwagentshortcutkeys
    registrypaths
    editioncomparison
-   version-numbering-2026
    configuration-client-2026
    microsoftsystemerrorcodes
 

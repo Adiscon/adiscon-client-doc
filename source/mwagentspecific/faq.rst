@@ -12,6 +12,7 @@ Deployment and licensing
 
    faq/enter-license-information
    faq/printable-manual
+   ../shared/faq/version-numbering-change
    ../shared/faq/unsupported-configuration-blocks
    ../shared/faq/netsend-removed-2026
    ../shared/faq/rest-output-getting-started

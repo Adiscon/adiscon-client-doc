@@ -57,9 +57,9 @@ service. Within the ruleset:
 
 The following sections describe the detailed properties of each element.
 
-2026 configuration client
--------------------------
+Configuration client changes in 26.07
+-------------------------------------
 
-See :doc:`../shared/references/configuration-client-2026` for License V2 UI,
+See :doc:`../shared/references/configuration-client-2026` for license file UI,
 YAML import/export, service toolbar changes, and the next-generation client
 preview.

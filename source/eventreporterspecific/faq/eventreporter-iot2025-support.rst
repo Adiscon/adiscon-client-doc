@@ -33,10 +33,11 @@ Guidance for Server Core Deployments
 ------------------------------------
 
 Windows Server IoT 2025 Server Core does not provide a graphical user interface.
-For headless deployments, use legacy Adiscon Config Files (``.cfg``) with file
-config mode. The **2026** configuration client can also export **YAML**
-(``.yaml``) for import on another GUI workstation; Server Core service
-deployment still uses ``szFileConfig`` with a legacy ``.cfg`` path.
+For new file-based deployments, use YAML configuration (``.yaml``) and point
+``szFileConfig`` to that file. The legacy ``.cfg`` Adiscon Config Format
+remains supported for compatibility with existing installations, test fixtures,
+support workflows, and external tooling, but it is not required for new
+deployments.
 
 Recommended workflow:
 
@@ -44,8 +45,7 @@ Recommended workflow:
 
    - Install EventReporter and open the Configuration Client
    - Configure rules, services, and actions as required
-   - Export the configuration as legacy Config Files (``.cfg``) for Server Core
-   - Optional on **2026** clients: also export YAML (``.yaml``) for backup or
+   - Export YAML (``.yaml``) for Server Core file config mode, backup, or
      re-import on another GUI machine
 
 2. Transfer the configuration to Server Core
@@ -59,7 +59,7 @@ Recommended workflow:
 
    Required values:
 
-   - ``szFileConfig`` (REG_SZ): Example ``c:\configs\eventreporter\central-server.cfg``
+   - ``szFileConfig`` (REG_SZ): Example ``c:\configs\eventreporter\central-server.yaml``
    - ``szDataDirectory`` (REG_SZ): Example ``c:\configs\eventreporter\``
    - ``iAccessMode`` (REG_DWORD): ``1`` (enables file config mode)
 
@@ -70,4 +70,3 @@ Recommended workflow:
 ..
 
 ..
-

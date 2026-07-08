@@ -7,7 +7,8 @@ Short answer
 ------------
 
 Adiscon product licenses are perpetual. UpgradeInsurance is a separate,
-time-limited service that is strongly recommended for access to major upgrades.
+time-limited service that is strongly recommended for access to version-line
+upgrades.
 
 Question
 --------
@@ -29,17 +30,14 @@ activation. It does not depend on periodic online verification to remain valid.
 
 UpgradeInsurance is separate from the base license. It is a time-limited
 additional service that is strongly recommended if you want access to future
-major product versions and related maintenance benefits.
+product version lines and related maintenance benefits.
 
 When UpgradeInsurance expires, the licensed product version does not stop
-working. What changes is entitlement to later major upgrades and the additional
-benefits covered by active UpgradeInsurance.
+working. What changes is entitlement to later version-line upgrades and the
+additional benefits covered by active UpgradeInsurance.
 
-**2026 major and License V2:** Upgrading to a 2026 calendar-year major requires
-a new ``license.alic`` file from Adiscon. Legacy registration name and numeric
-keys from earlier majors do not authorize 2026 builds. Conversely,
-``license.alic`` files do not work on pre-2026 product versions; contact Adiscon
-for a legacy license if you must remain on an older major. See :ref:`license-v2`.
+**License files:** Current product versions use a ``license.alic`` file from
+Adiscon.
 
 For detailed renewal and reinstatement policy, see
 :ref:`upgradeinsurance-explainer`.
@@ -54,5 +52,5 @@ Related information
 -------------------
 
 - :doc:`upgradeinsurance`
-- :doc:`license-v2`
+- :doc:`use-older-version-with-license`
 - :ref:`sales-online-verification-after-activation`

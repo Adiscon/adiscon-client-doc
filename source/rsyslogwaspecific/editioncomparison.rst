@@ -17,6 +17,4 @@ and capabilities are included in the edition you plan to deploy:
 
 `rsyslog Windows Agent edition comparison <https://www.rsyslog.com/windows-agent/edition-comparison/>`_
 
-**2026 major:** Licensing uses License V2 (``license.alic``) on 2026 builds.
-Legacy keys and V2 files are not interchangeable across major versions. See
-:ref:`license-v2`.
+**License file:** Current builds use a ``license.alic`` file.

@@ -5,7 +5,7 @@ HTTP REST Output
 
 The **HTTP REST Output** action forwards matched events or messages to an HTTP
 or HTTPS endpoint. It is available on WinSyslog, EventReporter, and
-MonitorWare Agent from the **2026.07** release line onward (action type **1032**,
+MonitorWare Agent starting with **26.07** (action type **1032**,
 ``RestOutput``).
 
 Use this action for webhooks, REST APIs, and OpenSearch bulk indexing. It is

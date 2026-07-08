@@ -2,19 +2,19 @@
 
 .. _configuration-client-2026:
 
-Configuration client (2026 release line)
-========================================
+Configuration client changes in 26.07
+=====================================
 
-The **2026.07** installer ships two configuration clients:
+The **26.07** installer ships two configuration clients:
 
 - **Established configuration client** — the WinForms client documented in this
   manual (primary reference for setup steps and screenshots).
 - **Next-generation Configuration Client Preview** — a WinUI-based workbench
   (``adiscon-client-ng``), shipped as a **preview** alongside the classic client.
 
-The preview is optional. The classic client supports License V2 deployment and
-full configuration editing for the 2026 major. See your product website's 2026
-major-release **Upgrade** article for the customer-facing preview description.
+The preview is optional. The classic client supports license file application
+and full configuration editing. See your product website's **Upgrade** article
+for the customer-facing preview description.
 
 Property window toolbar
 -----------------------
@@ -73,5 +73,4 @@ See the file-based configuration chapter in your product manual and
 Related information
 -------------------
 
-- :ref:`license-v2`
-- :ref:`version-numbering-2026`
+- :ref:`version-numbering-change`
