@@ -19,6 +19,8 @@ Internal actions modify or redirect processing inside the agent itself:
 
 - **Call RuleSet** transfers processing to another ruleset
 - **Normalize Event** rewrites selected event content
+- **Resolve Hostname** resolves a name or address from one property and stores
+  the result in another property
 - **Set Property** and **Set Status** add or modify internal values
 - **Discard** stops further processing for the current event
 

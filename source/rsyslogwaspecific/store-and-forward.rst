@@ -26,6 +26,7 @@ Common internal actions
 
 - :doc:`Call RuleSet <../mwagentspecific/a-callruleset>`
 - :doc:`Normalize Event <../mwagentspecific/a-normalizeevent>`
+- :doc:`Resolve Hostname <../mwagentspecific/a-resolvehostname>`
 - :doc:`Set Property <../mwagentspecific/a-setproperty>`
 - :doc:`Set Status <../mwagentspecific/a-setstatus>`
 - :doc:`Discard <../mwagentspecific/a-discard>`

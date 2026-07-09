@@ -111,7 +111,7 @@ exclude_patterns = ['index.eventreporter.rst','index.mwagent.rst','index.winsysl
     'mwagentspecific/a-forwardsetpoptions.rst','mwagentspecific/a-forwardsyslogoptions.rst',
     'mwagentspecific/a-httprequest.rst','mwagentspecific/a-restoutput.rst','mwagentspecific/a-mailoptions.rst',
     'mwagentspecific/a-netsend.rst','mwagentspecific/a-oledbdatabaseaction.rst','mwagentspecific/a-playsound.rst',
-    'mwagentspecific/a-postprocessevent.rst','mwagentspecific/a-resolvehostname.rst','mwagentspecific/a-sendmsqueue.rst',
+    'mwagentspecific/a-postprocessevent.rst','mwagentspecific/a-sendmsqueue.rst',
     'mwagentspecific/a-sendsnmptrap.rst','mwagentspecific/a-sendtocommunicationsport.rst','mwagentspecific/a-startprogram.rst',
     'mwagentspecific/a-syslogqueueaction.rst','mwagentspecific/cpumonitor.rst','mwagentspecific/databasemonitor.rst',
     'mwagentspecific/diskspacemonitor.rst','mwagentspecific/f-cpumemorymonitor.rst','mwagentspecific/f-diskspacemonitor.rst',

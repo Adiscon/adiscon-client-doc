@@ -5,6 +5,10 @@ The **HTTP Request** action sends an HTTP or HTTPS request to a remote host.
 It is listed under **Forwarding** in the configuration client. Use it for
 simple HTTP callbacks where the **HTTP REST Output** action is not required.
 
+.. only:: eventreporter
+
+   In EventReporter, **HTTP Request** is available in Professional and above.
+
 .. image:: ../images/a-httprequest.png
    :width: 100%
 
