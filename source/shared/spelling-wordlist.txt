@@ -1899,3 +1899,9 @@ szRequestTemplate
 szRetryHttpStatusCodes
 webhooks
 ö
+ACL
+bitness
+NTFS
+pktmon
+Winsock
+Wireshark

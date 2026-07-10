@@ -16,7 +16,7 @@ WinSyslog Event ID 11174: Queue manager: queue capacity condition
 Answer
 ------
 
-The queue manager reported an informational condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Queue manager: queue capacity condition. The product recorded this while processing queue manager; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,27 @@ Event details
 - **Component:** Queue manager
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Runtime diagnostic.
+- **Message pattern:** Queue manager: queue capacity condition. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or inaccessible to the product service account.
-- Another process is holding the file or the stored queue data is inconsistent.
+- A downstream action is failing or retrying, so queued work cannot drain.
+- The queue directory, permissions, free space, or queue artifact state prevents normal processing.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Identify the affected path in the event detail.
-#. Check free space, path existence, service-account permissions, and competing file locks.
-#. Correct the storage condition and confirm that queue, file, or rotation processing resumes.
+#. Identify the first downstream action error and record queue depth and oldest-item time.
+#. Check queue-directory access and free space without changing live queue files.
+#. Correct the downstream cause, send one test event, and verify that the backlog decreases.
+
+Detailed procedures
+-------------------
+
+- :doc:`Diagnose an action backlog or disk queue <../../shared/troubleshooting/event-id/queue-diagnose-backlog-and-disk-queue>` — Identify why queued work is not draining while preserving data.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------

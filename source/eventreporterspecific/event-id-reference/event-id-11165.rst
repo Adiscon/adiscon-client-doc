@@ -16,7 +16,7 @@ EventReporter Event ID 11165: Email action: SMTP recipient address is missing
 Answer
 ------
 
-The email action reported an error condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Email action: SMTP recipient address is missing. The product recorded this while processing email action; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,27 @@ Event details
 - **Component:** Email action
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Cmailrcptlist setrecipients.
+- **Message pattern:** Cmailrcptlist setrecipients. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The runtime operation named in the event detail failed.
-- A dependent Windows resource, configured endpoint, or product setting was unavailable or invalid.
+- Name resolution, routing, listener state, TLS, authentication, or protocol expectations do not match the remote service.
+- The remote service rejected the request, exceeded the configured timeout, or returned an unexpected response.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read the complete event detail and identify the operation, configured object, and Windows error code.
-#. Check adjacent product events and the debug log for the first failure in the same time window.
-#. Correct the reported configuration or dependency and repeat the operation.
+#. Record the endpoint, port, TLS and authentication mode, timeout, and complete protocol response.
+#. Resolve the host and test the configured port from the product system.
+#. Run the smallest safe protocol test and compare its response with the configured success condition.
+
+Detailed procedures
+-------------------
+
+- :doc:`Verify SMTP connectivity and mail delivery <../../shared/troubleshooting/event-id/mail-verify-smtp-delivery>` — Separate DNS, TCP, TLS, authentication, relay, recipient, and downstream delivery.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -56,7 +63,7 @@ Evidence to collect
 Escalation
 ----------
 
-If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
 
 Related Event IDs
 -----------------

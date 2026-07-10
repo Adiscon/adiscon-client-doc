@@ -16,7 +16,7 @@ EventReporter Event ID 11038: SNMP action: runtime operation failed
 Answer
 ------
 
-The snmp action reported an error condition. The event detail identifies the affected operation and carries the specific runtime reason.
+SNMP action: runtime operation failed. The product recorded this while processing snmp action; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,27 @@ Event details
 - **Component:** SNMP action
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Cactionsendsnmp doaction.
+- **Message pattern:** SNMP action: runtime operation failed. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The runtime operation named in the event detail failed.
-- A dependent Windows resource, configured endpoint, or product setting was unavailable or invalid.
+- Sender and receiver transport, port, SNMP version, security or community, OID, or value type do not match.
+- The receiver is not bound, a firewall drops the traffic, or the SNMP library returned the appended runtime error.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read the complete event detail and identify the operation, configured object, and Windows error code.
-#. Check adjacent product events and the debug log for the first failure in the same time window.
-#. Correct the reported configuration or dependency and repeat the operation.
+#. Record transport, endpoint, SNMP version, security or community, OIDs, and the complete runtime detail.
+#. Confirm the intended receiver process owns the configured endpoint and accepts a paced test trap.
+#. Verify the received OID and value before changing filters or MIB settings.
+
+Detailed procedures
+-------------------
+
+- :doc:`Verify an SNMP trap sender and receiver path <../../shared/troubleshooting/event-id/snmp-verify-trap-path>` — Confirm transport, endpoint, SNMP version, security/community, OIDs, and receipt.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -56,7 +63,7 @@ Evidence to collect
 Escalation
 ----------
 
-If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
 
 Related Event IDs
 -----------------

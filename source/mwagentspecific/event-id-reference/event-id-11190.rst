@@ -16,7 +16,7 @@ MonitorWare Agent Event ID 11190: Service configuration: configured feature is u
 Answer
 ------
 
-The service configuration reported a warning condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Service configuration: configured feature is unavailable. The product recorded this while processing service configuration; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,25 @@ Event details
 - **Component:** Service configuration
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Runtime diagnostic.
+- **Message pattern:** Service configuration: configured feature is unavailable. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The service received an invalid setting or could not initialize a configured component.
-- Windows denied a required service, registry, file, or operating-system operation.
+- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
+- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read this event together with adjacent product events that contain the detailed failure.
-#. Validate the recently changed configuration and the product service account permissions.
-#. Correct the reported setting or operating-system condition, then restart or reload the service.
+#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
+#. Check recent Service Control Manager and neighboring product events for the first failure.
+#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+
+Detailed procedures
+-------------------
+
+- :doc:`Collect evidence for an escalation-only runtime event <../../shared/troubleshooting/event-id/runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 
 Verify the result
 -----------------
@@ -56,7 +61,7 @@ Evidence to collect
 Escalation
 ----------
 
-No safe general self-service repair is available for this event. Collect the evidence above and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

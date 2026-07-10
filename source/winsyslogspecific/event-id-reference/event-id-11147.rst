@@ -16,7 +16,7 @@ WinSyslog Event ID 11147: Event Log Monitor V2 service: required timer could not
 Answer
 ------
 
-The event log monitor v2 service reported a warning condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Event Log Monitor V2 service: required timer could not be created. The product recorded this while processing event log monitor v2 service; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,27 @@ Event details
 - **Component:** Event Log Monitor V2 service
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Wevthelper wevthelper.
+- **Message pattern:** Wevthelper wevthelper. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The configured Windows Event Log channel is unavailable, inaccessible, or contains an unreadable record.
-- Publisher metadata, locale data, or the saved monitor state could not be processed.
+- The configured Windows Event Log channel is missing, disabled, inaccessible, or no longer matches the saved collection position.
+- The service account cannot read the channel or provider metadata, or the channel was cleared or recreated.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read the channel, provider, and record details included in the event.
-#. Confirm the channel exists and the product service account can read it.
-#. Check nearby Windows Event Log service errors, correct the channel or permissions issue, and retry.
+#. Identify the exact channel, collection mode, saved position, and service account.
+#. Confirm that Windows reports the channel enabled and readable in the service-account context.
+#. Use one safe test event to verify collection before resetting any saved position.
+
+Detailed procedures
+-------------------
+
+- :doc:`Verify Event Log channel access and bookmark state <../../shared/troubleshooting/event-id/eventlog-verify-channel-access-and-bookmark>` — Confirm channel existence, enablement, account access, and collection position.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -56,7 +63,7 @@ Evidence to collect
 Escalation
 ----------
 
-If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
 
 Related Event IDs
 -----------------

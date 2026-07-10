@@ -26,20 +26,27 @@ Event details
 - **Component:** Product runtime
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Debug error output was forwarded to the Windows Event Log.
+- **Message pattern:** Debug error output was forwarded to the Windows Event Log. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The configured Windows Event Log channel is unavailable, inaccessible, or contains an unreadable record.
-- Publisher metadata, locale data, or the saved monitor state could not be processed.
+- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
+- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read the channel, provider, and record details included in the event.
-#. Confirm the channel exists and the product service account can read it.
-#. Check nearby Windows Event Log service errors, correct the channel or permissions issue, and retry.
+#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
+#. Check recent Service Control Manager and neighboring product events for the first failure.
+#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+
+Detailed procedures
+-------------------
+
+- :doc:`Verify service state, dependencies, and service account <../../shared/troubleshooting/event-id/service-verify-state-and-account>` — Confirm service state, start mode, dependencies, account, and SCM errors.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -56,7 +63,7 @@ Evidence to collect
 Escalation
 ----------
 
-If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
 
 Related Event IDs
 -----------------

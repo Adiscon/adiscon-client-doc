@@ -16,7 +16,7 @@ EventReporter Event ID 11008: Action configuration: configured action feature is
 Answer
 ------
 
-The action configuration reported a warning condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Action configuration: configured action feature is unavailable. The product recorded this while processing action configuration; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,25 @@ Event details
 - **Component:** Action configuration
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Runtime diagnostic.
+- **Message pattern:** Action configuration: configured action feature is unavailable. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The service received an invalid setting or could not initialize a configured component.
-- Windows denied a required service, registry, file, or operating-system operation.
+- The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.
+- Windows or a required provider returned the operation-specific error appended to the event.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read this event together with adjacent product events that contain the detailed failure.
-#. Validate the recently changed configuration and the product service account permissions.
-#. Correct the reported setting or operating-system condition, then restart or reload the service.
+#. Identify the exact service, rule, filter, action, or setting named by the complete event detail.
+#. Compare that object with the product reference and preserve the first related error in the same time window.
+#. Correct only the identified setting or dependency, then run one controlled test.
+
+Detailed procedures
+-------------------
+
+- :doc:`Collect evidence for an escalation-only runtime event <../../shared/troubleshooting/event-id/runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 
 Verify the result
 -----------------
@@ -56,7 +61,7 @@ Evidence to collect
 Escalation
 ----------
 
-No safe general self-service repair is available for this event. Collect the evidence above and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

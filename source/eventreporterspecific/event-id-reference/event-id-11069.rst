@@ -16,7 +16,7 @@ EventReporter Event ID 11069: Database Monitor service: database operation faile
 Answer
 ------
 
-The database monitor service reported an error condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Database Monitor service: database operation failed. The product recorded this while processing database monitor service; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,28 @@ Event details
 - **Component:** Database Monitor service
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Cinfosourcedbmonitor readdbidfromcolumn.
+- **Message pattern:** Database Monitor service: database operation failed. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The database is unavailable or rejected the connection.
-- The configured data source, credentials, query, table, or field mapping is invalid.
+- The configured provider, DSN, server, database, or authentication setting is unavailable or invalid.
+- The service account lacks database rights, or the provider returned a timeout, TLS, schema, or query error.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read the database error included in the event detail.
-#. Test the configured data source and credentials from the product service account.
-#. Verify the query, table, and field mappings, then retry the action or monitor.
+#. Preserve the complete provider error and identify the configured database action or monitor.
+#. Confirm provider or DSN bitness, server and database names, authentication mode, and service-account context.
+#. Run a minimal read-only connection test before retrying one product event.
+
+Detailed procedures
+-------------------
+
+- :doc:`Test an ODBC connection in the product context <../../shared/troubleshooting/event-id/database-test-odbc-connection>` — Verify ODBC provider, architecture, authentication, connectivity, and a minimal query.
+- :doc:`Test an OLE DB connection in the product context <../../shared/troubleshooting/event-id/database-test-oledb-connection>` — Verify OLE DB provider, architecture, authentication, connectivity, and a minimal query.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -56,7 +64,7 @@ Evidence to collect
 Escalation
 ----------
 
-If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
 
 Related Event IDs
 -----------------

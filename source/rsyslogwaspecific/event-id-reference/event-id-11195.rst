@@ -16,7 +16,7 @@ rsyslog Windows Agent Event ID 11195: Disk queue: runtime data error
 Answer
 ------
 
-The disk queue reported an error condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Disk queue: runtime data error. The product recorded this while processing disk queue; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,25 @@ Event details
 - **Component:** Disk queue
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Formatted runtime diagnostic.
+- **Message pattern:** Formatted runtime diagnostic. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The remote endpoint is unavailable or the network path was interrupted.
-- The listener, protocol, TLS settings, certificate, or permitted-peer configuration does not match.
+- A downstream action is failing or retrying, so queued work cannot drain.
+- The queue directory, permissions, free space, or queue artifact state prevents normal processing.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Use the event detail to identify the endpoint and failing protocol operation.
-#. Verify name resolution, routing, firewall rules, listening port, and remote service state.
-#. For TLS connections, verify certificates, trust, protocol versions, and permitted-peer settings before retrying.
+#. Identify the first downstream action error and record queue depth and oldest-item time.
+#. Check queue-directory access and free space without changing live queue files.
+#. Correct the downstream cause, send one test event, and verify that the backlog decreases.
+
+Detailed procedures
+-------------------
+
+- :doc:`Collect evidence for an escalation-only runtime event <../../shared/troubleshooting/event-id/runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 
 Verify the result
 -----------------
@@ -56,7 +61,7 @@ Evidence to collect
 Escalation
 ----------
 
-No safe general self-service repair is available for this event. Collect the evidence above and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

@@ -30,3 +30,10 @@ the same issue does not return in later cleanup passes.
   selected by the Write to Windows Event Log action as product diagnostics.
 - Do not infer that a shared Himalaya source path applies to every product.
   Preserve the reviewed product list from the authoritative catalog.
+- Do not edit generated troubleshooting pages under
+  `source/shared/troubleshooting/event-id/`. Edit the docs-owned procedure
+  registry and regenerate.
+- Do not publish an Event ID appendix when either the imported Himalaya catalog
+  or the procedure catalog is still `draft`. Both review gates are mandatory.
+- Do not expose internal diagnostic keys, source paths, enum names, or C++
+  class names in public product JSON or customer-facing message patterns.

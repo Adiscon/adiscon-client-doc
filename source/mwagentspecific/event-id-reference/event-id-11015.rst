@@ -16,7 +16,7 @@ MonitorWare Agent Event ID 11015: Microsoft Message Queuing action: Microsoft Me
 Answer
 ------
 
-The microsoft message queuing action reported an error condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Microsoft Message Queuing action: Microsoft Message Queuing operation failed. The product recorded this while processing microsoft message queuing action; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,27 @@ Event details
 - **Component:** Microsoft Message Queuing action
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Cactionconfigsendmsqueue initapis.
+- **Message pattern:** Microsoft Message Queuing action: Microsoft Message Queuing operation failed. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or inaccessible to the product service account.
-- Another process is holding the file or the stored queue data is inconsistent.
+- The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.
+- Windows or a required provider returned the operation-specific error appended to the event.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Identify the affected path in the event detail.
-#. Check free space, path existence, service-account permissions, and competing file locks.
-#. Correct the storage condition and confirm that queue, file, or rotation processing resumes.
+#. Identify the exact service, rule, filter, action, or setting named by the complete event detail.
+#. Compare that object with the product reference and preserve the first related error in the same time window.
+#. Correct only the identified setting or dependency, then run one controlled test.
+
+Detailed procedures
+-------------------
+
+- :doc:`Verify Microsoft Message Queuing availability and access <../../shared/troubleshooting/event-id/msmq-verify-queue-access>` — Confirm feature, service, queue path, transaction mode, and send rights.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -56,4 +63,4 @@ Evidence to collect
 Escalation
 ----------
 
-If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.

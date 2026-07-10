@@ -16,7 +16,7 @@ WinSyslog Event ID 11021: Action processing: configured action feature is unavai
 Answer
 ------
 
-The action processing reported a warning condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Action processing: configured action feature is unavailable. The product recorded this while processing action processing; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,25 @@ Event details
 - **Component:** Action processing
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Runtime diagnostic.
+- **Message pattern:** Action processing: configured action feature is unavailable. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The runtime operation named in the event detail failed.
-- A dependent Windows resource, configured endpoint, or product setting was unavailable or invalid.
+- A downstream action is failing or retrying, so queued work cannot drain.
+- The queue directory, permissions, free space, or queue artifact state prevents normal processing.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read the complete event detail and identify the operation, configured object, and Windows error code.
-#. Check adjacent product events and the debug log for the first failure in the same time window.
-#. Correct the reported configuration or dependency and repeat the operation.
+#. Identify the first downstream action error and record queue depth and oldest-item time.
+#. Check queue-directory access and free space without changing live queue files.
+#. Correct the downstream cause, send one test event, and verify that the backlog decreases.
+
+Detailed procedures
+-------------------
+
+- :doc:`Collect evidence for an escalation-only runtime event <../../shared/troubleshooting/event-id/runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 
 Verify the result
 -----------------
@@ -56,7 +61,7 @@ Evidence to collect
 Escalation
 ----------
 
-No safe general self-service repair is available for this event. Collect the evidence above and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

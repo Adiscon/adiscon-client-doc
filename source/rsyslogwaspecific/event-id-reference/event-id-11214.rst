@@ -26,20 +26,25 @@ Event details
 - **Component:** Queue manager
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** System exception in the queue worker thread.
+- **Message pattern:** System exception in the queue worker thread. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or inaccessible to the product service account.
-- Another process is holding the file or the stored queue data is inconsistent.
+- A downstream action is failing or retrying, so queued work cannot drain.
+- The queue directory, permissions, free space, or queue artifact state prevents normal processing.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Identify the affected path in the event detail.
-#. Check free space, path existence, service-account permissions, and competing file locks.
-#. Correct the storage condition and confirm that queue, file, or rotation processing resumes.
+#. Identify the first downstream action error and record queue depth and oldest-item time.
+#. Check queue-directory access and free space without changing live queue files.
+#. Correct the downstream cause, send one test event, and verify that the backlog decreases.
+
+Detailed procedures
+-------------------
+
+- :doc:`Collect evidence for an escalation-only runtime event <../../shared/troubleshooting/event-id/runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 
 Verify the result
 -----------------
@@ -56,7 +61,7 @@ Evidence to collect
 Escalation
 ----------
 
-No safe general self-service repair is available for this event. Collect the evidence above and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

@@ -26,20 +26,27 @@ Event details
 - **Component:** Licensing
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** WinSyslog rejected an invalid license key during startup.
+- **Message pattern:** WinSyslog rejected an invalid license key during startup. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The remote endpoint is unavailable or the network path was interrupted.
-- The listener, protocol, TLS settings, certificate, or permitted-peer configuration does not match.
+- The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.
+- Windows or a required provider returned the operation-specific error appended to the event.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Use the event detail to identify the endpoint and failing protocol operation.
-#. Verify name resolution, routing, firewall rules, listening port, and remote service state.
-#. For TLS connections, verify certificates, trust, protocol versions, and permitted-peer settings before retrying.
+#. Identify the exact service, rule, filter, action, or setting named by the complete event detail.
+#. Compare that object with the product reference and preserve the first related error in the same time window.
+#. Correct only the identified setting or dependency, then run one controlled test.
+
+Detailed procedures
+-------------------
+
+- :doc:`Verify product license and feature entitlement state <../../shared/troubleshooting/event-id/license-verify-license-state>` — Confirm product, version, validity, edition, and required feature without exposing license data.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -56,7 +63,7 @@ Evidence to collect
 Escalation
 ----------
 
-If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
 
 Related Event IDs
 -----------------

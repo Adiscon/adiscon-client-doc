@@ -16,7 +16,7 @@ rsyslog Windows Agent Event ID 11134: SNMP Monitor service: SNMP operation raise
 Answer
 ------
 
-The snmp monitor service reported an error condition. The event detail identifies the affected operation and carries the specific runtime reason.
+SNMP Monitor service: SNMP operation raised an unknown exception. The product recorded this while processing snmp monitor service; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,27 @@ Event details
 - **Component:** SNMP Monitor service
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Cinfosourcesnmpmonitor run.
+- **Message pattern:** SNMP Monitor service: SNMP operation raised an unknown exception. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The service received an invalid setting or could not initialize a configured component.
-- Windows denied a required service, registry, file, or operating-system operation.
+- Sender and receiver transport, port, SNMP version, security or community, OID, or value type do not match.
+- The receiver is not bound, a firewall drops the traffic, or the SNMP library returned the appended runtime error.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read this event together with adjacent product events that contain the detailed failure.
-#. Validate the recently changed configuration and the product service account permissions.
-#. Correct the reported setting or operating-system condition, then restart or reload the service.
+#. Record transport, endpoint, SNMP version, security or community, OIDs, and the complete runtime detail.
+#. Confirm the intended receiver process owns the configured endpoint and accepts a paced test trap.
+#. Verify the received OID and value before changing filters or MIB settings.
+
+Detailed procedures
+-------------------
+
+- :doc:`Verify an SNMP trap sender and receiver path <../../shared/troubleshooting/event-id/snmp-verify-trap-path>` — Confirm transport, endpoint, SNMP version, security/community, OIDs, and receipt.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -56,7 +63,7 @@ Evidence to collect
 Escalation
 ----------
 
-If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
 
 Related Event IDs
 -----------------

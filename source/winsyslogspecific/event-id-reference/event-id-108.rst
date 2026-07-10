@@ -26,20 +26,27 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** The service was stopped.
+- **Message pattern:** The service was stopped. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The service received an invalid setting or could not initialize a configured component.
-- Windows denied a required service, registry, file, or operating-system operation.
+- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
+- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read this event together with adjacent product events that contain the detailed failure.
-#. Validate the recently changed configuration and the product service account permissions.
-#. Correct the reported setting or operating-system condition, then restart or reload the service.
+#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
+#. Check recent Service Control Manager and neighboring product events for the first failure.
+#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+
+Detailed procedures
+-------------------
+
+- :doc:`Verify service state, dependencies, and service account <../../shared/troubleshooting/event-id/service-verify-state-and-account>` — Confirm service state, start mode, dependencies, account, and SCM errors.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------

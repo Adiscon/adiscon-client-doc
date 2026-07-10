@@ -26,20 +26,29 @@ Event details
 - **Component:** SETP sender
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** SETP sender could not complete the send operation; the message was moved to the action cache for retry.
+- **Message pattern:** SETP sender could not complete the send operation; the message was moved to the action cache for retry. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The remote endpoint is unavailable or the network path was interrupted.
-- The listener, protocol, TLS settings, certificate, or permitted-peer configuration does not match.
+- The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.
+- TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Use the event detail to identify the endpoint and failing protocol operation.
-#. Verify name resolution, routing, firewall rules, listening port, and remote service state.
-#. For TLS connections, verify certificates, trust, protocol versions, and permitted-peer settings before retrying.
+#. Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.
+#. Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.
+#. Send one unique test message and verify positive receipt and queue recovery.
+
+Detailed procedures
+-------------------
+
+- :doc:`Resolve a destination and test its TCP port <../../shared/troubleshooting/event-id/network-resolve-host-and-test-tcp-port>` — Verify DNS, selected address, routing, and TCP establishment.
+- :doc:`Verify TLS certificates, private keys, and permitted peers <../../shared/troubleshooting/event-id/tls-verify-certificate-chain-and-peer>` — Check validity, trust chain, key pairing, protocol mode, and peer authorization.
+- :doc:`Verify sender, receiver, and queued-message recovery <../../shared/troubleshooting/event-id/transport-verify-sender-receiver-recovery>` — Prove end-to-end recovery and backlog drainage.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -56,7 +65,7 @@ Evidence to collect
 Escalation
 ----------
 
-If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
 
 Related Event IDs
 -----------------

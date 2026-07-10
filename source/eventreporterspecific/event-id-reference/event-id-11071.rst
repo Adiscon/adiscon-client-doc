@@ -16,7 +16,7 @@ EventReporter Event ID 11071: Disk Space Monitor service: runtime operation fail
 Answer
 ------
 
-The disk space monitor service reported an error condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Disk Space Monitor service: runtime operation failed. The product recorded this while processing disk space monitor service; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,27 @@ Event details
 - **Component:** Disk Space Monitor service
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Cinfosourcediskspacemonitor doaction.
+- **Message pattern:** Disk Space Monitor service: runtime operation failed. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or inaccessible to the product service account.
-- Another process is holding the file or the stored queue data is inconsistent.
+- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
+- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Identify the affected path in the event detail.
-#. Check free space, path existence, service-account permissions, and competing file locks.
-#. Correct the storage condition and confirm that queue, file, or rotation processing resumes.
+#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
+#. Check recent Service Control Manager and neighboring product events for the first failure.
+#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+
+Detailed procedures
+-------------------
+
+- :doc:`Verify file paths, permissions, and free space <../../shared/troubleshooting/event-id/file-verify-path-permissions-and-disk-space>` — Check expansion, existence, ACLs, service-account context, and storage.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -56,4 +63,4 @@ Evidence to collect
 Escalation
 ----------
 
-If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.

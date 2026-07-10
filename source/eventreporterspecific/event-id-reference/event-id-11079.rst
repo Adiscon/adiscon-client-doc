@@ -16,7 +16,7 @@ EventReporter Event ID 11079: File Monitor service: configured file could not be
 Answer
 ------
 
-The file monitor service reported an error condition. The event detail identifies the affected operation and carries the specific runtime reason.
+File Monitor service: configured file could not be opened. The product recorded this while processing file monitor service; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,28 @@ Event details
 - **Component:** File Monitor service
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Filemonitor filenotfound or pathnotfound.
+- **Message pattern:** Filemonitor filenotfound or pathnotfound. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or inaccessible to the product service account.
-- Another process is holding the file or the stored queue data is inconsistent.
+- The monitored path, wildcard expansion, sharing mode, encoding, line ending, or saved position does not match the source file.
+- The service account cannot read the file, or the producer has replaced, truncated, or locked it unexpectedly.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Identify the affected path in the event detail.
-#. Check free space, path existence, service-account permissions, and competing file locks.
-#. Correct the storage condition and confirm that queue, file, or rotation processing resumes.
+#. Record the resolved source path, file size and time, encoding, delimiter, and saved-position behavior.
+#. Confirm that the service account can open the source while the producer is writing.
+#. Append one unique record through the producer and verify that it is emitted once.
+
+Detailed procedures
+-------------------
+
+- :doc:`Verify File Monitor source state and encoding <../../shared/troubleshooting/event-id/filemonitor-verify-source-state-and-encoding>` — Check source path, sharing, encoding, line endings, and read position.
+- :doc:`Verify file paths, permissions, and free space <../../shared/troubleshooting/event-id/file-verify-path-permissions-and-disk-space>` — Check expansion, existence, ACLs, service-account context, and storage.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -56,7 +64,7 @@ Evidence to collect
 Escalation
 ----------
 
-If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
 
 Related Event IDs
 -----------------

@@ -4,10 +4,11 @@
 
 ## Event ID reference
 
-- Human-readable index: https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/index.html
-- Machine-readable Event ID catalog: https://www.rsyslog.com/download/files/windows-agent-manual/event-ids.json
+- Human-readable Event ID index: https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/index.html
+- Exact troubleshooting procedures: https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedures.html
+- Machine-readable Event ID and procedure catalog: https://www.rsyslog.com/download/files/windows-agent-manual/event-ids.json
 - Documentation sitemap: https://www.rsyslog.com/download/files/windows-agent-manual/sitemap.xml
 
-The Event ID reference covers product-generated Windows Application Event Log
-diagnostics. It excludes events collected from other providers and user-selected
-IDs emitted by the Write to Windows Event Log action.
+HTML pages are authoritative. The JSON catalog and this file are discovery aids.
+The reference covers product-generated Windows Application Event Log diagnostics and
+excludes externally collected events and administrator-selected action Event IDs.

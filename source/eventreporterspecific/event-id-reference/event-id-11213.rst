@@ -26,20 +26,25 @@ Event details
 - **Component:** Event Log Monitor service
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** System exception while compiling an NT Event Log category.
+- **Message pattern:** System exception while compiling an NT Event Log category. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The configured Windows Event Log channel is unavailable, inaccessible, or contains an unreadable record.
-- Publisher metadata, locale data, or the saved monitor state could not be processed.
+- The configured Windows Event Log channel is missing, disabled, inaccessible, or no longer matches the saved collection position.
+- The service account cannot read the channel or provider metadata, or the channel was cleared or recreated.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read the channel, provider, and record details included in the event.
-#. Confirm the channel exists and the product service account can read it.
-#. Check nearby Windows Event Log service errors, correct the channel or permissions issue, and retry.
+#. Identify the exact channel, collection mode, saved position, and service account.
+#. Confirm that Windows reports the channel enabled and readable in the service-account context.
+#. Use one safe test event to verify collection before resetting any saved position.
+
+Detailed procedures
+-------------------
+
+- :doc:`Collect evidence for an escalation-only runtime event <../../shared/troubleshooting/event-id/runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 
 Verify the result
 -----------------
@@ -56,7 +61,7 @@ Evidence to collect
 Escalation
 ----------
 
-No safe general self-service repair is available for this event. Collect the evidence above and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

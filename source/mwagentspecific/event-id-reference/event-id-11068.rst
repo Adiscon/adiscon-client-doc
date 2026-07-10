@@ -16,7 +16,7 @@ MonitorWare Agent Event ID 11068: Database Monitor service: database monitor ID 
 Answer
 ------
 
-The database monitor service reported a warning condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Database Monitor service: database monitor ID field warning. The product recorded this while processing database monitor service; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,25 @@ Event details
 - **Component:** Database Monitor service
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Runtime diagnostic.
+- **Message pattern:** Database Monitor service: database monitor ID field warning. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The database is unavailable or rejected the connection.
-- The configured data source, credentials, query, table, or field mapping is invalid.
+- The configured provider, DSN, server, database, or authentication setting is unavailable or invalid.
+- The service account lacks database rights, or the provider returned a timeout, TLS, schema, or query error.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Read the database error included in the event detail.
-#. Test the configured data source and credentials from the product service account.
-#. Verify the query, table, and field mappings, then retry the action or monitor.
+#. Preserve the complete provider error and identify the configured database action or monitor.
+#. Confirm provider or DSN bitness, server and database names, authentication mode, and service-account context.
+#. Run a minimal read-only connection test before retrying one product event.
+
+Detailed procedures
+-------------------
+
+- :doc:`Collect evidence for an escalation-only runtime event <../../shared/troubleshooting/event-id/runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 
 Verify the result
 -----------------
@@ -56,7 +61,7 @@ Evidence to collect
 Escalation
 ----------
 
-No safe general self-service repair is available for this event. Collect the evidence above and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

@@ -361,6 +361,41 @@ def _inject_json_ld(app, pagename, templatename, context, doctree):
             "url": urljoin(baseurl, parent_page),
         }
 
+    procedure_id = meta_value("procedure-id")
+    if procedure_id:
+        procedure_catalog = _load_event_id_procedure_catalog()
+        procedure = procedure_catalog.get("procedures", {}).get(str(procedure_id))
+        if procedure:
+            json_ld["@type"] = "HowTo"
+            json_ld["name"] = procedure["title"]
+            json_ld["step"] = [
+                {
+                    "@type": "HowToStep",
+                    "position": position,
+                    "name": step["instruction"],
+                    "text": " ".join(
+                        [step["instruction"], *step.get("commands", []), step["expected"], step["failure"]]
+                    ),
+                }
+                for position, step in enumerate(procedure["steps"], 1)
+            ]
+            json_ld["about"] = [
+                {"@type": "SoftwareApplication", "name": app.config.project}
+            ]
+            product_dirs = {
+                "WinSyslog": "winsyslogspecific",
+                "EventReporter": "eventreporterspecific",
+                "MonitorWare Agent": "mwagentspecific",
+                "rsyslog Windows Agent": "rsyslogwaspecific",
+            }
+            source_dir = product_dirs.get(app.config.project)
+            if source_dir:
+                json_ld["isPartOf"] = {
+                    "@type": "CollectionPage",
+                    "name": f"{app.config.project} Event ID troubleshooting procedures",
+                    "url": urljoin(baseurl, f"{source_dir}/event-id-reference/procedures.html"),
+                }
+
     json_ld_string = json.dumps(json_ld, indent=2)
     script_tag = f'\n<script type="application/ld+json">\n{json_ld_string}\n</script>\n'
     context["metatags"] = metatags + script_tag
@@ -383,13 +418,28 @@ def _load_event_id_catalog() -> dict:
     return json.loads(catalog_path.read_text(encoding="utf-8"))
 
 
+def _load_event_id_procedure_catalog() -> dict:
+    """Load the docs-owned troubleshooting procedure registry."""
+    path = Path(__file__).resolve().parent / "source" / "_data" / "event-id-procedures.json"
+    if not path.is_file():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _event_id_publication_ready() -> bool:
+    """Return true only when event facts and detailed procedures are reviewed."""
+    return (
+        _load_event_id_catalog().get("catalog_status") == "ready"
+        and _load_event_id_procedure_catalog().get("catalog_status") == "ready"
+    )
+
+
 def _copy_event_id_artifacts(app, exception) -> None:
     """Copy the generated JSON catalog and AI discovery index to HTML roots."""
     if exception is not None or app.builder.name != "html":
         return
 
-    catalog = _load_event_id_catalog()
-    if catalog.get("catalog_status") != "ready":
+    if not _event_id_publication_ready():
         for filename in ("event-ids.json", "llms.txt"):
             (Path(app.outdir) / filename).unlink(missing_ok=True)
         return
@@ -422,7 +472,7 @@ def _exclude_other_event_id_references(app, config) -> None:
     current_dir = product_dirs.get(config.project)
     if not current_dir:
         return
-    ready = _load_event_id_catalog().get("catalog_status") == "ready"
+    ready = _event_id_publication_ready()
     if ready:
         app.tags.add("event_id_catalog_ready")
     for source_dir in product_dirs.values():
@@ -431,6 +481,24 @@ def _exclude_other_event_id_references(app, config) -> None:
         pattern = f"{source_dir}/event-id-reference/**"
         if pattern not in config.exclude_patterns:
             config.exclude_patterns.append(pattern)
+    procedure_pattern = "shared/troubleshooting/event-id/**"
+    if not ready:
+        if procedure_pattern not in config.exclude_patterns:
+            config.exclude_patterns.append(procedure_pattern)
+        return
+
+    product_keys = {
+        "WinSyslog": "winsyslog",
+        "EventReporter": "eventreporter",
+        "MonitorWare Agent": "mwagent",
+        "rsyslog Windows Agent": "rsyslog-client",
+    }
+    product_key = product_keys.get(config.project)
+    for procedure in _load_event_id_procedure_catalog().get("procedures", {}).values():
+        if product_key not in procedure.get("products", []):
+            pattern = procedure["document"] + ".rst"
+            if pattern not in config.exclude_patterns:
+                config.exclude_patterns.append(pattern)
 
 
 def enable_event_id_artifacts(app) -> None:

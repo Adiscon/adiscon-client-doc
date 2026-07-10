@@ -164,7 +164,8 @@ _raw_exclude_patterns = [
     'eventreporterspecific/event-id-reference/**',
     'mwagentspecific/event-id-reference/**',
     'rsyslogwaspecific/event-id-reference/**',
-    'winsyslogspecific/event-id-reference/**'
+    'winsyslogspecific/event-id-reference/**',
+    'shared/troubleshooting/event-id/**'
 ]
 
 exclude_patterns = []

@@ -16,7 +16,7 @@ MonitorWare Agent Event ID 11191: Service configuration: log rotation is not lic
 Answer
 ------
 
-The service configuration reported an informational condition. The event detail identifies the affected operation and carries the specific runtime reason.
+Service configuration: log rotation is not licensed. The product recorded this while processing service configuration; the appended event detail identifies the affected object, operation, or provider error.
 
 Event details
 -------------
@@ -26,20 +26,27 @@ Event details
 - **Component:** Service configuration
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** This license does not include the logrotation feature.
+- **Message pattern:** This license does not include the logrotation feature. Additional detail: {event_detail}
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or inaccessible to the product service account.
-- Another process is holding the file or the stored queue data is inconsistent.
+- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
+- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
 
-Troubleshooting
----------------
+Immediate checks
+----------------
 
-#. Identify the affected path in the event detail.
-#. Check free space, path existence, service-account permissions, and competing file locks.
-#. Correct the storage condition and confirm that queue, file, or rotation processing resumes.
+#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
+#. Check recent Service Control Manager and neighboring product events for the first failure.
+#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+
+Detailed procedures
+-------------------
+
+- :doc:`Validate configuration and reload it safely <../../shared/troubleshooting/event-id/config-validate-and-reload>` — Back up, inspect, correct, and test the exact invalid configuration object.
+- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
