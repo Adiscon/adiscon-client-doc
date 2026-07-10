@@ -1,0 +1,13 @@
+# EventReporter documentation
+
+> Canonical documentation for EventReporter 26.07.
+
+## Event ID reference
+
+- Human-readable index: https://www.eventreporter.com/files/manual/eventreporterspecific/event-id-reference/index.html
+- Machine-readable Event ID catalog: https://www.eventreporter.com/files/manual/event-ids.json
+- Documentation sitemap: https://www.eventreporter.com/files/manual/sitemap.xml
+
+The Event ID reference covers product-generated Windows Application Event Log
+diagnostics. It excludes events collected from other providers and user-selected
+IDs emitted by the Write to Windows Event Log action.

@@ -1,0 +1,78 @@
+name: Import Himalaya Event IDs
+
+on:
+  repository_dispatch:
+    types: [himalaya-event-id-catalog]
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: Exact Adiscon/himalaya commit to import
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve source commit
+        id: source
+        env:
+          DISPATCH_COMMIT: ${{ github.event.client_payload.source_commit }}
+          MANUAL_COMMIT: ${{ inputs.source_commit }}
+        run: echo "commit=${DISPATCH_COMMIT:-$MANUAL_COMMIT}" >> "$GITHUB_OUTPUT"
+
+      - name: Create synchronization token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.DOCS_SYNC_APP_ID }}
+          private-key: ${{ secrets.DOCS_SYNC_APP_PRIVATE_KEY }}
+          owner: Adiscon
+          repositories: himalaya,adiscon-client-doc
+
+      - name: Checkout documentation
+        uses: actions/checkout@v4
+
+      - name: Checkout exact Himalaya source
+        uses: actions/checkout@v4
+        with:
+          repository: Adiscon/himalaya
+          ref: ${{ steps.source.outputs.commit }}
+          token: ${{ steps.app-token.outputs.token }}
+          path: _himalaya
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Export, summarize, and generate
+        env:
+          SOURCE_COMMIT: ${{ steps.source.outputs.commit }}
+        run: |
+          cp source/_data/himalaya-event-catalog.json "$RUNNER_TEMP/old-catalog.json"
+          python3 _himalaya/himalaya/diagnostics/export_public_event_catalog.py \
+            --source-commit "$SOURCE_COMMIT" \
+            --output "$RUNNER_TEMP/new-catalog.json"
+          python3 scripts/summarize_event_id_catalog.py \
+            "$RUNNER_TEMP/old-catalog.json" \
+            "$RUNNER_TEMP/new-catalog.json" \
+            "$RUNNER_TEMP/event-id-pr.md"
+          cp "$RUNNER_TEMP/new-catalog.json" source/_data/himalaya-event-catalog.json
+          python3 scripts/generate_event_id_reference.py
+          python3 scripts/generate_event_id_reference.py --check
+
+      - name: Remove source checkout
+        run: rm -rf _himalaya
+
+      - name: Open or update draft documentation PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          branch: automation/himalaya-event-id-catalog
+          delete-branch: true
+          draft: true
+          title: Synchronize Himalaya Event ID reference
+          commit-message: Synchronize Himalaya Event ID reference
+          body-path: ${{ runner.temp }}/event-id-pr.md

@@ -1,0 +1,59 @@
+:orphan:
+
+.. _rsyslog-event-id-11071:
+
+.. meta::
+   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11071: Disk Space Monitor service: runtime operation failed.
+   :event-id: 11071
+   :event-product: rsyslog Windows Agent
+   :event-severity: Error
+   :event-component: Disk Space Monitor service
+   :event-reference: true
+
+rsyslog Windows Agent Event ID 11071: Disk Space Monitor service: runtime operation failed
+==========================================================================================
+
+Answer
+------
+
+The disk space monitor service reported an error condition. The event detail identifies the affected operation and carries the specific runtime reason.
+
+Event details
+-------------
+
+- **Event ID:** ``11071``
+- **Severity:** Error
+- **Component:** Disk Space Monitor service
+- **Windows Event Log source:** ``RSyslogWindowsAgent``
+- **Available since:** 26.07
+- **Message pattern:** Cinfosourcediskspacemonitor doaction.
+
+Possible causes
+---------------
+
+- The configured path is unavailable, full, or inaccessible to the product service account.
+- Another process is holding the file or the stored queue data is inconsistent.
+
+Troubleshooting
+---------------
+
+#. Identify the affected path in the event detail.
+#. Check free space, path existence, service-account permissions, and competing file locks.
+#. Correct the storage condition and confirm that queue, file, or rotation processing resumes.
+
+Verify the result
+-----------------
+
+Repeat or monitor the affected operation and confirm that Event ID 11071 does not recur and that disk space monitor service processing continues.
+
+Evidence to collect
+-------------------
+
+- The complete Windows Application Event Log entry, including all event detail.
+- The product name, exact version, service account, and event timestamp with time zone.
+- A configuration export and debug log covering the same time window, with secrets removed.
+
+Escalation
+----------
+
+If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.

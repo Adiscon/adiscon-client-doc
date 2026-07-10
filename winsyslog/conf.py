@@ -31,6 +31,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from conf_common import (
     configure_builder_extensions,
     configure_pdf_defaults,
+    enable_event_id_artifacts,
     enable_json_ld,
     enable_spelling_extension,
     fix_htmlhelp_encoding,
@@ -362,3 +363,4 @@ def setup(app):
     app.connect('source-read', _replace_legacy_product_name)
     app.connect('build-finished', _replace_legacy_name_in_output)
     enable_json_ld(app)
+    enable_event_id_artifacts(app)

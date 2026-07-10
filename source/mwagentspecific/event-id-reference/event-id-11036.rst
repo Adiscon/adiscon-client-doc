@@ -1,0 +1,66 @@
+:orphan:
+
+.. _mwagent-event-id-11036:
+
+.. meta::
+   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11036: Action processing: runtime operation failed.
+   :event-id: 11036
+   :event-product: MonitorWare Agent
+   :event-severity: Warning
+   :event-component: Action processing
+   :event-reference: true
+
+MonitorWare Agent Event ID 11036: Action processing: runtime operation failed
+=============================================================================
+
+Answer
+------
+
+The action processing reported a warning condition. The event detail identifies the affected operation and carries the specific runtime reason.
+
+Event details
+-------------
+
+- **Event ID:** ``11036``
+- **Severity:** Warning
+- **Component:** Action processing
+- **Windows Event Log source:** ``AdisconMonitoreWareAgent``
+- **Available since:** 26.07
+- **Message pattern:** Cactionsendrelp doaction.
+
+Possible causes
+---------------
+
+- The remote endpoint is unavailable or the network path was interrupted.
+- The listener, protocol, TLS settings, certificate, or permitted-peer configuration does not match.
+
+Troubleshooting
+---------------
+
+#. Use the event detail to identify the endpoint and failing protocol operation.
+#. Verify name resolution, routing, firewall rules, listening port, and remote service state.
+#. For TLS connections, verify certificates, trust, protocol versions, and permitted-peer settings before retrying.
+
+Verify the result
+-----------------
+
+Repeat or monitor the affected operation and confirm that Event ID 11036 does not recur and that action processing processing continues.
+
+Evidence to collect
+-------------------
+
+- The complete Windows Application Event Log entry, including all event detail.
+- The product name, exact version, service account, and event timestamp with time zone.
+- A configuration export and debug log covering the same time window, with secrets removed.
+
+Escalation
+----------
+
+If the event continues after the troubleshooting steps, collect the evidence above and contact Adiscon Support.
+
+Related Event IDs
+-----------------
+
+- :doc:`Event ID 11014 <event-id-11014>`
+- :doc:`Event ID 11019 <event-id-11019>`
+- :doc:`Event ID 11021 <event-id-11021>`

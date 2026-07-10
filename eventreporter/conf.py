@@ -30,6 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from conf_common import (
     configure_builder_extensions,
     configure_pdf_defaults,
+    enable_event_id_artifacts,
     enable_json_ld,
     enable_spelling_extension,
     fix_htmlhelp_encoding,
@@ -301,3 +302,4 @@ def setup(app):
     fix_htmlhelp_encoding(app)
     app.connect('builder-inited', relax_pdf_odd_page_breaks)
     enable_json_ld(app)
+    enable_event_id_artifacts(app)

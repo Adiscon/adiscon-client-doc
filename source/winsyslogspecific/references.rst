@@ -40,6 +40,8 @@ troubleshooting.
    ../shared/references/user-interface-changes
    glossaryofterms
 
+.. include:: ../_generated/event-ids/winsyslog/navigation.inc
+
 External reference
 ------------------
 

@@ -20,3 +20,13 @@ the same issue does not return in later cleanup passes.
   Keep the older-version entitlement note in an FAQ-style answer: current
   licenses can cover older versions, but users may need to request a free
   license key from Adiscon for older product versions.
+
+## Generated Event ID Reference
+
+- Do not edit files under a product's `event-id-reference/` directory,
+  `source/_generated/event-ids/`, or the imported Himalaya catalog by hand.
+  Correct the authoritative Himalaya diagnostic registry and regenerate.
+- Do not treat Event IDs collected from external Windows providers or IDs
+  selected by the Write to Windows Event Log action as product diagnostics.
+- Do not infer that a shared Himalaya source path applies to every product.
+  Preserve the reviewed product list from the authoritative catalog.

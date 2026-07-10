@@ -160,7 +160,11 @@ _raw_exclude_patterns = [
     'glossaryofterms/index.rst','glossaryofterms/*.rst','glossaryofterms/wsconcepts-*.rst','stepbystepguides.rst','stepbystepguides/*.rst',
     'monitorwareconcepts.rst','mwagent/*.rst','index.winsyslog-j.rst',
     'faq/*.rst','mwagentspecific/faq/*.rst',
-    'shared/faq/palo-alto-log-format-change.rst'
+    'shared/faq/palo-alto-log-format-change.rst',
+    'eventreporterspecific/event-id-reference/**',
+    'mwagentspecific/event-id-reference/**',
+    'rsyslogwaspecific/event-id-reference/**',
+    'winsyslogspecific/event-id-reference/**'
 ]
 
 exclude_patterns = []
