@@ -44,10 +44,10 @@ Immediate checks
 Detailed procedures
 -------------------
 
-- :doc:`Verify listener binding and Windows Firewall rules <../../shared/troubleshooting/event-id/network-verify-listener-binding-and-firewall>` — Confirm effective address, port, transport, owning process, and inbound policy.
-- :doc:`Verify SMTP connectivity and mail delivery <../../shared/troubleshooting/event-id/mail-verify-smtp-delivery>` — Separate DNS, TCP, TLS, authentication, relay, recipient, and downstream delivery.
-- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
-- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
+- :ref:`Verify listener binding and Windows Firewall rules <event-id-procedure-network-verify-listener-binding-and-firewall>` — Confirm effective address, port, transport, owning process, and inbound policy.
+- :ref:`Verify SMTP connectivity and mail delivery <event-id-procedure-mail-verify-smtp-delivery>` — Separate DNS, TCP, TLS, authentication, relay, recipient, and downstream delivery.
+- :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -69,6 +69,6 @@ If the event continues after the detailed procedures, collect the listed evidenc
 Related Event IDs
 -----------------
 
-- :doc:`Event ID 11126 <event-id-11126>`
-- :doc:`Event ID 11127 <event-id-11127>`
-- :doc:`Event ID 11128 <event-id-11128>`
+- :ref:`Event ID 11126 <winsyslog-event-id-11126>`
+- :ref:`Event ID 11127 <winsyslog-event-id-11127>`
+- :ref:`Event ID 11128 <winsyslog-event-id-11128>`

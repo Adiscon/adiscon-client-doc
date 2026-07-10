@@ -173,5 +173,5 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Collect an Event ID and neighboring product events <evidence-collect-event-and-neighboring-events>`
-- :doc:`Export configuration and collect a bounded debug log <evidence-export-configuration-and-debug-log>`
+- :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>`
+- :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>`

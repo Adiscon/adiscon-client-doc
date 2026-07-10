@@ -106,4 +106,4 @@ Evidence to collect
 Related procedures
 ------------------
 
-- :doc:`Collect an Event ID and neighboring product events <evidence-collect-event-and-neighboring-events>`
+- :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>`

@@ -32,911 +32,911 @@ Event ID index
      - Meaning
      - Severity
      - Component
-   * - :doc:`100 <event-id-100>`
+   * - :ref:`100 <winsyslog-event-id-100>`
      - The service was installed
      - Information
      - Windows service lifecycle
-   * - :doc:`101 <event-id-101>`
+   * - :ref:`101 <winsyslog-event-id-101>`
      - The service was removed
      - Information
      - Windows service lifecycle
-   * - :doc:`102 <event-id-102>`
+   * - :ref:`102 <winsyslog-event-id-102>`
      - The service could not be removed
      - Error
      - Windows service lifecycle
-   * - :doc:`103 <event-id-103>`
+   * - :ref:`103 <winsyslog-event-id-103>`
      - The service control handler could not be installed
      - Error
      - Windows service lifecycle
-   * - :doc:`104 <event-id-104>`
+   * - :ref:`104 <winsyslog-event-id-104>`
      - The service initialization process failed
      - Error
      - Windows service lifecycle
-   * - :doc:`105 <event-id-105>`
+   * - :ref:`105 <winsyslog-event-id-105>`
      - The service was started
      - Information
      - Windows service lifecycle
-   * - :doc:`106 <event-id-106>`
+   * - :ref:`106 <winsyslog-event-id-106>`
      - The service received an unsupported control request
      - Error
      - Windows service lifecycle
-   * - :doc:`108 <event-id-108>`
+   * - :ref:`108 <winsyslog-event-id-108>`
      - The service was stopped
      - Information
      - Windows service lifecycle
-   * - :doc:`118 <event-id-118>`
+   * - :ref:`118 <winsyslog-event-id-118>`
      - Trial mode reminder
      - Information
      - Licensing
-   * - :doc:`125 <event-id-125>`
+   * - :ref:`125 <winsyslog-event-id-125>`
      - Freeware mode reminder
      - Information
      - Licensing
-   * - :doc:`900 <event-id-900>`
+   * - :ref:`900 <winsyslog-event-id-900>`
      - Invalid license key rejected
      - Error
      - Licensing
-   * - :doc:`901 <event-id-901>`
+   * - :ref:`901 <winsyslog-event-id-901>`
      - Blocked license key rejected
      - Error
      - Licensing
-   * - :doc:`11000 <event-id-11000>`
+   * - :ref:`11000 <winsyslog-event-id-11000>`
      - SETP connection closed by the receiver
      - Warning
      - SETP sender
-   * - :doc:`11001 <event-id-11001>`
+   * - :ref:`11001 <winsyslog-event-id-11001>`
      - SETP TLS session closed
      - Warning
      - SETP sender
-   * - :doc:`11002 <event-id-11002>`
+   * - :ref:`11002 <winsyslog-event-id-11002>`
      - SETP delivery delayed in the action cache
      - Warning
      - SETP sender
-   * - :doc:`11003 <event-id-11003>`
+   * - :ref:`11003 <winsyslog-event-id-11003>`
      - SETP delivery failed
      - Error
      - SETP sender
-   * - :doc:`11004 <event-id-11004>`
+   * - :ref:`11004 <winsyslog-event-id-11004>`
      - SETP session restored
      - Information
      - SETP sender
-   * - :doc:`11005 <event-id-11005>`
+   * - :ref:`11005 <winsyslog-event-id-11005>`
      - Configured feature is not licensed
      - Warning
      - Licensing
-   * - :doc:`11006 <event-id-11006>`
+   * - :ref:`11006 <winsyslog-event-id-11006>`
      - Action callruleset configured ruleset was not found
      - Error
      - Call Ruleset action
-   * - :doc:`11007 <event-id-11007>`
+   * - :ref:`11007 <winsyslog-event-id-11007>`
      - Action configuration: required timer could not be created
      - Warning
      - Action configuration
-   * - :doc:`11008 <event-id-11008>`
+   * - :ref:`11008 <winsyslog-event-id-11008>`
      - Action configuration: configured action feature is unavailable
      - Warning
      - Action configuration
-   * - :doc:`11009 <event-id-11009>`
+   * - :ref:`11009 <winsyslog-event-id-11009>`
      - Action configuration: runtime operation failed
      - Warning
      - Action configuration
-   * - :doc:`11010 <event-id-11010>`
+   * - :ref:`11010 <winsyslog-event-id-11010>`
      - ODBC database action: database operation failed
      - Error
      - ODBC database action
-   * - :doc:`11011 <event-id-11011>`
+   * - :ref:`11011 <winsyslog-event-id-11011>`
      - ODBC database action: database operation failed
      - Error
      - ODBC database action
-   * - :doc:`11012 <event-id-11012>`
+   * - :ref:`11012 <winsyslog-event-id-11012>`
      - OLE DB action: database operation failed
      - Error
      - OLE DB action
-   * - :doc:`11013 <event-id-11013>`
+   * - :ref:`11013 <winsyslog-event-id-11013>`
      - OLE DB action: OLE DB operation failed
      - Error
      - OLE DB action
-   * - :doc:`11014 <event-id-11014>`
+   * - :ref:`11014 <winsyslog-event-id-11014>`
      - Action processing: action initialization failed
      - Error
      - Action processing
-   * - :doc:`11015 <event-id-11015>`
+   * - :ref:`11015 <winsyslog-event-id-11015>`
      - Microsoft Message Queuing action: Microsoft Message Queuing operation failed
      - Error
      - Microsoft Message Queuing action
-   * - :doc:`11016 <event-id-11016>`
+   * - :ref:`11016 <winsyslog-event-id-11016>`
      - SNMP action: runtime operation failed
      - Warning
      - SNMP action
-   * - :doc:`11017 <event-id-11017>`
+   * - :ref:`11017 <winsyslog-event-id-11017>`
      - Forward Syslog action: action initialization failed
      - Error
      - Forward Syslog action
-   * - :doc:`11018 <event-id-11018>`
+   * - :ref:`11018 <winsyslog-event-id-11018>`
      - Forward Syslog action: runtime operation failed
      - Warning
      - Forward Syslog action
-   * - :doc:`11019 <event-id-11019>`
+   * - :ref:`11019 <winsyslog-event-id-11019>`
      - Action processing: runtime operation failed
      - Error
      - Action processing
-   * - :doc:`11020 <event-id-11020>`
+   * - :ref:`11020 <winsyslog-event-id-11020>`
      - Control Windows Service action: runtime operation failed
      - Error
      - Control Windows Service action
-   * - :doc:`11021 <event-id-11021>`
+   * - :ref:`11021 <winsyslog-event-id-11021>`
      - Action processing: configured action feature is unavailable
      - Warning
      - Action processing
-   * - :doc:`11022 <event-id-11022>`
+   * - :ref:`11022 <winsyslog-event-id-11022>`
      - Action processing: action type is missing from configuration
      - Error
      - Action processing
-   * - :doc:`11023 <event-id-11023>`
+   * - :ref:`11023 <winsyslog-event-id-11023>`
      - Action processing: invalid action type in configuration
      - Error
      - Action processing
-   * - :doc:`11024 <event-id-11024>`
+   * - :ref:`11024 <winsyslog-event-id-11024>`
      - Action processing: runtime operation failed
      - Error
      - Action processing
-   * - :doc:`11025 <event-id-11025>`
+   * - :ref:`11025 <winsyslog-event-id-11025>`
      - Action processing: invalid action type in configuration
      - Error
      - Action processing
-   * - :doc:`11026 <event-id-11026>`
+   * - :ref:`11026 <winsyslog-event-id-11026>`
      - Action processing: runtime operation failed
      - Error
      - Action processing
-   * - :doc:`11027 <event-id-11027>`
+   * - :ref:`11027 <winsyslog-event-id-11027>`
      - Action processing: runtime operation failed
      - Error
      - Action processing
-   * - :doc:`11028 <event-id-11028>`
+   * - :ref:`11028 <winsyslog-event-id-11028>`
      - Action processing: runtime operation failed
      - Error
      - Action processing
-   * - :doc:`11029 <event-id-11029>`
+   * - :ref:`11029 <winsyslog-event-id-11029>`
      - ODBC database action: database operation failed
      - Error
      - ODBC database action
-   * - :doc:`11030 <event-id-11030>`
+   * - :ref:`11030 <winsyslog-event-id-11030>`
      - ODBC database action: database operation failed
      - Error
      - ODBC database action
-   * - :doc:`11031 <event-id-11031>`
+   * - :ref:`11031 <winsyslog-event-id-11031>`
      - OLE DB action: database operation failed
      - Error
      - OLE DB action
-   * - :doc:`11032 <event-id-11032>`
+   * - :ref:`11032 <winsyslog-event-id-11032>`
      - OLE DB action: OLE DB operation failed
      - Error
      - OLE DB action
-   * - :doc:`11033 <event-id-11033>`
+   * - :ref:`11033 <winsyslog-event-id-11033>`
      - Action processing: runtime operation failed
      - Error
      - Action processing
-   * - :doc:`11034 <event-id-11034>`
+   * - :ref:`11034 <winsyslog-event-id-11034>`
      - SETP sender: TLS client initialization failed
      - Error
      - SETP sender
-   * - :doc:`11035 <event-id-11035>`
+   * - :ref:`11035 <winsyslog-event-id-11035>`
      - SETP sender: SETP session initialization failed
      - Error
      - SETP sender
-   * - :doc:`11036 <event-id-11036>`
+   * - :ref:`11036 <winsyslog-event-id-11036>`
      - Action processing: runtime operation failed
      - Warning
      - Action processing
-   * - :doc:`11037 <event-id-11037>`
+   * - :ref:`11037 <winsyslog-event-id-11037>`
      - Action processing: runtime operation failed
      - Error
      - Action processing
-   * - :doc:`11038 <event-id-11038>`
+   * - :ref:`11038 <winsyslog-event-id-11038>`
      - SNMP action: runtime operation failed
      - Error
      - SNMP action
-   * - :doc:`11039 <event-id-11039>`
+   * - :ref:`11039 <winsyslog-event-id-11039>`
      - Forward Syslog action: runtime operation failed
      - Warning
      - Forward Syslog action
-   * - :doc:`11040 <event-id-11040>`
+   * - :ref:`11040 <winsyslog-event-id-11040>`
      - Forward Syslog action: runtime operation failed
      - Error
      - Forward Syslog action
-   * - :doc:`11041 <event-id-11041>`
+   * - :ref:`11041 <winsyslog-event-id-11041>`
      - Start Program action: runtime operation failed
      - Error
      - Start Program action
-   * - :doc:`11042 <event-id-11042>`
+   * - :ref:`11042 <winsyslog-event-id-11042>`
      - WinSyslog file action: runtime operation failed
      - Error
      - WinSyslog file action
-   * - :doc:`11043 <event-id-11043>`
+   * - :ref:`11043 <winsyslog-event-id-11043>`
      - Licensing: connection attempt failed
      - Error
      - Licensing
-   * - :doc:`11044 <event-id-11044>`
+   * - :ref:`11044 <winsyslog-event-id-11044>`
      - Licensing: licensed client limit exceeded
      - Error
      - Licensing
-   * - :doc:`11045 <event-id-11045>`
+   * - :ref:`11045 <winsyslog-event-id-11045>`
      - File-based configuration: file-based configuration could not be loaded
      - Error
      - File-based configuration
-   * - :doc:`11046 <event-id-11046>`
+   * - :ref:`11046 <winsyslog-event-id-11046>`
      - File-based configuration: file-based configuration could not be loaded
      - Error
      - File-based configuration
-   * - :doc:`11047 <event-id-11047>`
+   * - :ref:`11047 <winsyslog-event-id-11047>`
      - Configuration: invalid host or IP address
      - Error
      - Configuration
-   * - :doc:`11048 <event-id-11048>`
+   * - :ref:`11048 <winsyslog-event-id-11048>`
      - Network and TLS transport: unknown runtime error
      - Warning
      - Network and TLS transport
-   * - :doc:`11049 <event-id-11049>`
+   * - :ref:`11049 <winsyslog-event-id-11049>`
      - Network and TLS transport: TLS operation warning
      - Warning
      - Network and TLS transport
-   * - :doc:`11050 <event-id-11050>`
+   * - :ref:`11050 <winsyslog-event-id-11050>`
      - Network and TLS transport: TLS operation warning
      - Warning
      - Network and TLS transport
-   * - :doc:`11051 <event-id-11051>`
+   * - :ref:`11051 <winsyslog-event-id-11051>`
      - Network and TLS transport: TLS operation warning
      - Warning
      - Network and TLS transport
-   * - :doc:`11052 <event-id-11052>`
+   * - :ref:`11052 <winsyslog-event-id-11052>`
      - Network and TLS transport: TLS operation warning
      - Warning
      - Network and TLS transport
-   * - :doc:`11053 <event-id-11053>`
+   * - :ref:`11053 <winsyslog-event-id-11053>`
      - Network and TLS transport: TLS operation warning
      - Warning
      - Network and TLS transport
-   * - :doc:`11054 <event-id-11054>`
+   * - :ref:`11054 <winsyslog-event-id-11054>`
      - Network and TLS transport: TLS operation warning
      - Warning
      - Network and TLS transport
-   * - :doc:`11055 <event-id-11055>`
+   * - :ref:`11055 <winsyslog-event-id-11055>`
      - Network and TLS transport: TLS operation warning
      - Warning
      - Network and TLS transport
-   * - :doc:`11056 <event-id-11056>`
+   * - :ref:`11056 <winsyslog-event-id-11056>`
      - Network and TLS transport: TLS operation warning
      - Warning
      - Network and TLS transport
-   * - :doc:`11057 <event-id-11057>`
+   * - :ref:`11057 <winsyslog-event-id-11057>`
      - Network and TLS transport: TLS server initialization failed
      - Warning
      - Network and TLS transport
-   * - :doc:`11058 <event-id-11058>`
+   * - :ref:`11058 <winsyslog-event-id-11058>`
      - Filter engine: regular expression initialization failed
      - Error
      - Filter engine
-   * - :doc:`11059 <event-id-11059>`
+   * - :ref:`11059 <winsyslog-event-id-11059>`
      - Monitoring service: service component initialization failed
      - Error
      - Monitoring service
-   * - :doc:`11060 <event-id-11060>`
+   * - :ref:`11060 <winsyslog-event-id-11060>`
      - MonitorWare Echo service: MonitorWare Echo operation raised an exception
      - Warning
      - MonitorWare Echo service
-   * - :doc:`11061 <event-id-11061>`
+   * - :ref:`11061 <winsyslog-event-id-11061>`
      - MonitorWare Echo service: MonitorWare Echo operation raised an exception
      - Error
      - MonitorWare Echo service
-   * - :doc:`11062 <event-id-11062>`
+   * - :ref:`11062 <winsyslog-event-id-11062>`
      - MonitorWare Echo service: MonitorWare Echo operation raised an exception
      - Error
      - MonitorWare Echo service
-   * - :doc:`11063 <event-id-11063>`
+   * - :ref:`11063 <winsyslog-event-id-11063>`
      - MonitorWare Echo service: MonitorWare Echo operation raised an unknown exception
      - Error
      - MonitorWare Echo service
-   * - :doc:`11064 <event-id-11064>`
+   * - :ref:`11064 <winsyslog-event-id-11064>`
      - CPU Monitor service: CPU monitor raised an exception
      - Error
      - CPU Monitor service
-   * - :doc:`11065 <event-id-11065>`
+   * - :ref:`11065 <winsyslog-event-id-11065>`
      - CPU Monitor service: CPU monitor raised an unknown exception
      - Error
      - CPU Monitor service
-   * - :doc:`11066 <event-id-11066>`
+   * - :ref:`11066 <winsyslog-event-id-11066>`
      - Database Monitor service: database operation failed
      - Error
      - Database Monitor service
-   * - :doc:`11067 <event-id-11067>`
+   * - :ref:`11067 <winsyslog-event-id-11067>`
      - Database Monitor service: database operation failed
      - Error
      - Database Monitor service
-   * - :doc:`11068 <event-id-11068>`
+   * - :ref:`11068 <winsyslog-event-id-11068>`
      - Database Monitor service: database monitor ID field warning
      - Warning
      - Database Monitor service
-   * - :doc:`11069 <event-id-11069>`
+   * - :ref:`11069 <winsyslog-event-id-11069>`
      - Database Monitor service: database operation failed
      - Error
      - Database Monitor service
-   * - :doc:`11070 <event-id-11070>`
+   * - :ref:`11070 <winsyslog-event-id-11070>`
      - Database Monitor service: database operation failed
      - Error
      - Database Monitor service
-   * - :doc:`11071 <event-id-11071>`
+   * - :ref:`11071 <winsyslog-event-id-11071>`
      - Disk Space Monitor service: runtime operation failed
      - Error
      - Disk Space Monitor service
-   * - :doc:`11072 <event-id-11072>`
+   * - :ref:`11072 <winsyslog-event-id-11072>`
      - DTLS listener: listener could not bind to its configured address
      - Error
      - DTLS listener
-   * - :doc:`11073 <event-id-11073>`
+   * - :ref:`11073 <winsyslog-event-id-11073>`
      - DTLS listener: runtime operation failed
      - Error
      - DTLS listener
-   * - :doc:`11074 <event-id-11074>`
+   * - :ref:`11074 <winsyslog-event-id-11074>`
      - File Monitor service: file monitoring warning
      - Warning
      - File Monitor service
-   * - :doc:`11075 <event-id-11075>`
+   * - :ref:`11075 <winsyslog-event-id-11075>`
      - File Monitor service: configured file could not be opened
      - Error
      - File Monitor service
-   * - :doc:`11076 <event-id-11076>`
+   * - :ref:`11076 <winsyslog-event-id-11076>`
      - File Monitor service: configured file could not be opened
      - Error
      - File Monitor service
-   * - :doc:`11077 <event-id-11077>`
+   * - :ref:`11077 <winsyslog-event-id-11077>`
      - File Monitor service: file monitoring operation failed
      - Error
      - File Monitor service
-   * - :doc:`11078 <event-id-11078>`
+   * - :ref:`11078 <winsyslog-event-id-11078>`
      - File Monitor service: file monitoring operation failed
      - Error
      - File Monitor service
-   * - :doc:`11079 <event-id-11079>`
+   * - :ref:`11079 <winsyslog-event-id-11079>`
      - File Monitor service: configured file could not be opened
      - Error
      - File Monitor service
-   * - :doc:`11080 <event-id-11080>`
+   * - :ref:`11080 <winsyslog-event-id-11080>`
      - File Monitor service: configured file could not be opened
      - Error
      - File Monitor service
-   * - :doc:`11081 <event-id-11081>`
+   * - :ref:`11081 <winsyslog-event-id-11081>`
      - File Monitor service: file monitoring operation failed
      - Error
      - File Monitor service
-   * - :doc:`11082 <event-id-11082>`
+   * - :ref:`11082 <winsyslog-event-id-11082>`
      - FTP Probe service: probe operation raised an exception
      - Error
      - FTP Probe service
-   * - :doc:`11083 <event-id-11083>`
+   * - :ref:`11083 <winsyslog-event-id-11083>`
      - FTP Probe service: probe operation raised an unknown exception
      - Error
      - FTP Probe service
-   * - :doc:`11084 <event-id-11084>`
+   * - :ref:`11084 <winsyslog-event-id-11084>`
      - Heartbeat service: heartbeat operation raised an exception
      - Error
      - Heartbeat service
-   * - :doc:`11085 <event-id-11085>`
+   * - :ref:`11085 <winsyslog-event-id-11085>`
      - Heartbeat service: heartbeat operation raised an unknown exception
      - Error
      - Heartbeat service
-   * - :doc:`11086 <event-id-11086>`
+   * - :ref:`11086 <winsyslog-event-id-11086>`
      - HTTP Probe service: probe operation raised an exception
      - Error
      - HTTP Probe service
-   * - :doc:`11087 <event-id-11087>`
+   * - :ref:`11087 <winsyslog-event-id-11087>`
      - HTTP Probe service: probe operation raised an unknown exception
      - Error
      - HTTP Probe service
-   * - :doc:`11088 <event-id-11088>`
+   * - :ref:`11088 <winsyslog-event-id-11088>`
      - IMAP Probe service: probe operation raised an exception
      - Error
      - IMAP Probe service
-   * - :doc:`11089 <event-id-11089>`
+   * - :ref:`11089 <winsyslog-event-id-11089>`
      - IMAP Probe service: probe operation raised an unknown exception
      - Error
      - IMAP Probe service
-   * - :doc:`11090 <event-id-11090>`
+   * - :ref:`11090 <winsyslog-event-id-11090>`
      - SETP receiver: runtime operation failed
      - Error
      - SETP receiver
-   * - :doc:`11091 <event-id-11091>`
+   * - :ref:`11091 <winsyslog-event-id-11091>`
      - SETP receiver: SETP operation raised an exception
      - Warning
      - SETP receiver
-   * - :doc:`11092 <event-id-11092>`
+   * - :ref:`11092 <winsyslog-event-id-11092>`
      - SETP receiver: SETP operation raised an exception
      - Error
      - SETP receiver
-   * - :doc:`11093 <event-id-11093>`
+   * - :ref:`11093 <winsyslog-event-id-11093>`
      - SETP receiver: SETP operation raised an exception
      - Error
      - SETP receiver
-   * - :doc:`11094 <event-id-11094>`
+   * - :ref:`11094 <winsyslog-event-id-11094>`
      - SETP receiver: SETP operation raised an unknown exception
      - Error
      - SETP receiver
-   * - :doc:`11095 <event-id-11095>`
+   * - :ref:`11095 <winsyslog-event-id-11095>`
      - NNTP Probe service: probe operation raised an exception
      - Error
      - NNTP Probe service
-   * - :doc:`11096 <event-id-11096>`
+   * - :ref:`11096 <winsyslog-event-id-11096>`
      - NNTP Probe service: probe operation raised an unknown exception
      - Error
      - NNTP Probe service
-   * - :doc:`11097 <event-id-11097>`
+   * - :ref:`11097 <winsyslog-event-id-11097>`
      - Event Log Monitor service: Windows Event Log operation failed
      - Error
      - Event Log Monitor service
-   * - :doc:`11098 <event-id-11098>`
+   * - :ref:`11098 <winsyslog-event-id-11098>`
      - Event Log Monitor service: Windows Event Log could not be opened
      - Error
      - Event Log Monitor service
-   * - :doc:`11099 <event-id-11099>`
+   * - :ref:`11099 <winsyslog-event-id-11099>`
      - Event Log Monitor service: unknown runtime error
      - Error
      - Event Log Monitor service
-   * - :doc:`11100 <event-id-11100>`
+   * - :ref:`11100 <winsyslog-event-id-11100>`
      - Event Log Monitor service: runtime operation failed
      - Warning
      - Event Log Monitor service
-   * - :doc:`11101 <event-id-11101>`
+   * - :ref:`11101 <winsyslog-event-id-11101>`
      - Event reporter service
      - Error
      - Event Log Monitor service
-   * - :doc:`11102 <event-id-11102>`
+   * - :ref:`11102 <winsyslog-event-id-11102>`
      - Event Log Monitor service: Windows Event Log record was unreadable
      - Error
      - Event Log Monitor service
-   * - :doc:`11103 <event-id-11103>`
+   * - :ref:`11103 <winsyslog-event-id-11103>`
      - Event Log Monitor service: Windows Event Log clear target already exists
      - Error
      - Event Log Monitor service
-   * - :doc:`11104 <event-id-11104>`
+   * - :ref:`11104 <winsyslog-event-id-11104>`
      - Event Log Monitor service: Windows Event Log could not be cleared
      - Error
      - Event Log Monitor service
-   * - :doc:`11105 <event-id-11105>`
+   * - :ref:`11105 <winsyslog-event-id-11105>`
      - Event Log Monitor service: Windows Event Log clear retry succeeded
      - Information
      - Event Log Monitor service
-   * - :doc:`11106 <event-id-11106>`
+   * - :ref:`11106 <winsyslog-event-id-11106>`
      - Windows Event Log cleared and saved
      - Information
      - Event Log Monitor service
-   * - :doc:`11107 <event-id-11107>`
+   * - :ref:`11107 <winsyslog-event-id-11107>`
      - Windows Event Log cleared
      - Information
      - Event Log Monitor service
-   * - :doc:`11108 <event-id-11108>`
+   * - :ref:`11108 <winsyslog-event-id-11108>`
      - Event Log Monitor service: Windows Event Log operation failed
      - Error
      - Event Log Monitor service
-   * - :doc:`11109 <event-id-11109>`
+   * - :ref:`11109 <winsyslog-event-id-11109>`
      - Event Log Monitor service: Windows Event Log operation failed
      - Error
      - Event Log Monitor service
-   * - :doc:`11110 <event-id-11110>`
+   * - :ref:`11110 <winsyslog-event-id-11110>`
      - Event Log Monitor service: licensed Event Log Monitor limit reached
      - Error
      - Event Log Monitor service
-   * - :doc:`11111 <event-id-11111>`
+   * - :ref:`11111 <winsyslog-event-id-11111>`
      - Windows Service Monitor: Windows Service Monitor raised an exception
      - Error
      - Windows Service Monitor
-   * - :doc:`11112 <event-id-11112>`
+   * - :ref:`11112 <winsyslog-event-id-11112>`
      - Syslog listener: service component initialization failed
      - Error
      - Syslog listener
-   * - :doc:`11113 <event-id-11113>`
+   * - :ref:`11113 <winsyslog-event-id-11113>`
      - Syslog listener: service component initialization failed
      - Error
      - Syslog listener
-   * - :doc:`11114 <event-id-11114>`
+   * - :ref:`11114 <winsyslog-event-id-11114>`
      - Syslog listener: listener could not bind to its configured address
      - Warning
      - Syslog listener
-   * - :doc:`11115 <event-id-11115>`
+   * - :ref:`11115 <winsyslog-event-id-11115>`
      - Syslog listener: listener could not bind to its configured address
      - Error
      - Syslog listener
-   * - :doc:`11116 <event-id-11116>`
+   * - :ref:`11116 <winsyslog-event-id-11116>`
      - Syslog listener: runtime operation failed
      - Error
      - Syslog listener
-   * - :doc:`11117 <event-id-11117>`
+   * - :ref:`11117 <winsyslog-event-id-11117>`
      - Ping Probe service: runtime operation failed
      - Error
      - Ping Probe service
-   * - :doc:`11118 <event-id-11118>`
+   * - :ref:`11118 <winsyslog-event-id-11118>`
      - Ping Probe service: runtime operation failed
      - Error
      - Ping Probe service
-   * - :doc:`11119 <event-id-11119>`
+   * - :ref:`11119 <winsyslog-event-id-11119>`
      - POP3 Probe service: probe operation raised an exception
      - Error
      - POP3 Probe service
-   * - :doc:`11120 <event-id-11120>`
+   * - :ref:`11120 <winsyslog-event-id-11120>`
      - POP3 Probe service: probe operation raised an unknown exception
      - Error
      - POP3 Probe service
-   * - :doc:`11121 <event-id-11121>`
+   * - :ref:`11121 <winsyslog-event-id-11121>`
      - RELP listener: listener could not bind to its configured address
      - Error
      - RELP listener
-   * - :doc:`11122 <event-id-11122>`
+   * - :ref:`11122 <winsyslog-event-id-11122>`
      - RELP listener: runtime operation failed
      - Error
      - RELP listener
-   * - :doc:`11123 <event-id-11123>`
+   * - :ref:`11123 <winsyslog-event-id-11123>`
      - Serial Port Monitor: serial port operation failed
      - Error
      - Serial Port Monitor
-   * - :doc:`11124 <event-id-11124>`
+   * - :ref:`11124 <winsyslog-event-id-11124>`
      - Serial Port Monitor: serial port operation raised an exception
      - Error
      - Serial Port Monitor
-   * - :doc:`11125 <event-id-11125>`
+   * - :ref:`11125 <winsyslog-event-id-11125>`
      - Serial Port Monitor: serial port operation raised an unknown exception
      - Error
      - Serial Port Monitor
-   * - :doc:`11126 <event-id-11126>`
+   * - :ref:`11126 <winsyslog-event-id-11126>`
      - SMTP listener: SMTP listener raised an exception
      - Warning
      - SMTP listener
-   * - :doc:`11127 <event-id-11127>`
+   * - :ref:`11127 <winsyslog-event-id-11127>`
      - SMTP listener: SMTP listener raised an exception
      - Error
      - SMTP listener
-   * - :doc:`11128 <event-id-11128>`
+   * - :ref:`11128 <winsyslog-event-id-11128>`
      - SMTP listener: SMTP listener raised an exception
      - Error
      - SMTP listener
-   * - :doc:`11129 <event-id-11129>`
+   * - :ref:`11129 <winsyslog-event-id-11129>`
      - SMTP listener: SMTP listener raised an unknown exception
      - Error
      - SMTP listener
-   * - :doc:`11130 <event-id-11130>`
+   * - :ref:`11130 <winsyslog-event-id-11130>`
      - SMTP Probe service: probe operation raised an exception
      - Error
      - SMTP Probe service
-   * - :doc:`11131 <event-id-11131>`
+   * - :ref:`11131 <winsyslog-event-id-11131>`
      - SMTP Probe service: probe operation raised an unknown exception
      - Error
      - SMTP Probe service
-   * - :doc:`11132 <event-id-11132>`
+   * - :ref:`11132 <winsyslog-event-id-11132>`
      - SNMP Monitor service: SNMP operation raised an exception
      - Warning
      - SNMP Monitor service
-   * - :doc:`11133 <event-id-11133>`
+   * - :ref:`11133 <winsyslog-event-id-11133>`
      - SNMP Monitor service: SNMP operation raised an exception
      - Error
      - SNMP Monitor service
-   * - :doc:`11134 <event-id-11134>`
+   * - :ref:`11134 <winsyslog-event-id-11134>`
      - SNMP Monitor service: SNMP operation raised an unknown exception
      - Error
      - SNMP Monitor service
-   * - :doc:`11135 <event-id-11135>`
+   * - :ref:`11135 <winsyslog-event-id-11135>`
      - SNMP Monitor service: SNMP operation raised an exception
      - Error
      - SNMP Monitor service
-   * - :doc:`11136 <event-id-11136>`
+   * - :ref:`11136 <winsyslog-event-id-11136>`
      - SNMP Monitor service: SNMP operation raised an unknown exception
      - Error
      - SNMP Monitor service
-   * - :doc:`11137 <event-id-11137>`
+   * - :ref:`11137 <winsyslog-event-id-11137>`
      - SNMP Trap Receiver: SNMP operation raised an exception
      - Warning
      - SNMP Trap Receiver
-   * - :doc:`11138 <event-id-11138>`
+   * - :ref:`11138 <winsyslog-event-id-11138>`
      - SNMP Trap Receiver: SNMP operation raised an exception
      - Error
      - SNMP Trap Receiver
-   * - :doc:`11139 <event-id-11139>`
+   * - :ref:`11139 <winsyslog-event-id-11139>`
      - SNMP Trap Receiver: SNMP operation raised an exception
      - Error
      - SNMP Trap Receiver
-   * - :doc:`11140 <event-id-11140>`
+   * - :ref:`11140 <winsyslog-event-id-11140>`
      - SNMP Trap Receiver: SNMP operation raised an unknown exception
      - Error
      - SNMP Trap Receiver
-   * - :doc:`11141 <event-id-11141>`
+   * - :ref:`11141 <winsyslog-event-id-11141>`
      - Syslog listener: BEEP listener option could not be applied
      - Error
      - Syslog listener
-   * - :doc:`11142 <event-id-11142>`
+   * - :ref:`11142 <winsyslog-event-id-11142>`
      - Syslog listener: BEEP listener initialization failed
      - Error
      - Syslog listener
-   * - :doc:`11143 <event-id-11143>`
+   * - :ref:`11143 <winsyslog-event-id-11143>`
      - Syslog listener: BEEP listener port could not be applied
      - Error
      - Syslog listener
-   * - :doc:`11144 <event-id-11144>`
+   * - :ref:`11144 <winsyslog-event-id-11144>`
      - Syslog listener: listener could not bind to its configured address
      - Warning
      - Syslog listener
-   * - :doc:`11145 <event-id-11145>`
+   * - :ref:`11145 <winsyslog-event-id-11145>`
      - Syslog listener: listener could not bind to its configured address
      - Error
      - Syslog listener
-   * - :doc:`11146 <event-id-11146>`
+   * - :ref:`11146 <winsyslog-event-id-11146>`
      - Syslog listener: runtime operation failed
      - Error
      - Syslog listener
-   * - :doc:`11147 <event-id-11147>`
+   * - :ref:`11147 <winsyslog-event-id-11147>`
      - Event Log Monitor V2 service: required timer could not be created
      - Warning
      - Event Log Monitor V2 service
-   * - :doc:`11148 <event-id-11148>`
+   * - :ref:`11148 <winsyslog-event-id-11148>`
      - Event Log Monitor V2 service: runtime operation failed
      - Error
      - Event Log Monitor V2 service
-   * - :doc:`11149 <event-id-11149>`
+   * - :ref:`11149 <winsyslog-event-id-11149>`
      - Event Log Monitor V2 service: general runtime error
      - Warning
      - Event Log Monitor V2 service
-   * - :doc:`11150 <event-id-11150>`
+   * - :ref:`11150 <winsyslog-event-id-11150>`
      - Event Log Monitor V2 service: Windows Event Log operation failed
      - Error
      - Event Log Monitor V2 service
-   * - :doc:`11151 <event-id-11151>`
+   * - :ref:`11151 <winsyslog-event-id-11151>`
      - Event Log Monitor V2 service: Windows Event Log operation failed
      - Error
      - Event Log Monitor V2 service
-   * - :doc:`11152 <event-id-11152>`
+   * - :ref:`11152 <winsyslog-event-id-11152>`
      - Product runtime: runtime operation failed
      - Error
      - Product runtime
-   * - :doc:`11153 <event-id-11153>`
+   * - :ref:`11153 <winsyslog-event-id-11153>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation
-   * - :doc:`11154 <event-id-11154>`
+   * - :ref:`11154 <winsyslog-event-id-11154>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation
-   * - :doc:`11155 <event-id-11155>`
+   * - :ref:`11155 <winsyslog-event-id-11155>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation
-   * - :doc:`11156 <event-id-11156>`
+   * - :ref:`11156 <winsyslog-event-id-11156>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation
-   * - :doc:`11157 <event-id-11157>`
+   * - :ref:`11157 <winsyslog-event-id-11157>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation
-   * - :doc:`11158 <event-id-11158>`
+   * - :ref:`11158 <winsyslog-event-id-11158>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation
-   * - :doc:`11159 <event-id-11159>`
+   * - :ref:`11159 <winsyslog-event-id-11159>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation
-   * - :doc:`11160 <event-id-11160>`
+   * - :ref:`11160 <winsyslog-event-id-11160>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation
-   * - :doc:`11161 <event-id-11161>`
+   * - :ref:`11161 <winsyslog-event-id-11161>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation
-   * - :doc:`11162 <event-id-11162>`
+   * - :ref:`11162 <winsyslog-event-id-11162>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation
-   * - :doc:`11163 <event-id-11163>`
+   * - :ref:`11163 <winsyslog-event-id-11163>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation
-   * - :doc:`11164 <event-id-11164>`
+   * - :ref:`11164 <winsyslog-event-id-11164>`
      - Email action: invalid SMTP recipient address
      - Error
      - Email action
-   * - :doc:`11165 <event-id-11165>`
+   * - :ref:`11165 <winsyslog-event-id-11165>`
      - Email action: SMTP recipient address is missing
      - Error
      - Email action
-   * - :doc:`11166 <event-id-11166>`
+   * - :ref:`11166 <winsyslog-event-id-11166>`
      - OLE DB action: OLE DB operation failed
      - Error
      - OLE DB action
-   * - :doc:`11167 <event-id-11167>`
+   * - :ref:`11167 <winsyslog-event-id-11167>`
      - Runtime resource management: memory reserve is in use
      - Warning
      - Runtime resource management
-   * - :doc:`11168 <event-id-11168>`
+   * - :ref:`11168 <winsyslog-event-id-11168>`
      - Runtime resource management: memory allocation failed
      - Error
      - Runtime resource management
-   * - :doc:`11169 <event-id-11169>`
+   * - :ref:`11169 <winsyslog-event-id-11169>`
      - Product runtime: runtime operation failed
      - Error
      - Product runtime
-   * - :doc:`11170 <event-id-11170>`
+   * - :ref:`11170 <winsyslog-event-id-11170>`
      - Queue manager: runtime operation failed
      - Error
      - Queue manager
-   * - :doc:`11171 <event-id-11171>`
+   * - :ref:`11171 <winsyslog-event-id-11171>`
      - Queue manager: unknown runtime error
      - Error
      - Queue manager
-   * - :doc:`11172 <event-id-11172>`
+   * - :ref:`11172 <winsyslog-event-id-11172>`
      - Queue manager: unknown runtime error
      - Error
      - Queue manager
-   * - :doc:`11173 <event-id-11173>`
+   * - :ref:`11173 <winsyslog-event-id-11173>`
      - Queue manager: runtime operation failed
      - Error
      - Queue manager
-   * - :doc:`11174 <event-id-11174>`
+   * - :ref:`11174 <winsyslog-event-id-11174>`
      - Queue manager: queue capacity condition
      - Information
      - Queue manager
-   * - :doc:`11175 <event-id-11175>`
+   * - :ref:`11175 <winsyslog-event-id-11175>`
      - Queue manager: queue capacity condition
      - Warning
      - Queue manager
-   * - :doc:`11176 <event-id-11176>`
+   * - :ref:`11176 <winsyslog-event-id-11176>`
      - Main message queue is full
      - Error
      - Queue manager
-   * - :doc:`11177 <event-id-11177>`
+   * - :ref:`11177 <winsyslog-event-id-11177>`
      - Queue manager: queue capacity condition
      - Error
      - Queue manager
-   * - :doc:`11178 <event-id-11178>`
+   * - :ref:`11178 <winsyslog-event-id-11178>`
      - Queue manager: disk queue cache operation failed
      - Error
      - Queue manager
-   * - :doc:`11179 <event-id-11179>`
+   * - :ref:`11179 <winsyslog-event-id-11179>`
      - Queue manager: disk queue cache operation failed
      - Error
      - Queue manager
-   * - :doc:`11180 <event-id-11180>`
+   * - :ref:`11180 <winsyslog-event-id-11180>`
      - Queue manager: disk queue cache operation failed
      - Error
      - Queue manager
-   * - :doc:`11181 <event-id-11181>`
+   * - :ref:`11181 <winsyslog-event-id-11181>`
      - Queue manager: disk queue cache operation failed
      - Error
      - Queue manager
-   * - :doc:`11182 <event-id-11182>`
+   * - :ref:`11182 <winsyslog-event-id-11182>`
      - Queue manager: disk queue cache operation failed
      - Error
      - Queue manager
-   * - :doc:`11183 <event-id-11183>`
+   * - :ref:`11183 <winsyslog-event-id-11183>`
      - Service configuration: runtime operation failed
      - Warning
      - Service configuration
-   * - :doc:`11184 <event-id-11184>`
+   * - :ref:`11184 <winsyslog-event-id-11184>`
      - Service configuration: memory reserve could not be allocated
      - Warning
      - Service configuration
-   * - :doc:`11185 <event-id-11185>`
+   * - :ref:`11185 <winsyslog-event-id-11185>`
      - Service configuration: runtime operation failed
      - Error
      - Service configuration
-   * - :doc:`11186 <event-id-11186>`
+   * - :ref:`11186 <winsyslog-event-id-11186>`
      - Service configuration: trial period expired
      - Error
      - Service configuration
-   * - :doc:`11187 <event-id-11187>`
+   * - :ref:`11187 <winsyslog-event-id-11187>`
      - Service configuration: runtime operation failed
      - Error
      - Service configuration
-   * - :doc:`11188 <event-id-11188>`
+   * - :ref:`11188 <winsyslog-event-id-11188>`
      - Service configuration: configured service feature is unavailable
      - Warning
      - Service configuration
-   * - :doc:`11189 <event-id-11189>`
+   * - :ref:`11189 <winsyslog-event-id-11189>`
      - Service configuration: runtime operation failed
      - Error
      - Service configuration
-   * - :doc:`11190 <event-id-11190>`
+   * - :ref:`11190 <winsyslog-event-id-11190>`
      - Service configuration: configured feature is unavailable
      - Warning
      - Service configuration
-   * - :doc:`11191 <event-id-11191>`
+   * - :ref:`11191 <winsyslog-event-id-11191>`
      - Service configuration: log rotation is not licensed
      - Information
      - Service configuration
-   * - :doc:`11192 <event-id-11192>`
+   * - :ref:`11192 <winsyslog-event-id-11192>`
      - Service configuration: runtime operation failed
      - Error
      - Service configuration
-   * - :doc:`11193 <event-id-11193>`
+   * - :ref:`11193 <winsyslog-event-id-11193>`
      - Service configuration: service configuration raised an unknown exception
      - Warning
      - Service configuration
-   * - :doc:`11194 <event-id-11194>`
+   * - :ref:`11194 <winsyslog-event-id-11194>`
      - Product runtime: message compression failed
      - Warning
      - Product runtime
-   * - :doc:`11195 <event-id-11195>`
+   * - :ref:`11195 <winsyslog-event-id-11195>`
      - Disk queue: runtime data error
      - Error
      - Disk queue
-   * - :doc:`11196 <event-id-11196>`
+   * - :ref:`11196 <winsyslog-event-id-11196>`
      - Disk queue: runtime data error
      - Error
      - Disk queue
-   * - :doc:`11197 <event-id-11197>`
+   * - :ref:`11197 <winsyslog-event-id-11197>`
      - Disk queue: runtime data error
      - Error
      - Disk queue
-   * - :doc:`11198 <event-id-11198>`
+   * - :ref:`11198 <winsyslog-event-id-11198>`
      - TCP and TLS listener: TCP listener fatal error
      - Error
      - TCP and TLS listener
-   * - :doc:`11199 <event-id-11199>`
+   * - :ref:`11199 <winsyslog-event-id-11199>`
      - TCP and TLS listener: TLS server initialization failed
      - Warning
      - TCP and TLS listener
-   * - :doc:`11200 <event-id-11200>`
+   * - :ref:`11200 <winsyslog-event-id-11200>`
      - TCP and TLS listener: TCP listener fatal error
      - Error
      - TCP and TLS listener
-   * - :doc:`11201 <event-id-11201>`
+   * - :ref:`11201 <winsyslog-event-id-11201>`
      - TCP and TLS listener: TCP listener fatal error
      - Error
      - TCP and TLS listener
-   * - :doc:`11202 <event-id-11202>`
+   * - :ref:`11202 <winsyslog-event-id-11202>`
      - TCP and TLS listener: runtime operation failed
      - Error
      - TCP and TLS listener
-   * - :doc:`11210 <event-id-11210>`
+   * - :ref:`11210 <winsyslog-event-id-11210>`
      - Product runtime: configured advanced feature is unavailable
      - Error
      - Product runtime
-   * - :doc:`11212 <event-id-11212>`
+   * - :ref:`11212 <winsyslog-event-id-11212>`
      - System exception while compiling an NT Event Log expression
      - Error
      - Event Log Monitor service
-   * - :doc:`11213 <event-id-11213>`
+   * - :ref:`11213 <winsyslog-event-id-11213>`
      - System exception while compiling an NT Event Log category
      - Error
      - Event Log Monitor service
-   * - :doc:`11214 <event-id-11214>`
+   * - :ref:`11214 <winsyslog-event-id-11214>`
      - System exception in the queue worker thread
      - Error
      - Queue manager
-   * - :doc:`11215 <event-id-11215>`
+   * - :ref:`11215 <winsyslog-event-id-11215>`
      - Debug error output was forwarded to the Windows Event Log
      - Warning
      - Product runtime
-   * - :doc:`11216 <event-id-11216>`
+   * - :ref:`11216 <winsyslog-event-id-11216>`
      - Control Windows Service action: runtime operation failed
      - Error
      - Control Windows Service action
-   * - :doc:`11217 <event-id-11217>`
+   * - :ref:`11217 <winsyslog-event-id-11217>`
      - Control Windows Service action: runtime operation failed
      - Error
      - Control Windows Service action
-   * - :doc:`11218 <event-id-11218>`
+   * - :ref:`11218 <winsyslog-event-id-11218>`
      - Control Windows Service action: runtime operation failed
      - Error
      - Control Windows Service action
-   * - :doc:`11219 <event-id-11219>`
+   * - :ref:`11219 <winsyslog-event-id-11219>`
      - Control Windows Service action: runtime operation failed
      - Error
      - Control Windows Service action
-   * - :doc:`11220 <event-id-11220>`
+   * - :ref:`11220 <winsyslog-event-id-11220>`
      - Control Windows Service action: runtime operation failed
      - Error
      - Control Windows Service action
-   * - :doc:`11221 <event-id-11221>`
+   * - :ref:`11221 <winsyslog-event-id-11221>`
      - Control Windows Service action: runtime operation failed
      - Error
      - Control Windows Service action
-   * - :doc:`11222 <event-id-11222>`
+   * - :ref:`11222 <winsyslog-event-id-11222>`
      - Log rotation: runtime operation failed
      - Warning
      - Log rotation

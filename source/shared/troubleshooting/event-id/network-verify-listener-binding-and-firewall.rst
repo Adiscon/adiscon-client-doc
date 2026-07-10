@@ -230,5 +230,5 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Resolve a destination and test its TCP port <network-resolve-host-and-test-tcp-port>`
-- :doc:`Verify a UDP path without assuming delivery <network-verify-udp-path>`
+- :ref:`Resolve a destination and test its TCP port <event-id-procedure-network-resolve-host-and-test-tcp-port>`
+- :ref:`Verify a UDP path without assuming delivery <event-id-procedure-network-verify-udp-path>`

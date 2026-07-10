@@ -213,5 +213,5 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Verify sender, receiver, and queued-message recovery <transport-verify-sender-receiver-recovery>`
-- :doc:`Verify file paths, permissions, and free space <file-verify-path-permissions-and-disk-space>`
+- :ref:`Verify sender, receiver, and queued-message recovery <event-id-procedure-transport-verify-sender-receiver-recovery>`
+- :ref:`Verify file paths, permissions, and free space <event-id-procedure-file-verify-path-permissions-and-disk-space>`

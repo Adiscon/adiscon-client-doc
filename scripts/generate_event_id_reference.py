@@ -213,7 +213,7 @@ def event_page(product: dict, event: dict, mapping: dict) -> str:
     version_text = introduced or "Current supported versions; original introduction not recorded"
     provider = event["event_sources"][product["key"]]
     procedures = [
-        product["procedure_by_id"][procedure_id]
+        (procedure_id, product["procedure_by_id"][procedure_id])
         for procedure_id in mapping["procedure_ids"]
         if procedure_id in product["procedure_by_id"]
     ]
@@ -256,10 +256,10 @@ def event_page(product: dict, event: dict, mapping: dict) -> str:
     lines.extend(["", "Immediate checks", "----------------", ""])
     lines.extend(f"#. {rst_text(item)}" for item in event["troubleshooting_steps"])
     lines.extend(["", "Detailed procedures", "-------------------", ""])
-    for procedure in procedures:
-        docname = procedure["document"].rsplit("/", 1)[-1]
+    for procedure_id, procedure in procedures:
         lines.append(
-            f"- :doc:`{rst_text(procedure['title'])} <../../shared/troubleshooting/event-id/{docname}>` — "
+            f"- :ref:`{rst_text(procedure['title'])} "
+            f"<event-id-procedure-{procedure_id.replace('.', '-')}>` — "
             f"{rst_text(procedure['summary'])}"
         )
     lines.extend(
@@ -299,7 +299,10 @@ def event_page(product: dict, event: dict, mapping: dict) -> str:
         for related_key in related:
             related_event = product["event_by_id"].get(related_key)
             if related_event:
-                lines.append(f"- :doc:`Event ID {related_event['event_id']} <event-id-{related_event['event_id']}>`")
+                lines.append(
+                    f"- :ref:`Event ID {related_event['event_id']} "
+                    f"<{product['key'].replace('-client', '')}-event-id-{related_event['event_id']}>`"
+                )
     lines.append("")
     return "\n".join(lines)
 
@@ -410,8 +413,10 @@ def procedure_page(procedure_id: str, procedure: dict, catalog: dict, mappings: 
         lines.extend(["", "Related procedures", "------------------", ""])
         for related in procedure["related_procedures"]:
             related_def = catalog["procedure_definitions"][related]
-            related_doc = related_def["document"].rsplit("/", 1)[-1]
-            lines.append(f"- :doc:`{rst_text(related_def['title'])} <{related_doc}>`")
+            lines.append(
+                f"- :ref:`{rst_text(related_def['title'])} "
+                f"<event-id-procedure-{related.replace('.', '-')}>`"
+            )
         lines.append("")
     return "\n".join(lines)
 
@@ -457,7 +462,8 @@ def index_page(product: dict, events: list[dict]) -> str:
     for event in events:
         lines.extend(
             [
-                f"   * - :doc:`{event['event_id']} <event-id-{event['event_id']}>`",
+                f"   * - :ref:`{event['event_id']} "
+                f"<{product['key'].replace('-client', '')}-event-id-{event['event_id']}>`",
                 f"     - {rst_text(event['title'])}",
                 f"     - {event['severity'].capitalize()}",
                 f"     - {rst_text(event['component'])}",
@@ -482,9 +488,9 @@ def procedure_index_page(product: dict, procedures: list[tuple[str, dict]]) -> s
         "",
     ]
     for procedure_id, procedure in procedures:
-        docname = procedure["document"].rsplit("/", 1)[-1]
         lines.append(
-            f"- :doc:`{rst_text(procedure['title'])} <../../shared/troubleshooting/event-id/{docname}>` — "
+            f"- :ref:`{rst_text(procedure['title'])} "
+            f"<event-id-procedure-{procedure_id.replace('.', '-')}>` — "
             f"{rst_text(procedure['summary'])}"
         )
     lines.append("")

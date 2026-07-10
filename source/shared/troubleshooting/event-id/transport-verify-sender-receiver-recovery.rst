@@ -188,5 +188,5 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Diagnose an action backlog or disk queue <queue-diagnose-backlog-and-disk-queue>`
-- :doc:`Collect an Event ID and neighboring product events <evidence-collect-event-and-neighboring-events>`
+- :ref:`Diagnose an action backlog or disk queue <event-id-procedure-queue-diagnose-backlog-and-disk-queue>`
+- :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>`

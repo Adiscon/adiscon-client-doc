@@ -44,7 +44,7 @@ Immediate checks
 Detailed procedures
 -------------------
 
-- :doc:`Collect evidence for an escalation-only runtime event <../../shared/troubleshooting/event-id/runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
+- :ref:`Collect evidence for an escalation-only runtime event <event-id-procedure-runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 
 Verify the result
 -----------------
@@ -66,6 +66,6 @@ No safe general self-service repair is available for this event. Follow the esca
 Related Event IDs
 -----------------
 
-- :doc:`Event ID 11170 <event-id-11170>`
-- :doc:`Event ID 11171 <event-id-11171>`
-- :doc:`Event ID 11172 <event-id-11172>`
+- :ref:`Event ID 11170 <winsyslog-event-id-11170>`
+- :ref:`Event ID 11171 <winsyslog-event-id-11171>`
+- :ref:`Event ID 11172 <winsyslog-event-id-11172>`

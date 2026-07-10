@@ -245,5 +245,5 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Resolve a destination and test its TCP port <network-resolve-host-and-test-tcp-port>`
-- :doc:`Export configuration and collect a bounded debug log <evidence-export-configuration-and-debug-log>`
+- :ref:`Resolve a destination and test its TCP port <event-id-procedure-network-resolve-host-and-test-tcp-port>`
+- :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>`

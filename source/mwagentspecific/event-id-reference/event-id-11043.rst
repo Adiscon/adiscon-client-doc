@@ -44,9 +44,9 @@ Immediate checks
 Detailed procedures
 -------------------
 
-- :doc:`Verify product license and feature entitlement state <../../shared/troubleshooting/event-id/license-verify-license-state>` — Confirm product, version, validity, edition, and required feature without exposing license data.
-- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
-- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
+- :ref:`Verify product license and feature entitlement state <event-id-procedure-license-verify-license-state>` — Confirm product, version, validity, edition, and required feature without exposing license data.
+- :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -68,6 +68,6 @@ If the event continues after the detailed procedures, collect the listed evidenc
 Related Event IDs
 -----------------
 
-- :doc:`Event ID 11005 <event-id-11005>`
-- :doc:`Event ID 11044 <event-id-11044>`
-- :doc:`Event ID 118 <event-id-118>`
+- :ref:`Event ID 11005 <mwagent-event-id-11005>`
+- :ref:`Event ID 11044 <mwagent-event-id-11044>`
+- :ref:`Event ID 118 <mwagent-event-id-118>`

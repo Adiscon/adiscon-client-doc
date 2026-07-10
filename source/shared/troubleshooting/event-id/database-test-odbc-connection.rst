@@ -152,5 +152,5 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Resolve a destination and test its TCP port <network-resolve-host-and-test-tcp-port>`
-- :doc:`Diagnose an action backlog or disk queue <queue-diagnose-backlog-and-disk-queue>`
+- :ref:`Resolve a destination and test its TCP port <event-id-procedure-network-resolve-host-and-test-tcp-port>`
+- :ref:`Diagnose an action backlog or disk queue <event-id-procedure-queue-diagnose-backlog-and-disk-queue>`

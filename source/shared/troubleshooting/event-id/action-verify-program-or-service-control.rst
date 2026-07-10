@@ -154,4 +154,4 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Verify service state, dependencies, and service account <service-verify-state-and-account>`
+- :ref:`Verify service state, dependencies, and service account <event-id-procedure-service-verify-state-and-account>`

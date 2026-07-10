@@ -44,9 +44,9 @@ Immediate checks
 Detailed procedures
 -------------------
 
-- :doc:`Verify Event Log channel access and bookmark state <../../shared/troubleshooting/event-id/eventlog-verify-channel-access-and-bookmark>` — Confirm channel existence, enablement, account access, and collection position.
-- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
-- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
+- :ref:`Verify Event Log channel access and bookmark state <event-id-procedure-eventlog-verify-channel-access-and-bookmark>` — Confirm channel existence, enablement, account access, and collection position.
+- :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -68,6 +68,6 @@ This event normally records state rather than a failure. Escalate only when the 
 Related Event IDs
 -----------------
 
-- :doc:`Event ID 11097 <event-id-11097>`
-- :doc:`Event ID 11098 <event-id-11098>`
-- :doc:`Event ID 11099 <event-id-11099>`
+- :ref:`Event ID 11097 <rsyslog-event-id-11097>`
+- :ref:`Event ID 11098 <rsyslog-event-id-11098>`
+- :ref:`Event ID 11099 <rsyslog-event-id-11099>`

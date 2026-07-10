@@ -44,9 +44,9 @@ Immediate checks
 Detailed procedures
 -------------------
 
-- :doc:`Validate configuration and reload it safely <../../shared/troubleshooting/event-id/config-validate-and-reload>` — Back up, inspect, correct, and test the exact invalid configuration object.
-- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
-- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
+- :ref:`Validate configuration and reload it safely <event-id-procedure-config-validate-and-reload>` — Back up, inspect, correct, and test the exact invalid configuration object.
+- :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -68,6 +68,6 @@ This event normally records state rather than a failure. Escalate only when the 
 Related Event IDs
 -----------------
 
-- :doc:`Event ID 11183 <event-id-11183>`
-- :doc:`Event ID 11184 <event-id-11184>`
-- :doc:`Event ID 11185 <event-id-11185>`
+- :ref:`Event ID 11183 <eventreporter-event-id-11183>`
+- :ref:`Event ID 11184 <eventreporter-event-id-11184>`
+- :ref:`Event ID 11185 <eventreporter-event-id-11185>`

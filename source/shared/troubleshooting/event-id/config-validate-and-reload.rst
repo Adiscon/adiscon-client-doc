@@ -258,4 +258,4 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Export configuration and collect a bounded debug log <evidence-export-configuration-and-debug-log>`
+- :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>`

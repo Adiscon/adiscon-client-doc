@@ -177,5 +177,5 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Resolve a destination and test its TCP port <network-resolve-host-and-test-tcp-port>`
-- :doc:`Verify TLS certificates, private keys, and permitted peers <tls-verify-certificate-chain-and-peer>`
+- :ref:`Resolve a destination and test its TCP port <event-id-procedure-network-resolve-host-and-test-tcp-port>`
+- :ref:`Verify TLS certificates, private keys, and permitted peers <event-id-procedure-tls-verify-certificate-chain-and-peer>`

@@ -169,5 +169,5 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Verify a UDP path without assuming delivery <network-verify-udp-path>`
-- :doc:`Verify listener binding and Windows Firewall rules <network-verify-listener-binding-and-firewall>`
+- :ref:`Verify a UDP path without assuming delivery <event-id-procedure-network-verify-udp-path>`
+- :ref:`Verify listener binding and Windows Firewall rules <event-id-procedure-network-verify-listener-binding-and-firewall>`

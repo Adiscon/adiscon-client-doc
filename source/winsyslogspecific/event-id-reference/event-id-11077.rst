@@ -44,10 +44,10 @@ Immediate checks
 Detailed procedures
 -------------------
 
-- :doc:`Verify File Monitor source state and encoding <../../shared/troubleshooting/event-id/filemonitor-verify-source-state-and-encoding>` — Check source path, sharing, encoding, line endings, and read position.
-- :doc:`Verify file paths, permissions, and free space <../../shared/troubleshooting/event-id/file-verify-path-permissions-and-disk-space>` — Check expansion, existence, ACLs, service-account context, and storage.
-- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
-- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
+- :ref:`Verify File Monitor source state and encoding <event-id-procedure-filemonitor-verify-source-state-and-encoding>` — Check source path, sharing, encoding, line endings, and read position.
+- :ref:`Verify file paths, permissions, and free space <event-id-procedure-file-verify-path-permissions-and-disk-space>` — Check expansion, existence, ACLs, service-account context, and storage.
+- :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -69,6 +69,6 @@ If the event continues after the detailed procedures, collect the listed evidenc
 Related Event IDs
 -----------------
 
-- :doc:`Event ID 11074 <event-id-11074>`
-- :doc:`Event ID 11075 <event-id-11075>`
-- :doc:`Event ID 11076 <event-id-11076>`
+- :ref:`Event ID 11074 <winsyslog-event-id-11074>`
+- :ref:`Event ID 11075 <winsyslog-event-id-11075>`
+- :ref:`Event ID 11076 <winsyslog-event-id-11076>`

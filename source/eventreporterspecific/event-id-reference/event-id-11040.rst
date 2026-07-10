@@ -44,10 +44,10 @@ Immediate checks
 Detailed procedures
 -------------------
 
-- :doc:`Resolve a destination and test its TCP port <../../shared/troubleshooting/event-id/network-resolve-host-and-test-tcp-port>` — Verify DNS, selected address, routing, and TCP establishment.
-- :doc:`Verify sender, receiver, and queued-message recovery <../../shared/troubleshooting/event-id/transport-verify-sender-receiver-recovery>` — Prove end-to-end recovery and backlog drainage.
-- :doc:`Collect an Event ID and neighboring product events <../../shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
-- :doc:`Export configuration and collect a bounded debug log <../../shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
+- :ref:`Resolve a destination and test its TCP port <event-id-procedure-network-resolve-host-and-test-tcp-port>` — Verify DNS, selected address, routing, and TCP establishment.
+- :ref:`Verify sender, receiver, and queued-message recovery <event-id-procedure-transport-verify-sender-receiver-recovery>` — Prove end-to-end recovery and backlog drainage.
+- :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
+- :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
@@ -69,6 +69,6 @@ If the event continues after the detailed procedures, collect the listed evidenc
 Related Event IDs
 -----------------
 
-- :doc:`Event ID 11017 <event-id-11017>`
-- :doc:`Event ID 11018 <event-id-11018>`
-- :doc:`Event ID 11039 <event-id-11039>`
+- :ref:`Event ID 11017 <eventreporter-event-id-11017>`
+- :ref:`Event ID 11018 <eventreporter-event-id-11018>`
+- :ref:`Event ID 11039 <eventreporter-event-id-11039>`

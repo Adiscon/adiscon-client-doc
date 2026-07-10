@@ -151,4 +151,4 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Verify listener binding and Windows Firewall rules <network-verify-listener-binding-and-firewall>`
+- :ref:`Verify listener binding and Windows Firewall rules <event-id-procedure-network-verify-listener-binding-and-firewall>`

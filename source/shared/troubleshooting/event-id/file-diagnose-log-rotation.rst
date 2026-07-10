@@ -169,4 +169,4 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Verify file paths, permissions, and free space <file-verify-path-permissions-and-disk-space>`
+- :ref:`Verify file paths, permissions, and free space <event-id-procedure-file-verify-path-permissions-and-disk-space>`

@@ -221,5 +221,5 @@ Related Event IDs
 Related procedures
 ------------------
 
-- :doc:`Verify listener binding and Windows Firewall rules <network-verify-listener-binding-and-firewall>`
-- :doc:`Verify TLS certificates, private keys, and permitted peers <tls-verify-certificate-chain-and-peer>`
+- :ref:`Verify listener binding and Windows Firewall rules <event-id-procedure-network-verify-listener-binding-and-firewall>`
+- :ref:`Verify TLS certificates, private keys, and permitted peers <event-id-procedure-tls-verify-certificate-chain-and-peer>`
