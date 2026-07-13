@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "catalog_status": "ready",
-  "source_commit": "476a429389ec78471e6539a35c279981d8c02a83",
+  "source_commit": "1e66c20ee45bff4ff4892db8d905409aef436a97",
   "product": "mwagent",
   "product_name": "MonitorWare Agent",
   "product_version": "26.07",
