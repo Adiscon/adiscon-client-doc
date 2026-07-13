@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_status": "draft",
+  "catalog_status": "ready",
   "procedures": {
     "evidence.collect-event-and-neighboring-events": {
       "title": "Collect an Event ID and neighboring product events",
@@ -1684,7 +1684,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_actionconfigodbc_cpp_reporterror_dbmonerror_238": {
       "disposition": "self_service",
@@ -1823,7 +1823,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_actionlistentry_cpp_reporterror_invldacttypeincfg_420": {
       "disposition": "self_service",
@@ -1848,7 +1848,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_actionlistentry_cpp_reporterror_anymsg_504": {
       "disposition": "escalation_only",
@@ -1857,7 +1857,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_actionlistentry_cpp_reporterror_anymsg_506": {
       "disposition": "escalation_only",
@@ -1866,7 +1866,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_actionodbcv2_cpp_reporterror_dbmonerror_270": {
       "disposition": "self_service",
@@ -1911,7 +1911,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_actionsendmiap_cpp_reporterror_sslinitclient_170": {
       "disposition": "self_service",
@@ -1944,7 +1944,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_actionsendserial_cpp_reporterror_anymsg_70": {
       "disposition": "self_service",
@@ -1954,7 +1954,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_actionsendsnmp_cpp_reporterror_anymsg_272": {
       "disposition": "self_service",
@@ -1964,7 +1964,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_actionsendsyslog_cpp_reportwarning_anymsg_345": {
       "disposition": "self_service",
@@ -1993,7 +1993,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_actionwinsyslogv3flatfile_cpp_reporterror_anymsg_556": {
       "disposition": "self_service",
@@ -2300,7 +2300,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_infosourcefilemonitor_cpp_reportwarning_logmsg_421": {
       "disposition": "self_service",
@@ -2701,7 +2701,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_infosourcepingprobe_cpp_reporterror_anymsg_203": {
       "disposition": "self_service",
@@ -2720,7 +2720,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_infosourcepop3probe_cpp_reporterror_excptprobe_167": {
       "disposition": "self_service",
@@ -2759,7 +2759,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_infosourceserialmonitor_cpp_reporterror_adserialport_128": {
       "disposition": "self_service",
@@ -2984,7 +2984,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_infosourcewevtmonitor_cpp_reportwarning_gotnotimer_272": {
       "disposition": "self_service",
@@ -3038,7 +3038,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_600": {
       "disposition": "monitor_only",
@@ -3047,7 +3047,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_610": {
       "disposition": "self_service",
@@ -3102,7 +3102,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_1014": {
       "disposition": "monitor_only",
@@ -3111,7 +3111,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_1051": {
       "disposition": "self_service",
@@ -3139,7 +3139,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_mailrcptlist_cpp_reporterror_invldsmtpaddr_69": {
       "disposition": "self_service",
@@ -3194,7 +3194,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_quemanlist_cpp_reporterror_anymsg_71": {
       "disposition": "escalation_only",
@@ -3204,7 +3204,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_quemanlist_cpp_reporterror_unknownerror_144": {
       "disposition": "self_service",
@@ -3236,7 +3236,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_quemanlist_cpp_reportinformation_queuefull_293": {
       "disposition": "monitor_only",
@@ -3314,7 +3314,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_servicemanager_cpp_reportwarning_couldntallocmemreserve_245": {
       "disposition": "self_service",
@@ -3480,7 +3480,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.evtrpt_serv_eventreporter_cpp_reporterror_advftr_nonsupported_95": {
       "disposition": "self_service",
@@ -3591,7 +3591,7 @@
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],
-      "review_status": "draft"
+      "review_status": "reviewed"
     },
     "legacy.himalaya_actioncontrolntservice_cpp_open_service_handle_43": {
       "disposition": "self_service",
