@@ -87,6 +87,21 @@ def title_block(title: str, marker: str = "=") -> str:
     return f"{title}\n{marker * len(title)}\n"
 
 
+def product_label_prefix(product: dict) -> str:
+    return product["key"].replace("-client", "")
+
+
+def procedure_slug(procedure: dict) -> str:
+    return Path(procedure["document"]).name
+
+
+def product_procedure_document(product: dict, procedure: dict) -> str:
+    return (
+        f"{product['source_dir']}/event-id-reference/procedure/"
+        f"{procedure_slug(procedure)}"
+    )
+
+
 def write_utf8_lf(path: Path, content: str) -> None:
     with path.open("w", encoding="utf-8", newline="\n") as stream:
         stream.write(content)
@@ -307,7 +322,13 @@ def event_page(product: dict, event: dict, mapping: dict) -> str:
     return "\n".join(lines)
 
 
-def procedure_page(procedure_id: str, procedure: dict, catalog: dict, mappings: dict) -> str:
+def procedure_page(
+    product: dict,
+    procedure_id: str,
+    procedure: dict,
+    catalog: dict,
+    mappings: dict,
+) -> str:
     title = procedure["title"]
     lines = [
         ":orphan:",
@@ -329,32 +350,24 @@ def procedure_page(procedure_id: str, procedure: dict, catalog: dict, mappings: 
         "Applies to",
         "----------",
         "",
-        "Prerequisites",
-        "-------------",
-        "",
     ]
-    for product in procedure["products"]:
-        lines.extend(
-            [
-                f".. only:: {PRODUCTS[product]['tag']}",
-                "",
-                f"   This procedure applies to {PRODUCTS[product]['name']}.",
-                "",
-            ]
-        )
+    lines.extend(
+        [
+            f"This procedure applies to {product['name']}.",
+            "",
+            "Prerequisites",
+            "-------------",
+            "",
+        ]
+    )
     lines.extend(f"- {rst_text(item)}" for item in procedure["prerequisites"])
     lines.extend(["", "Safety", "------", ""])
     lines.extend(f"- {rst_text(item)}" for item in procedure["safety"])
     if procedure.get("product_paths"):
-        lines.extend(["", "Configuration paths", "-------------------", ""])
-        for product, path_text in procedure["product_paths"].items():
+        path_text = procedure["product_paths"].get(product["key"])
+        if path_text:
             lines.extend(
-                [
-                    f".. only:: {PRODUCTS[product]['tag']}",
-                    "",
-                    f"   **{PRODUCTS[product]['name']}:** {rst_text(path_text)}",
-                    "",
-                ]
+                ["", "Configuration path", "------------------", "", rst_text(path_text), ""]
             )
     lines.extend(["Procedure", "---------", ""])
     for step in procedure["steps"]:
@@ -386,33 +399,33 @@ def procedure_page(procedure_id: str, procedure: dict, catalog: dict, mappings: 
         lines.extend(["", "Optional tools", "--------------", ""])
         lines.extend(f"- {rst_text(item)}" for item in procedure["optional_tools"])
 
-    related_events: dict[str, list[int]] = {key: [] for key in PRODUCTS}
-    for event in catalog["events"]:
+    related_events: list[int] = []
+    for event in product["events"]:
         mapping = mappings[event["id"]]
         if procedure_id not in mapping["procedure_ids"]:
             continue
-        for product in event["products"]:
-            if product in procedure["products"]:
-                related_events[product].append(event["event_id"])
-    if any(related_events.values()):
+        related_events.append(event["event_id"])
+    if related_events:
         lines.extend(["", "Related Event IDs", "-----------------", ""])
-        for product, event_ids in related_events.items():
-            if not event_ids:
-                continue
-            lines.extend([f".. only:: {PRODUCTS[product]['tag']}", ""])
-            displayed_event_ids = sorted(set(event_ids))[:40]
-            for event_id in displayed_event_ids:
-                lines.append(f"   - {PRODUCTS[product]['name']} Event ID {event_id}")
-            if len(set(event_ids)) > len(displayed_event_ids):
-                lines.append(
-                    f"   - This procedure is used by {len(set(event_ids)) - len(displayed_event_ids)} "
-                    "additional Event IDs; use the product Event ID index to locate them."
-                )
-            lines.append("")
+        displayed_event_ids = sorted(set(related_events))[:40]
+        for event_id in displayed_event_ids:
+            lines.append(
+                f"- :ref:`{product['name']} Event ID {event_id} "
+                f"<{product_label_prefix(product)}-event-id-{event_id}>`"
+            )
+        if len(set(related_events)) > len(displayed_event_ids):
+            lines.append(
+                f"- This procedure is used by "
+                f"{len(set(related_events)) - len(displayed_event_ids)} additional Event IDs; "
+                "use the product Event ID index to locate them."
+            )
+        lines.append("")
     if procedure["related_procedures"]:
         lines.extend(["", "Related procedures", "------------------", ""])
         for related in procedure["related_procedures"]:
-            related_def = catalog["procedure_definitions"][related]
+            related_def = product["procedure_by_id"].get(related)
+            if not related_def:
+                continue
             lines.append(
                 f"- :ref:`{rst_text(related_def['title'])} "
                 f"<event-id-procedure-{related.replace('.', '-')}>`"
@@ -503,7 +516,7 @@ def public_procedure(procedure_id: str, procedure: dict, product: dict) -> dict:
         "id": procedure_id,
         "title": procedure["title"],
         "summary": procedure["summary"],
-        "url": base + procedure["document"] + ".html",
+        "url": base + product_procedure_document(product, procedure) + ".html",
         "when_to_use": procedure["when_to_use"],
         "prerequisites": procedure["prerequisites"],
         "safety": procedure["safety"],
@@ -528,7 +541,7 @@ def public_event(event: dict, product: dict, mapping: dict) -> dict:
             {
                 "id": procedure_id,
                 "title": procedure["title"],
-                "url": base + procedure["document"] + ".html",
+                "url": base + product_procedure_document(product, procedure) + ".html",
             }
         )
     related_event_ids = []
@@ -613,11 +626,6 @@ def expected_files(catalog: dict, procedure_catalog: dict, root: Path) -> dict[P
     files: dict[Path, str] = {}
     definitions = procedure_catalog["procedures"]
     mappings = procedure_catalog["event_mappings"]
-    procedure_context = dict(catalog)
-    procedure_context["procedure_definitions"] = definitions
-    for procedure_id, procedure in definitions.items():
-        path = root / (procedure["document"] + ".rst")
-        files[path] = procedure_page(procedure_id, procedure, procedure_context, mappings)
 
     for key, definition in PRODUCTS.items():
         product = dict(definition)
@@ -631,6 +639,7 @@ def expected_files(catalog: dict, procedure_catalog: dict, root: Path) -> dict[P
         ]
         events.sort(key=lambda event: (event["event_id"], event["id"]))
         product["event_by_id"] = {event["id"]: event for event in events}
+        product["events"] = events
         product["mappings"] = mappings
         product["procedures"] = sorted(
             (
@@ -645,6 +654,11 @@ def expected_files(catalog: dict, procedure_catalog: dict, root: Path) -> dict[P
         page_dir = root / product["source_dir"] / "event-id-reference"
         files[page_dir / "index.rst"] = index_page(product, events)
         files[page_dir / "procedures.rst"] = procedure_index_page(product, product["procedures"])
+        for procedure_id, procedure in product["procedures"]:
+            procedure_path = root / (product_procedure_document(product, procedure) + ".rst")
+            files[procedure_path] = procedure_page(
+                product, procedure_id, procedure, catalog, mappings
+            )
         for event in events:
             files[page_dir / f"event-id-{event['event_id']}.rst"] = event_page(
                 product, event, mappings[event["id"]]

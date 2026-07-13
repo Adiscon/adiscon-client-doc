@@ -17,6 +17,8 @@ from generate_event_id_reference import (  # noqa: E402
     PROCEDURE_CATALOG,
     SNAPSHOT,
     PRODUCTS,
+    SOURCE,
+    expected_files,
     public_event,
     validate_procedure_catalog,
 )
@@ -58,6 +60,7 @@ class EventIdProcedureTests(unittest.TestCase):
         mapping = self.procedures["event_mappings"][event["id"]]
         key = event["products"][0]
         product = {
+            **PRODUCTS[key],
             "key": key,
             "baseurl": "https://example.invalid/manual/",
             "procedure_by_id": self.procedures["procedures"],
@@ -66,6 +69,26 @@ class EventIdProcedureTests(unittest.TestCase):
         exported = public_event(event, product, mapping)
         self.assertFalse({"id", "kind", "products", "event_sources", "related_ids"} & set(exported))
         self.assertTrue(exported["procedures"])
+
+    def test_product_procedure_uses_sphinx_event_links(self):
+        files = expected_files(self.catalog, self.procedures, SOURCE)
+        path = (
+            SOURCE
+            / "winsyslogspecific"
+            / "event-id-reference"
+            / "procedure"
+            / "snmp-verify-trap-path.rst"
+        )
+        page = files[path]
+        self.assertIn(
+            ":ref:`WinSyslog Event ID 11016 <winsyslog-event-id-11016>`",
+            page,
+        )
+        self.assertNotIn("- WinSyslog Event ID 11016", page)
+        self.assertNotIn(
+            SOURCE / "shared" / "troubleshooting" / "event-id" / "snmp-verify-trap-path.rst",
+            files,
+        )
 
 
 if __name__ == "__main__":
