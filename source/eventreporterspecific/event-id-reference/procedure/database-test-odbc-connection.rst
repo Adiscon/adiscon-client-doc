@@ -76,14 +76,17 @@ Evidence to collect
 Related Event IDs
 -----------------
 
+- :ref:`EventReporter Event ID 11009 <eventreporter-event-id-11009>`
 - :ref:`EventReporter Event ID 11010 <eventreporter-event-id-11010>`
 - :ref:`EventReporter Event ID 11011 <eventreporter-event-id-11011>`
+- :ref:`EventReporter Event ID 11026 <eventreporter-event-id-11026>`
 - :ref:`EventReporter Event ID 11029 <eventreporter-event-id-11029>`
 - :ref:`EventReporter Event ID 11030 <eventreporter-event-id-11030>`
 - :ref:`EventReporter Event ID 11066 <eventreporter-event-id-11066>`
 - :ref:`EventReporter Event ID 11067 <eventreporter-event-id-11067>`
 - :ref:`EventReporter Event ID 11069 <eventreporter-event-id-11069>`
 - :ref:`EventReporter Event ID 11070 <eventreporter-event-id-11070>`
+- :ref:`EventReporter Event ID 11173 <eventreporter-event-id-11173>`
 
 
 Related procedures

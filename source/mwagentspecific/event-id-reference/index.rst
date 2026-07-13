@@ -93,7 +93,7 @@ Event ID index
      - Warning
      - Licensing
    * - :ref:`11006 <mwagent-event-id-11006>`
-     - Action callruleset configured ruleset was not found
+     - Call Ruleset action could not find its target ruleset
      - Error
      - Call Ruleset action
    * - :ref:`11007 <mwagent-event-id-11007>`
@@ -105,9 +105,9 @@ Event ID index
      - Warning
      - Action configuration
    * - :ref:`11009 <mwagent-event-id-11009>`
-     - Action configuration: runtime operation failed
+     - A queued action message could not be delivered
      - Warning
-     - Action configuration
+     - Action disk queue
    * - :ref:`11010 <mwagent-event-id-11010>`
      - ODBC database action: database operation failed
      - Error
@@ -133,23 +133,23 @@ Event ID index
      - Error
      - Microsoft Message Queuing action
    * - :ref:`11016 <mwagent-event-id-11016>`
-     - SNMP action: runtime operation failed
+     - An SNMP trap variable contains an invalid OID
      - Warning
-     - SNMP action
+     - Send SNMP Trap action
    * - :ref:`11017 <mwagent-event-id-11017>`
      - Forward Syslog action: action initialization failed
      - Error
      - Forward Syslog action
    * - :ref:`11018 <mwagent-event-id-11018>`
-     - Forward Syslog action: runtime operation failed
+     - A queued Forward Syslog message could not be delivered
      - Warning
-     - Forward Syslog action
+     - Forward Syslog disk queue
    * - :ref:`11019 <mwagent-event-id-11019>`
-     - Action processing: runtime operation failed
+     - Syslog Queue action has no queue name
      - Error
-     - Action processing
+     - Syslog Queue action
    * - :ref:`11020 <mwagent-event-id-11020>`
-     - Control Windows Service action: runtime operation failed
+     - Control Windows Service action could not open Service Control Manager
      - Error
      - Control Windows Service action
    * - :ref:`11021 <mwagent-event-id-11021>`
@@ -165,25 +165,25 @@ Event ID index
      - Error
      - Action processing
    * - :ref:`11024 <mwagent-event-id-11024>`
-     - Action processing: runtime operation failed
+     - Configured action type is not recognized
      - Error
-     - Action processing
+     - Rule engine action
    * - :ref:`11025 <mwagent-event-id-11025>`
      - Action processing: invalid action type in configuration
      - Error
      - Action processing
    * - :ref:`11026 <mwagent-event-id-11026>`
-     - Action processing: runtime operation failed
+     - Configured action failed after its retries
      - Error
-     - Action processing
+     - Rule engine action
    * - :ref:`11027 <mwagent-event-id-11027>`
-     - Action processing: runtime operation failed
+     - Configured action raised an unknown exception at its retry limit
      - Error
-     - Action processing
+     - Rule engine action
    * - :ref:`11028 <mwagent-event-id-11028>`
-     - Action processing: runtime operation failed
+     - Configured action raised an unknown exception below its retry limit
      - Error
-     - Action processing
+     - Rule engine action
    * - :ref:`11029 <mwagent-event-id-11029>`
      - ODBC database action: database operation failed
      - Error
@@ -201,9 +201,9 @@ Event ID index
      - Error
      - OLE DB action
    * - :ref:`11033 <mwagent-event-id-11033>`
-     - Action processing: runtime operation failed
+     - Post Process action ignored an unsupported parse type
      - Error
-     - Action processing
+     - Post Process action
    * - :ref:`11034 <mwagent-event-id-11034>`
      - SETP sender: TLS client initialization failed
      - Error
@@ -213,33 +213,33 @@ Event ID index
      - Error
      - SETP sender
    * - :ref:`11036 <mwagent-event-id-11036>`
-     - Action processing: runtime operation failed
+     - RELP delivery failed and the message was queued
      - Warning
-     - Action processing
+     - Send RELP action
    * - :ref:`11037 <mwagent-event-id-11037>`
-     - Action processing: runtime operation failed
+     - Send to Communications Port action could not write a byte
      - Error
-     - Action processing
+     - Send to Communications Port action
    * - :ref:`11038 <mwagent-event-id-11038>`
-     - SNMP action: runtime operation failed
+     - SNMP trap transmission failed
      - Error
-     - SNMP action
+     - Send SNMP Trap action
    * - :ref:`11039 <mwagent-event-id-11039>`
-     - Forward Syslog action: runtime operation failed
+     - Forward Syslog delivery failed and the message was queued
      - Warning
      - Forward Syslog action
    * - :ref:`11040 <mwagent-event-id-11040>`
-     - Forward Syslog action: runtime operation failed
+     - Forward Syslog delivery failed without queue protection
      - Error
      - Forward Syslog action
    * - :ref:`11041 <mwagent-event-id-11041>`
-     - Start Program action: runtime operation failed
+     - Start Program action received an unexpected wait result
      - Error
      - Start Program action
    * - :ref:`11042 <mwagent-event-id-11042>`
-     - WinSyslog file action: runtime operation failed
+     - Write to File action has an invalid output format
      - Error
-     - WinSyslog file action
+     - Write to File action
    * - :ref:`11043 <mwagent-event-id-11043>`
      - Licensing: connection attempt failed
      - Error
@@ -353,7 +353,7 @@ Event ID index
      - Error
      - Database Monitor service
    * - :ref:`11071 <mwagent-event-id-11071>`
-     - Disk Space Monitor service: runtime operation failed
+     - Disk Space Monitor could not complete a disk-space check
      - Error
      - Disk Space Monitor service
    * - :ref:`11072 <mwagent-event-id-11072>`
@@ -361,7 +361,7 @@ Event ID index
      - Error
      - DTLS listener
    * - :ref:`11073 <mwagent-event-id-11073>`
-     - DTLS listener: runtime operation failed
+     - DTLS listener stopped after an unknown exception
      - Error
      - DTLS listener
    * - :ref:`11074 <mwagent-event-id-11074>`
@@ -429,9 +429,9 @@ Event ID index
      - Error
      - IMAP Probe service
    * - :ref:`11090 <mwagent-event-id-11090>`
-     - SETP receiver: runtime operation failed
+     - SETP listener stopped after a protocol server error
      - Error
-     - SETP receiver
+     - SETP listener
    * - :ref:`11091 <mwagent-event-id-11091>`
      - SETP receiver: SETP operation raised an exception
      - Warning
@@ -469,7 +469,7 @@ Event ID index
      - Error
      - Event Log Monitor service
    * - :ref:`11100 <mwagent-event-id-11100>`
-     - Event Log Monitor service: runtime operation failed
+     - A corrupted Windows Event Log record was skipped
      - Warning
      - Event Log Monitor service
    * - :ref:`11101 <mwagent-event-id-11101>`
@@ -533,15 +533,15 @@ Event ID index
      - Error
      - Syslog listener
    * - :ref:`11116 <mwagent-event-id-11116>`
-     - Syslog listener: runtime operation failed
+     - Passive Syslog listener stopped after an unknown exception
      - Error
-     - Syslog listener
+     - Passive Syslog listener
    * - :ref:`11117 <mwagent-event-id-11117>`
-     - Ping Probe service: runtime operation failed
+     - Ping Probe service stopped after a reported runtime error
      - Error
      - Ping Probe service
    * - :ref:`11118 <mwagent-event-id-11118>`
-     - Ping Probe service: runtime operation failed
+     - Ping Probe service stopped after an unknown exception
      - Error
      - Ping Probe service
    * - :ref:`11119 <mwagent-event-id-11119>`
@@ -557,7 +557,7 @@ Event ID index
      - Error
      - RELP listener
    * - :ref:`11122 <mwagent-event-id-11122>`
-     - RELP listener: runtime operation failed
+     - RELP listener stopped after an unknown exception
      - Error
      - RELP listener
    * - :ref:`11123 <mwagent-event-id-11123>`
@@ -653,7 +653,7 @@ Event ID index
      - Error
      - Syslog listener
    * - :ref:`11146 <mwagent-event-id-11146>`
-     - Syslog listener: runtime operation failed
+     - Syslog listener stopped after an unknown exception
      - Error
      - Syslog listener
    * - :ref:`11147 <mwagent-event-id-11147>`
@@ -661,7 +661,7 @@ Event ID index
      - Warning
      - Event Log Monitor V2 service
    * - :ref:`11148 <mwagent-event-id-11148>`
-     - Event Log Monitor V2 service: runtime operation failed
+     - Event Log Monitor could not create its saved bookmark
      - Error
      - Event Log Monitor V2 service
    * - :ref:`11149 <mwagent-event-id-11149>`
@@ -677,53 +677,53 @@ Event ID index
      - Error
      - Event Log Monitor V2 service
    * - :ref:`11152 <mwagent-event-id-11152>`
-     - Product runtime: runtime operation failed
+     - A queued event has an unsupported information-unit type
      - Error
-     - Product runtime
+     - Event reconstruction
    * - :ref:`11153 <mwagent-event-id-11153>`
-     - Log rotation: runtime operation failed
+     - Existing archive file was renamed before log rotation
      - Warning
      - Log rotation
    * - :ref:`11154 <mwagent-event-id-11154>`
-     - Log rotation: runtime operation failed
+     - Log rotation was deferred because an archive destination could not be renamed
      - Warning
      - Log rotation
    * - :ref:`11155 <mwagent-event-id-11155>`
-     - Log rotation: runtime operation failed
+     - Cross-volume archive copy succeeded but source cleanup failed
      - Warning
      - Log rotation
    * - :ref:`11156 <mwagent-event-id-11156>`
-     - Log rotation: runtime operation failed
+     - Rotated log could not be moved to its archive destination
      - Warning
      - Log rotation
    * - :ref:`11157 <mwagent-event-id-11157>`
-     - Log rotation: runtime operation failed
+     - Existing archive could not be renamed to prevent overwrite
      - Warning
      - Log rotation
    * - :ref:`11158 <mwagent-event-id-11158>`
-     - Log rotation: runtime operation failed
+     - Empty log-rotation queue file could not be deleted
      - Warning
-     - Log rotation
+     - Log rotation queue
    * - :ref:`11159 <mwagent-event-id-11159>`
-     - Log rotation: runtime operation failed
+     - Corrupt log-rotation queue file could not be quarantined
      - Warning
-     - Log rotation
+     - Log rotation queue
    * - :ref:`11160 <mwagent-event-id-11160>`
-     - Log rotation: runtime operation failed
+     - Corrupt log-rotation queue file was quarantined
      - Warning
-     - Log rotation
+     - Log rotation queue
    * - :ref:`11161 <mwagent-event-id-11161>`
-     - Log rotation: runtime operation failed
+     - Configuration reload kept the existing log-rotation workers
      - Warning
      - Log rotation
    * - :ref:`11162 <mwagent-event-id-11162>`
-     - Log rotation: runtime operation failed
+     - Log-rotation jobs cannot be persisted because the data directory is unset
      - Warning
-     - Log rotation
+     - Log rotation queue
    * - :ref:`11163 <mwagent-event-id-11163>`
-     - Log rotation: runtime operation failed
+     - Persisted log-rotation queue file could not be read
      - Warning
-     - Log rotation
+     - Log rotation queue
    * - :ref:`11164 <mwagent-event-id-11164>`
      - Email action: invalid SMTP recipient address
      - Error
@@ -745,13 +745,13 @@ Event ID index
      - Error
      - Runtime resource management
    * - :ref:`11169 <mwagent-event-id-11169>`
-     - Product runtime: runtime operation failed
+     - Individual Ping Probe stopped after an unknown exception
      - Error
-     - Product runtime
+     - Ping Probe
    * - :ref:`11170 <mwagent-event-id-11170>`
-     - Queue manager: runtime operation failed
+     - Queue worker received an unexpected wake-up
      - Error
-     - Queue manager
+     - Main message queue
    * - :ref:`11171 <mwagent-event-id-11171>`
      - Queue manager: unknown runtime error
      - Error
@@ -761,9 +761,9 @@ Event ID index
      - Error
      - Queue manager
    * - :ref:`11173 <mwagent-event-id-11173>`
-     - Queue manager: runtime operation failed
+     - An event failed while the main queue applied its rules
      - Error
-     - Queue manager
+     - Main message queue
    * - :ref:`11174 <mwagent-event-id-11174>`
      - Queue manager: queue capacity condition
      - Information
@@ -771,10 +771,6 @@ Event ID index
    * - :ref:`11175 <mwagent-event-id-11175>`
      - Queue manager: queue capacity condition
      - Warning
-     - Queue manager
-   * - :ref:`11176 <mwagent-event-id-11176>`
-     - Main message queue is full
-     - Error
      - Queue manager
    * - :ref:`11177 <mwagent-event-id-11177>`
      - Queue manager: queue capacity condition
@@ -801,15 +797,15 @@ Event ID index
      - Error
      - Queue manager
    * - :ref:`11183 <mwagent-event-id-11183>`
-     - Service configuration: runtime operation failed
+     - Configuration reload was skipped because the log-rotation scheduler did not stop
      - Warning
-     - Service configuration
+     - Configuration reload
    * - :ref:`11184 <mwagent-event-id-11184>`
      - Service configuration: memory reserve could not be allocated
      - Warning
      - Service configuration
    * - :ref:`11185 <mwagent-event-id-11185>`
-     - Service configuration: runtime operation failed
+     - No product input service is configured
      - Error
      - Service configuration
    * - :ref:`11186 <mwagent-event-id-11186>`
@@ -817,7 +813,7 @@ Event ID index
      - Error
      - Service configuration
    * - :ref:`11187 <mwagent-event-id-11187>`
-     - Service configuration: runtime operation failed
+     - A configured input service type is not recognized
      - Error
      - Service configuration
    * - :ref:`11188 <mwagent-event-id-11188>`
@@ -825,7 +821,7 @@ Event ID index
      - Warning
      - Service configuration
    * - :ref:`11189 <mwagent-event-id-11189>`
-     - Service configuration: runtime operation failed
+     - Input service could not find its assigned ruleset
      - Error
      - Service configuration
    * - :ref:`11190 <mwagent-event-id-11190>`
@@ -837,9 +833,9 @@ Event ID index
      - Information
      - Service configuration
    * - :ref:`11192 <mwagent-event-id-11192>`
-     - Service configuration: runtime operation failed
+     - No configured product input service could be started
      - Error
-     - Service configuration
+     - Service startup
    * - :ref:`11193 <mwagent-event-id-11193>`
      - Service configuration: service configuration raised an unknown exception
      - Warning
@@ -877,7 +873,7 @@ Event ID index
      - Error
      - TCP and TLS listener
    * - :ref:`11202 <mwagent-event-id-11202>`
-     - TCP and TLS listener: runtime operation failed
+     - TCP listener could not assign an accepted socket
      - Error
      - TCP and TLS listener
    * - :ref:`11212 <mwagent-event-id-11212>`
@@ -893,34 +889,34 @@ Event ID index
      - Error
      - Queue manager
    * - :ref:`11215 <mwagent-event-id-11215>`
-     - Debug error output was forwarded to the Windows Event Log
+     - A debug error was forwarded to the Windows Event Log
      - Warning
-     - Product runtime
+     - Diagnostic forwarding
    * - :ref:`11216 <mwagent-event-id-11216>`
-     - Control Windows Service action: runtime operation failed
+     - Control Windows Service action could not open the target service
      - Error
      - Control Windows Service action
    * - :ref:`11217 <mwagent-event-id-11217>`
-     - Control Windows Service action: runtime operation failed
+     - Control Windows Service action could not start the target service
      - Error
      - Control Windows Service action
    * - :ref:`11218 <mwagent-event-id-11218>`
-     - Control Windows Service action: runtime operation failed
+     - Control Windows Service action could not stop the target service
      - Error
      - Control Windows Service action
    * - :ref:`11219 <mwagent-event-id-11219>`
-     - Control Windows Service action: runtime operation failed
+     - Control Windows Service action could not pause the target service
      - Error
      - Control Windows Service action
    * - :ref:`11220 <mwagent-event-id-11220>`
-     - Control Windows Service action: runtime operation failed
+     - Control Windows Service action could not continue the target service
      - Error
      - Control Windows Service action
    * - :ref:`11221 <mwagent-event-id-11221>`
-     - Control Windows Service action: runtime operation failed
+     - Target service did not reach the requested state before timeout
      - Error
      - Control Windows Service action
    * - :ref:`11222 <mwagent-event-id-11222>`
-     - Log rotation: runtime operation failed
+     - Consumed log-rotation queue file could not be deleted
      - Warning
-     - Log rotation
+     - Log rotation queue

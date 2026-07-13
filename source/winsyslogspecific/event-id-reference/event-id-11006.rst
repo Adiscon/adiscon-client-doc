@@ -3,20 +3,20 @@
 .. _winsyslog-event-id-11006:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11006: Action callruleset configured ruleset was not found.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11006: Call Ruleset action could not find its target ruleset.
    :event-id: 11006
    :event-product: WinSyslog
    :event-severity: Error
    :event-component: Call Ruleset action
    :event-reference: true
 
-WinSyslog Event ID 11006: Action callruleset configured ruleset was not found
-=============================================================================
+WinSyslog Event ID 11006: Call Ruleset action could not find its target ruleset
+===============================================================================
 
 Answer
 ------
 
-Action callruleset configured ruleset was not found. The product recorded this while processing call ruleset action; the appended event detail identifies the affected object, operation, or provider error.
+The action references a ruleset that was not present when the product initialized the action. Events reaching this action cannot be processed by the missing target ruleset.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Call Ruleset action
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Action callruleset configured ruleset was not found. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The Call Ruleset action could not find configured ruleset '{ruleset_name}'.`
 
 Possible causes
 ---------------
 
-- The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.
-- Windows or a required provider returned the operation-specific error appended to the event.
+- The target ruleset was renamed or deleted.
+- The action contains an empty, misspelled, or stale ruleset name.
+- A configuration import omitted the referenced ruleset.
 
 Immediate checks
 ----------------
 
-#. Identify the exact service, rule, filter, action, or setting named by the complete event detail.
-#. Compare that object with the product reference and preserve the first related error in the same time window.
-#. Correct only the identified setting or dependency, then run one controlled test.
+#. Open the affected Call Ruleset action and record its target ruleset name.
+#. Confirm that a ruleset with that exact name exists in the same configuration.
+#. Correct the reference or restore the missing ruleset, validate the configuration, and reload it.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11006 does not recur and that call ruleset action processing continues.
+Send a uniquely identifiable test event through the calling rule and confirm that the target ruleset processes it without another Event ID 11006.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

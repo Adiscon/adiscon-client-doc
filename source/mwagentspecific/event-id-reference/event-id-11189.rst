@@ -3,20 +3,20 @@
 .. _mwagent-event-id-11189:
 
 .. meta::
-   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11189: Service configuration: runtime operation failed.
+   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11189: Input service could not find its assigned ruleset.
    :event-id: 11189
    :event-product: MonitorWare Agent
    :event-severity: Error
    :event-component: Service configuration
    :event-reference: true
 
-MonitorWare Agent Event ID 11189: Service configuration: runtime operation failed
-=================================================================================
+MonitorWare Agent Event ID 11189: Input service could not find its assigned ruleset
+===================================================================================
 
 Answer
 ------
 
-Service configuration: runtime operation failed. The product recorded this while processing service configuration; the appended event detail identifies the affected object, operation, or provider error.
+A configured input service references a ruleset that does not exist. Because that service requires a ruleset, the product does not start it.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Service configuration
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Servicemanager no rule base. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`No ruleset was found for service '{service_name}'; requested ruleset was '{ruleset_name}'. The service was not started.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- The assigned ruleset was renamed or deleted.
+- The service contains an empty, misspelled, or stale ruleset name.
+- A configuration import omitted the referenced ruleset.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Open the affected service and record its assigned ruleset.
+#. Confirm that a ruleset with that exact name exists.
+#. Correct the assignment or restore the ruleset, then validate and reload the configuration.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11189 does not recur and that service configuration processing continues.
+Confirm that the input service starts and a controlled event reaches the assigned ruleset without Event ID 11189.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

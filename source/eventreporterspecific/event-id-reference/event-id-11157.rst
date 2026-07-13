@@ -3,20 +3,20 @@
 .. _eventreporter-event-id-11157:
 
 .. meta::
-   :description: Meaning and troubleshooting for EventReporter Event ID 11157: Log rotation: runtime operation failed.
+   :description: Meaning and troubleshooting for EventReporter Event ID 11157: Existing archive could not be renamed to prevent overwrite.
    :event-id: 11157
    :event-product: EventReporter
    :event-severity: Warning
    :event-component: Log rotation
    :event-reference: true
 
-EventReporter Event ID 11157: Log rotation: runtime operation failed
-====================================================================
+EventReporter Event ID 11157: Existing archive could not be renamed to prevent overwrite
+========================================================================================
 
 Answer
 ------
 
-Log rotation: runtime operation failed. The product recorded this while processing log rotation; the appended event detail identifies the affected object, operation, or provider error.
+The product found an archive-name collision but could not rename the existing archive to the protected fallback name. It does not intentionally overwrite the existing file.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Log rotation
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Logrotationarchivemove. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Prevent archive overwrite rename failed: {archive_path}`
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or not writable by the service account.
-- Rotation naming, retention, timing, or another process holding the file prevents the required operation.
+- The archive file is locked by another process.
+- The service account lacks rename permission.
+- The archive directory is unavailable, read-only, or out of space.
 
 Immediate checks
 ----------------
 
-#. Record the resolved path, file name, rotation trigger, and service-account context.
-#. Check existence, ACLs, free space, current file sizes, and recent timestamps.
-#. Perform one controlled write or rotation and verify that active output continues.
+#. Identify and preserve the existing archive file.
+#. Check file locks, directory permissions, and free space under the product service account.
+#. Remove the blocking condition and perform a controlled rotation.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11157 does not recur and that log rotation processing continues.
+Confirm that archive-name collisions are resolved without overwriting files and Event ID 11157 does not recur.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

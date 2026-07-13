@@ -3,20 +3,20 @@
 .. _rsyslog-event-id-11122:
 
 .. meta::
-   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11122: RELP listener: runtime operation failed.
+   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11122: RELP listener stopped after an unknown exception.
    :event-id: 11122
    :event-product: rsyslog Windows Agent
    :event-severity: Error
    :event-component: RELP listener
    :event-reference: true
 
-rsyslog Windows Agent Event ID 11122: RELP listener: runtime operation failed
-=============================================================================
+rsyslog Windows Agent Event ID 11122: RELP listener stopped after an unknown exception
+======================================================================================
 
 Answer
 ------
 
-RELP listener: runtime operation failed. The product recorded this while processing relp listener; the appended event detail identifies the affected object, operation, or provider error.
+The RELP listener raised an exception outside its normal binding and protocol error handling. The product stops retrying the listener after the failure.
 
 Event details
 -------------
@@ -26,45 +26,48 @@ Event details
 - **Component:** RELP listener
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`RELP listener: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The RELP listener encountered an unknown exception and stopped retrying.`
 
 Possible causes
 ---------------
 
-- The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.
-- TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match.
+- The RELP or TLS provider raised an unexpected exception.
+- System resource pressure disrupted the listener.
+- The listener encountered a product defect.
 
 Immediate checks
 ----------------
 
-#. Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.
-#. Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.
-#. Send one unique test message and verify positive receipt and queue recovery.
+#. Confirm whether the configured RELP port is still listening.
+#. Collect neighboring events, Windows Error Reporting data, and a bounded debug log from one controlled restart.
+#. Escalate a reproducible failure with the collected evidence.
 
 Detailed procedures
 -------------------
 
 - :ref:`Verify listener binding and Windows Firewall rules <event-id-procedure-network-verify-listener-binding-and-firewall>` — Confirm effective address, port, transport, owning process, and inbound policy.
 - :ref:`Verify TLS certificates, private keys, and permitted peers <event-id-procedure-tls-verify-certificate-chain-and-peer>` — Check validity, trust chain, key pairing, protocol mode, and peer authorization.
+- :ref:`Collect evidence for an escalation-only runtime event <event-id-procedure-runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11122 does not recur and that relp listener processing continues.
+Confirm that the RELP listener remains active and accepts a controlled session without Event ID 11122.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------
 
-If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

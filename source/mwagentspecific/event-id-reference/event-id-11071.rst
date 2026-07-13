@@ -3,20 +3,20 @@
 .. _mwagent-event-id-11071:
 
 .. meta::
-   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11071: Disk Space Monitor service: runtime operation failed.
+   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11071: Disk Space Monitor could not complete a disk-space check.
    :event-id: 11071
    :event-product: MonitorWare Agent
    :event-severity: Error
    :event-component: Disk Space Monitor service
    :event-reference: true
 
-MonitorWare Agent Event ID 11071: Disk Space Monitor service: runtime operation failed
-======================================================================================
+MonitorWare Agent Event ID 11071: Disk Space Monitor could not complete a disk-space check
+==========================================================================================
 
 Answer
 ------
 
-Disk Space Monitor service: runtime operation failed. The product recorded this while processing disk space monitor service; the appended event detail identifies the affected object, operation, or provider error.
+The Disk Space Monitor service encountered an expected runtime error while checking one of its configured volumes. That polling cycle does not produce a valid disk-space result for the affected target.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Disk Space Monitor service
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Disk Space Monitor service: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Error in Disk Space Monitor: {error_detail}`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- A configured drive, mount point, or network path is unavailable.
+- The product service account cannot query the target path.
+- Windows returned a storage, path, or resource error during the check.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Use the event detail and service configuration to identify the affected target.
+#. Test that path while running as the product service account and translate any Windows error code.
+#. Restore access or correct the target, then wait for the next polling cycle.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11071 does not recur and that disk space monitor service processing continues.
+Confirm that a later polling cycle reports the expected disk-space state without another Event ID 11071.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

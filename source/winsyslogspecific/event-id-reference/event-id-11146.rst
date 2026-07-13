@@ -3,20 +3,20 @@
 .. _winsyslog-event-id-11146:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11146: Syslog listener: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11146: Syslog listener stopped after an unknown exception.
    :event-id: 11146
    :event-product: WinSyslog
    :event-severity: Error
    :event-component: Syslog listener
    :event-reference: true
 
-WinSyslog Event ID 11146: Syslog listener: runtime operation failed
-===================================================================
+WinSyslog Event ID 11146: Syslog listener stopped after an unknown exception
+============================================================================
 
 Answer
 ------
 
-Syslog listener: runtime operation failed. The product recorded this while processing syslog listener; the appended event detail identifies the affected object, operation, or provider error.
+The active Syslog listener raised an exception outside its normal binding and socket error handling. The product stops retrying that listener after the failure.
 
 Event details
 -------------
@@ -26,44 +26,47 @@ Event details
 - **Component:** Syslog listener
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Syslog listener: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The Syslog listener encountered an unknown exception and stopped retrying.`
 
 Possible causes
 ---------------
 
-- The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.
-- TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match.
+- A socket or TLS provider raised an unexpected exception.
+- System resource pressure disrupted the listener.
+- The listener encountered a product defect.
 
 Immediate checks
 ----------------
 
-#. Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.
-#. Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.
-#. Send one unique test message and verify positive receipt and queue recovery.
+#. Confirm whether the configured syslog port and transport are still active.
+#. Collect neighboring events, Windows Error Reporting data, and a bounded debug log from one controlled restart.
+#. Escalate a reproducible failure with the collected evidence.
 
 Detailed procedures
 -------------------
 
 - :ref:`Verify listener binding and Windows Firewall rules <event-id-procedure-network-verify-listener-binding-and-firewall>` — Confirm effective address, port, transport, owning process, and inbound policy.
+- :ref:`Collect evidence for an escalation-only runtime event <event-id-procedure-runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11146 does not recur and that syslog listener processing continues.
+Confirm that the listener remains active and receives a controlled syslog message without Event ID 11146.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------
 
-If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

@@ -3,20 +3,20 @@
 .. _winsyslog-event-id-11155:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11155: Log rotation: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11155: Cross-volume archive copy succeeded but source cleanup failed.
    :event-id: 11155
    :event-product: WinSyslog
    :event-severity: Warning
    :event-component: Log rotation
    :event-reference: true
 
-WinSyslog Event ID 11155: Log rotation: runtime operation failed
-================================================================
+WinSyslog Event ID 11155: Cross-volume archive copy succeeded but source cleanup failed
+=======================================================================================
 
 Answer
 ------
 
-Log rotation: runtime operation failed. The product recorded this while processing log rotation; the appended event detail identifies the affected object, operation, or provider error.
+The product copied the rotated log to an archive on another volume, but could not delete the original source file. Both copies may remain.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Log rotation
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Logrotationarchivemove. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Cross-volume copy succeeded but source delete failed: {source_path}`
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or not writable by the service account.
-- Rotation naming, retention, timing, or another process holding the file prevents the required operation.
+- The service account can read but cannot delete the source file.
+- Another process reopened or locked the source file.
+- The source volume became read-only or unavailable after the copy.
 
 Immediate checks
 ----------------
 
-#. Record the resolved path, file name, rotation trigger, and service-account context.
-#. Check existence, ACLs, free space, current file sizes, and recent timestamps.
-#. Perform one controlled write or rotation and verify that active output continues.
+#. Verify that the archive copy is complete before touching the source.
+#. Test delete permission and inspect file locks on the source path.
+#. After confirming the archive, remove the source through the organization's approved retention procedure.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11155 does not recur and that log rotation processing continues.
+Confirm that only the intended archive remains and a later cross-volume rotation completes without Event ID 11155.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

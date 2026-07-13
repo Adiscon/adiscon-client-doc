@@ -3,20 +3,20 @@
 .. _rsyslog-event-id-11161:
 
 .. meta::
-   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11161: Log rotation: runtime operation failed.
+   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11161: Configuration reload kept the existing log-rotation workers.
    :event-id: 11161
    :event-product: rsyslog Windows Agent
    :event-severity: Warning
    :event-component: Log rotation
    :event-reference: true
 
-rsyslog Windows Agent Event ID 11161: Log rotation: runtime operation failed
-============================================================================
+rsyslog Windows Agent Event ID 11161: Configuration reload kept the existing log-rotation workers
+=================================================================================================
 
 Answer
 ------
 
-Log rotation: runtime operation failed. The product recorded this while processing log rotation; the appended event detail identifies the affected object, operation, or provider error.
+Active log-rotation work did not finish within the reload timeout. The product keeps the current worker pool and skips replacing it so detached work retains a valid owner.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Log rotation
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Logrotationsubsystem. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Configuration reload kept the existing asynchronous log rotation worker pool because active detached work did not drain before the bounded stop timeout.`
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or not writable by the service account.
-- Rotation naming, retention, timing, or another process holding the file prevents the required operation.
+- A rotation move, compression, or archive operation is slow or blocked.
+- The archive destination is unavailable or under heavy load.
+- The configured reload timeout is shorter than active rotation work requires.
 
 Immediate checks
 ----------------
 
-#. Record the resolved path, file name, rotation trigger, and service-account context.
-#. Check existence, ACLs, free space, current file sizes, and recent timestamps.
-#. Perform one controlled write or rotation and verify that active output continues.
+#. Inspect pending and active rotation work without terminating the service.
+#. Check archive availability, file locks, compression load, and free space.
+#. Let active work finish, then perform one controlled configuration reload.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11161 does not recur and that log rotation processing continues.
+Confirm that active rotations complete and a later reload applies the intended rotation-worker settings without Event ID 11161.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

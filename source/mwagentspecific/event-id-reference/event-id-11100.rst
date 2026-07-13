@@ -3,20 +3,20 @@
 .. _mwagent-event-id-11100:
 
 .. meta::
-   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11100: Event Log Monitor service: runtime operation failed.
+   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11100: A corrupted Windows Event Log record was skipped.
    :event-id: 11100
    :event-product: MonitorWare Agent
    :event-severity: Warning
    :event-component: Event Log Monitor service
    :event-reference: true
 
-MonitorWare Agent Event ID 11100: Event Log Monitor service: runtime operation failed
-=====================================================================================
+MonitorWare Agent Event ID 11100: A corrupted Windows Event Log record was skipped
+==================================================================================
 
 Answer
 ------
 
-Event Log Monitor service: runtime operation failed. The product recorded this while processing event log monitor service; the appended event detail identifies the affected object, operation, or provider error.
+The legacy Event Log Monitor encountered a corrupted record and, as configured, advanced its persisted position past that record. The corrupted record is not processed.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Event Log Monitor service
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Nteventreport showevtlog. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The Event Log '{channel_name}' is corrupted at entry {record_number}. Corruption handling is configured to ignore corrupted events, so processing continues.`
 
 Possible causes
 ---------------
 
-- The configured Windows Event Log channel is missing, disabled, inaccessible, or no longer matches the saved collection position.
-- The service account cannot read the channel or provider metadata, or the channel was cleared or recreated.
+- The Windows Event Log channel contains a damaged record.
+- The underlying event-log file or storage was corrupted.
+- An external restore or maintenance operation left an unreadable record.
 
 Immediate checks
 ----------------
 
-#. Identify the exact channel, collection mode, saved position, and service account.
-#. Confirm that Windows reports the channel enabled and readable in the service-account context.
-#. Use one safe test event to verify collection before resetting any saved position.
+#. Record the channel and record number from the event.
+#. Use Windows Event Viewer or native event-log tools to verify the channel and export it before repair.
+#. Review the configured corruption-handling policy and repair or clear the Windows channel only under the organization's retention procedure.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11100 does not recur and that event log monitor service processing continues.
+Confirm that monitoring advances to later records and that newly written test events are collected from the channel.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

@@ -83,6 +83,8 @@ Evidence to collect
 Related Event IDs
 -----------------
 
+- :ref:`MonitorWare Agent Event ID 11009 <mwagent-event-id-11009>`
+- :ref:`MonitorWare Agent Event ID 11026 <mwagent-event-id-11026>`
 - :ref:`MonitorWare Agent Event ID 11042 <mwagent-event-id-11042>`
 - :ref:`MonitorWare Agent Event ID 11071 <mwagent-event-id-11071>`
 - :ref:`MonitorWare Agent Event ID 11074 <mwagent-event-id-11074>`
@@ -93,3 +95,4 @@ Related Event IDs
 - :ref:`MonitorWare Agent Event ID 11079 <mwagent-event-id-11079>`
 - :ref:`MonitorWare Agent Event ID 11080 <mwagent-event-id-11080>`
 - :ref:`MonitorWare Agent Event ID 11081 <mwagent-event-id-11081>`
+- :ref:`MonitorWare Agent Event ID 11173 <mwagent-event-id-11173>`

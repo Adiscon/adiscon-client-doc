@@ -3,43 +3,44 @@
 .. _winsyslog-event-id-11090:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11090: SETP receiver: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11090: SETP listener stopped after a protocol server error.
    :event-id: 11090
    :event-product: WinSyslog
    :event-severity: Error
-   :event-component: SETP receiver
+   :event-component: SETP listener
    :event-reference: true
 
-WinSyslog Event ID 11090: SETP receiver: runtime operation failed
-=================================================================
+WinSyslog Event ID 11090: SETP listener stopped after a protocol server error
+=============================================================================
 
 Answer
 ------
 
-SETP receiver: runtime operation failed. The product recorded this while processing setp receiver; the appended event detail identifies the affected object, operation, or provider error.
+The SETP listener encountered a protocol-server error while setting up or running the listener. The listener stops rather than continuing after this error.
 
 Event details
 -------------
 
 - **Event ID:** ``11090``
 - **Severity:** Error
-- **Component:** SETP receiver
+- **Component:** SETP listener
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`SETP receiver: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`SETP listener error: {error_detail}`
 
 Possible causes
 ---------------
 
-- The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.
-- TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match.
+- The configured SETP listener settings are invalid or unavailable.
+- A socket, TLS, or SETP protocol operation failed.
+- A required listener resource could not be initialized.
 
 Immediate checks
 ----------------
 
-#. Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.
-#. Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.
-#. Send one unique test message and verify positive receipt and queue recovery.
+#. Record the complete embedded error and the affected SETP listener configuration.
+#. Verify listener binding, port availability, firewall rules, and any TLS certificate or peer settings.
+#. Correct the reported cause and restart or reload the listener once.
 
 Detailed procedures
 -------------------
@@ -52,14 +53,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11090 does not recur and that setp receiver processing continues.
+Confirm that the SETP listener remains running and accepts a controlled connection without another Event ID 11090.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

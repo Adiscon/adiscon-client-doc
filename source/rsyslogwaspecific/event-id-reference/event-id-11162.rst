@@ -3,43 +3,44 @@
 .. _rsyslog-event-id-11162:
 
 .. meta::
-   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11162: Log rotation: runtime operation failed.
+   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11162: Log-rotation jobs cannot be persisted because the data directory is unset.
    :event-id: 11162
    :event-product: rsyslog Windows Agent
    :event-severity: Warning
-   :event-component: Log rotation
+   :event-component: Log rotation queue
    :event-reference: true
 
-rsyslog Windows Agent Event ID 11162: Log rotation: runtime operation failed
-============================================================================
+rsyslog Windows Agent Event ID 11162: Log-rotation jobs cannot be persisted because the data directory is unset
+===============================================================================================================
 
 Answer
 ------
 
-Log rotation: runtime operation failed. The product recorded this while processing log rotation; the appended event detail identifies the affected object, operation, or provider error.
+During a runtime settings change, the product had detached rotation jobs but no data directory in which to persist them. The jobs remain in memory and are re-queued, but they are not durable across a service stop or crash.
 
 Event details
 -------------
 
 - **Event ID:** ``11162``
 - **Severity:** Warning
-- **Component:** Log rotation
+- **Component:** Log rotation queue
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Logrotationsubsystem. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Data directory unset: in-memory detached rotation jobs re-queued without persistence.`
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or not writable by the service account.
-- Rotation naming, retention, timing, or another process holding the file prevents the required operation.
+- The product data directory is empty or invalid.
+- Configuration reload temporarily removed the data-directory setting.
+- The data directory could not be resolved during startup or reload.
 
 Immediate checks
 ----------------
 
-#. Record the resolved path, file name, rotation trigger, and service-account context.
-#. Check existence, ACLs, free space, current file sizes, and recent timestamps.
-#. Perform one controlled write or rotation and verify that active output continues.
+#. Avoid stopping the service while in-memory jobs remain pending.
+#. Correct the product data-directory setting and verify service-account access.
+#. Reload once and monitor the rotation queue until pending jobs complete.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11162 does not recur and that log rotation processing continues.
+Confirm that the queue file is persisted in the configured data directory and pending rotations survive a controlled reload.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

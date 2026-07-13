@@ -3,68 +3,69 @@
 .. _eventreporter-event-id-11028:
 
 .. meta::
-   :description: Meaning and troubleshooting for EventReporter Event ID 11028: Action processing: runtime operation failed.
+   :description: Meaning and troubleshooting for EventReporter Event ID 11028: Configured action raised an unknown exception below its retry limit.
    :event-id: 11028
    :event-product: EventReporter
    :event-severity: Error
-   :event-component: Action processing
+   :event-component: Rule engine action
    :event-reference: true
 
-EventReporter Event ID 11028: Action processing: runtime operation failed
-=========================================================================
+EventReporter Event ID 11028: Configured action raised an unknown exception below its retry limit
+=================================================================================================
 
 Answer
 ------
 
-Action processing: runtime operation failed. The product recorded this while processing action processing; the appended event detail identifies the affected object, operation, or provider error.
+An action raised an exception that did not contain a normal diagnostic error object while its attempt count was below the configured retry limit. Another attempt occurs only when retry processing is enabled and the failure remains retryable.
 
 Event details
 -------------
 
 - **Event ID:** ``11028``
 - **Severity:** Error
-- **Component:** Action processing
+- **Component:** Rule engine action
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Ruleengine actions. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`An unknown exception occurred while applying a configured action below its configured retry limit.`
 
 Possible causes
 ---------------
 
-- A downstream action is failing or retrying, so queued work cannot drain.
-- The queue directory, permissions, free space, or queue artifact state prevents normal processing.
+- An action or one of its providers raised an unexpected exception.
+- A transient resource or third-party component failed outside the action's normal error path.
+- The affected action encountered a product defect.
 
 Immediate checks
 ----------------
 
-#. Identify the first downstream action error and record queue depth and oldest-item time.
-#. Check queue-directory access and free space without changing live queue files.
-#. Correct the downstream cause, send one test event, and verify that the backlog decreases.
+#. Record whether a later retry succeeds and identify the affected action from neighboring events.
+#. If retries continue to fail, collect a bounded debug log and Windows Error Reporting data.
+#. Avoid changing unrelated action settings; escalate a reproducible unknown exception with the collected evidence.
 
 Detailed procedures
 -------------------
 
-- :ref:`Diagnose an action backlog or disk queue <event-id-procedure-queue-diagnose-backlog-and-disk-queue>` — Identify why queued work is not draining while preserving data.
-- :ref:`Validate configuration and reload it safely <event-id-procedure-config-validate-and-reload>` — Back up, inspect, correct, and test the exact invalid configuration object.
+- :ref:`Collect evidence for an escalation-only runtime event <event-id-procedure-runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11028 does not recur and that action processing processing continues.
+Confirm that a later retry or controlled test completes successfully and Event ID 11028 stops recurring.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------
 
-If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

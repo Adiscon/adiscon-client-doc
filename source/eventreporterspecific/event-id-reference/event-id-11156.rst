@@ -3,20 +3,20 @@
 .. _eventreporter-event-id-11156:
 
 .. meta::
-   :description: Meaning and troubleshooting for EventReporter Event ID 11156: Log rotation: runtime operation failed.
+   :description: Meaning and troubleshooting for EventReporter Event ID 11156: Rotated log could not be moved to its archive destination.
    :event-id: 11156
    :event-product: EventReporter
    :event-severity: Warning
    :event-component: Log rotation
    :event-reference: true
 
-EventReporter Event ID 11156: Log rotation: runtime operation failed
-====================================================================
+EventReporter Event ID 11156: Rotated log could not be moved to its archive destination
+=======================================================================================
 
 Answer
 ------
 
-Log rotation: runtime operation failed. The product recorded this while processing log rotation; the appended event detail identifies the affected object, operation, or provider error.
+The product exhausted its normal move and cross-volume copy handling for a rotated log. The event identifies the source, destination, and Windows error.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Log rotation
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Logrotationarchivemove. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`source='{source_path}' dest='{destination_path}' err={error_code}`
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or not writable by the service account.
-- Rotation naming, retention, timing, or another process holding the file prevents the required operation.
+- The archive directory is unavailable or cannot be created.
+- Permissions, file locks, path length, or free space prevent the move.
+- The source or destination volume returned a Windows storage error.
 
 Immediate checks
 ----------------
 
-#. Record the resolved path, file name, rotation trigger, and service-account context.
-#. Check existence, ACLs, free space, current file sizes, and recent timestamps.
-#. Perform one controlled write or rotation and verify that active output continues.
+#. Translate the Windows error and preserve the source rotated file.
+#. Test directory creation and file move access under the product service account.
+#. Correct the path, permission, lock, or storage condition and allow recovery to retry.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11156 does not recur and that log rotation processing continues.
+Confirm that the source file is moved to the intended archive and Event ID 11156 no longer recurs.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

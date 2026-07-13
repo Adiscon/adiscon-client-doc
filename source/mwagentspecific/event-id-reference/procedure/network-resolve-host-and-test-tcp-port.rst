@@ -82,10 +82,13 @@ Related Event IDs
 - :ref:`MonitorWare Agent Event ID 11002 <mwagent-event-id-11002>`
 - :ref:`MonitorWare Agent Event ID 11003 <mwagent-event-id-11003>`
 - :ref:`MonitorWare Agent Event ID 11004 <mwagent-event-id-11004>`
+- :ref:`MonitorWare Agent Event ID 11009 <mwagent-event-id-11009>`
 - :ref:`MonitorWare Agent Event ID 11017 <mwagent-event-id-11017>`
 - :ref:`MonitorWare Agent Event ID 11018 <mwagent-event-id-11018>`
+- :ref:`MonitorWare Agent Event ID 11026 <mwagent-event-id-11026>`
 - :ref:`MonitorWare Agent Event ID 11034 <mwagent-event-id-11034>`
 - :ref:`MonitorWare Agent Event ID 11035 <mwagent-event-id-11035>`
+- :ref:`MonitorWare Agent Event ID 11036 <mwagent-event-id-11036>`
 - :ref:`MonitorWare Agent Event ID 11039 <mwagent-event-id-11039>`
 - :ref:`MonitorWare Agent Event ID 11040 <mwagent-event-id-11040>`
 - :ref:`MonitorWare Agent Event ID 11048 <mwagent-event-id-11048>`
@@ -102,6 +105,7 @@ Related Event IDs
 - :ref:`MonitorWare Agent Event ID 11061 <mwagent-event-id-11061>`
 - :ref:`MonitorWare Agent Event ID 11062 <mwagent-event-id-11062>`
 - :ref:`MonitorWare Agent Event ID 11063 <mwagent-event-id-11063>`
+- :ref:`MonitorWare Agent Event ID 11173 <mwagent-event-id-11173>`
 
 
 Related procedures

@@ -117,4 +117,4 @@ Related Event IDs
 - :ref:`WinSyslog Event ID 11027 <winsyslog-event-id-11027>`
 - :ref:`WinSyslog Event ID 11028 <winsyslog-event-id-11028>`
 - :ref:`WinSyslog Event ID 11029 <winsyslog-event-id-11029>`
-- This procedure is used by 174 additional Event IDs; use the product Event ID index to locate them.
+- This procedure is used by 173 additional Event IDs; use the product Event ID index to locate them.

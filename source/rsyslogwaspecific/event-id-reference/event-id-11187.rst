@@ -3,20 +3,20 @@
 .. _rsyslog-event-id-11187:
 
 .. meta::
-   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11187: Service configuration: runtime operation failed.
+   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11187: A configured input service type is not recognized.
    :event-id: 11187
    :event-product: rsyslog Windows Agent
    :event-severity: Error
    :event-component: Service configuration
    :event-reference: true
 
-rsyslog Windows Agent Event ID 11187: Service configuration: runtime operation failed
-=====================================================================================
+rsyslog Windows Agent Event ID 11187: A configured input service type is not recognized
+=======================================================================================
 
 Answer
 ------
 
-Service configuration: runtime operation failed. The product recorded this while processing service configuration; the appended event detail identifies the affected object, operation, or provider error.
+The configuration contains an input-service type that the installed product build cannot create. The product ignores that service object and continues loading the remaining services.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Service configuration
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Servicemanager unknown service type. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Unknown service type {service_type} was found and ignored.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- The configuration came from a newer or incompatible product version.
+- A manual configuration edit supplied an invalid service type.
+- The service object is incomplete or damaged.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Export and back up the current configuration.
+#. Identify the ignored service and compare its type with services supported by the installed product version.
+#. Recreate it with a supported type or install the intended compatible version, then reload.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11187 does not recur and that service configuration processing continues.
+Confirm that the recreated input service starts and receives a controlled event without Event ID 11187.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

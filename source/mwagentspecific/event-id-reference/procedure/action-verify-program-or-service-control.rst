@@ -79,7 +79,6 @@ Related Event IDs
 -----------------
 
 - :ref:`MonitorWare Agent Event ID 11020 <mwagent-event-id-11020>`
-- :ref:`MonitorWare Agent Event ID 11041 <mwagent-event-id-11041>`
 - :ref:`MonitorWare Agent Event ID 11216 <mwagent-event-id-11216>`
 - :ref:`MonitorWare Agent Event ID 11217 <mwagent-event-id-11217>`
 - :ref:`MonitorWare Agent Event ID 11218 <mwagent-event-id-11218>`

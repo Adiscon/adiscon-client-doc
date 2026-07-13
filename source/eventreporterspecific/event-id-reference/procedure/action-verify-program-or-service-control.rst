@@ -79,7 +79,6 @@ Related Event IDs
 -----------------
 
 - :ref:`EventReporter Event ID 11020 <eventreporter-event-id-11020>`
-- :ref:`EventReporter Event ID 11041 <eventreporter-event-id-11041>`
 - :ref:`EventReporter Event ID 11216 <eventreporter-event-id-11216>`
 - :ref:`EventReporter Event ID 11217 <eventreporter-event-id-11217>`
 - :ref:`EventReporter Event ID 11218 <eventreporter-event-id-11218>`

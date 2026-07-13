@@ -3,48 +3,49 @@
 .. _mwagent-event-id-11037:
 
 .. meta::
-   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11037: Action processing: runtime operation failed.
+   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11037: Send to Communications Port action could not write a byte.
    :event-id: 11037
    :event-product: MonitorWare Agent
    :event-severity: Error
-   :event-component: Action processing
+   :event-component: Send to Communications Port action
    :event-reference: true
 
-MonitorWare Agent Event ID 11037: Action processing: runtime operation failed
-=============================================================================
+MonitorWare Agent Event ID 11037: Send to Communications Port action could not write a byte
+===========================================================================================
 
 Answer
 ------
 
-Action processing: runtime operation failed. The product recorded this while processing action processing; the appended event detail identifies the affected object, operation, or provider error.
+The action opened the configured communications port but Windows reported an error while writing the message. The product closes the port after the failure.
 
 Event details
 -------------
 
 - **Event ID:** ``11037``
 - **Severity:** Error
-- **Component:** Action processing
+- **Component:** Send to Communications Port action
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Action processing: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Error in SendMessage - GetLastError: {error_code}`
 
 Possible causes
 ---------------
 
-- A downstream action is failing or retrying, so queued work cannot drain.
-- The queue directory, permissions, free space, or queue artifact state prevents normal processing.
+- The serial device was disconnected or stopped responding.
+- The port, driver, flow-control, baud-rate, parity, or stop-bit settings do not match the device.
+- Another process took control of the port or the device driver failed.
 
 Immediate checks
 ----------------
 
-#. Identify the first downstream action error and record queue depth and oldest-item time.
-#. Check queue-directory access and free space without changing live queue files.
-#. Correct the downstream cause, send one test event, and verify that the backlog decreases.
+#. Translate the Windows error code and confirm the configured port name.
+#. Verify the device and driver state, then compare both endpoints' serial settings.
+#. Close other applications using the port and send a controlled test message.
 
 Detailed procedures
 -------------------
 
-- :ref:`Diagnose an action backlog or disk queue <event-id-procedure-queue-diagnose-backlog-and-disk-queue>` — Identify why queued work is not draining while preserving data.
+- :ref:`Interpret a Windows or Winsock error code <event-id-procedure-windows-interpret-error-code>` — Translate a numeric code without losing its operation or subsystem context.
 - :ref:`Validate configuration and reload it safely <event-id-procedure-config-validate-and-reload>` — Back up, inspect, correct, and test the exact invalid configuration object.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
@@ -52,14 +53,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11037 does not recur and that action processing processing continues.
+Confirm that the complete controlled message reaches the serial device without Event ID 11037.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

@@ -79,7 +79,20 @@ Related Event IDs
 
 - :ref:`MonitorWare Agent Event ID 11008 <mwagent-event-id-11008>`
 - :ref:`MonitorWare Agent Event ID 11021 <mwagent-event-id-11021>`
+- :ref:`MonitorWare Agent Event ID 11027 <mwagent-event-id-11027>`
+- :ref:`MonitorWare Agent Event ID 11028 <mwagent-event-id-11028>`
+- :ref:`MonitorWare Agent Event ID 11041 <mwagent-event-id-11041>`
 - :ref:`MonitorWare Agent Event ID 11068 <mwagent-event-id-11068>`
+- :ref:`MonitorWare Agent Event ID 11073 <mwagent-event-id-11073>`
+- :ref:`MonitorWare Agent Event ID 11116 <mwagent-event-id-11116>`
+- :ref:`MonitorWare Agent Event ID 11118 <mwagent-event-id-11118>`
+- :ref:`MonitorWare Agent Event ID 11122 <mwagent-event-id-11122>`
+- :ref:`MonitorWare Agent Event ID 11146 <mwagent-event-id-11146>`
+- :ref:`MonitorWare Agent Event ID 11152 <mwagent-event-id-11152>`
+- :ref:`MonitorWare Agent Event ID 11159 <mwagent-event-id-11159>`
+- :ref:`MonitorWare Agent Event ID 11163 <mwagent-event-id-11163>`
+- :ref:`MonitorWare Agent Event ID 11169 <mwagent-event-id-11169>`
+- :ref:`MonitorWare Agent Event ID 11170 <mwagent-event-id-11170>`
 - :ref:`MonitorWare Agent Event ID 11175 <mwagent-event-id-11175>`
 - :ref:`MonitorWare Agent Event ID 11177 <mwagent-event-id-11177>`
 - :ref:`MonitorWare Agent Event ID 11188 <mwagent-event-id-11188>`
@@ -90,6 +103,7 @@ Related Event IDs
 - :ref:`MonitorWare Agent Event ID 11212 <mwagent-event-id-11212>`
 - :ref:`MonitorWare Agent Event ID 11213 <mwagent-event-id-11213>`
 - :ref:`MonitorWare Agent Event ID 11214 <mwagent-event-id-11214>`
+- :ref:`MonitorWare Agent Event ID 11215 <mwagent-event-id-11215>`
 
 
 Related procedures

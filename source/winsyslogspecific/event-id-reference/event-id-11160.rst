@@ -3,43 +3,44 @@
 .. _winsyslog-event-id-11160:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11160: Log rotation: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11160: Corrupt log-rotation queue file was quarantined.
    :event-id: 11160
    :event-product: WinSyslog
    :event-severity: Warning
-   :event-component: Log rotation
+   :event-component: Log rotation queue
    :event-reference: true
 
-WinSyslog Event ID 11160: Log rotation: runtime operation failed
-================================================================
+WinSyslog Event ID 11160: Corrupt log-rotation queue file was quarantined
+=========================================================================
 
 Answer
 ------
 
-Log rotation: runtime operation failed. The product recorded this while processing log rotation; the appended event detail identifies the affected object, operation, or provider error.
+The product detected an invalid durable log-rotation queue and successfully renamed it for quarantine. The invalid queue is not loaded; new rotation work can use a new queue file.
 
 Event details
 -------------
 
 - **Event ID:** ``11160``
 - **Severity:** Warning
-- **Component:** Log rotation
+- **Component:** Log rotation queue
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Logrotationsubsystem. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`{reason} Renamed to: {quarantine_path}`
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or not writable by the service account.
-- Rotation naming, retention, timing, or another process holding the file prevents the required operation.
+- The previous service run ended while queue state was being persisted.
+- The queue file was externally modified or damaged.
+- Storage or backup software produced incomplete queue contents.
 
 Immediate checks
 ----------------
 
-#. Record the resolved path, file name, rotation trigger, and service-account context.
-#. Check existence, ACLs, free space, current file sizes, and recent timestamps.
-#. Perform one controlled write or rotation and verify that active output continues.
+#. Preserve the quarantined file for analysis and record its path.
+#. Check neighboring shutdown, storage, and file-system events.
+#. Verify that a new queue file is created and inspect whether any rotated files from the quarantined jobs remain pending.
 
 Detailed procedures
 -------------------
@@ -51,19 +52,20 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11160 does not recur and that log rotation processing continues.
+Confirm that new log rotations complete and durable queue state can be saved and reloaded.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------
 
-If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
+This event normally records state rather than a failure. Escalate only when the state was unexpected or the associated operation does not recover.
 
 Related Event IDs
 -----------------

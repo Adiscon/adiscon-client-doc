@@ -91,6 +91,7 @@ Related Event IDs
 - :ref:`rsyslog Windows Agent Event ID 11120 <rsyslog-event-id-11120>`
 - :ref:`rsyslog Windows Agent Event ID 11130 <rsyslog-event-id-11130>`
 - :ref:`rsyslog Windows Agent Event ID 11131 <rsyslog-event-id-11131>`
+- :ref:`rsyslog Windows Agent Event ID 11169 <rsyslog-event-id-11169>`
 
 
 Related procedures
