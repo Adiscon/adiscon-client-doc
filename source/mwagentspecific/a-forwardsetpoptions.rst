@@ -3,6 +3,11 @@ Send SETP
 
 With the "Send SETP" action, messages can be sent to a SETP server.
 
+.. only:: winsyslog or winsyslog_j
+
+   In WinSyslog, the **Send SETP** action is a sender-side action. Receiving
+   SETP events requires the separate ``SETP Server`` service.
+
 
 .. image:: ../images/a-forwardsetp-general.png
    :width: 100%

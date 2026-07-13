@@ -54,6 +54,7 @@ Protocols and integration
    ../shared/faq/tls-listener-certificate-files
    faq/originating-ip-address
    faq/setp-vs-syslog
+   faq/eventreporter-properties-via-setp
    faq/non-standard-syslog-format
 
 Licensing and product positioning

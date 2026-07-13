@@ -27,5 +27,6 @@ Internal actions
    ../mwagentspecific/a-computestatusvariable
    ../mwagentspecific/a-discard
    ../mwagentspecific/a-normalizeevent
+   ../mwagentspecific/a-resolvehostname
    ../mwagentspecific/a-setproperty
    ../mwagentspecific/a-setstatus

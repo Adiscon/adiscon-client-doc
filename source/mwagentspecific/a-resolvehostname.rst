@@ -1,9 +1,9 @@
 Resolve Hostname Action
 =======================
 
-Many Customers asked for resolve hostname options in different services. This
-feature has now been implemented as an action. An action can be used with
-every service, and it does not delay the work of a service.
+The **Resolve Hostname** action resolves a host name or address from one event
+property and stores the result in another property. Because it is an action,
+you can place it in the ruleset where the resolved value is needed.
 
 
 .. image:: ../images/a-resolvehostname.png

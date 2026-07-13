@@ -6,18 +6,38 @@ User Interface changes
 ======================
 
 The **26.07** installer includes the established configuration client and the
-new product-specific User Interface:
+new user interface for this product:
 
 - **Established configuration client** - the WinForms client documented in this
   manual and the primary reference for setup steps and screenshots.
-- **Product User Interface** - the newer WinUI-based interface
-  (``adiscon-client-ng``), such as the WinSyslog User Interface or
-  EventReporter User Interface, available alongside the established
-  configuration client.
+
+.. only:: winsyslog or winsyslog_j
+
+   - **WinSyslog User Interface** - the newer WinUI-based interface
+     (``adiscon-client-ng``) available alongside the established configuration
+     client.
+
+.. only:: eventreporter
+
+   - **EventReporter User Interface** - the newer WinUI-based interface
+     (``adiscon-client-ng``) available alongside the established configuration
+     client.
+
+.. only:: mwagent
+
+   - **MonitorWare Agent User Interface** - the newer WinUI-based interface
+     (``adiscon-client-ng``) available alongside the established configuration
+     client.
+
+.. only:: rsyslog
+
+   - **rsyslog Windows Agent User Interface** - the newer WinUI-based interface
+     (``adiscon-client-ng``) available alongside the established configuration
+     client.
 
 The established configuration client supports license file application and full
 configuration editing. See your product website's **Upgrade** article for the
-customer-facing description of the Product User Interface.
+customer-facing description of the product-specific user interface.
 
 Property window toolbar
 -----------------------

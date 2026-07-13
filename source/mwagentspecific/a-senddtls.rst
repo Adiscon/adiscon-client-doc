@@ -1,7 +1,9 @@
 Send DTLS
 =========
 
-This action sends messages securely using the Datagram Transport Layer Security (DTLS) protocol. It ensures message confidentiality and integrity over an encrypted channel. The implementation uses OpenSSL to handle encryption and decryption, ensuring robust security and compatibility with industry standards. DTLS is suitable for applications requiring low latency and secure communication.
+This action sends messages securely using Datagram Transport Layer Security
+(DTLS). Use it when the receiving system expects DTLS transport for forwarded
+messages.
 
 .. image:: ../images/send-dtls-configuration.png
    :width: 100%
