@@ -19,6 +19,8 @@ concurrency:
 jobs:
   build-html:
     runs-on: ubuntu-latest
+    env:
+      EVENT_ID_REFERENCE_PREVIEW: "1"
     outputs:
       found-projects: ${{ steps.collect-artifacts.outputs.found-projects }}
       project-list: ${{ steps.collect-artifacts.outputs.project-list }}
@@ -40,6 +42,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install --requirement requirements.txt
+
+      - name: Prepare draft Event ID preview
+        run: python scripts/generate_event_id_reference.py
 
       - name: Build HTML for all projects
         # The -W (or --warning-is-error) option makes Sphinx treat all warnings as errors.
