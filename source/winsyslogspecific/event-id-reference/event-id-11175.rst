@@ -26,7 +26,7 @@ Event details
 - **Component:** Queue manager
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Queue manager: queue capacity condition. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Queue manager: queue capacity condition. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

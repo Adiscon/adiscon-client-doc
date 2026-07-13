@@ -38,6 +38,8 @@ class EventIdProcedureTests(unittest.TestCase):
     def test_ready_registry_rejects_draft_content(self):
         procedures = copy.deepcopy(self.procedures)
         procedures["catalog_status"] = "ready"
+        next(iter(procedures["procedures"].values()))["review_status"] = "draft"
+        next(iter(procedures["event_mappings"].values()))["review_status"] = "draft"
         errors = validate_procedure_catalog(self.catalog, procedures)
         self.assertTrue(any("unreviewed procedure" in item for item in errors))
         self.assertTrue(any("unreviewed mapping" in item for item in errors))

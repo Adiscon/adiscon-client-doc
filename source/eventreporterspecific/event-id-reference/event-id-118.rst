@@ -26,7 +26,7 @@ Event details
 - **Component:** Licensing
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** The product is running in trial mode; the event detail contains the remaining trial information. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`The product is running in trial mode; the event detail contains the remaining trial information. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

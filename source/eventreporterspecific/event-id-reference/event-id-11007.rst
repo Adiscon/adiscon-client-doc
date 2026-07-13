@@ -26,7 +26,7 @@ Event details
 - **Component:** Action configuration
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Action configuration: required timer could not be created. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Action configuration: required timer could not be created. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

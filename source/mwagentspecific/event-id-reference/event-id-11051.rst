@@ -26,7 +26,7 @@ Event details
 - **Component:** Network and TLS transport
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Cwinsock initopensslserversession client ssl certificate verification. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Cwinsock initopensslserversession client ssl certificate verification. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

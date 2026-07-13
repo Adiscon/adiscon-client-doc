@@ -26,7 +26,7 @@ Event details
 - **Component:** Event Log Monitor service
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Event reporter service. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Event reporter service. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

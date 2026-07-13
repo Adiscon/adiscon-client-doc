@@ -26,7 +26,7 @@ Event details
 - **Component:** File Monitor service
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** File Monitor service: file monitoring operation failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`File Monitor service: file monitoring operation failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

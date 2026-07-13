@@ -26,7 +26,7 @@ Event details
 - **Component:** Action processing
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Action processing: invalid action type in configuration. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Action processing: invalid action type in configuration. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

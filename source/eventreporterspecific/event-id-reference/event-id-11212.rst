@@ -26,7 +26,7 @@ Event details
 - **Component:** Event Log Monitor service
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** System exception while compiling an NT Event Log expression. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`System exception while compiling an NT Event Log expression. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

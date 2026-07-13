@@ -26,7 +26,7 @@ Event details
 - **Component:** SMTP listener
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** SMTP listener: SMTP listener raised an unknown exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`SMTP listener: SMTP listener raised an unknown exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

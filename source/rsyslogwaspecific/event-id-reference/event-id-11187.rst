@@ -26,7 +26,7 @@ Event details
 - **Component:** Service configuration
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Servicemanager unknown service type. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Servicemanager unknown service type. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

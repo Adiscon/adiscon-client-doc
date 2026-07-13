@@ -26,7 +26,7 @@ Event details
 - **Component:** Action processing
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Action processing: configured action feature is unavailable. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Action processing: configured action feature is unavailable. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

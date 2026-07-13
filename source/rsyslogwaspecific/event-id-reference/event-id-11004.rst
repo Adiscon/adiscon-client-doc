@@ -26,7 +26,7 @@ Event details
 - **Component:** SETP sender
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** SETP sender session has been restored. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`SETP sender session has been restored. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

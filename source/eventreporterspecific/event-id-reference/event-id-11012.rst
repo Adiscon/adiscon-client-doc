@@ -26,7 +26,7 @@ Event details
 - **Component:** OLE DB action
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** OLE DB action: database operation failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`OLE DB action: database operation failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

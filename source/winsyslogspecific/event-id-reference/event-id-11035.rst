@@ -26,7 +26,7 @@ Event details
 - **Component:** SETP sender
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** SETP sender: SETP session initialization failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`SETP sender: SETP session initialization failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

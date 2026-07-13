@@ -26,7 +26,7 @@ Event details
 - **Component:** Product runtime
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Crsyslogclient issupportedadvancedfeature. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Crsyslogclient issupportedadvancedfeature. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

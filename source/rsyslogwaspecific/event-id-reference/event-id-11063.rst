@@ -26,7 +26,7 @@ Event details
 - **Component:** MonitorWare Echo service
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** MonitorWare Echo service: MonitorWare Echo operation raised an unknown exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`MonitorWare Echo service: MonitorWare Echo operation raised an unknown exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

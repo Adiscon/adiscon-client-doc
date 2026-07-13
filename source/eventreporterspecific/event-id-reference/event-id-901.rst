@@ -26,7 +26,7 @@ Event details
 - **Component:** Licensing
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** The product rejected a blocked license key during startup. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`The product rejected a blocked license key during startup. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

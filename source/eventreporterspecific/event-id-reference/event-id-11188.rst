@@ -26,7 +26,7 @@ Event details
 - **Component:** Service configuration
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Service configuration: configured service feature is unavailable. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Service configuration: configured service feature is unavailable. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

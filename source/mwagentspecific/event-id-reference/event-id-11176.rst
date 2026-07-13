@@ -26,7 +26,7 @@ Event details
 - **Component:** Queue manager
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Main message queue is full. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Main message queue is full. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

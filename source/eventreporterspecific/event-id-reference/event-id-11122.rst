@@ -26,7 +26,7 @@ Event details
 - **Component:** RELP listener
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** RELP listener: runtime operation failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`RELP listener: runtime operation failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

@@ -358,7 +358,7 @@ validate: linkcheck spelling validate-rst
 RST_LINT_PATHS := $(SOURCEDIR) $(PROJECTS)
 DOC8_MAX_LINE_LENGTH ?= 1000
 RSTCHECK_IGNORE_DIRECTIVES ?= toctree,index,only,highlight
-RSTCHECK_IGNORE_ROLES ?= doc,ref
+RSTCHECK_IGNORE_ROLES ?= doc,ref,spelling:ignore
 RSTCHECK_IGNORE_LANGUAGES ?= none
 PYTHON ?= python3
 

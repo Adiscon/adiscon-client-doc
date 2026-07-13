@@ -26,7 +26,7 @@ Event details
 - **Component:** Microsoft Message Queuing action
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Microsoft Message Queuing action: Microsoft Message Queuing operation failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Microsoft Message Queuing action: Microsoft Message Queuing operation failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

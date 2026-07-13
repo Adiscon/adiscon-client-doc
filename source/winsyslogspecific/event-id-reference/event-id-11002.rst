@@ -26,7 +26,7 @@ Event details
 - **Component:** SETP sender
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** SETP sender could not complete the send operation; the message was moved to the action cache for retry. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`SETP sender could not complete the send operation; the message was moved to the action cache for retry. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

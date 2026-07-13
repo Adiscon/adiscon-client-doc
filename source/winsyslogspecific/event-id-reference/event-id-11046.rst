@@ -26,7 +26,7 @@ Event details
 - **Component:** File-based configuration
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Wszerr. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Wszerr. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

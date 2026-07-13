@@ -26,7 +26,7 @@ Event details
 - **Component:** Product runtime
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Pingprobe. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Pingprobe. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

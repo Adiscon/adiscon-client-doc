@@ -26,7 +26,7 @@ Event details
 - **Component:** Heartbeat service
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Heartbeat service: heartbeat operation raised an exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Heartbeat service: heartbeat operation raised an exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

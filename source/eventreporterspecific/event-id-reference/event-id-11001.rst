@@ -26,7 +26,7 @@ Event details
 - **Component:** SETP sender
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** SETP sender TLS session was closed while waiting for a reply. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`SETP sender TLS session was closed while waiting for a reply. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

@@ -26,7 +26,7 @@ Event details
 - **Component:** Serial Port Monitor
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Serial Port Monitor: serial port operation raised an unknown exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Serial Port Monitor: serial port operation raised an unknown exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

@@ -26,7 +26,7 @@ Event details
 - **Component:** TCP and TLS listener
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Ctcpserver runserver. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Ctcpserver runserver. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

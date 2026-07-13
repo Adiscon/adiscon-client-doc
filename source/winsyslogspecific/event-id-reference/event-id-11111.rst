@@ -26,7 +26,7 @@ Event details
 - **Component:** Windows Service Monitor
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Windows Service Monitor: Windows Service Monitor raised an exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Windows Service Monitor: Windows Service Monitor raised an exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

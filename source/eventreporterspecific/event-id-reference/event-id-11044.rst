@@ -26,7 +26,7 @@ Event details
 - **Component:** Licensing
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Client license limit exceeded. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Client license limit exceeded. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

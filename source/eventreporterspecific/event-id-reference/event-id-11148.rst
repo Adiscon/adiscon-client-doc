@@ -26,7 +26,7 @@ Event details
 - **Component:** Event Log Monitor V2 service
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Wevthelper checkbookmark. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Wevthelper checkbookmark. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

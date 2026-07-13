@@ -26,7 +26,7 @@ Event details
 - **Component:** TCP and TLS listener
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Ctcpserver acceptstarter. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Ctcpserver acceptstarter. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

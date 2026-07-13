@@ -26,7 +26,7 @@ Event details
 - **Component:** HTTP Probe service
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** HTTP Probe service: probe operation raised an unknown exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`HTTP Probe service: probe operation raised an unknown exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

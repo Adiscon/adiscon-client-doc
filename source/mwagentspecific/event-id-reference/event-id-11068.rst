@@ -26,7 +26,7 @@ Event details
 - **Component:** Database Monitor service
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Database Monitor service: database monitor ID field warning. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Database Monitor service: database monitor ID field warning. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

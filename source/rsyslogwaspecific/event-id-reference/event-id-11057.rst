@@ -26,7 +26,7 @@ Event details
 - **Component:** Network and TLS transport
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Cwinsock accept ssl connection initialization failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Cwinsock accept ssl connection initialization failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

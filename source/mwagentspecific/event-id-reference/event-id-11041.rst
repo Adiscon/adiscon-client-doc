@@ -26,7 +26,7 @@ Event details
 - **Component:** Start Program action
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Start Program action: runtime operation failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Start Program action: runtime operation failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

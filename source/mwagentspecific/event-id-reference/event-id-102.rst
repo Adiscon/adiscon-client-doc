@@ -26,7 +26,7 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** The service could not be removed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`The service could not be removed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

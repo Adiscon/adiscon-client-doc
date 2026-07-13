@@ -26,7 +26,7 @@ Event details
 - **Component:** Call Ruleset action
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Action callruleset configured ruleset was not found. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Action callruleset configured ruleset was not found. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

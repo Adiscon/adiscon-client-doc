@@ -26,7 +26,7 @@ Event details
 - **Component:** SETP sender
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** SETP sender could not complete the send operation. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`SETP sender could not complete the send operation. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

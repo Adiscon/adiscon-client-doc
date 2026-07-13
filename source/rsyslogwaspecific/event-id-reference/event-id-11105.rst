@@ -26,7 +26,7 @@ Event details
 - **Component:** Event Log Monitor service
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Event Log Monitor service: Windows Event Log clear retry succeeded. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Event Log Monitor service: Windows Event Log clear retry succeeded. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

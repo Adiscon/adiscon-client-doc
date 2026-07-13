@@ -26,7 +26,7 @@ Event details
 - **Component:** ODBC database action
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** ODBC database action: database operation failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`ODBC database action: database operation failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

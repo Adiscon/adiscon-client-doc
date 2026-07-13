@@ -26,7 +26,7 @@ Event details
 - **Component:** Service configuration
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** This license does not include the logrotation feature. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`This license does not include the logrotation feature. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

@@ -26,7 +26,7 @@ Event details
 - **Component:** FTP Probe service
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** FTP Probe service: probe operation raised an unknown exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`FTP Probe service: probe operation raised an unknown exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

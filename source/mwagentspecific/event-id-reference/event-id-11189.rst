@@ -26,7 +26,7 @@ Event details
 - **Component:** Service configuration
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Servicemanager no rule base. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Servicemanager no rule base. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

@@ -26,7 +26,7 @@ Event details
 - **Component:** Action processing
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Action processing: action initialization failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Action processing: action initialization failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

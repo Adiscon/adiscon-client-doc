@@ -26,7 +26,7 @@ Event details
 - **Component:** Syslog listener
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Syslog listener: listener could not bind to its configured address. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Syslog listener: listener could not bind to its configured address. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

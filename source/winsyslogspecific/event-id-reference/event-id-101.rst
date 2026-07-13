@@ -26,7 +26,7 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** The service was removed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`The service was removed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

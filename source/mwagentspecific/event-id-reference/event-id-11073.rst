@@ -26,7 +26,7 @@ Event details
 - **Component:** DTLS listener
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** DTLS listener: runtime operation failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`DTLS listener: runtime operation failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

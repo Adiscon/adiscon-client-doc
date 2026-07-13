@@ -26,7 +26,7 @@ Event details
 - **Component:** Product service
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Configuration reloaded but service stopped during meantime. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Configuration reloaded but service stopped during meantime. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

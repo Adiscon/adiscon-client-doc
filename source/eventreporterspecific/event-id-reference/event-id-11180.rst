@@ -26,7 +26,7 @@ Event details
 - **Component:** Queue manager
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Queue manager: disk queue cache operation failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Queue manager: disk queue cache operation failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

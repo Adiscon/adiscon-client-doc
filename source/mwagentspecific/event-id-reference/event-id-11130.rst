@@ -26,7 +26,7 @@ Event details
 - **Component:** SMTP Probe service
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** SMTP Probe service: probe operation raised an exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`SMTP Probe service: probe operation raised an exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

@@ -26,7 +26,7 @@ Event details
 - **Component:** Forward Syslog action
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Forward Syslog action: runtime operation failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Forward Syslog action: runtime operation failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

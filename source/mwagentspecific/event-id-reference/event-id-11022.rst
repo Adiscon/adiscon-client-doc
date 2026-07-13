@@ -26,7 +26,7 @@ Event details
 - **Component:** Action processing
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Action processing: action type is missing from configuration. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Action processing: action type is missing from configuration. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

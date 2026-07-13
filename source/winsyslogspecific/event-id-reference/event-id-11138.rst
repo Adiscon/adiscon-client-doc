@@ -26,7 +26,7 @@ Event details
 - **Component:** SNMP Trap Receiver
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** SNMP Trap Receiver: SNMP operation raised an exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`SNMP Trap Receiver: SNMP operation raised an exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

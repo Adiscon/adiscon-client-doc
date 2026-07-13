@@ -26,7 +26,7 @@ Event details
 - **Component:** Licensing
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** WinSyslog is running in freeware mode; the event detail describes the active limitation. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`WinSyslog is running in freeware mode; the event detail describes the active limitation. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

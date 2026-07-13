@@ -26,7 +26,7 @@ Event details
 - **Component:** Product runtime
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Cwinsyslog issupportedadvancedfeature. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Cwinsyslog issupportedadvancedfeature. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

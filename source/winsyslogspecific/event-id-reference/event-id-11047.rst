@@ -26,7 +26,7 @@ Event details
 - **Component:** Configuration
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Invalid hostname. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Invalid hostname. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

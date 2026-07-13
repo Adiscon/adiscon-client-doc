@@ -26,7 +26,7 @@ Event details
 - **Component:** RELP listener
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** RELP listener: listener could not bind to its configured address. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`RELP listener: listener could not bind to its configured address. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

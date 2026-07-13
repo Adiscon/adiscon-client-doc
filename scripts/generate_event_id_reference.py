@@ -246,7 +246,7 @@ def event_page(product: dict, event: dict, mapping: dict) -> str:
         f"- **Component:** {rst_text(event['component'])}",
         f"- **Windows Event Log source:** ``{provider}``",
         f"- **Available since:** {version_text}",
-        f"- **Message pattern:** {rst_text(event['message_pattern'])}",
+        f"- **Message pattern:** :spelling:ignore:`{rst_text(event['message_pattern'])}`",
         "",
         "Possible causes",
         "---------------",

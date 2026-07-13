@@ -26,7 +26,7 @@ Event details
 - **Component:** Action configuration
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Action configuration: configured action feature is unavailable. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Action configuration: configured action feature is unavailable. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

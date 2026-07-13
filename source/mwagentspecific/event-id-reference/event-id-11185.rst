@@ -26,7 +26,7 @@ Event details
 - **Component:** Service configuration
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Servicemanager. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Servicemanager. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

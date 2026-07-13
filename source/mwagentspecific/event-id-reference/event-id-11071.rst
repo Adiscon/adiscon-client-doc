@@ -26,7 +26,7 @@ Event details
 - **Component:** Disk Space Monitor service
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Disk Space Monitor service: runtime operation failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Disk Space Monitor service: runtime operation failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

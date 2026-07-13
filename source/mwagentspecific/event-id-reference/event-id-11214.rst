@@ -26,7 +26,7 @@ Event details
 - **Component:** Queue manager
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** System exception in the queue worker thread. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`System exception in the queue worker thread. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

@@ -26,7 +26,7 @@ Event details
 - **Component:** POP3 Probe service
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** POP3 Probe service: probe operation raised an unknown exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`POP3 Probe service: probe operation raised an unknown exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

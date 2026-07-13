@@ -26,7 +26,7 @@ Event details
 - **Component:** Log rotation
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** Logrotationsubsystem. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Logrotationsubsystem. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

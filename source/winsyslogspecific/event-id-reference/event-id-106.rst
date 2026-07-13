@@ -26,7 +26,7 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** The service received an unsupported control request. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`The service received an unsupported control request. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

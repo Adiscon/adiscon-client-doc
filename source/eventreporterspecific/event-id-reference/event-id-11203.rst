@@ -26,7 +26,7 @@ Event details
 - **Component:** Product runtime
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** Ceventreporter issupportedadvancedfeature. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Ceventreporter issupportedadvancedfeature. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

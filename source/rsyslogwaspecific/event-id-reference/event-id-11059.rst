@@ -26,7 +26,7 @@ Event details
 - **Component:** Monitoring service
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Monitoring service: service component initialization failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Monitoring service: service component initialization failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

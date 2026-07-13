@@ -26,7 +26,7 @@ Event details
 - **Component:** Licensing
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** A configured module is not covered by the signed license feature entitlements. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`A configured module is not covered by the signed license feature entitlements. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

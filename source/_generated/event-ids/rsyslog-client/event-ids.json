@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
-  "catalog_status": "draft",
-  "source_commit": "78278822580a6461e744622f23e445f9eedd2db6",
+  "catalog_status": "ready",
+  "source_commit": "01343b0dc7a1b45a46bff98743d14019ddf8aad2",
   "product": "rsyslog-client",
   "product_name": "rsyslog Windows Agent",
   "product_version": "26.07",

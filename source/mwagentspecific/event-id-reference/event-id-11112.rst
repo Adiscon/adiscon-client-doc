@@ -26,7 +26,7 @@ Event details
 - **Component:** Syslog listener
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Syslog listener: service component initialization failed. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Syslog listener: service component initialization failed. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

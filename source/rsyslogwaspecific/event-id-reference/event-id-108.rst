@@ -26,7 +26,7 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** The service was stopped. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`The service was stopped. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

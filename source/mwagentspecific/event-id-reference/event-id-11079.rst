@@ -26,7 +26,7 @@ Event details
 - **Component:** File Monitor service
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** Filemonitor filenotfound or pathnotfound. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Filemonitor filenotfound or pathnotfound. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

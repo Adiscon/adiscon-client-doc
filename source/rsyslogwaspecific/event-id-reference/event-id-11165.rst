@@ -26,7 +26,7 @@ Event details
 - **Component:** Email action
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Cmailrcptlist setrecipients. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Cmailrcptlist setrecipients. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

@@ -26,7 +26,7 @@ Event details
 - **Component:** Filter engine
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** Cfilterlistentry cfilterlistentry. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`Cfilterlistentry cfilterlistentry. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

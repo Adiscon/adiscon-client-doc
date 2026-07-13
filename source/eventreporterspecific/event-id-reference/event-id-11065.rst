@@ -26,7 +26,7 @@ Event details
 - **Component:** CPU Monitor service
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** CPU Monitor service: CPU monitor raised an unknown exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`CPU Monitor service: CPU monitor raised an unknown exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------

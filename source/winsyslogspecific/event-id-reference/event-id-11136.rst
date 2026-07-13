@@ -26,7 +26,7 @@ Event details
 - **Component:** SNMP Monitor service
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** SNMP Monitor service: SNMP operation raised an unknown exception. Additional detail: {event_detail}
+- **Message pattern:** :spelling:ignore:`SNMP Monitor service: SNMP operation raised an unknown exception. Additional detail: {event_detail}`
 
 Possible causes
 ---------------
