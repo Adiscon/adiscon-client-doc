@@ -33,6 +33,8 @@ Technical lookup material
    ../shared/references/user-interface-changes
    glossaryofterms
 
+.. include:: ../_generated/event-ids/rsyslog-client/navigation.inc
+
 External reference
 ------------------
 

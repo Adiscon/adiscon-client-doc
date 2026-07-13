@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 import json
+import html
 import importlib
 import os
+import re
+import shutil
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -279,6 +282,18 @@ def _inject_json_ld(app, pagename, templatename, context, doctree):
 
     canonical_url = urljoin(baseurl, f"{pagename}.html")
     meta = context.get("meta")
+    doctree_meta = {}
+    if doctree is not None:
+        for meta_node in doctree.traverse(nodes.meta):
+            name = meta_node.get("name")
+            content = meta_node.get("content")
+            if name and content:
+                doctree_meta[name] = content
+    metatags = context.get("metatags", "")
+    for match in re.finditer(
+        r'<meta\s+content="([^"]*)"\s+name="([^"]*)"\s*/?>', metatags
+    ):
+        doctree_meta.setdefault(match.group(2), html.unescape(match.group(1)))
 
     author_name = None
     if isinstance(meta, dict):
@@ -308,11 +323,79 @@ def _inject_json_ld(app, pagename, templatename, context, doctree):
         description = meta.get("description")
         if isinstance(description, list) and description:
             description = description[0]
+    if not description:
+        description = doctree_meta.get("description")
 
     if description:
         json_ld["description"] = description
 
-    metatags = context.get("metatags", "")
+    def meta_value(name):
+        if name in doctree_meta:
+            return doctree_meta[name]
+        if not isinstance(meta, dict):
+            return None
+        value = meta.get(name)
+        if isinstance(value, list):
+            return value[0] if value else None
+        return value
+
+    event_id = meta_value("event-id")
+    event_product = meta_value("event-product")
+    event_component = meta_value("event-component")
+    event_severity = meta_value("event-severity")
+    if event_id and event_product:
+        json_ld["identifier"] = {
+            "@type": "PropertyValue",
+            "propertyID": "Windows Event ID",
+            "value": str(event_id),
+        }
+        json_ld["about"] = [
+            {"@type": "SoftwareApplication", "name": str(event_product)},
+            {"@type": "DefinedTerm", "name": str(event_component or "Product diagnostics")},
+            {"@type": "DefinedTerm", "name": str(event_severity or "Event severity")},
+        ]
+        parent_page = pagename.rsplit("/", 1)[0] + "/index.html"
+        json_ld["isPartOf"] = {
+            "@type": "CollectionPage",
+            "name": f"{event_product} product Event ID reference",
+            "url": urljoin(baseurl, parent_page),
+        }
+
+    procedure_id = meta_value("procedure-id")
+    if procedure_id:
+        procedure_catalog = _load_event_id_procedure_catalog()
+        procedure = procedure_catalog.get("procedures", {}).get(str(procedure_id))
+        if procedure:
+            json_ld["@type"] = "HowTo"
+            json_ld["name"] = procedure["title"]
+            json_ld["step"] = [
+                {
+                    "@type": "HowToStep",
+                    "position": position,
+                    "name": step["instruction"],
+                    "text": " ".join(
+                        [step["instruction"], *step.get("commands", []), step["expected"], step["failure"]]
+                    ),
+                }
+                for position, step in enumerate(procedure["steps"], 1)
+            ]
+            json_ld["about"] = [
+                {"@type": "SoftwareApplication", "name": app.config.project}
+            ]
+            product_dirs = {
+                "WinSyslog": "winsyslogspecific",
+                "EventReporter": "eventreporterspecific",
+                "MonitorWare Agent": "mwagentspecific",
+                "rsyslog Windows Agent": "rsyslogwaspecific",
+            }
+            source_dir = product_dirs.get(app.config.project)
+            if source_dir:
+                json_ld["isPartOf"] = {
+                    "@type": "CollectionPage",
+                    "name": f"{app.config.project} Event ID troubleshooting procedures",
+                    "url": urljoin(baseurl, f"{source_dir}/event-id-reference/procedures.html"),
+                }
+
     json_ld_string = json.dumps(json_ld, indent=2)
     script_tag = f'\n<script type="application/ld+json">\n{json_ld_string}\n</script>\n'
     context["metatags"] = metatags + script_tag
@@ -325,6 +408,103 @@ def enable_json_ld(app) -> None:
         return
 
     app.connect("html-page-context", _inject_json_ld)
+
+
+def _load_event_id_catalog() -> dict:
+    """Load the imported catalog used to gate public Event ID publication."""
+    catalog_path = Path(__file__).resolve().parent / "source" / "_data" / "himalaya-event-catalog.json"
+    if not catalog_path.is_file():
+        return {}
+    return json.loads(catalog_path.read_text(encoding="utf-8"))
+
+
+def _load_event_id_procedure_catalog() -> dict:
+    """Load the docs-owned troubleshooting procedure registry."""
+    path = Path(__file__).resolve().parent / "source" / "_data" / "event-id-procedures.json"
+    if not path.is_file():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _event_id_publication_ready() -> bool:
+    """Return true only when event facts and detailed procedures are reviewed."""
+    return (
+        _load_event_id_catalog().get("catalog_status") == "ready"
+        and _load_event_id_procedure_catalog().get("catalog_status") == "ready"
+    )
+
+
+def _copy_event_id_artifacts(app, exception) -> None:
+    """Copy the generated JSON catalog and AI discovery index to HTML roots."""
+    if exception is not None or app.builder.name != "html":
+        return
+
+    if not _event_id_publication_ready():
+        for filename in ("event-ids.json", "llms.txt"):
+            (Path(app.outdir) / filename).unlink(missing_ok=True)
+        return
+
+    product_keys = {
+        "WinSyslog": "winsyslog",
+        "EventReporter": "eventreporter",
+        "MonitorWare Agent": "mwagent",
+        "rsyslog Windows Agent": "rsyslog-client",
+    }
+    product_key = product_keys.get(app.config.project)
+    if not product_key:
+        return
+    artifact_dir = Path(__file__).resolve().parent / "source" / "_generated" / "event-ids" / product_key
+    for filename in ("event-ids.json", "llms.txt"):
+        source = artifact_dir / filename
+        if not source.is_file():
+            raise FileNotFoundError(f"missing generated Event ID artifact: {source}")
+        shutil.copyfile(source, Path(app.outdir) / filename)
+
+
+def _exclude_other_event_id_references(app, config) -> None:
+    """Keep generated product references isolated in each manual build."""
+    product_dirs = {
+        "WinSyslog": "winsyslogspecific",
+        "EventReporter": "eventreporterspecific",
+        "MonitorWare Agent": "mwagentspecific",
+        "rsyslog Windows Agent": "rsyslogwaspecific",
+    }
+    current_dir = product_dirs.get(config.project)
+    if not current_dir:
+        return
+    ready = _event_id_publication_ready()
+    if ready:
+        app.tags.add("event_id_catalog_ready")
+    for source_dir in product_dirs.values():
+        if ready and source_dir == current_dir:
+            continue
+        pattern = f"{source_dir}/event-id-reference/**"
+        if pattern not in config.exclude_patterns:
+            config.exclude_patterns.append(pattern)
+    procedure_pattern = "shared/troubleshooting/event-id/**"
+    if not ready:
+        if procedure_pattern not in config.exclude_patterns:
+            config.exclude_patterns.append(procedure_pattern)
+        return
+
+    product_keys = {
+        "WinSyslog": "winsyslog",
+        "EventReporter": "eventreporter",
+        "MonitorWare Agent": "mwagent",
+        "rsyslog Windows Agent": "rsyslog-client",
+    }
+    product_key = product_keys.get(config.project)
+    for procedure in _load_event_id_procedure_catalog().get("procedures", {}).values():
+        if product_key not in procedure.get("products", []):
+            pattern = procedure["document"] + ".rst"
+            if pattern not in config.exclude_patterns:
+                config.exclude_patterns.append(pattern)
+
+
+def enable_event_id_artifacts(app) -> None:
+    """Publish root-level Event ID JSON and llms.txt files for product manuals."""
+    app.connect("config-inited", _exclude_other_event_id_references)
+    app.connect("build-finished", _copy_event_id_artifacts)
 
 
 def _apply_htmlhelp_utf8(app) -> None:

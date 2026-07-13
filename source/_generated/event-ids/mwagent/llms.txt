@@ -1,0 +1,14 @@
+# MonitorWare Agent documentation
+
+> Canonical documentation for MonitorWare Agent 26.07.
+
+## Event ID reference
+
+- Human-readable Event ID index: https://www.mwagent.com/files/manual/current/mwagentspecific/event-id-reference/index.html
+- Exact troubleshooting procedures: https://www.mwagent.com/files/manual/current/mwagentspecific/event-id-reference/procedures.html
+- Machine-readable Event ID and procedure catalog: https://www.mwagent.com/files/manual/current/event-ids.json
+- Documentation sitemap: https://www.mwagent.com/files/manual/current/sitemap.xml
+
+HTML pages are authoritative. The JSON catalog and this file are discovery aids.
+The reference covers product-generated Windows Application Event Log diagnostics and
+excludes externally collected events and administrator-selected action Event IDs.

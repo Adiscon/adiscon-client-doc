@@ -34,6 +34,8 @@ Technical lookup material
    ../shared/references/user-interface-changes
    glossary
 
+.. include:: ../_generated/event-ids/eventreporter/navigation.inc
+
 External reference
 ------------------
 

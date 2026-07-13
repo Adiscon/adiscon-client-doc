@@ -1,0 +1,31 @@
+name: Event ID reference
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/generate_event_id_reference.py'
+      - 'source/_data/himalaya-event-catalog.json'
+      - 'source/_data/event-id-procedures.json'
+      - 'source/_generated/event-ids/**'
+      - 'source/*specific/event-id-reference/**'
+      - 'source/shared/troubleshooting/event-id/**'
+      - 'conf_common.py'
+      - '*/conf.py'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Verify deterministic generation
+        run: python3 scripts/generate_event_id_reference.py --check
+      - name: Test procedure registry
+        run: python3 -m unittest scripts/test_event_id_reference.py
+      - name: Validate public JSON artifacts
+        run: python3 scripts/validate_event_id_publication.py

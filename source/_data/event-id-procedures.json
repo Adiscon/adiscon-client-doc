@@ -1,0 +1,3646 @@
+{
+  "schema_version": 1,
+  "catalog_status": "ready",
+  "procedures": {
+    "evidence.collect-event-and-neighboring-events": {
+      "title": "Collect an Event ID and neighboring product events",
+      "summary": "Preserve the complete event and the product events immediately before and after it.",
+      "document": "shared/troubleshooting/event-id/evidence-collect-event-and-neighboring-events",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use this first when an event contains dynamic detail or several failures occur together.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Event Viewer > Windows Logs > Application > Filter Current Log.",
+        "winsyslog": "Event Viewer > Windows Logs > Application > Filter Current Log.",
+        "mwagent": "Event Viewer > Windows Logs > Application > Filter Current Log.",
+        "rsyslog-client": "Event Viewer > Windows Logs > Application > Filter Current Log."
+      },
+      "steps": [
+        {
+          "instruction": "Record the Event Log source, Event ID, level, timestamp, and complete General and Details data.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "$start=(Get-Date '<EVENT_TIME>').AddMinutes(-5)",
+            "$end=(Get-Date '<EVENT_TIME>').AddMinutes(5)",
+            "Get-WinEvent -FilterHashtable @{LogName='Application';StartTime=$start;EndTime=$end} | Where-Object ProviderName -eq '<EVENT_SOURCE>' | Format-List TimeCreated,Id,LevelDisplayName,Message"
+          ],
+          "expected": "The output contains the first product failure and later state or recovery events.",
+          "failure": "Increase the bounded time window and verify the Event Log source shown on the Event ID page."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": []
+    },
+    "evidence.export-configuration-and-debug-log": {
+      "title": "Export configuration and collect a bounded debug log",
+      "summary": "Create a text configuration export and time-bounded debug capture, then disable debugging.",
+      "document": "shared/troubleshooting/event-id/evidence-export-configuration-and-debug-log",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use this when configuration or runtime sequencing must be reviewed.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Disable debug logging immediately after the bounded capture.",
+        "Remove credentials, private keys, license material, and unrelated customer data before sharing."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > Computer > Export Settings to Registry File; then General > Debug.",
+        "winsyslog": "Configuration Client > Computer > Export Settings to Registry File; then General > Debug.",
+        "mwagent": "Configuration Client > Computer > Export Settings to Registry File; then General > Debug.",
+        "rsyslog-client": "Configuration Client > Computer > Export Settings to Registry File; then General > Debug."
+      },
+      "steps": [
+        {
+          "instruction": "Export settings as a text registry file, then enable the minimum debug level that reproduces the problem.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-Item -LiteralPath '<CONFIG_EXPORT>' | Format-List FullName,Length,LastWriteTime",
+            "Get-Item -LiteralPath '<DEBUG_LOG>' | Format-List FullName,Length,LastWriteTime"
+          ],
+          "expected": "Both files exist, are readable, and cover the recorded reproduction interval.",
+          "failure": "Verify the service account can write the debug directory and restart only if the setting requires it."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": []
+    },
+    "windows.interpret-error-code": {
+      "title": "Interpret a Windows or Winsock error code",
+      "summary": "Translate a numeric code without losing its operation or subsystem context.",
+      "document": "shared/troubleshooting/event-id/windows-interpret-error-code",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use when event detail contains a Windows, Winsock, HRESULT, or provider code.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Copy the code exactly together with the operation and provider that returned it.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "$code=<DECIMAL_CODE>",
+            "[ComponentModel.Win32Exception]::new($code).Message",
+            "'{0:X8}' -f ([uint32]$code)"
+          ],
+          "expected": "Windows returns a message or stable hexadecimal value that can be interpreted with the event operation.",
+          "failure": "Identify whether the code is Winsock, HRESULT, or provider-specific before applying a meaning."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "evidence.collect-event-and-neighboring-events"
+      ]
+    },
+    "service.verify-state-and-account": {
+      "title": "Verify service state, dependencies, and service account",
+      "summary": "Confirm service state, start mode, dependencies, account, and SCM errors.",
+      "document": "shared/troubleshooting/event-id/service-verify-state-and-account",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for service startup, shutdown, permission, and monitoring events.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > Service; then Windows Services > the product service.",
+        "winsyslog": "Configuration Client > Service; then Windows Services > the product service.",
+        "mwagent": "Configuration Client > Service; then Windows Services > the product service.",
+        "rsyslog-client": "Configuration Client > Service; then Windows Services > the product service."
+      },
+      "steps": [
+        {
+          "instruction": "Identify the internal Windows service name and intended service account.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-CimInstance Win32_Service -Filter \"Name='<SERVICE_NAME>'\" | Format-List Name,State,StartMode,StartName,ExitCode",
+            "Get-Service -Name '<SERVICE_NAME>' -RequiredServices | Format-Table Name,Status,StartType"
+          ],
+          "expected": "The service and required dependencies are in the intended state under the intended account.",
+          "failure": "Use recent Service Control Manager events to correct a dependency, logon, timeout, or termination failure."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": []
+    },
+    "config.validate-and-reload": {
+      "title": "Validate configuration and reload it safely",
+      "summary": "Back up, inspect, correct, and test the exact invalid configuration object.",
+      "document": "shared/troubleshooting/event-id/config-validate-and-reload",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for parsing, missing-object, unsupported-option, and reload events.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Export the configuration and open the exact service, rule, filter, or action named in the event.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-Item -LiteralPath '<CONFIG_EXPORT>' | Format-List FullName,Length,LastWriteTime"
+          ],
+          "expected": "A readable pre-change backup exists and all required fields reference valid product objects.",
+          "failure": "Restore the export if the edited configuration cannot load; do not copy objects from another product manual."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [
+        "Restore the configuration export created before the change.",
+        "Reload the restored configuration and verify the previous behavior."
+      ],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "evidence.export-configuration-and-debug-log"
+      ]
+    },
+    "network.resolve-host-and-test-tcp-port": {
+      "title": "Resolve a destination and test its TCP port",
+      "summary": "Verify DNS, selected address, routing, and TCP establishment.",
+      "document": "shared/troubleshooting/event-id/network-resolve-host-and-test-tcp-port",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for TCP syslog, SETP, RELP, SMTP, database, HTTP, and TCP probe connections.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record the configured destination host and port.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Resolve-DnsName -Name '<HOST>' | Format-Table Name,Type,IPAddress",
+            "Test-NetConnection -ComputerName '<HOST>' -Port <PORT> -InformationLevel Detailed"
+          ],
+          "expected": "The address is intended and TcpTestSucceeded is True.",
+          "failure": "Correct DNS, routing, firewall policy, NAT, port, or remote listener state."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer"
+      ]
+    },
+    "network.verify-udp-path": {
+      "title": "Verify a UDP path without assuming delivery",
+      "summary": "Confirm receiver binding, firewall policy, and positive receipt for a paced sample.",
+      "document": "shared/troubleshooting/event-id/network-verify-udp-path",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for UDP syslog, SNMP traps, and DTLS.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record sender, receiver, transport, local address, and destination port.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-NetUDPEndpoint -LocalPort <PORT> | Format-Table LocalAddress,LocalPort,OwningProcess",
+            "Get-Process -Id <OWNING_PROCESS_ID> | Format-List Id,ProcessName,Path"
+          ],
+          "expected": "The intended product process owns the expected endpoint and records a unique paced test.",
+          "failure": "Resolve bind/firewall issues and use bounded packet evidence before diagnosing parsing; UDP is best effort."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [
+        "Use Windows pktmon for a bounded capture.",
+        "Wireshark is an optional alternative when native evidence is insufficient."
+      ],
+      "related_procedures": [
+        "network.verify-listener-binding-and-firewall"
+      ]
+    },
+    "network.verify-listener-binding-and-firewall": {
+      "title": "Verify listener binding and Windows Firewall rules",
+      "summary": "Confirm effective address, port, transport, owning process, and inbound policy.",
+      "document": "shared/troubleshooting/event-id/network-verify-listener-binding-and-firewall",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use when a listener cannot start or a remote sender cannot reach it.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record the configured local address, address family, transport, and port.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-NetTCPConnection -State Listen -LocalPort <PORT> | Format-Table LocalAddress,LocalPort,OwningProcess",
+            "Get-NetUDPEndpoint -LocalPort <PORT> | Format-Table LocalAddress,LocalPort,OwningProcess",
+            "Get-NetFirewallRule -Enabled True -Direction Inbound | Get-NetFirewallPortFilter | Where-Object LocalPort -eq '<PORT>' | Format-Table Protocol,LocalPort"
+          ],
+          "expected": "The intended process owns the endpoint and an approved allow rule covers its transport and profiles.",
+          "failure": "Correct wildcard/address conflicts or the narrow firewall rule; never disable Windows Firewall as a repair."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "network.resolve-host-and-test-tcp-port",
+        "network.verify-udp-path"
+      ]
+    },
+    "tls.verify-certificate-chain-and-peer": {
+      "title": "Verify TLS certificates, private keys, and permitted peers",
+      "summary": "Check validity, trust chain, key pairing, protocol mode, and peer authorization.",
+      "document": "shared/troubleshooting/event-id/tls-verify-certificate-chain-and-peer",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use after TCP succeeds but TLS, DTLS, SETP, RELP, or secure syslog fails.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record CA PEM, certificate PEM, key PEM, peer identity, and authentication mode.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "certutil -dump '<CERTIFICATE_PATH>'",
+            "certutil -verify '<CERTIFICATE_PATH>'"
+          ],
+          "expected": "The certificate is valid for its purpose, chains to the intended trust anchor, and matches the configured peer policy.",
+          "failure": "Replace invalid files, provide the matching unencrypted PEM key, or correct trust and peer settings; do not disable validation permanently."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "network.resolve-host-and-test-tcp-port",
+        "evidence.export-configuration-and-debug-log"
+      ]
+    },
+    "transport.verify-sender-receiver-recovery": {
+      "title": "Verify sender, receiver, and queued-message recovery",
+      "summary": "Prove end-to-end recovery and backlog drainage.",
+      "document": "shared/troubleshooting/event-id/transport-verify-sender-receiver-recovery",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use after correcting connectivity or protocol failures.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record sender connection and queue state before retrying.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-Date -Format o"
+          ],
+          "expected": "A uniquely identifiable new test arrives and delayed work begins draining without repeated failure events.",
+          "failure": "Return to connectivity, TLS, receiver, filter, or queue diagnostics using the first recurring error."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events"
+      ]
+    },
+    "file.verify-path-permissions-and-disk-space": {
+      "title": "Verify file paths, permissions, and free space",
+      "summary": "Check expansion, existence, ACLs, service-account context, and storage.",
+      "document": "shared/troubleshooting/event-id/file-verify-path-permissions-and-disk-space",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for file actions, File Monitor, queue files, debug logs, and rotation.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Resolve the exact local or UNC directory used by the service.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Test-Path -LiteralPath '<DIRECTORY_PATH>'",
+            "Get-Acl -LiteralPath '<DIRECTORY_PATH>' | Format-List Owner,AccessToString",
+            "Get-PSDrive -Name '<DRIVE_LETTER>' | Format-List Used,Free"
+          ],
+          "expected": "The path exists, the service account has minimum required rights, and sufficient free space remains.",
+          "failure": "Correct expansion, share/NTFS permissions, availability, or storage without granting broad rights."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [
+        "Restore the previous path or ACL backup if the change prevents operation."
+      ],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": []
+    },
+    "file.diagnose-log-rotation": {
+      "title": "Diagnose log rotation and retention",
+      "summary": "Verify trigger, names, handles, destination access, and retention.",
+      "document": "shared/troubleshooting/event-id/file-diagnose-log-rotation",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use when files do not rotate or retention cannot rename/delete eligible files.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record active path, trigger, naming pattern, and retention settings.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-ChildItem -LiteralPath '<LOG_DIRECTORY>' | Sort-Object LastWriteTime | Format-Table Name,Length,LastWriteTime",
+            "Get-Acl -LiteralPath '<LOG_DIRECTORY>' | Format-List AccessToString"
+          ],
+          "expected": "A controlled rotation creates the expected file, active output continues, and only eligible files are removed.",
+          "failure": "Correct ACLs, naming conflicts, timing, free space, or external handle interference."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "file.verify-path-permissions-and-disk-space"
+      ]
+    },
+    "queue.diagnose-backlog-and-disk-queue": {
+      "title": "Diagnose an action backlog or disk queue",
+      "summary": "Identify why queued work is not draining while preserving data.",
+      "document": "shared/troubleshooting/event-id/queue-diagnose-backlog-and-disk-queue",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for action cache, queue manager, disk queue, retry, and saturation events.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Do not delete, rename, copy over, or manually edit active queue files.",
+        "Collect evidence before any support-directed recovery."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record queue depth, oldest item time, target action, directory, and whether depth is increasing.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-ChildItem -LiteralPath '<QUEUE_DIRECTORY>' | Measure-Object -Property Length -Sum",
+            "Get-PSDrive -Name '<DRIVE_LETTER>' | Format-List Used,Free"
+          ],
+          "expected": "Queue files are readable, space remains, the downstream cause is corrected, and depth decreases.",
+          "failure": "Diagnose the first downstream error; never edit or delete live queue files."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "transport.verify-sender-receiver-recovery",
+        "file.verify-path-permissions-and-disk-space"
+      ]
+    },
+    "database.test-odbc-connection": {
+      "title": "Test an ODBC connection in the product context",
+      "summary": "Verify ODBC provider, architecture, authentication, connectivity, and a minimal query.",
+      "document": "shared/troubleshooting/event-id/database-test-odbc-connection",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for ODBC actions and database-monitor events.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Do not place passwords in command history, logs, or support archives.",
+        "Use a read-only query until connectivity is proven."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record provider/DSN, server, database, authentication mode, service account, and redacted connection fields.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-OdbcDsn -Name '<DSN_NAME>' | Format-List Name,DsnType,Platform,DriverName"
+          ],
+          "expected": "The provider exists in the correct bitness and a redacted test connection opens successfully.",
+          "failure": "Use the provider error to correct driver, DNS, port, database, TLS, credentials, or permissions."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "network.resolve-host-and-test-tcp-port",
+        "queue.diagnose-backlog-and-disk-queue"
+      ]
+    },
+    "database.test-oledb-connection": {
+      "title": "Test an OLE DB connection in the product context",
+      "summary": "Verify OLE DB provider, architecture, authentication, connectivity, and a minimal query.",
+      "document": "shared/troubleshooting/event-id/database-test-oledb-connection",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for OLE DB actions and database-monitor events.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Do not place passwords in command history, logs, or support archives.",
+        "Use a read-only query until connectivity is proven."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record provider/DSN, server, database, authentication mode, service account, and redacted connection fields.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "$cn=[Data.OleDb.OleDbConnection]::new('<REDACTED_TEST_CONNECTION_STRING>'); $cn.Open(); $cn.State; $cn.Close()"
+          ],
+          "expected": "The provider exists in the correct bitness and a redacted test connection opens successfully.",
+          "failure": "Use the provider error to correct driver, DNS, port, database, TLS, credentials, or permissions."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "network.resolve-host-and-test-tcp-port",
+        "queue.diagnose-backlog-and-disk-queue"
+      ]
+    },
+    "eventlog.verify-channel-access-and-bookmark": {
+      "title": "Verify Event Log channel access and bookmark state",
+      "summary": "Confirm channel existence, enablement, account access, and collection position.",
+      "document": "shared/troubleshooting/event-id/eventlog-verify-channel-access-and-bookmark",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for Event Log Monitor and Event Log Monitor V2.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > Services > Event Log Monitor or Event Log Monitor V2 > affected service.",
+        "winsyslog": "Configuration Client > Services > Event Log Monitor or Event Log Monitor V2 > affected service.",
+        "mwagent": "Configuration Client > Services > Event Log Monitor or Event Log Monitor V2 > affected service.",
+        "rsyslog-client": "Configuration Client > Services > Event Log Monitor or Event Log Monitor V2 > affected service."
+      },
+      "steps": [
+        {
+          "instruction": "Record exact channel name, collection mode, service account, and intended start position.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-WinEvent -ListLog '<CHANNEL_NAME>' | Format-List LogName,IsEnabled,RecordCount,LogMode",
+            "Get-WinEvent -LogName '<CHANNEL_NAME>' -MaxEvents 5 | Format-List TimeCreated,Id,ProviderName,Message"
+          ],
+          "expected": "The channel is enabled and readable in the service-account context; a test event is collected once.",
+          "failure": "Correct the channel name or least-privilege access; reset position only after recording replay impact."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": []
+    },
+    "filemonitor.verify-source-state-and-encoding": {
+      "title": "Verify File Monitor source state and encoding",
+      "summary": "Check source path, sharing, encoding, line endings, and read position.",
+      "document": "shared/troubleshooting/event-id/filemonitor-verify-source-state-and-encoding",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for File Monitor startup, read, conversion, and last-record events.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > Services > File Monitor > affected service.",
+        "winsyslog": "Configuration Client > Services > File Monitor > affected service.",
+        "mwagent": "Configuration Client > Services > File Monitor > affected service.",
+        "rsyslog-client": "Configuration Client > Services > File Monitor > affected service."
+      },
+      "steps": [
+        {
+          "instruction": "Record source path, wildcard expansion, encoding, delimiter, and saved-position behavior.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-Item -LiteralPath '<SOURCE_FILE>' | Format-List FullName,Length,LastWriteTime,Attributes",
+            "$s=[IO.File]::Open('<SOURCE_FILE>','Open','Read','ReadWrite'); $s.Length; $s.Close()",
+            "Format-Hex -Path '<SOURCE_FILE>' -Count 32"
+          ],
+          "expected": "The intended file is readable while the producer writes, and bytes match configured encoding/line endings.",
+          "failure": "Correct path, ACL/share mode, encoding, delimiter, or last-record delay before resetting position."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "file.verify-path-permissions-and-disk-space"
+      ]
+    },
+    "snmp.verify-trap-path": {
+      "title": "Verify an SNMP trap sender and receiver path",
+      "summary": "Confirm transport, endpoint, SNMP version, security/community, OIDs, and receipt.",
+      "document": "shared/troubleshooting/event-id/snmp-verify-trap-path",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for SNMP action, SNMP Trap Receiver, and SNMP Monitor.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record transport, port, version, community/security profile, source, destination, and OIDs.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-NetUDPEndpoint -LocalPort <PORT> | Format-Table LocalAddress,LocalPort,OwningProcess"
+          ],
+          "expected": "The intended process owns the endpoint and records a unique test with expected OID and value.",
+          "failure": "Correct binding/firewall, then version, security, OID, variable type, or receiver filter."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [
+        "Use Wireshark only as an optional bounded packet capture."
+      ],
+      "related_procedures": [
+        "network.verify-udp-path",
+        "network.verify-listener-binding-and-firewall"
+      ]
+    },
+    "mail.verify-smtp-delivery": {
+      "title": "Verify SMTP connectivity and mail delivery",
+      "summary": "Separate DNS, TCP, TLS, authentication, relay, recipient, and downstream delivery.",
+      "document": "shared/troubleshooting/event-id/mail-verify-smtp-delivery",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for email actions, SMTP listeners, and SMTP probes.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record server, port, TLS mode, authentication, sender, and recipient.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Resolve-DnsName -Name '<SMTP_HOST>'",
+            "Test-NetConnection -ComputerName '<SMTP_HOST>' -Port <SMTP_PORT> -InformationLevel Detailed"
+          ],
+          "expected": "TCP succeeds, the server accepts a unique product test, and the test mailbox receives it.",
+          "failure": "Use the first SMTP response code to correct TLS, authentication, relay, recipient, size, or content policy."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer"
+      ]
+    },
+    "probe.verify-remote-service": {
+      "title": "Verify a monitored remote service",
+      "summary": "Confirm resolution, transport, protocol, credentials, expected response, and timing.",
+      "document": "shared/troubleshooting/event-id/probe-verify-remote-service",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for FTP, HTTP, IMAP, NNTP, Ping, POP3, SMTP, and related probes.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Record target, address family, port, TLS/authentication mode, timeout, and expected response.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Resolve-DnsName -Name '<HOST>'",
+            "Test-NetConnection -ComputerName '<HOST>' -Port <PORT> -InformationLevel Detailed"
+          ],
+          "expected": "The endpoint is reachable and the smallest safe protocol request returns the expected response within timeout.",
+          "failure": "Correct DNS, route, listener, TLS, credentials, path, expected response, or measured timeout."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer"
+      ]
+    },
+    "action.verify-program-or-service-control": {
+      "title": "Verify a program or Windows-service control action",
+      "summary": "Check target, arguments, working directory, account rights, and positive result.",
+      "document": "shared/troubleshooting/event-id/action-verify-program-or-service-control",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for Start Program and Control Windows Service actions.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > RuleSets > affected ruleset > rule > affected action.",
+        "winsyslog": "Configuration Client > RuleSets > affected ruleset > rule > affected action.",
+        "mwagent": "Configuration Client > RuleSets > affected ruleset > rule > affected action.",
+        "rsyslog-client": "Configuration Client > RuleSets > affected ruleset > rule > affected action."
+      },
+      "steps": [
+        {
+          "instruction": "Record the full executable path or internal Windows service name, arguments, and service account.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Test-Path -LiteralPath '<EXECUTABLE_PATH>'",
+            "Get-Acl -LiteralPath '<EXECUTABLE_PATH>' | Format-List AccessToString",
+            "Get-Service -Name '<TARGET_SERVICE_NAME>' | Format-List Name,Status,StartType"
+          ],
+          "expected": "The target exists and succeeds in the service-account context without an interactive desktop.",
+          "failure": "Correct full path, arguments, working directory, environment, ACLs, logon rights, or dependencies."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "service.verify-state-and-account"
+      ]
+    },
+    "msmq.verify-queue-access": {
+      "title": "Verify Microsoft Message Queuing availability and access",
+      "summary": "Confirm feature, service, queue path, transaction mode, and send rights.",
+      "document": "shared/troubleshooting/event-id/msmq-verify-queue-access",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for Microsoft Message Queuing action events.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Run diagnostic checks before changing configuration.",
+        "Remove passwords, private keys, license data, and other secrets from evidence."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > RuleSets > affected ruleset > rule > Send to Microsoft Message Queuing action.",
+        "winsyslog": "Configuration Client > RuleSets > affected ruleset > rule > Send to Microsoft Message Queuing action.",
+        "mwagent": "Configuration Client > RuleSets > affected ruleset > rule > Send to Microsoft Message Queuing action.",
+        "rsyslog-client": "Configuration Client > RuleSets > affected ruleset > rule > Send to Microsoft Message Queuing action."
+      },
+      "steps": [
+        {
+          "instruction": "Record exact private/public queue path, transactional mode, and product service account.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-WindowsOptionalFeature -Online -FeatureName MSMQ* | Format-Table FeatureName,State",
+            "Get-Service -Name MSMQ | Format-List Status,StartType"
+          ],
+          "expected": "Required MSMQ components run and a unique product test reaches the intended queue once.",
+          "failure": "Correct feature/service state, path, transaction mode, quota, network availability, or least-privilege send rights."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": []
+    },
+    "license.verify-license-state": {
+      "title": "Verify product license and feature entitlement state",
+      "summary": "Confirm product, version, validity, edition, and required feature without exposing license data.",
+      "document": "shared/troubleshooting/event-id/license-verify-license-state",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use for trial, license validation, edition, and feature-denied events.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Never publish license files, signed payloads, keys, customer identifiers, or activation material.",
+        "Do not edit a signed license file."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > General > License.",
+        "winsyslog": "Configuration Client > General > License.",
+        "mwagent": "Configuration Client > General > License.",
+        "rsyslog-client": "Configuration Client > General > License."
+      },
+      "steps": [
+        {
+          "instruction": "Record product version, displayed license status, edition, and feature named in the event without copying the license payload.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-Item -LiteralPath '<PRODUCT_EXECUTABLE>' | Select-Object -ExpandProperty VersionInfo | Format-List ProductName,ProductVersion,FileVersion"
+          ],
+          "expected": "The signed license targets the running product/version and includes the configured feature.",
+          "failure": "Install the authorized license or disable unsupported configuration; never edit signed data."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": []
+    },
+    "runtime.collect-escalation-evidence": {
+      "title": "Collect evidence for an escalation-only runtime event",
+      "summary": "Capture a bounded reproducible support package without unsafe generic repair.",
+      "document": "shared/troubleshooting/event-id/runtime-collect-escalation-evidence",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "review_status": "reviewed",
+      "when_to_use": "Use when the Event ID page states that no safe self-service repair exists.",
+      "prerequisites": [
+        "Use an account that can read the product configuration and Windows diagnostic state.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Do not delete queues, clear Event Logs, reset collection positions, disable TLS validation, or broaden permissions.",
+        "Preserve timestamps and pre-change state."
+      ],
+      "product_paths": {
+        "eventreporter": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "winsyslog": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "mwagent": "Configuration Client > the service, rule, or action named on the Event ID page.",
+        "rsyslog-client": "Configuration Client > the service, rule, or action named on the Event ID page."
+      },
+      "steps": [
+        {
+          "instruction": "Preserve the first event, neighboring events, exact reproduction sequence, and pre-change state.",
+          "commands": [],
+          "expected": "The affected object and its effective settings are identified.",
+          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+        },
+        {
+          "instruction": "Run the native Windows checks below from the affected product host.",
+          "commands": [
+            "Get-ComputerInfo | Select-Object WindowsProductName,WindowsVersion,OsBuildNumber,OsArchitecture",
+            "Get-CimInstance Win32_Service -Filter \"Name='<SERVICE_NAME>'\" | Format-List Name,State,StartName,ExitCode"
+          ],
+          "expected": "The support package identifies environment, service context, configuration, and the bounded failure interval.",
+          "failure": "Do not repeatedly restart, clear logs, reset positions, broaden permissions, or alter queue files to obtain different evidence."
+        },
+        {
+          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "commands": [],
+          "expected": "The intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "evidence_to_collect": [
+        "The complete Event Log entry and neighboring product events with timestamps.",
+        "The command output, relevant configuration export, and bounded debug log from the same interval."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ]
+    }
+  },
+  "event_mappings": {
+    "service.lifecycle.installed": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "service.lifecycle.removed": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "service.lifecycle.remove_failed": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "service.lifecycle.control_handler_failed": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "service.lifecycle.initialization_failed": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "service.lifecycle.started": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "service.lifecycle.unsupported_request": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "service.lifecycle.stopped": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "licensing.trial_reminder": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "license.verify-license-state",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "licensing.free_edition_reminder": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "license.verify-license-state",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "licensing.invalid_or_pirated_key": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "license.verify-license-state",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "licensing.blocked_key": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "license.verify-license-state",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "setp.sender.recoverable_peer_close": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "setp.sender.tls_session_close": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "setp.sender.send_failed_cached": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "setp.sender.send_failed": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "setp.sender.session_restored": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "licensing.feature_denied": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "license.verify-license-state",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actioncallruleset_cpp_reporterror_anymsg_45": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfig_cpp_reportwarning_gotnotimer_165": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfig_cpp_reportwarning_warnfeatnotsupaction_344": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfig_cpp_reportwarning_anymsg_1087": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfigodbc_cpp_reporterror_dbmonerror_238": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-odbc-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfigodbc_cpp_reporterror_dbmonerror_407": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-odbc-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfigoledb_cpp_reporterror_dbmonerror_237": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-oledb-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfigoledb_cpp_reporterror_oledberror_363": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-oledb-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfigpostprocess_cpp_reporterror_initactionfailed_39": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfigsendmsqueue_cpp_reporterror_msqueueerror_80": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "msmq.verify-queue-access",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfigsendsnmp_cpp_reportwarning_anymsg_182": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "snmp.verify-trap-path",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfigsendsyslog_cpp_reporterror_initactionfailed_105": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfigsendsyslog_cpp_reportwarning_anymsg_526": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionconfigsyslogqueue_cpp_reporterror_anymsg_71": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actioncontrolntservice_cpp_reporterror_anymsg_28": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "action.verify-program-or-service-control",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionlist_cpp_reportwarning_warnfeatnotsupaction_67": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionlistentry_cpp_reporterror_nopacttypeincfg_163": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionlistentry_cpp_reporterror_invldacttypeincfg_253": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionlistentry_cpp_reporterror_anymsg_382": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionlistentry_cpp_reporterror_invldacttypeincfg_420": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionlistentry_cpp_reporterror_anymsg_488": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionlistentry_cpp_reporterror_anymsg_504": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionlistentry_cpp_reporterror_anymsg_506": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionodbcv2_cpp_reporterror_dbmonerror_270": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-odbc-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionodbcv2_cpp_reporterror_dbmonerror_452": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-odbc-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionoledb_cpp_reporterror_dbmonerror_210": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-oledb-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionoledb_cpp_reporterror_oledberror_319": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-oledb-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionpostprocess_cpp_reporterror_anymsg_213": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionsendmiap_cpp_reporterror_sslinitclient_170": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionsendmiap_cpp_reporterror_cantinitsetpsession_174": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionsendrelp_cpp_reportwarning_anymsg_172": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionsendserial_cpp_reporterror_anymsg_70": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionsendsnmp_cpp_reporterror_anymsg_272": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "snmp.verify-trap-path",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionsendsyslog_cpp_reportwarning_anymsg_345": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionsendsyslog_cpp_reporterror_anymsg_350": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionspawncommand_cpp_reporterror_anymsg_121": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "action.verify-program-or-service-control",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actionwinsyslogv3flatfile_cpp_reporterror_anymsg_556": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.verify-path-permissions-and-disk-space",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_clientlichelper_cpp_reporterror_couldntconnect_192": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "license.verify-license-state",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_clientlichelper_cpp_reporterror_clientlicexceeded_194": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "license.verify-license-state",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_configfilereader_cpp_reporterror_initfileconfigerror_325": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_configfilereader_cpp_reporterror_initfileconfigerror_362": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_configsettings_cpp_reporterror_invalid_ipaddr_193": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_cwinsock_cpp_reportwarning_unknownerror_844": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_cwinsock_cpp_reportwarning_sslwarning_1893": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_cwinsock_cpp_reportwarning_sslwarning_1943": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_cwinsock_cpp_reportwarning_sslwarning_2485": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_cwinsock_cpp_reportwarning_sslwarning_2511": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_cwinsock_cpp_reportwarning_sslwarning_2565": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_cwinsock_cpp_reportwarning_sslwarning_2576": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_cwinsock_cpp_reportwarning_sslwarning_2602": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_cwinsock_cpp_reportwarning_sslwarning_2680": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_cwinsock_cpp_reportwarning_sslinitserver_3146": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_filterlistentry_cpp_reporterror_regexinitfailed_116": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosource_cpp_reporterror_initservicefailed_318": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcealivemonecho_cpp_reportwarning_excptechorply_174": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcealivemonecho_cpp_reporterror_excptechorply_178": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcealivemonecho_cpp_reporterror_excptechorply_185": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcealivemonecho_cpp_reporterror_ukexcptechorply_192": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.resolve-host-and-test-tcp-port",
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcecpumonitor_cpp_reporterror_excptcpumon_538": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcecpumonitor_cpp_reporterror_ukexcptcpumon_543": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcedbmonitor_cpp_reporterror_dbmonerror_217": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-odbc-connection",
+        "database.test-oledb-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcedbmonitor_cpp_reporterror_dbmonerror_255": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-odbc-connection",
+        "database.test-oledb-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcedbmonitor_cpp_reportwarning_dbmoinidwarning_480": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcedbmonitor_cpp_reporterror_dbmonerror_499": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-odbc-connection",
+        "database.test-oledb-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcedbmonitor_cpp_reporterror_dbmonerror_979": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-odbc-connection",
+        "database.test-oledb-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcediskspacemonitor_cpp_reporterror_anymsg_113": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.verify-path-permissions-and-disk-space",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcedtls_cpp_reporterror_syslogcantbind_377": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-udp-path",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcedtls_cpp_reporterror_anymsg_383": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-udp-path",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcefilemonitor_cpp_reportwarning_logmsg_421": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "filemonitor.verify-source-state-and-encoding",
+        "file.verify-path-permissions-and-disk-space",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcefilemonitor_cpp_reporterror_filemon_fnf_1344": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "filemonitor.verify-source-state-and-encoding",
+        "file.verify-path-permissions-and-disk-space",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcefilemonitor_cpp_reporterror_filemon_fnf_1354": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "filemonitor.verify-source-state-and-encoding",
+        "file.verify-path-permissions-and-disk-space",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcefilemonitor_cpp_reporterror_filemonitor_1359": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "filemonitor.verify-source-state-and-encoding",
+        "file.verify-path-permissions-and-disk-space",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcefilemonitor_cpp_reporterror_filemonitor_1367": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "filemonitor.verify-source-state-and-encoding",
+        "file.verify-path-permissions-and-disk-space",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcefilemonitor_cpp_reporterror_filemon_fnf_1455": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "filemonitor.verify-source-state-and-encoding",
+        "file.verify-path-permissions-and-disk-space",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcefilemonitor_cpp_reporterror_filemon_fnf_1473": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "filemonitor.verify-source-state-and-encoding",
+        "file.verify-path-permissions-and-disk-space",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcefilemonitor_cpp_reporterror_filemonitor_1479": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "filemonitor.verify-source-state-and-encoding",
+        "file.verify-path-permissions-and-disk-space",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourceftpprobe_cpp_reporterror_excptprobe_170": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourceftpprobe_cpp_reporterror_ukexcptprobe_176": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourceheartbeat_cpp_reporterror_excptheartbeat_73": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourceheartbeat_cpp_reporterror_ukexcptheartbeat_79": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "transport.verify-sender-receiver-recovery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcehttpprobe_cpp_reporterror_excptprobe_228": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcehttpprobe_cpp_reporterror_ukexcptprobe_234": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourceimapprobe_cpp_reporterror_excptprobe_168": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourceimapprobe_cpp_reporterror_ukexcptprobe_174": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcemiap_cpp_reporterror_anymsg_314": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcemiap_cpp_reportwarning_excptsetp_324": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcemiap_cpp_reporterror_excptsetp_329": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcemiap_cpp_reporterror_excptsetp_336": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcemiap_cpp_reporterror_ukexcptsetp_344": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenntpprobe_cpp_reporterror_excptprobe_174": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenntpprobe_cpp_reporterror_ukexcptprobe_180": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reporterror_compevtlogukexc_1613": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reporterror_evrptcantopnlog_2548": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reporterror_unknownerror_2715": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reportwarning_anymsg_2732": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reporterror_evtlogtrunc_2769": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reporterror_evtcorrupted_2825": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reporterror_evtlogclr_failed_exis": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reporterror_evtlogclr_failed_3164": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reportinformation_evtlogclr_final": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_evtlogclr_succeeded_with_save_3179": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_evtlogclr_succeeded_3184": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reporterror_compevtlogukexc_3412": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reporterror_compevtlogukexc_3417": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_reporterror_reg_maxevtmonreached": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcentservicemonitor_cpp_reporterror_excptntservmon_222": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcepassivesyslog_cpp_reporterror_initservicefailed_81": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcepassivesyslog_cpp_reporterror_initservicefailed_90": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcepassivesyslog_cpp_reportwarning_syslogcantbind_155": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcepassivesyslog_cpp_reporterror_syslogcantbind_161": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcepassivesyslog_cpp_reporterror_anymsg_180": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcepingprobe_cpp_reporterror_anymsg_203": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcepingprobe_cpp_reporterror_anymsg_211": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcepop3probe_cpp_reporterror_excptprobe_167": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcepop3probe_cpp_reporterror_ukexcptprobe_173": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcerelplistener_cpp_reporterror_syslogcantbind_315": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcerelplistener_cpp_reporterror_anymsg_320": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourceserialmonitor_cpp_reporterror_adserialport_128": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourceserialmonitor_cpp_reporterror_excptserialport_130": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourceserialmonitor_cpp_reporterror_ukexcptserialport_137": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesmtp_cpp_reportwarning_excptinfsrcsmtp_158": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "mail.verify-smtp-delivery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesmtp_cpp_reporterror_excptinfsrcsmtp_162": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "mail.verify-smtp-delivery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesmtp_cpp_reporterror_excptinfsrcsmtp_169": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "mail.verify-smtp-delivery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesmtp_cpp_reporterror_ukexcptinfsrcsmtp_176": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "mail.verify-smtp-delivery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesmtpprobe_cpp_reporterror_excptprobe_222": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesmtpprobe_cpp_reporterror_ukexcptprobe_228": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "probe.verify-remote-service",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesnmpmonitor_cpp_reportwarning_excptsnmp_338": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "snmp.verify-trap-path",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesnmpmonitor_cpp_reporterror_excptsnmp_342": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "snmp.verify-trap-path",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesnmpmonitor_cpp_reporterror_ukexcptsnmp_349": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "snmp.verify-trap-path",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesnmpmonitor_cpp_reporterror_excptsnmp_486": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "snmp.verify-trap-path",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesnmpmonitor_cpp_reporterror_ukexcptsnmp_491": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "snmp.verify-trap-path",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesnmptrap_cpp_reportwarning_excptsnmp_724": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "snmp.verify-trap-path",
+        "network.verify-udp-path",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesnmptrap_cpp_reporterror_excptsnmp_728": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "snmp.verify-trap-path",
+        "network.verify-udp-path",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesnmptrap_cpp_reporterror_excptsnmp_735": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "snmp.verify-trap-path",
+        "network.verify-udp-path",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesnmptrap_cpp_reporterror_ukexcptsnmp_743": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "snmp.verify-trap-path",
+        "network.verify-udp-path",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesyslog_cpp_reporterror_cantset_beep_option1_346": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesyslog_cpp_reporterror_cant_init_beep_353": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesyslog_cpp_reporterror_cantset_beep_listenport_361": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesyslog_cpp_reportwarning_syslogcantbind_1254": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesyslog_cpp_reporterror_syslogcantbind_1260": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcesyslog_cpp_reporterror_anymsg_1279": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcewevtmonitor_cpp_reportwarning_gotnotimer_272": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcewevtmonitor_cpp_reporterror_anymsg_563": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcewevtmonitor_cpp_reportwarning_generalerror_1800": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcewevtmonitor_cpp_reporterror_compevtlogukexc_1913": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcewevtmonitor_cpp_reporterror_compevtlogukexc_1918": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "eventlog.verify-channel-access-and-bookmark",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infounit_cpp_reporterror_anymsg_318": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_600": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_610": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_624": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_635": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_684": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_870": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_1006": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_1014": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_1051": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_1100": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_1169": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_mailrcptlist_cpp_reporterror_invldsmtpaddr_69": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "mail.verify-smtp-delivery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_mailrcptlist_cpp_reporterror_nosmtpaddr_78": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "mail.verify-smtp-delivery",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_miscoledbhelper_cpp_reporterror_oledberror_241": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "database.test-oledb-connection",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_miscutils_cpp_reportwarning_outofmemorywarning_1067": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_miscutils_cpp_reporterror_outofmemory_1075": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_pingprobe_cpp_reporterror_anymsg_85": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reporterror_anymsg_71": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reporterror_unknownerror_144": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reporterror_unknownerror_151": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reporterror_anymsg_165": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reportinformation_queuefull_293": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reportwarning_queuefull_302": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reporterror_anymsg_324": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reporterror_queuefull_325": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reporterror_queuecache_592": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reporterror_queuecache_666": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reporterror_queuecache_824": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reporterror_queuecache_1002": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_reporterror_queuecache_1131": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_servicemanager_cpp_reportwarning_anymsg_220": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_servicemanager_cpp_reportwarning_couldntallocmemreserve_245": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_servicemanager_cpp_reporterror_anymsg_323": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_servicemanager_cpp_reporterror_reg_trialexp_339": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_servicemanager_cpp_reporterror_unknown_service_type_483": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_servicemanager_cpp_reportwarning_warnfeatnotsupspec_548": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_servicemanager_cpp_reporterror_anymsg_570": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_servicemanager_cpp_reportwarning_warnfeatnotsup_594": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_servicemanager_cpp_reportinformation_warnfeatnotsupspec_642": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_servicemanager_cpp_reporterror_anymsg_650": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_servicemanager_cpp_reportwarning_ukexcpservman_704": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "config.validate-and-reload",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_syslogclient_cpp_reportwarning_compress_failed_248": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_syslogqueueentry_cpp_reporterrorprintf_runtimeerr_116": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_syslogqueueentry_cpp_reporterrorprintf_runtimeerr_220": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_syslogqueueentry_cpp_reporterrorprintf_runtimeerr_282": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_tcpserver_cpp_reporterror_tcpserverfatalerr_196": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_tcpserver_cpp_reportwarning_sslinitserver_203": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_tcpserver_cpp_reporterror_tcpserverfatalerr_214": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_tcpserver_cpp_reporterror_tcpserverfatalerr_218": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_tcpserver_cpp_reporterror_anymsg_413": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "tls.verify-certificate-chain-and-peer",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.evtrpt_serv_eventreporter_cpp_reporterror_advftr_nonsupported_95": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.evtrpt_serv_ntslogsrvc_cpp_reportwarning_warninvalidwthreadcount_241": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.evtrpt_serv_ntslogsrvc_cpp_reporterror_unknownerror_457": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.evtrpt_serv_ntslogsrvc_cpp_reporterror_initservicefailed_711": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.evtrpt_serv_ntslogsrvc_cpp_reportinformation_configreloaded_719": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.evtrpt_serv_ntslogsrvc_cpp_reportinformation_configreloaded_732": {
+      "disposition": "monitor_only",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.evtrpt_serv_ntslogsrvc_cpp_reporterror_initservicefailed_901": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.winsyslog_serv_winsyslog_cpp_reporterror_advftr_nonsupported_138": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.rsyslog_client_rsyslogclient_cpp_reporterror_advftr_nonsupported_124": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_system_exception_compile_event_log": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_infosourcenteventreport_cpp_system_exception_compile_event_category": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_quemanlist_cpp_system_exception_worker_thread": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_errorreporter_cpp_debug_error_output": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actioncontrolntservice_cpp_open_service_handle_43": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "action.verify-program-or-service-control",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actioncontrolntservice_cpp_start_service_failed_83": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "action.verify-program-or-service-control",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actioncontrolntservice_cpp_stop_service_failed_106": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "action.verify-program-or-service-control",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actioncontrolntservice_cpp_pause_service_failed_129": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "action.verify-program-or-service-control",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actioncontrolntservice_cpp_continue_service_failed_150": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "action.verify-program-or-service-control",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_actioncontrolntservice_cpp_action_timeout_202": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "action.verify-program-or-service-control",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "legacy.himalaya_logrotationsubsystem_cpp_consumed_queue_deletefail_1491": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.diagnose-log-rotation",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    }
+  }
+}

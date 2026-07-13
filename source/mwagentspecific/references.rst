@@ -30,6 +30,8 @@ Technical lookup material
    ../shared/references/systemproperties
    glossary
 
+.. include:: ../_generated/event-ids/mwagent/navigation.inc
+
 External reference
 ------------------
 

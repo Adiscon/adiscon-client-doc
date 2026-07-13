@@ -1,0 +1,14 @@
+# rsyslog Windows Agent documentation
+
+> Canonical documentation for rsyslog Windows Agent 26.07.
+
+## Event ID reference
+
+- Human-readable Event ID index: https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/index.html
+- Exact troubleshooting procedures: https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedures.html
+- Machine-readable Event ID and procedure catalog: https://www.rsyslog.com/download/files/windows-agent-manual/event-ids.json
+- Documentation sitemap: https://www.rsyslog.com/download/files/windows-agent-manual/sitemap.xml
+
+HTML pages are authoritative. The JSON catalog and this file are discovery aids.
+The reference covers product-generated Windows Application Event Log diagnostics and
+excludes externally collected events and administrator-selected action Event IDs.
