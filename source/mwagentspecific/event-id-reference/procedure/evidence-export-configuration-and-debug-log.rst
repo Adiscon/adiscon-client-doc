@@ -117,4 +117,4 @@ Related Event IDs
 - :ref:`MonitorWare Agent Event ID 11030 <mwagent-event-id-11030>`
 - :ref:`MonitorWare Agent Event ID 11031 <mwagent-event-id-11031>`
 - :ref:`MonitorWare Agent Event ID 11032 <mwagent-event-id-11032>`
-- This procedure is used by 170 additional Event IDs; use the product Event ID index to locate them.
+- This procedure is used by 169 additional Event IDs; use the product Event ID index to locate them.

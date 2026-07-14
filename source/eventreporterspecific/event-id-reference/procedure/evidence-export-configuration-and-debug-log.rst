@@ -117,4 +117,4 @@ Related Event IDs
 - :ref:`EventReporter Event ID 11029 <eventreporter-event-id-11029>`
 - :ref:`EventReporter Event ID 11030 <eventreporter-event-id-11030>`
 - :ref:`EventReporter Event ID 11031 <eventreporter-event-id-11031>`
-- This procedure is used by 178 additional Event IDs; use the product Event ID index to locate them.
+- This procedure is used by 177 additional Event IDs; use the product Event ID index to locate them.

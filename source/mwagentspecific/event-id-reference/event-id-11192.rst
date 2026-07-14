@@ -3,43 +3,44 @@
 .. _mwagent-event-id-11192:
 
 .. meta::
-   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11192: Service configuration: runtime operation failed.
+   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11192: No configured product input service could be started.
    :event-id: 11192
    :event-product: MonitorWare Agent
    :event-severity: Error
-   :event-component: Service configuration
+   :event-component: Service startup
    :event-reference: true
 
-MonitorWare Agent Event ID 11192: Service configuration: runtime operation failed
-=================================================================================
+MonitorWare Agent Event ID 11192: No configured product input service could be started
+======================================================================================
 
 Answer
 ------
 
-Service configuration: runtime operation failed. The product recorded this while processing service configuration; the appended event detail identifies the affected object, operation, or provider error.
+The product finished loading the configured input services but none started successfully. It marks the Windows service to stop because it cannot collect events.
 
 Event details
 -------------
 
 - **Event ID:** ``11192``
 - **Severity:** Error
-- **Component:** Service configuration
+- **Component:** Service startup
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Servicemanager. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`No input service could be started; the product service will stop.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- Every input service has an invalid or missing dependency such as its ruleset, binding, certificate, or source.
+- The service account lacks permissions required by all configured inputs.
+- The configuration is incompatible, incomplete, or damaged.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Review the earlier the product events from the same startup and identify the first service-specific failure.
+#. Correct that underlying service failure instead of repeatedly restarting the Windows service.
+#. Validate the configuration and perform one controlled start.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11192 does not recur and that service configuration processing continues.
+Confirm that at least one intended input service starts, receives a controlled event, and the product Windows service remains running.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

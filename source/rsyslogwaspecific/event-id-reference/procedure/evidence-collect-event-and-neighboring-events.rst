@@ -118,4 +118,4 @@ Related Event IDs
 - :ref:`rsyslog Windows Agent Event ID 11030 <rsyslog-event-id-11030>`
 - :ref:`rsyslog Windows Agent Event ID 11031 <rsyslog-event-id-11031>`
 - :ref:`rsyslog Windows Agent Event ID 11032 <rsyslog-event-id-11032>`
-- This procedure is used by 171 additional Event IDs; use the product Event ID index to locate them.
+- This procedure is used by 170 additional Event IDs; use the product Event ID index to locate them.

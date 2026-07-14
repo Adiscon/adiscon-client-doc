@@ -3,43 +3,44 @@
 .. _winsyslog-event-id-11016:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11016: SNMP action: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11016: An SNMP trap variable contains an invalid OID.
    :event-id: 11016
    :event-product: WinSyslog
    :event-severity: Warning
-   :event-component: SNMP action
+   :event-component: Send SNMP Trap action
    :event-reference: true
 
-WinSyslog Event ID 11016: SNMP action: runtime operation failed
-===============================================================
+WinSyslog Event ID 11016: An SNMP trap variable contains an invalid OID
+=======================================================================
 
 Answer
 ------
 
-SNMP action: runtime operation failed. The product recorded this while processing snmp action; the appended event detail identifies the affected object, operation, or provider error.
+The product could not parse or load the configured OID for one SNMP trap variable. That variable is removed from the action's active variable list.
 
 Event details
 -------------
 
 - **Event ID:** ``11016``
 - **Severity:** Warning
-- **Component:** SNMP action
+- **Component:** Send SNMP Trap action
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`SNMP action: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Please check your configuration, Error loading OID from var {variable_number}: {oid}, SNMP Error {snmp_error}`
 
 Possible causes
 ---------------
 
-- Sender and receiver transport, port, SNMP version, security or community, OID, or value type do not match.
-- The receiver is not bound, a firewall drops the traffic, or the SNMP library returned the appended runtime error.
+- The OID is malformed or incomplete.
+- The configured symbolic OID cannot be resolved by the available MIB data.
+- The variable was imported from an incompatible or damaged configuration.
 
 Immediate checks
 ----------------
 
-#. Record transport, endpoint, SNMP version, security or community, OIDs, and the complete runtime detail.
-#. Confirm the intended receiver process owns the configured endpoint and accepts a paced test trap.
-#. Verify the received OID and value before changing filters or MIB settings.
+#. Open the affected Send SNMP Trap action and locate the numbered variable from the event.
+#. Replace the OID with a valid numeric OID or a resolvable symbolic OID.
+#. Reload the configuration and send a controlled trap.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11016 does not recur and that snmp action processing continues.
+Confirm that the controlled trap contains the expected variable and Event ID 11016 is not recorded during configuration loading.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

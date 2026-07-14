@@ -3,67 +3,69 @@
 .. _eventreporter-event-id-11215:
 
 .. meta::
-   :description: Meaning and troubleshooting for EventReporter Event ID 11215: Debug error output was forwarded to the Windows Event Log.
+   :description: Meaning and troubleshooting for EventReporter Event ID 11215: A debug error was forwarded to the Windows Event Log.
    :event-id: 11215
    :event-product: EventReporter
    :event-severity: Warning
-   :event-component: Product runtime
+   :event-component: Diagnostic forwarding
    :event-reference: true
 
-EventReporter Event ID 11215: Debug error output was forwarded to the Windows Event Log
-=======================================================================================
+EventReporter Event ID 11215: A debug error was forwarded to the Windows Event Log
+==================================================================================
 
 Answer
 ------
 
-A debug-level error message was emitted while Event Log warning forwarding was enabled.
+The product produced an error-level internal diagnostic while forwarding of debug errors to Windows Event Log warnings was enabled. This Event ID is a container; the embedded detail identifies the originating operation.
 
 Event details
 -------------
 
 - **Event ID:** ``11215``
 - **Severity:** Warning
-- **Component:** Product runtime
+- **Component:** Diagnostic forwarding
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Debug error output was forwarded to the Windows Event Log. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Debug Error Output. Additional detail: {error_detail}`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- Any component can produce an error-level debug diagnostic.
+- A transient dependency or configuration problem triggered the originating debug error.
+- The embedded detail may describe a product defect or an expected operational failure.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Use the embedded detail and neighboring product events to identify the originating component and operation.
+#. Follow a component-specific Event ID when one is present; do not troubleshoot Event ID 11215 in isolation.
+#. Collect a bounded debug log and escalate when the detail cannot be mapped to a documented operation.
 
 Detailed procedures
 -------------------
 
-- :ref:`Verify service state, dependencies, and service account <event-id-procedure-service-verify-state-and-account>` — Confirm service state, start mode, dependencies, account, and SCM errors.
+- :ref:`Collect evidence for an escalation-only runtime event <event-id-procedure-runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11215 does not recur and that product runtime processing continues.
+Confirm that the originating operation succeeds and the same embedded debug error no longer appears in Event ID 11215.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------
 
-If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

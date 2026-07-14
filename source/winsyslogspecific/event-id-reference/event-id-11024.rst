@@ -3,48 +3,48 @@
 .. _winsyslog-event-id-11024:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11024: Action processing: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11024: Configured action type is not recognized.
    :event-id: 11024
    :event-product: WinSyslog
    :event-severity: Error
-   :event-component: Action processing
+   :event-component: Rule engine action
    :event-reference: true
 
-WinSyslog Event ID 11024: Action processing: runtime operation failed
-=====================================================================
+WinSyslog Event ID 11024: Configured action type is not recognized
+==================================================================
 
 Answer
 ------
 
-Action processing: runtime operation failed. The product recorded this while processing action processing; the appended event detail identifies the affected object, operation, or provider error.
+The configuration contains an action type that this the product build cannot instantiate. The affected action cannot run.
 
 Event details
 -------------
 
 - **Event ID:** ``11024``
 - **Severity:** Error
-- **Component:** Action processing
+- **Component:** Rule engine action
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Action processing: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Invalid action configured. The action type is not recognized.`
 
 Possible causes
 ---------------
 
-- A downstream action is failing or retrying, so queued work cannot drain.
-- The queue directory, permissions, free space, or queue artifact state prevents normal processing.
+- The configuration came from a newer or incompatible product version.
+- A manual configuration edit supplied an invalid action type.
+- The configuration object is incomplete or damaged.
 
 Immediate checks
 ----------------
 
-#. Identify the first downstream action error and record queue depth and oldest-item time.
-#. Check queue-directory access and free space without changing live queue files.
-#. Correct the downstream cause, send one test event, and verify that the backlog decreases.
+#. Export and back up the current configuration.
+#. Identify the affected action and compare its type with actions supported by the installed product version.
+#. Recreate the action with a supported type or install the intended compatible version, then reload the configuration.
 
 Detailed procedures
 -------------------
 
-- :ref:`Diagnose an action backlog or disk queue <event-id-procedure-queue-diagnose-backlog-and-disk-queue>` — Identify why queued work is not draining while preserving data.
 - :ref:`Validate configuration and reload it safely <event-id-procedure-config-validate-and-reload>` — Back up, inspect, correct, and test the exact invalid configuration object.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
@@ -52,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11024 does not recur and that action processing processing continues.
+Confirm that configuration loading no longer records Event ID 11024 and a controlled event reaches the recreated action.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

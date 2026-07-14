@@ -3,67 +3,70 @@
 .. _mwagent-event-id-11159:
 
 .. meta::
-   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11159: Log rotation: runtime operation failed.
+   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 11159: Corrupt log-rotation queue file could not be quarantined.
    :event-id: 11159
    :event-product: MonitorWare Agent
    :event-severity: Warning
-   :event-component: Log rotation
+   :event-component: Log rotation queue
    :event-reference: true
 
-MonitorWare Agent Event ID 11159: Log rotation: runtime operation failed
-========================================================================
+MonitorWare Agent Event ID 11159: Corrupt log-rotation queue file could not be quarantined
+==========================================================================================
 
 Answer
 ------
 
-Log rotation: runtime operation failed. The product recorded this while processing log rotation; the appended event detail identifies the affected object, operation, or provider error.
+The product detected an unreadable or invalid durable log-rotation queue and could not rename it to a quarantine file. Pending rotation work in that file cannot be trusted or loaded.
 
 Event details
 -------------
 
 - **Event ID:** ``11159``
 - **Severity:** Warning
-- **Component:** Log rotation
+- **Component:** Log rotation queue
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Logrotationsubsystem. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`{reason} Path: {queue_path}`
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or not writable by the service account.
-- Rotation naming, retention, timing, or another process holding the file prevents the required operation.
+- The queue file or its directory is locked.
+- The service account lacks rename permission.
+- The data volume is unavailable, read-only, or damaged.
 
 Immediate checks
 ----------------
 
-#. Record the resolved path, file name, rotation trigger, and service-account context.
-#. Check existence, ACLs, free space, current file sizes, and recent timestamps.
-#. Perform one controlled write or rotation and verify that active output continues.
+#. Preserve a copy of the queue file and its directory metadata.
+#. Check rename permissions, file locks, and storage health under the product service account.
+#. Do not edit the queue manually; collect evidence and contact support if pending archive work must be recovered.
 
 Detailed procedures
 -------------------
 
 - :ref:`Diagnose log rotation and retention <event-id-procedure-file-diagnose-log-rotation>` — Verify trigger, names, handles, destination access, and retention.
+- :ref:`Collect evidence for an escalation-only runtime event <event-id-procedure-runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11159 does not recur and that log rotation processing continues.
+Confirm that the corrupt file is quarantined or replaced safely and new rotation jobs persist normally.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------
 
-If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

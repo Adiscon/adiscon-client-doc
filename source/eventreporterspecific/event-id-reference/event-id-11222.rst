@@ -3,43 +3,44 @@
 .. _eventreporter-event-id-11222:
 
 .. meta::
-   :description: Meaning and troubleshooting for EventReporter Event ID 11222: Log rotation: runtime operation failed.
+   :description: Meaning and troubleshooting for EventReporter Event ID 11222: Consumed log-rotation queue file could not be deleted.
    :event-id: 11222
    :event-product: EventReporter
    :event-severity: Warning
-   :event-component: Log rotation
+   :event-component: Log rotation queue
    :event-reference: true
 
-EventReporter Event ID 11222: Log rotation: runtime operation failed
-====================================================================
+EventReporter Event ID 11222: Consumed log-rotation queue file could not be deleted
+===================================================================================
 
 Answer
 ------
 
-Log rotation: runtime operation failed. The product recorded this while processing log rotation; the appended event detail identifies the affected object, operation, or provider error.
+The product loaded and consumed the durable log-rotation jobs, but could not delete the queue file afterward. Completed job keys remain tracked to avoid reprocessing them during the current run.
 
 Event details
 -------------
 
 - **Event ID:** ``11222``
 - **Severity:** Warning
-- **Component:** Log rotation
+- **Component:** Log rotation queue
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Logrotationsubsystem consumed queue delete failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Could not delete consumed log rotation queue file: {queue_path}`
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or not writable by the service account.
-- Rotation naming, retention, timing, or another process holding the file prevents the required operation.
+- The queue file is locked by another process.
+- The service account lacks delete permission in the data directory.
+- Antivirus, backup, or storage software is holding the file.
 
 Immediate checks
 ----------------
 
-#. Record the resolved path, file name, rotation trigger, and service-account context.
-#. Check existence, ACLs, free space, current file sizes, and recent timestamps.
-#. Perform one controlled write or rotation and verify that active output continues.
+#. Confirm that the loaded rotation jobs were processed before changing the queue file.
+#. Check file locks and delete permission in the product data directory.
+#. Remove the blocking condition and allow cleanup to retry; preserve the file if job state is uncertain.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11222 does not recur and that log rotation processing continues.
+Confirm that the consumed queue file is removed and a controlled restart does not reprocess completed rotations.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

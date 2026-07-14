@@ -87,10 +87,8 @@ Related Event IDs
 - :ref:`EventReporter Event ID 108 <eventreporter-event-id-108>`
 - :ref:`EventReporter Event ID 11059 <eventreporter-event-id-11059>`
 - :ref:`EventReporter Event ID 11111 <eventreporter-event-id-11111>`
-- :ref:`EventReporter Event ID 11152 <eventreporter-event-id-11152>`
 - :ref:`EventReporter Event ID 11167 <eventreporter-event-id-11167>`
 - :ref:`EventReporter Event ID 11168 <eventreporter-event-id-11168>`
-- :ref:`EventReporter Event ID 11169 <eventreporter-event-id-11169>`
 - :ref:`EventReporter Event ID 11194 <eventreporter-event-id-11194>`
 - :ref:`EventReporter Event ID 11203 <eventreporter-event-id-11203>`
 - :ref:`EventReporter Event ID 11204 <eventreporter-event-id-11204>`
@@ -99,4 +97,3 @@ Related Event IDs
 - :ref:`EventReporter Event ID 11207 <eventreporter-event-id-11207>`
 - :ref:`EventReporter Event ID 11208 <eventreporter-event-id-11208>`
 - :ref:`EventReporter Event ID 11209 <eventreporter-event-id-11209>`
-- :ref:`EventReporter Event ID 11215 <eventreporter-event-id-11215>`

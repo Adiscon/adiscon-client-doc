@@ -76,14 +76,17 @@ Evidence to collect
 Related Event IDs
 -----------------
 
+- :ref:`WinSyslog Event ID 11009 <winsyslog-event-id-11009>`
 - :ref:`WinSyslog Event ID 11010 <winsyslog-event-id-11010>`
 - :ref:`WinSyslog Event ID 11011 <winsyslog-event-id-11011>`
+- :ref:`WinSyslog Event ID 11026 <winsyslog-event-id-11026>`
 - :ref:`WinSyslog Event ID 11029 <winsyslog-event-id-11029>`
 - :ref:`WinSyslog Event ID 11030 <winsyslog-event-id-11030>`
 - :ref:`WinSyslog Event ID 11066 <winsyslog-event-id-11066>`
 - :ref:`WinSyslog Event ID 11067 <winsyslog-event-id-11067>`
 - :ref:`WinSyslog Event ID 11069 <winsyslog-event-id-11069>`
 - :ref:`WinSyslog Event ID 11070 <winsyslog-event-id-11070>`
+- :ref:`WinSyslog Event ID 11173 <winsyslog-event-id-11173>`
 
 
 Related procedures

@@ -3,20 +3,20 @@
 .. _rsyslog-event-id-11154:
 
 .. meta::
-   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11154: Log rotation: runtime operation failed.
+   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11154: Log rotation was deferred because an archive destination could not be renamed.
    :event-id: 11154
    :event-product: rsyslog Windows Agent
    :event-severity: Warning
    :event-component: Log rotation
    :event-reference: true
 
-rsyslog Windows Agent Event ID 11154: Log rotation: runtime operation failed
-============================================================================
+rsyslog Windows Agent Event ID 11154: Log rotation was deferred because an archive destination could not be renamed
+===================================================================================================================
 
 Answer
 ------
 
-Log rotation: runtime operation failed. The product recorded this while processing log rotation; the appended event detail identifies the affected object, operation, or provider error.
+An archive destination already existed and the product could not rename it out of the way. The rotated file remains pending for a later attempt.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Log rotation
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Logrotationarchivemove. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Could not rename blocking destination; rotate move deferred: {destination_path}`
 
 Possible causes
 ---------------
 
-- The configured path is unavailable, full, or not writable by the service account.
-- Rotation naming, retention, timing, or another process holding the file prevents the required operation.
+- The service account lacks rename or delete permission in the archive directory.
+- Another process has the destination file open.
+- The archive path is unavailable, read-only, or out of space.
 
 Immediate checks
 ----------------
 
-#. Record the resolved path, file name, rotation trigger, and service-account context.
-#. Check existence, ACLs, free space, current file sizes, and recent timestamps.
-#. Perform one controlled write or rotation and verify that active output continues.
+#. Preserve the pending rotated file and identify the blocking destination from the event.
+#. Test rename access under the product service account and check file locks and free space.
+#. Remove the blocking condition and allow log-rotation recovery to retry.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11154 does not recur and that log rotation processing continues.
+Confirm that the pending rotated file reaches the archive destination and Event ID 11154 stops recurring.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

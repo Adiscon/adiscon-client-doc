@@ -85,6 +85,7 @@ Related Event IDs
 - :ref:`rsyslog Windows Agent Event ID 11018 <rsyslog-event-id-11018>`
 - :ref:`rsyslog Windows Agent Event ID 11034 <rsyslog-event-id-11034>`
 - :ref:`rsyslog Windows Agent Event ID 11035 <rsyslog-event-id-11035>`
+- :ref:`rsyslog Windows Agent Event ID 11036 <rsyslog-event-id-11036>`
 - :ref:`rsyslog Windows Agent Event ID 11039 <rsyslog-event-id-11039>`
 - :ref:`rsyslog Windows Agent Event ID 11040 <rsyslog-event-id-11040>`
 - :ref:`rsyslog Windows Agent Event ID 11060 <rsyslog-event-id-11060>`

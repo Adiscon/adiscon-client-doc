@@ -79,7 +79,20 @@ Related Event IDs
 
 - :ref:`EventReporter Event ID 11008 <eventreporter-event-id-11008>`
 - :ref:`EventReporter Event ID 11021 <eventreporter-event-id-11021>`
+- :ref:`EventReporter Event ID 11027 <eventreporter-event-id-11027>`
+- :ref:`EventReporter Event ID 11028 <eventreporter-event-id-11028>`
+- :ref:`EventReporter Event ID 11041 <eventreporter-event-id-11041>`
 - :ref:`EventReporter Event ID 11068 <eventreporter-event-id-11068>`
+- :ref:`EventReporter Event ID 11073 <eventreporter-event-id-11073>`
+- :ref:`EventReporter Event ID 11116 <eventreporter-event-id-11116>`
+- :ref:`EventReporter Event ID 11118 <eventreporter-event-id-11118>`
+- :ref:`EventReporter Event ID 11122 <eventreporter-event-id-11122>`
+- :ref:`EventReporter Event ID 11146 <eventreporter-event-id-11146>`
+- :ref:`EventReporter Event ID 11152 <eventreporter-event-id-11152>`
+- :ref:`EventReporter Event ID 11159 <eventreporter-event-id-11159>`
+- :ref:`EventReporter Event ID 11163 <eventreporter-event-id-11163>`
+- :ref:`EventReporter Event ID 11169 <eventreporter-event-id-11169>`
+- :ref:`EventReporter Event ID 11170 <eventreporter-event-id-11170>`
 - :ref:`EventReporter Event ID 11175 <eventreporter-event-id-11175>`
 - :ref:`EventReporter Event ID 11177 <eventreporter-event-id-11177>`
 - :ref:`EventReporter Event ID 11188 <eventreporter-event-id-11188>`
@@ -90,6 +103,7 @@ Related Event IDs
 - :ref:`EventReporter Event ID 11212 <eventreporter-event-id-11212>`
 - :ref:`EventReporter Event ID 11213 <eventreporter-event-id-11213>`
 - :ref:`EventReporter Event ID 11214 <eventreporter-event-id-11214>`
+- :ref:`EventReporter Event ID 11215 <eventreporter-event-id-11215>`
 
 
 Related procedures

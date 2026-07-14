@@ -3,62 +3,69 @@
 .. _winsyslog-event-id-11173:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11173: Queue manager: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11173: An event failed while the main queue applied its rules.
    :event-id: 11173
    :event-product: WinSyslog
    :event-severity: Error
-   :event-component: Queue manager
+   :event-component: Main message queue
    :event-reference: true
 
-WinSyslog Event ID 11173: Queue manager: runtime operation failed
-=================================================================
+WinSyslog Event ID 11173: An event failed while the main queue applied its rules
+================================================================================
 
 Answer
 ------
 
-Queue manager: runtime operation failed. The product recorded this while processing queue manager; the appended event detail identifies the affected object, operation, or provider error.
+A normal diagnostic exception escaped while a queue worker applied the selected ruleset to one event. The product records the error and finishes that event instead of leaving it in the in-memory queue.
 
 Event details
 -------------
 
 - **Event ID:** ``11173``
 - **Severity:** Error
-- **Component:** Queue manager
+- **Component:** Main message queue
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Queue manager: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Queue rule-processing error: {error_detail}`
 
 Possible causes
 ---------------
 
-- A downstream action is failing or retrying, so queued work cannot drain.
-- The queue directory, permissions, free space, or queue artifact state prevents normal processing.
+- A filter, action, or property operation raised a diagnostic exception.
+- The event or ruleset contains an invalid value.
+- A destination or provider used during rule processing failed.
 
 Immediate checks
 ----------------
 
-#. Identify the first downstream action error and record queue depth and oldest-item time.
-#. Check queue-directory access and free space without changing live queue files.
-#. Correct the downstream cause, send one test event, and verify that the backlog decreases.
+#. Use the embedded error and neighboring action events to identify the failing rule operation.
+#. Preserve the affected ruleset and a sanitized sample event, then reproduce with one controlled event.
+#. Correct the identified operation and verify subsequent queue processing.
 
 Detailed procedures
 -------------------
 
-- :ref:`Diagnose an action backlog or disk queue <event-id-procedure-queue-diagnose-backlog-and-disk-queue>` — Identify why queued work is not draining while preserving data.
+- :ref:`Interpret a Windows or Winsock error code <event-id-procedure-windows-interpret-error-code>` — Translate a numeric code without losing its operation or subsystem context.
+- :ref:`Verify file paths, permissions, and free space <event-id-procedure-file-verify-path-permissions-and-disk-space>` — Check expansion, existence, ACLs, service-account context, and storage.
+- :ref:`Resolve a destination and test its TCP port <event-id-procedure-network-resolve-host-and-test-tcp-port>` — Verify DNS, selected address, routing, and TCP establishment.
+- :ref:`Test an ODBC connection in the product context <event-id-procedure-database-test-odbc-connection>` — Verify ODBC provider, architecture, authentication, connectivity, and a minimal query.
+- :ref:`Test an OLE DB connection in the product context <event-id-procedure-database-test-oledb-connection>` — Verify OLE DB provider, architecture, authentication, connectivity, and a minimal query.
+- :ref:`Validate configuration and reload it safely <event-id-procedure-config-validate-and-reload>` — Back up, inspect, correct, and test the exact invalid configuration object.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11173 does not recur and that queue manager processing continues.
+Confirm that controlled events complete the ruleset and queue depth decreases without Event ID 11173.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

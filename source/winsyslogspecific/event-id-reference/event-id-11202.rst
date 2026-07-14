@@ -3,20 +3,20 @@
 .. _winsyslog-event-id-11202:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11202: TCP and TLS listener: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11202: TCP listener could not assign an accepted socket.
    :event-id: 11202
    :event-product: WinSyslog
    :event-severity: Error
    :event-component: TCP and TLS listener
    :event-reference: true
 
-WinSyslog Event ID 11202: TCP and TLS listener: runtime operation failed
-========================================================================
+WinSyslog Event ID 11202: TCP listener could not assign an accepted socket
+==========================================================================
 
 Answer
 ------
 
-TCP and TLS listener: runtime operation failed. The product recorded this while processing tcp and tls listener; the appended event detail identifies the affected object, operation, or provider error.
+The TCP listener accepted or prepared a connection but could not assign its socket to a connection handler. At least that connection is lost, while the listener continues accepting later connections.
 
 Event details
 -------------
@@ -26,40 +26,42 @@ Event details
 - **Component:** TCP and TLS listener
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Ctcpserver runserver. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Could not assign an accepted socket; at least one connection was lost. The server will continue.`
 
 Possible causes
 ---------------
 
-- The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.
-- TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match.
+- The process or operating system exhausted socket, handle, thread, or memory resources.
+- A connection-handler allocation failed.
+- A transient Windows networking or product error prevented socket assignment.
 
 Immediate checks
 ----------------
 
-#. Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.
-#. Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.
-#. Send one unique test message and verify positive receipt and queue recovery.
+#. Check product process handles, memory, worker state, and connection rate at the event time.
+#. Review neighboring Windows resource and networking events and reduce abnormal connection bursts if present.
+#. Send a controlled TCP message and collect a bounded debug log if assignment failures recur.
 
 Detailed procedures
 -------------------
 
 - :ref:`Verify listener binding and Windows Firewall rules <event-id-procedure-network-verify-listener-binding-and-firewall>` — Confirm effective address, port, transport, owning process, and inbound policy.
-- :ref:`Verify TLS certificates, private keys, and permitted peers <event-id-procedure-tls-verify-certificate-chain-and-peer>` — Check validity, trust chain, key pairing, protocol mode, and peer authorization.
+- :ref:`Interpret a Windows or Winsock error code <event-id-procedure-windows-interpret-error-code>` — Translate a numeric code without losing its operation or subsystem context.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11202 does not recur and that tcp and tls listener processing continues.
+Confirm that later TCP connections are accepted and controlled messages are processed without Event ID 11202.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

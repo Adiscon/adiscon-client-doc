@@ -76,8 +76,10 @@ Evidence to collect
 Related Event IDs
 -----------------
 
+- :ref:`rsyslog Windows Agent Event ID 11009 <rsyslog-event-id-11009>`
 - :ref:`rsyslog Windows Agent Event ID 11012 <rsyslog-event-id-11012>`
 - :ref:`rsyslog Windows Agent Event ID 11013 <rsyslog-event-id-11013>`
+- :ref:`rsyslog Windows Agent Event ID 11026 <rsyslog-event-id-11026>`
 - :ref:`rsyslog Windows Agent Event ID 11031 <rsyslog-event-id-11031>`
 - :ref:`rsyslog Windows Agent Event ID 11032 <rsyslog-event-id-11032>`
 - :ref:`rsyslog Windows Agent Event ID 11066 <rsyslog-event-id-11066>`
@@ -85,6 +87,7 @@ Related Event IDs
 - :ref:`rsyslog Windows Agent Event ID 11069 <rsyslog-event-id-11069>`
 - :ref:`rsyslog Windows Agent Event ID 11070 <rsyslog-event-id-11070>`
 - :ref:`rsyslog Windows Agent Event ID 11166 <rsyslog-event-id-11166>`
+- :ref:`rsyslog Windows Agent Event ID 11173 <rsyslog-event-id-11173>`
 
 
 Related procedures

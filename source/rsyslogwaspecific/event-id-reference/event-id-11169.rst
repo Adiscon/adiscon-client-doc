@@ -3,67 +3,70 @@
 .. _rsyslog-event-id-11169:
 
 .. meta::
-   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11169: Product runtime: runtime operation failed.
+   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11169: Individual Ping Probe stopped after an unknown exception.
    :event-id: 11169
    :event-product: rsyslog Windows Agent
    :event-severity: Error
-   :event-component: Product runtime
+   :event-component: Ping Probe
    :event-reference: true
 
-rsyslog Windows Agent Event ID 11169: Product runtime: runtime operation failed
-===============================================================================
+rsyslog Windows Agent Event ID 11169: Individual Ping Probe stopped after an unknown exception
+==============================================================================================
 
 Answer
 ------
 
-Product runtime: runtime operation failed. The product recorded this while processing product runtime; the appended event detail identifies the affected object, operation, or provider error.
+The individual probe operation raised an exception outside its normal ICMP error handling. Its result is not reliable for that execution.
 
 Event details
 -------------
 
 - **Event ID:** ``11169``
 - **Severity:** Error
-- **Component:** Product runtime
+- **Component:** Ping Probe
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Pingprobe. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The Ping Probe encountered an unknown exception and cannot return a valid result.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- The ICMP or network provider raised an unexpected exception.
+- System resource pressure disrupted the probe operation.
+- The probe encountered a product defect.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Record the target and neighboring product and Windows network events.
+#. Run one controlled probe while collecting a bounded debug log and Windows Error Reporting data.
+#. Escalate the reproducible exception with the collected evidence.
 
 Detailed procedures
 -------------------
 
-- :ref:`Verify service state, dependencies, and service account <event-id-procedure-service-verify-state-and-account>` — Confirm service state, start mode, dependencies, account, and SCM errors.
+- :ref:`Verify a monitored remote service <event-id-procedure-probe-verify-remote-service>` — Confirm resolution, transport, protocol, credentials, expected response, and timing.
+- :ref:`Collect evidence for an escalation-only runtime event <event-id-procedure-runtime-collect-escalation-evidence>` — Capture a bounded reproducible support package without unsafe generic repair.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11169 does not recur and that product runtime processing continues.
+Confirm that controlled probes return valid results without Event ID 11169.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------
 
-If the event continues after the detailed procedures, collect the listed evidence and contact Adiscon Support.
+No safe general self-service repair is available for this event. Follow the escalation evidence procedure above and contact Adiscon Support.
 
 Related Event IDs
 -----------------

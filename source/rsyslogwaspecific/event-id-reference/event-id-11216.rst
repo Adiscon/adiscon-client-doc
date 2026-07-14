@@ -3,20 +3,20 @@
 .. _rsyslog-event-id-11216:
 
 .. meta::
-   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11216: Control Windows Service action: runtime operation failed.
+   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11216: Control Windows Service action could not open the target service.
    :event-id: 11216
    :event-product: rsyslog Windows Agent
    :event-severity: Error
    :event-component: Control Windows Service action
    :event-reference: true
 
-rsyslog Windows Agent Event ID 11216: Control Windows Service action: runtime operation failed
-==============================================================================================
+rsyslog Windows Agent Event ID 11216: Control Windows Service action could not open the target service
+======================================================================================================
 
 Answer
 ------
 
-Control Windows Service action: runtime operation failed. The product recorded this while processing control windows service action; the appended event detail identifies the affected object, operation, or provider error.
+The action opened Service Control Manager but could not obtain the required handle for the configured target service. No start, stop, pause, or continue request is issued.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Control Windows Service action
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Control Windows Service action: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Could not open service '{service_name}'; Windows error {error_code}.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- The configured Windows service name does not exist.
+- The product service account lacks control access to the target service.
+- The service was removed or became unavailable between configuration and execution.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Translate the Windows error and verify the exact service name with the Windows Service Control Manager.
+#. Confirm the product service account's permission to control that service.
+#. Correct the name or permission and run one controlled action.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11216 does not recur and that control windows service action processing continues.
+Confirm that the target service handle opens and the intended action proceeds without Event ID 11216.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

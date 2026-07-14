@@ -3,20 +3,20 @@
 .. _winsyslog-event-id-11040:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11040: Forward Syslog action: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11040: Forward Syslog delivery failed without queue protection.
    :event-id: 11040
    :event-product: WinSyslog
    :event-severity: Error
    :event-component: Forward Syslog action
    :event-reference: true
 
-WinSyslog Event ID 11040: Forward Syslog action: runtime operation failed
-=========================================================================
+WinSyslog Event ID 11040: Forward Syslog delivery failed without queue protection
+=================================================================================
 
 Answer
 ------
 
-Forward Syslog action: runtime operation failed. The product recorded this while processing forward syslog action; the appended event detail identifies the affected object, operation, or provider error.
+The Forward Syslog action could not deliver the current message, and the active transport or send mode did not place it in the supported action disk queue. The action is marked failed for this event.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Forward Syslog action
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Forward Syslog action: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`WSError: {error_code} | Error sending syslog message: {error_detail}`
 
 Possible causes
 ---------------
 
-- The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.
-- TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match.
+- The syslog destination is unavailable, refusing connections, or closing the session.
+- DNS, routing, firewall, transport, or TLS settings prevent delivery.
+- The selected send mode or transport is not using action disk-queue protection.
 
 Immediate checks
 ----------------
 
-#. Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.
-#. Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.
-#. Send one unique test message and verify positive receipt and queue recovery.
+#. Record the Winsock error, transport, send mode, and destination.
+#. Test name resolution and the configured port from the product host.
+#. Correct the destination or transport and send a new uniquely identifiable test message; evaluate queue protection if loss prevention is required.
 
 Detailed procedures
 -------------------
@@ -52,14 +53,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11040 does not recur and that forward syslog action processing continues.
+Confirm that the new test message arrives and Event ID 11040 does not recur.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

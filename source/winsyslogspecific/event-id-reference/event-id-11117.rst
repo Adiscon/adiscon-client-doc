@@ -3,20 +3,20 @@
 .. _winsyslog-event-id-11117:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11117: Ping Probe service: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11117: Ping Probe service stopped after a reported runtime error.
    :event-id: 11117
    :event-product: WinSyslog
    :event-severity: Error
    :event-component: Ping Probe service
    :event-reference: true
 
-WinSyslog Event ID 11117: Ping Probe service: runtime operation failed
-======================================================================
+WinSyslog Event ID 11117: Ping Probe service stopped after a reported runtime error
+===================================================================================
 
 Answer
 ------
 
-Ping Probe service: runtime operation failed. The product recorded this while processing ping probe service; the appended event detail identifies the affected object, operation, or provider error.
+The Ping Probe service encountered a normal diagnostic exception outside an individual probe result and left its polling loop. The service will not produce further probe results until it is restarted or reloaded.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Ping Probe service
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Pingprobe. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Ping Probe error: {error_detail}`
 
 Possible causes
 ---------------
 
-- Name resolution, routing, listener state, TLS, authentication, or protocol expectations do not match the remote service.
-- The remote service rejected the request, exceeded the configured timeout, or returned an unexpected response.
+- Probe initialization or a shared ICMP resource failed.
+- The configured target or probe settings triggered a runtime error.
+- Windows denied or could not provide a required network resource.
 
 Immediate checks
 ----------------
 
-#. Record the endpoint, port, TLS and authentication mode, timeout, and complete protocol response.
-#. Resolve the host and test the configured port from the product system.
-#. Run the smallest safe protocol test and compare its response with the configured success condition.
+#. Record the full error detail and identify the affected Ping Probe service.
+#. Verify the target, service account, and local ICMP/network requirements.
+#. Correct the reported cause and restart the affected service once.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11117 does not recur and that ping probe service processing continues.
+Confirm that the Ping Probe produces new results for a controlled target without Event ID 11117.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

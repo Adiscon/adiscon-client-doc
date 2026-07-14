@@ -3,20 +3,20 @@
 .. _winsyslog-event-id-11020:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11020: Control Windows Service action: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11020: Control Windows Service action could not open Service Control Manager.
    :event-id: 11020
    :event-product: WinSyslog
    :event-severity: Error
    :event-component: Control Windows Service action
    :event-reference: true
 
-WinSyslog Event ID 11020: Control Windows Service action: runtime operation failed
-==================================================================================
+WinSyslog Event ID 11020: Control Windows Service action could not open Service Control Manager
+===============================================================================================
 
 Answer
 ------
 
-Control Windows Service action: runtime operation failed. The product recorded this while processing control windows service action; the appended event detail identifies the affected object, operation, or provider error.
+The action could not obtain the Windows Service Control Manager handle required to inspect or control the configured service.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Control Windows Service action
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Control Windows Service action: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Could not open Service Control Manager; Windows error {error_code}.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- The product service account lacks Service Control Manager permissions.
+- Windows denied the requested access because of local security policy.
+- The Service Control Manager was temporarily unavailable.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Translate the Windows error code from the event.
+#. Confirm the product service account and its permission to manage the intended service.
+#. Correct the account or policy and run a controlled service action.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11020 does not recur and that control windows service action processing continues.
+Confirm that the controlled action changes or queries the intended service and Event ID 11020 does not recur.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

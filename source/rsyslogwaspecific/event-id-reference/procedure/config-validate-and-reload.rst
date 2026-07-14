@@ -92,10 +92,7 @@ Related Event IDs
 - :ref:`rsyslog Windows Agent Event ID 11024 <rsyslog-event-id-11024>`
 - :ref:`rsyslog Windows Agent Event ID 11025 <rsyslog-event-id-11025>`
 - :ref:`rsyslog Windows Agent Event ID 11026 <rsyslog-event-id-11026>`
-- :ref:`rsyslog Windows Agent Event ID 11027 <rsyslog-event-id-11027>`
-- :ref:`rsyslog Windows Agent Event ID 11028 <rsyslog-event-id-11028>`
 - :ref:`rsyslog Windows Agent Event ID 11033 <rsyslog-event-id-11033>`
-- :ref:`rsyslog Windows Agent Event ID 11036 <rsyslog-event-id-11036>`
 - :ref:`rsyslog Windows Agent Event ID 11037 <rsyslog-event-id-11037>`
 - :ref:`rsyslog Windows Agent Event ID 11045 <rsyslog-event-id-11045>`
 - :ref:`rsyslog Windows Agent Event ID 11046 <rsyslog-event-id-11046>`
@@ -106,6 +103,7 @@ Related Event IDs
 - :ref:`rsyslog Windows Agent Event ID 11123 <rsyslog-event-id-11123>`
 - :ref:`rsyslog Windows Agent Event ID 11124 <rsyslog-event-id-11124>`
 - :ref:`rsyslog Windows Agent Event ID 11125 <rsyslog-event-id-11125>`
+- :ref:`rsyslog Windows Agent Event ID 11173 <rsyslog-event-id-11173>`
 - :ref:`rsyslog Windows Agent Event ID 11183 <rsyslog-event-id-11183>`
 - :ref:`rsyslog Windows Agent Event ID 11184 <rsyslog-event-id-11184>`
 - :ref:`rsyslog Windows Agent Event ID 11185 <rsyslog-event-id-11185>`

@@ -3,43 +3,44 @@
 .. _rsyslog-event-id-11018:
 
 .. meta::
-   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11018: Forward Syslog action: runtime operation failed.
+   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11018: A queued Forward Syslog message could not be delivered.
    :event-id: 11018
    :event-product: rsyslog Windows Agent
    :event-severity: Warning
-   :event-component: Forward Syslog action
+   :event-component: Forward Syslog disk queue
    :event-reference: true
 
-rsyslog Windows Agent Event ID 11018: Forward Syslog action: runtime operation failed
-=====================================================================================
+rsyslog Windows Agent Event ID 11018: A queued Forward Syslog message could not be delivered
+============================================================================================
 
 Answer
 ------
 
-Forward Syslog action: runtime operation failed. The product recorded this while processing forward syslog action; the appended event detail identifies the affected object, operation, or provider error.
+The product could not deliver a message being replayed from the Forward Syslog action's disk queue. The queue position is moved back so delivery can be retried.
 
 Event details
 -------------
 
 - **Event ID:** ``11018``
 - **Severity:** Warning
-- **Component:** Forward Syslog action
+- **Component:** Forward Syslog disk queue
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Forward Syslog action: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Error sending syslog message '{error_detail}' - error '{error_code}'`
 
 Possible causes
 ---------------
 
-- The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.
-- TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match.
+- The configured syslog destination is unreachable or not listening.
+- DNS, routing, firewall, TCP, TLS, or peer settings prevent delivery.
+- The destination closed or rejected the connection.
 
 Immediate checks
 ----------------
 
-#. Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.
-#. Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.
-#. Send one unique test message and verify positive receipt and queue recovery.
+#. Record the embedded error code and the affected Forward Syslog destination.
+#. Resolve the destination and test the configured transport and port from the product host.
+#. Correct the destination or transport problem and monitor queued replay.
 
 Detailed procedures
 -------------------
@@ -52,14 +53,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11018 does not recur and that forward syslog action processing continues.
+Confirm that the queued backlog decreases and a controlled message arrives at the configured syslog destination.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

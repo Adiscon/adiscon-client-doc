@@ -3,20 +3,20 @@
 .. _winsyslog-event-id-11185:
 
 .. meta::
-   :description: Meaning and troubleshooting for WinSyslog Event ID 11185: Service configuration: runtime operation failed.
+   :description: Meaning and troubleshooting for WinSyslog Event ID 11185: No product input service is configured.
    :event-id: 11185
    :event-product: WinSyslog
    :event-severity: Error
    :event-component: Service configuration
    :event-reference: true
 
-WinSyslog Event ID 11185: Service configuration: runtime operation failed
-=========================================================================
+WinSyslog Event ID 11185: No product input service is configured
+================================================================
 
 Answer
 ------
 
-Service configuration: runtime operation failed. The product recorded this while processing service configuration; the appended event detail identifies the affected object, operation, or provider error.
+The configuration contains no product input services. The Windows service can remain running, but it has no configured source from which to receive or collect events.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Service configuration
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Servicemanager. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`No input service is configured; the Windows service is running but cannot collect events.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- All input services were deleted or disabled during configuration changes.
+- A configuration import omitted the service objects.
+- The service-count configuration is incomplete or damaged.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Open the Configuration Client and inspect the Services tree.
+#. Create or restore at least one intended input service and attach the correct ruleset.
+#. Validate and reload the configuration.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11185 does not recur and that service configuration processing continues.
+Send an event to the restored input service and confirm that the product receives it without Event ID 11185 at startup.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

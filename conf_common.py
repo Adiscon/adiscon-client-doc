@@ -434,12 +434,22 @@ def _event_id_publication_ready() -> bool:
     )
 
 
+def _event_id_preview_enabled() -> bool:
+    """Return true when a non-production build explicitly exposes draft references."""
+    return os.environ.get("EVENT_ID_REFERENCE_PREVIEW", "").lower() in {"1", "true", "yes"}
+
+
+def _event_id_reference_visible() -> bool:
+    """Return true for reviewed publication or an explicit draft preview build."""
+    return _event_id_publication_ready() or _event_id_preview_enabled()
+
+
 def _copy_event_id_artifacts(app, exception) -> None:
     """Copy the generated JSON catalog and AI discovery index to HTML roots."""
     if exception is not None or app.builder.name != "html":
         return
 
-    if not _event_id_publication_ready():
+    if not _event_id_reference_visible():
         for filename in ("event-ids.json", "llms.txt"):
             (Path(app.outdir) / filename).unlink(missing_ok=True)
         return
@@ -472,17 +482,17 @@ def _exclude_other_event_id_references(app, config) -> None:
     current_dir = product_dirs.get(config.project)
     if not current_dir:
         return
-    ready = _event_id_publication_ready()
-    if ready:
-        app.tags.add("event_id_catalog_ready")
+    visible = _event_id_reference_visible()
+    if _event_id_preview_enabled() and not _event_id_publication_ready():
+        app.tags.add("event_id_catalog_preview")
     for source_dir in product_dirs.values():
-        if ready and source_dir == current_dir:
+        if visible and source_dir == current_dir:
             continue
         pattern = f"{source_dir}/event-id-reference/**"
         if pattern not in config.exclude_patterns:
             config.exclude_patterns.append(pattern)
     procedure_pattern = "shared/troubleshooting/event-id/**"
-    if not ready:
+    if not visible:
         if procedure_pattern not in config.exclude_patterns:
             config.exclude_patterns.append(procedure_pattern)
         return

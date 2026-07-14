@@ -1915,6 +1915,7 @@ nntp
 odbc
 reachability
 relp
+retryable
 setp
 smtp
 snmp

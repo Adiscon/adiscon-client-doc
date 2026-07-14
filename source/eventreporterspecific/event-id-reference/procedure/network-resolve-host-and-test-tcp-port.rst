@@ -82,10 +82,13 @@ Related Event IDs
 - :ref:`EventReporter Event ID 11002 <eventreporter-event-id-11002>`
 - :ref:`EventReporter Event ID 11003 <eventreporter-event-id-11003>`
 - :ref:`EventReporter Event ID 11004 <eventreporter-event-id-11004>`
+- :ref:`EventReporter Event ID 11009 <eventreporter-event-id-11009>`
 - :ref:`EventReporter Event ID 11017 <eventreporter-event-id-11017>`
 - :ref:`EventReporter Event ID 11018 <eventreporter-event-id-11018>`
+- :ref:`EventReporter Event ID 11026 <eventreporter-event-id-11026>`
 - :ref:`EventReporter Event ID 11034 <eventreporter-event-id-11034>`
 - :ref:`EventReporter Event ID 11035 <eventreporter-event-id-11035>`
+- :ref:`EventReporter Event ID 11036 <eventreporter-event-id-11036>`
 - :ref:`EventReporter Event ID 11039 <eventreporter-event-id-11039>`
 - :ref:`EventReporter Event ID 11040 <eventreporter-event-id-11040>`
 - :ref:`EventReporter Event ID 11048 <eventreporter-event-id-11048>`
@@ -102,6 +105,7 @@ Related Event IDs
 - :ref:`EventReporter Event ID 11061 <eventreporter-event-id-11061>`
 - :ref:`EventReporter Event ID 11062 <eventreporter-event-id-11062>`
 - :ref:`EventReporter Event ID 11063 <eventreporter-event-id-11063>`
+- :ref:`EventReporter Event ID 11173 <eventreporter-event-id-11173>`
 
 
 Related procedures

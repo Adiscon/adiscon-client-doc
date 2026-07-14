@@ -5,9 +5,11 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +21,7 @@ from generate_event_id_reference import (  # noqa: E402
     PRODUCTS,
     SOURCE,
     expected_files,
+    navigation_include,
     public_event,
     validate_procedure_catalog,
 )
@@ -89,6 +92,18 @@ class EventIdProcedureTests(unittest.TestCase):
             SOURCE / "shared" / "troubleshooting" / "event-id" / "snmp-verify-trap-path.rst",
             files,
         )
+
+    def test_draft_navigation_is_available_only_to_preview_builds(self):
+        catalog = copy.deepcopy(self.catalog)
+        procedures = copy.deepcopy(self.procedures)
+        catalog["catalog_status"] = "draft"
+        procedures["catalog_status"] = "draft"
+        self.assertNotIn("event-id-reference/index", navigation_include(catalog, procedures))
+        with patch.dict(os.environ, {"EVENT_ID_REFERENCE_PREVIEW": "1"}):
+            self.assertIn("event-id-reference/index", navigation_include(catalog, procedures))
+
+    def test_ready_navigation_is_published_without_preview_override(self):
+        self.assertIn("event-id-reference/index", navigation_include(self.catalog, self.procedures))
 
 
 if __name__ == "__main__":

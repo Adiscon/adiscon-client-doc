@@ -85,6 +85,7 @@ Related Event IDs
 - :ref:`WinSyslog Event ID 11018 <winsyslog-event-id-11018>`
 - :ref:`WinSyslog Event ID 11034 <winsyslog-event-id-11034>`
 - :ref:`WinSyslog Event ID 11035 <winsyslog-event-id-11035>`
+- :ref:`WinSyslog Event ID 11036 <winsyslog-event-id-11036>`
 - :ref:`WinSyslog Event ID 11039 <winsyslog-event-id-11039>`
 - :ref:`WinSyslog Event ID 11040 <winsyslog-event-id-11040>`
 - :ref:`WinSyslog Event ID 11060 <winsyslog-event-id-11060>`

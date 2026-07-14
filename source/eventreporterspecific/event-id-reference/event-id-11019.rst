@@ -3,43 +3,44 @@
 .. _eventreporter-event-id-11019:
 
 .. meta::
-   :description: Meaning and troubleshooting for EventReporter Event ID 11019: Action processing: runtime operation failed.
+   :description: Meaning and troubleshooting for EventReporter Event ID 11019: Syslog Queue action has no queue name.
    :event-id: 11019
    :event-product: EventReporter
    :event-severity: Error
-   :event-component: Action processing
+   :event-component: Syslog Queue action
    :event-reference: true
 
-EventReporter Event ID 11019: Action processing: runtime operation failed
-=========================================================================
+EventReporter Event ID 11019: Syslog Queue action has no queue name
+===================================================================
 
 Answer
 ------
 
-Action processing: runtime operation failed. The product recorded this while processing action processing; the appended event detail identifies the affected object, operation, or provider error.
+The product cannot initialize the Syslog Queue action because its required queue name is empty.
 
 Event details
 -------------
 
 - **Event ID:** ``11019``
 - **Severity:** Error
-- **Component:** Action processing
+- **Component:** Syslog Queue action
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Action processing: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Failed to initialize Syslog Queue action: the configured queue name is empty.`
 
 Possible causes
 ---------------
 
-- A downstream action is failing or retrying, so queued work cannot drain.
-- The queue directory, permissions, free space, or queue artifact state prevents normal processing.
+- The queue name was never configured.
+- A configuration import or manual file edit removed the queue name.
+- The action configuration is incomplete.
 
 Immediate checks
 ----------------
 
-#. Identify the first downstream action error and record queue depth and oldest-item time.
-#. Check queue-directory access and free space without changing live queue files.
-#. Correct the downstream cause, send one test event, and verify that the backlog decreases.
+#. Open the affected Syslog Queue action.
+#. Configure a non-empty queue name that matches the intended queue consumer.
+#. Validate and reload the configuration.
 
 Detailed procedures
 -------------------
@@ -52,14 +53,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11019 does not recur and that action processing processing continues.
+Send a controlled event through the action and confirm that it enters the named queue without another Event ID 11019.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------

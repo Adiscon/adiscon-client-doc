@@ -3,20 +3,20 @@
 .. _eventreporter-event-id-11218:
 
 .. meta::
-   :description: Meaning and troubleshooting for EventReporter Event ID 11218: Control Windows Service action: runtime operation failed.
+   :description: Meaning and troubleshooting for EventReporter Event ID 11218: Control Windows Service action could not stop the target service.
    :event-id: 11218
    :event-product: EventReporter
    :event-severity: Error
    :event-component: Control Windows Service action
    :event-reference: true
 
-EventReporter Event ID 11218: Control Windows Service action: runtime operation failed
-======================================================================================
+EventReporter Event ID 11218: Control Windows Service action could not stop the target service
+==============================================================================================
 
 Answer
 ------
 
-Control Windows Service action: runtime operation failed. The product recorded this while processing control windows service action; the appended event detail identifies the affected object, operation, or provider error.
+Windows rejected the action's stop request for the configured service. The target service does not enter the normal stop-pending path from this request.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Control Windows Service action
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Control Windows Service action: runtime operation failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`Could not send the stop control to service '{service_name}'; Windows error {error_code}.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- The service does not accept stop controls or is already in an incompatible state.
+- The product service account lacks stop permission.
+- The Service Control Manager or target service returned an operational error.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Translate the Windows error and inspect the target service's current state and accepted controls.
+#. Test the stop with native Windows service tools under an authorized account.
+#. Correct the service or permission problem and run one controlled action.
 
 Detailed procedures
 -------------------
@@ -51,14 +52,15 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11218 does not recur and that control windows service action processing continues.
+Confirm that the target service reaches Stopped and Event ID 11218 does not recur.
 
 Evidence to collect
 -------------------
 
-- The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The complete Windows Application Event Log entry and neighboring product events from the same time window.
+- The exact product version, affected service or action name, and event timestamp with time zone.
+- The affected configuration object and a bounded debug log covering one controlled reproduction.
+- Remove passwords, tokens, license data, private keys, message payloads, personal data, and customer-identifying names, addresses, hostnames, domains, and network addresses before sharing evidence.
 
 Escalation
 ----------
