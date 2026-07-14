@@ -2,10 +2,37 @@ Queue Manager
 =============
 
 
-.. image:: ../images/generaloptions_012.png
-   :width: 100%
+.. only:: mwagent
 
-* Queue Manager*
+   .. image:: ../images/generaloptions_012-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Queue Manager options
+
+   *MonitorWare Agent Queue Manager options*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/generaloptions_012-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Queue Manager options
+
+   *WinSyslog Queue Manager options*
+
+.. only:: eventreporter
+
+   .. image:: ../images/generaloptions_012-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Queue Manager options
+
+   *EventReporter Queue Manager options*
+
+.. only:: rsyslog
+
+   .. image:: ../images/generaloptions_012-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Queue Manager options
+
+   *rsyslog Windows Agent Queue Manager options*
 
 Enable Queue Manager DiskCache
 ------------------------------

@@ -3,10 +3,37 @@ Event Log Monitor V2
 
 Event Log Monitor V2 specific filters are grouped here.
 
-.. image:: ../images/f-eventlogmonitorv2.png
-   :width: 100%
+.. only:: mwagent
 
-* Filter Conditions - Event Log Monitor V2*
+   .. image:: ../images/f-eventlogmonitorv2-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Add Filter menu with Event Log Monitor V2 filters
+
+   *MonitorWare Agent Filter Conditions - Event Log Monitor V2*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/f-eventlogmonitorv2-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Add Filter menu with Event Log Monitor V2 filters
+
+   *WinSyslog Filter Conditions - Event Log Monitor V2*
+
+.. only:: eventreporter
+
+   .. image:: ../images/f-eventlogmonitorv2-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Add Filter menu with Event Log Monitor V2 filters
+
+   *EventReporter Filter Conditions - Event Log Monitor V2*
+
+.. only:: rsyslog
+
+   .. image:: ../images/f-eventlogmonitorv2-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Add Filter menu with Event Log Monitor V2 filters
+
+   *rsyslog Windows Agent Filter Conditions - Event Log Monitor V2*
 
 
 **Event Channel**

@@ -5,10 +5,37 @@ Engine
 The Engine specific Options are explained below:
 
 
-.. image:: ../images/generaloptions-engine_1.png
-   :width: 100%
+.. only:: mwagent
 
-* RuleSet Engine Tab*
+   .. image:: ../images/generaloptions-engine_1-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent RuleSet Engine tab
+
+   *MonitorWare Agent RuleSet Engine tab*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/generaloptions-engine_1-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog RuleSet Engine tab
+
+   *WinSyslog RuleSet Engine tab*
+
+.. only:: eventreporter
+
+   .. image:: ../images/generaloptions-engine_1-eventreporter.png
+      :width: 100%
+      :alt: EventReporter RuleSet Engine tab
+
+   *EventReporter RuleSet Engine tab*
+
+.. only:: rsyslog
+
+   .. image:: ../images/generaloptions-engine_1-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent RuleSet Engine tab
+
+   *rsyslog Windows Agent RuleSet Engine tab*
 
 Action specific
 ---------------
@@ -45,10 +72,37 @@ LogRotate Background Worker
 The LogRotate Background worker checks all configured File Actions periodically
 and handles the time based log rotation settings, if enabled.
 
-.. image:: ../images/generaloptions-engine_2.png
-   :width: 100%
+.. only:: mwagent
 
-* LogRotate Background Worker Tab*
+   .. image:: ../images/generaloptions-engine_2-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent LogRotate Background Worker tab
+
+   *MonitorWare Agent LogRotate Background Worker tab*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/generaloptions-engine_2-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog LogRotate Background Worker tab
+
+   *WinSyslog LogRotate Background Worker tab*
+
+.. only:: eventreporter
+
+   .. image:: ../images/generaloptions-engine_2-eventreporter.png
+      :width: 100%
+      :alt: EventReporter LogRotate Background Worker tab
+
+   *EventReporter LogRotate Background Worker tab*
+
+.. only:: rsyslog
+
+   .. image:: ../images/generaloptions-engine_2-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent LogRotate Background Worker tab
+
+   *rsyslog Windows Agent LogRotate Background Worker tab*
 
 
 Wait time between Logrotation checks
@@ -81,10 +135,37 @@ Wait time if log rotation is running on service shutdown
 Network specific Options
 ------------------------
 
-.. image:: ../images/generaloptions-engine_4.png
-   :width: 100%
+.. only:: mwagent
 
-* Network specific Options Tab*
+   .. image:: ../images/generaloptions-engine_4-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Network specific Options tab
+
+   *MonitorWare Agent Network specific Options tab*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/generaloptions-engine_4-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Network specific Options tab
+
+   *WinSyslog Network specific Options tab*
+
+.. only:: eventreporter
+
+   .. image:: ../images/generaloptions-engine_4-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Network specific Options tab
+
+   *EventReporter Network specific Options tab*
+
+.. only:: rsyslog
+
+   .. image:: ../images/generaloptions-engine_4-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Network specific Options tab
+
+   *rsyslog Windows Agent Network specific Options tab*
 
 
 Maximum Syslog Message Size (Bytes)
@@ -101,10 +182,37 @@ Maximum Syslog Message Size (Bytes)
 Other Engine Options
 --------------------
 
-.. image:: ../images/generaloptions-engine_3.png
-   :width: 100%
+.. only:: mwagent
 
-* Other Engine Options Tab*
+   .. image:: ../images/generaloptions-engine_3-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Other Engine Options tab
+
+   *MonitorWare Agent Other Engine Options tab*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/generaloptions-engine_3-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Other Engine Options tab
+
+   *WinSyslog Other Engine Options tab*
+
+.. only:: eventreporter
+
+   .. image:: ../images/generaloptions-engine_3-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Other Engine Options tab
+
+   *EventReporter Other Engine Options tab*
+
+.. only:: rsyslog
+
+   .. image:: ../images/generaloptions-engine_3-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Other Engine Options tab
+
+   *rsyslog Windows Agent Other Engine Options tab*
 
 Enable internal DNS Cache
 ^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -331,10 +331,29 @@ Maximum value length (Bytes)
 Action Queue Options
 --------------------
 
-.. image:: ../images/a-odbcdatabase-actionqueue.png
-   :width: 100%
+.. only:: mwagent
 
-*Action - ODBC Database Action Queue*
+   .. image:: ../images/a-odbcdatabase-actionqueue-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent ODBC database Action Queue Options
+
+   *MonitorWare Agent - ODBC database Action Queue Options*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/a-odbcdatabase-actionqueue-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog ODBC database Action Queue Options
+
+   *WinSyslog - ODBC database Action Queue Options*
+
+.. only:: eventreporter
+
+   .. image:: ../images/a-odbcdatabase-actionqueue-eventreporter.png
+      :width: 100%
+      :alt: EventReporter ODBC database Action Queue Options
+
+   *EventReporter - ODBC database Action Queue Options*
 
 Use Diskqueue if connection to database fails
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -606,10 +606,21 @@ nTimeoutValue
 Action Queue Options
 --------------------
 
-.. image:: ../images/a-forwardsyslog-actionqueue.png
-   :width: 100%
+.. only:: mwagent
 
-* Action - Forward Syslog Action Queue*
+   .. image:: ../images/a-forwardsyslog-actionqueue-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Forward Syslog Action Queue Options
+
+   *MonitorWare Agent - Forward Syslog Action Queue Options*
+
+.. only:: eventreporter
+
+   .. image:: ../images/a-forwardsyslog-actionqueue-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Forward Syslog Action Queue Options
+
+   *EventReporter - Forward Syslog Action Queue Options*
 
 
 

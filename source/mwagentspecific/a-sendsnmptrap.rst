@@ -217,10 +217,21 @@ should serve.**
 Action Queue Options
 --------------------
 
-.. image:: ../images/a-sendsnmptrap-actionqueue.png
-   :width: 100%
+.. only:: mwagent
 
-* Action - Send SNMPT Trap Action Queue*
+   .. image:: ../images/a-sendsnmptrap-actionqueue-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Send SNMP Trap Action Queue Options
+
+   *MonitorWare Agent - Send SNMP Trap Action Queue Options*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/a-sendsnmptrap-actionqueue-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Send SNMP Trap Action Queue Options
+
+   *WinSyslog - Send SNMP Trap Action Queue Options*
 
 
 Use Diskqueue if connection to Syslog server fails

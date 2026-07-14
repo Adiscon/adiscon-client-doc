@@ -60,10 +60,37 @@ forwarding).
 Below find a screenshot of a rule base with a number of rules, filter
 conditions and action modifiers:
 
-.. image:: ../images/rulessample_1.png
-   :width: 100%
+.. only:: mwagent
 
-Sample Rule Base
+   .. image:: ../images/rulessample_1-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent sample rule base
+
+   *MonitorWare Agent sample rule base*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/rulessample_1-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog sample rule base
+
+   *WinSyslog sample rule base*
+
+.. only:: eventreporter
+
+   .. image:: ../images/rulessample_1-eventreporter.png
+      :width: 100%
+      :alt: EventReporter sample rule base
+
+   *EventReporter sample rule base*
+
+.. only:: rsyslog
+
+   .. image:: ../images/rulessample_1-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent sample rule base
+
+   *rsyslog Windows Agent sample rule base*
 
 Now that we know the elements, how are rules being processed. It is easy. Rules
 are strictly processed from top to bottom, or from number one to the last one.

@@ -1,10 +1,37 @@
 Extended IP Property
 ====================
 
-.. image:: ../images/f-extendedipproperty_1.png
-   :width: 100%
+.. only:: mwagent
 
-* Filter Conditions - Extended IP Property*
+   .. image:: ../images/f-extendedipproperty_1-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Add Filter menu with the Extended IP Property filter
+
+   *MonitorWare Agent Filter Conditions - Extended IP Property*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/f-extendedipproperty_1-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Add Filter menu with the Extended IP Property filter
+
+   *WinSyslog Filter Conditions - Extended IP Property*
+
+.. only:: eventreporter
+
+   .. image:: ../images/f-extendedipproperty_1-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Add Filter menu with the Extended IP Property filter
+
+   *EventReporter Filter Conditions - Extended IP Property*
+
+.. only:: rsyslog
+
+   .. image:: ../images/f-extendedipproperty_1-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Add Filter menu with the Extended IP Property filter
+
+   *rsyslog Windows Agent Filter Conditions - Extended IP Property*
 
 Extended IP Property filter settings
 ------------------------------------
@@ -34,10 +61,37 @@ the range, one filter with the "Higher (>)" compare operation and one with the
 "Lower (<)" compare operation. This could look like the following:
 
 
-.. image:: ../images/f-extendedipproperty_2.png
-   :width: 100%
+.. only:: mwagent
 
-* Filter Conditions - Filtering for an IP Range*
+   .. image:: ../images/f-extendedipproperty_2-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent filter tree configured for an IP address range
+
+   *MonitorWare Agent Filter Conditions - Filtering for an IP Range*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/f-extendedipproperty_2-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog filter tree configured for an IP address range
+
+   *WinSyslog Filter Conditions - Filtering for an IP Range*
+
+.. only:: eventreporter
+
+   .. image:: ../images/f-extendedipproperty_2-eventreporter.png
+      :width: 100%
+      :alt: EventReporter filter tree configured for an IP address range
+
+   *EventReporter Filter Conditions - Filtering for an IP Range*
+
+.. only:: rsyslog
+
+   .. image:: ../images/f-extendedipproperty_2-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent filter tree configured for an IP address range
+
+   *rsyslog Windows Agent Filter Conditions - Filtering for an IP Range*
 
 
 The filter you can see here will accept all IPs which lie between ``172.16.0.110`` AND ``172.16.0.130``. That means, that for every IP that

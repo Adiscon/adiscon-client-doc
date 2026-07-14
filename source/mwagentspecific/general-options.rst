@@ -4,8 +4,29 @@ General
 
 The General Options available on this form are explained below:
 
-.. image:: ../images/generaloptions_009.png
-   :width: 100%
+.. only:: mwagent
+
+   .. image:: ../images/generaloptions_009-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent General Options
+
+   *MonitorWare Agent General Options*
+
+.. only:: eventreporter
+
+   .. image:: ../images/generaloptions_009-eventreporter.png
+      :width: 100%
+      :alt: EventReporter General Options
+
+   *EventReporter General Options*
+
+.. only:: rsyslog
+
+   .. image:: ../images/generaloptions_009-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent General Options
+
+   *rsyslog Windows Agent General Options*
 
 Process Priority
 ^^^^^^^^^^^^^^^^

@@ -195,10 +195,37 @@ Using File based configuration
   will reload itself automatically after this.
 
 
-.. image:: ../images/clientoptions_3.png
-   :width: 80%
+.. only:: mwagent
 
-* Client Options Configure File Based Configuration*
+   .. image:: ../images/clientoptions_3-mwagent.png
+      :width: 80%
+      :alt: MonitorWare Agent file-based configuration options
+
+   *MonitorWare Agent file-based configuration options*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/clientoptions_3-winsyslog.png
+      :width: 80%
+      :alt: WinSyslog file-based configuration options
+
+   *WinSyslog file-based configuration options*
+
+.. only:: eventreporter
+
+   .. image:: ../images/clientoptions_3-eventreporter.png
+      :width: 80%
+      :alt: EventReporter file-based configuration options
+
+   *EventReporter file-based configuration options*
+
+.. only:: rsyslog
+
+   .. image:: ../images/clientoptions_3-rsyslog.png
+      :width: 80%
+      :alt: rsyslog Windows Agent file-based configuration options
+
+   *rsyslog Windows Agent file-based configuration options*
 
 
 
@@ -232,8 +259,37 @@ is not required for new Adiscon product deployments.
 **Import / export:** Use **File** → import or export and select the YAML
 format. Select legacy CFG only when your workflow requires that format.
 
-.. image:: ../images/file-menu-yaml.png
-   :width: 100%
+.. only:: mwagent
+
+   .. image:: ../images/file-menu-yaml-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent File menu with YAML import and export commands
+
+   *MonitorWare Agent File menu with YAML import and export commands*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/file-menu-yaml-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog File menu with YAML import and export commands
+
+   *WinSyslog File menu with YAML import and export commands*
+
+.. only:: eventreporter
+
+   .. image:: ../images/file-menu-yaml-eventreporter.png
+      :width: 100%
+      :alt: EventReporter File menu with YAML import and export commands
+
+   *EventReporter File menu with YAML import and export commands*
+
+.. only:: rsyslog
+
+   .. image:: ../images/file-menu-yaml-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent File menu with YAML import and export commands
+
+   *rsyslog Windows Agent File menu with YAML import and export commands*
 
 **Unsupported blocks:** If you open a configuration that contains blocks this
 client version does not understand (for example newer service features), the

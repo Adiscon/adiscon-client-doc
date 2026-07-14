@@ -253,10 +253,29 @@ Maximum value length (Bytes)
 Action Queue Options
 --------------------
 
-.. image:: ../images/a-odbcdatabase-actionqueue.png
-   :width: 100%
+.. only:: mwagent
 
-*Action - OLEDB Database Action Queue*
+   .. image:: ../images/a-odbcdatabase-actionqueue-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent OLEDB database Action Queue Options
+
+   *MonitorWare Agent - OLEDB database Action Queue Options*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/a-odbcdatabase-actionqueue-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog OLEDB database Action Queue Options
+
+   *WinSyslog - OLEDB database Action Queue Options*
+
+.. only:: eventreporter
+
+   .. image:: ../images/a-odbcdatabase-actionqueue-eventreporter.png
+      :width: 100%
+      :alt: EventReporter OLEDB database Action Queue Options
+
+   *EventReporter - OLEDB database Action Queue Options*
 
 Use Diskqueue if connection to database fails
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

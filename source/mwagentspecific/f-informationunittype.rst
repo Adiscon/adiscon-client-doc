@@ -6,10 +6,37 @@ information unit types. This is especially useful if a specific type needs
 non-standard processing. There is one pre-defined filter for each possible
 InformationUnit Type available (shown below).
 
-.. image:: ../images/f-informationunittype.png
-   :width: 100%
+.. only:: mwagent
 
-* Filter Conditions - InformationUnit Type*
+   .. image:: ../images/f-informationunittype-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Add Filter menu with InformationUnit Type filters
+
+   *MonitorWare Agent Filter Conditions - InformationUnit Type*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/f-informationunittype-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Add Filter menu with InformationUnit Type filters
+
+   *WinSyslog Filter Conditions - InformationUnit Type*
+
+.. only:: eventreporter
+
+   .. image:: ../images/f-informationunittype-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Add Filter menu with InformationUnit Type filters
+
+   *EventReporter Filter Conditions - InformationUnit Type*
+
+.. only:: rsyslog
+
+   .. image:: ../images/f-informationunittype-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Add Filter menu with InformationUnit Type filters
+
+   *rsyslog Windows Agent Filter Conditions - InformationUnit Type*
 
 The following filters are available:
 

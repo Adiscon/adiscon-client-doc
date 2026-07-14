@@ -8,10 +8,21 @@ toasters, and jukeboxes.
 A trap is generated when the device feels it should do so and it contains the
 information that the device feels should be transmitted.
 
-.. image:: ../images/f-snmptraps.png
-   :width: 100%
+.. only:: mwagent
 
-* Filter Conditions - SNMP Traps*
+   .. image:: ../images/f-snmptraps-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Add Filter menu with SNMP Traps filters
+
+   *MonitorWare Agent Filter Conditions - SNMP Traps*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/f-snmptraps-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Add Filter menu with SNMP Traps filters
+
+   *WinSyslog Filter Conditions - SNMP Traps*
 
 
 **Community**

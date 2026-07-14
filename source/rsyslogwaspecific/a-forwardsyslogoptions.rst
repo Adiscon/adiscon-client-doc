@@ -608,10 +608,11 @@ Session Timeout
 Action Queue Options
 --------------------
 
-.. image:: ../images/a-forwardsyslog-actionqueue.png
+.. image:: ../images/a-forwardsyslog-actionqueue-rsyslog.png
    :width: 100%
+   :alt: rsyslog Windows Agent Forward Syslog Action Queue Options
 
-* Action - Forward Syslog Action Queue*
+*rsyslog Windows Agent - Forward Syslog Action Queue Options*
 
 
 

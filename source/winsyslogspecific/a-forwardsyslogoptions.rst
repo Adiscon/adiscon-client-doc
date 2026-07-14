@@ -608,10 +608,11 @@ Session Timeout
 Action Queue Options
 --------------------
 
-.. image:: ../images/a-forwardsyslog-actionqueue.png
+.. image:: ../images/a-forwardsyslog-actionqueue-winsyslog.png
    :width: 100%
+   :alt: WinSyslog Forward Syslog Action Queue Options
 
-* Action - Forward Syslog Action Queue*
+*WinSyslog - Forward Syslog Action Queue Options*
 
 
 

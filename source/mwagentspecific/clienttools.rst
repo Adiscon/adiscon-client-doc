@@ -88,10 +88,37 @@ can also be opened within the configuration window of a Syslog service.
 
 
 
-.. image:: ../images/sendsyslogtestmessage-message.png
-   :width: 80%
+.. only:: mwagent
 
-* Syslog Test Message Message properties*
+   .. image:: ../images/sendsyslogtestmessage-message-mwagent.png
+      :width: 80%
+      :alt: MonitorWare Agent Syslog Test Message properties
+
+   *MonitorWare Agent Syslog Test Message properties*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/sendsyslogtestmessage-message-winsyslog.png
+      :width: 80%
+      :alt: WinSyslog Syslog Test Message properties
+
+   *WinSyslog Syslog Test Message properties*
+
+.. only:: eventreporter
+
+   .. image:: ../images/sendsyslogtestmessage-message-eventreporter.png
+      :width: 80%
+      :alt: EventReporter Syslog Test Message properties
+
+   *EventReporter Syslog Test Message properties*
+
+.. only:: rsyslog
+
+   .. image:: ../images/sendsyslogtestmessage-message-rsyslog.png
+      :width: 80%
+      :alt: rsyslog Windows Agent Syslog Test Message properties
+
+   *rsyslog Windows Agent Syslog Test Message properties*
 
 
 **Load RAW Syslogdata from File**

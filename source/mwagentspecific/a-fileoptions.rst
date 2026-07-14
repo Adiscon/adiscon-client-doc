@@ -21,10 +21,29 @@ notepad.exe, which does not place file-locks on the files it opens.
 
 Parameters in the brackets can be configured via dialog shown below:
 
-.. image:: ../images/a-filelogging-filenamerelated.png
-   :width: 100%
+.. only:: mwagent
 
-* Action - File Logging Filename related*
+   .. image:: ../images/a-filelogging-filenamerelated-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent File Logging filename options
+
+   *MonitorWare Agent - File Logging filename options*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/a-filelogging-filenamerelated-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog File Logging filename options
+
+   *WinSyslog - File Logging filename options*
+
+.. only:: eventreporter
+
+   .. image:: ../images/a-filelogging-filenamerelated-eventreporter.png
+      :width: 100%
+      :alt: EventReporter File Logging filename options
+
+   *EventReporter - File Logging filename options*
 
 
 Enable Property replacements in Filename

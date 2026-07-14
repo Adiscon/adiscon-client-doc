@@ -10,7 +10,7 @@ The EventReporter service runs in the background after configuration. The
 Configuration Client is the administrative interface you use to define that
 configuration.
 
-.. image:: ../images/configuring-mw.png
+.. image:: ../images/configuring-eventreporter.png
    :width: 100%
    :alt: EventReporter Configuration Client showing the main configuration tree
 
