@@ -3,63 +3,63 @@
 .. _eventreporter-event-id-11054:
 
 .. meta::
-   :description: Meaning and troubleshooting for EventReporter Event ID 11054: Network and TLS transport: TLS operation warning.
+   :description: Meaning and troubleshooting for EventReporter Event ID 11054: TLS certificate-name authentication has no permitted peers.
    :event-id: 11054
    :event-product: EventReporter
    :event-severity: Warning
-   :event-component: Network and TLS transport
+   :event-component: TLS peer authorization
    :event-reference: true
 
-EventReporter Event ID 11054: Network and TLS transport: TLS operation warning
-==============================================================================
+EventReporter Event ID 11054: TLS certificate-name authentication has no permitted peers
+========================================================================================
 
 Answer
 ------
 
-Network and TLS transport: TLS operation warning. The product recorded this while processing network and tls transport; the appended event detail identifies the affected object, operation, or provider error.
+The listener is configured for certificate-name authentication, but its permitted-peer list is empty. It therefore rejects every client certificate after chain verification because no certificate name can be authorized.
 
 Event details
 -------------
 
 - **Event ID:** ``11054``
 - **Severity:** Warning
-- **Component:** Network and TLS transport
+- **Component:** TLS peer authorization
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Cwinsock initopensslserversession. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`TLS certificate-name authentication has no permitted peers. Additional detail: {event_detail}`
 
 Possible causes
 ---------------
 
-- The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.
-- TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match.
+- Certificate-name authentication was selected without adding any permitted certificate names.
+- The permitted-peer entries were removed, saved under a different listener, or were not present in the configuration loaded by the service.
 
 Immediate checks
 ----------------
 
-#. Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.
-#. Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.
-#. Send one unique test message and verify positive receipt and queue recovery.
+#. Identify the affected listener and confirm that its TLS mode is certificate-name authentication.
+#. Inspect that listener's permitted peers and derive the intended value from the authorized client's certificate CN or SAN, not from an unrelated system name.
+#. After verifying ownership, add the permitted name, save and reload the configuration, and retry one authorized client connection.
 
 Detailed procedures
 -------------------
 
 - :ref:`Resolve a destination and test its TCP port <event-id-procedure-network-resolve-host-and-test-tcp-port>` — Verify DNS, selected address, routing, and TCP establishment.
-- :ref:`Verify TLS certificates, private keys, and permitted peers <event-id-procedure-tls-verify-certificate-chain-and-peer>` — Check validity, trust chain, key pairing, protocol mode, and peer authorization.
+- :ref:`Verify TLS certificates, private keys, and permitted peers <event-id-procedure-tls-verify-certificate-chain-and-peer>` — Identify CA, certificate, private-key, trust-chain, and permitted-peer failures without exposing private key material.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11054 does not recur and that network and tls transport processing continues.
+Confirm that the intended client name completes TLS and delivers one test message, Event ID 11054 does not recur, and an unlisted certificate name remains rejected.
 
 Evidence to collect
 -------------------
 
 - The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The product version, listener name, TLS mode, timestamp with time zone, and redacted permitted-peer configuration.
+- The authorized client's sanitized certificate subject and SANs plus a bounded debug log; omit private keys and unrelated identities.
 
 Escalation
 ----------
@@ -69,6 +69,6 @@ If the event continues after the detailed procedures, collect the listed evidenc
 Related Event IDs
 -----------------
 
-- :ref:`Event ID 11048 <eventreporter-event-id-11048>`
-- :ref:`Event ID 11049 <eventreporter-event-id-11049>`
-- :ref:`Event ID 11050 <eventreporter-event-id-11050>`
+- :ref:`Event ID 11052 <eventreporter-event-id-11052>`
+- :ref:`Event ID 11053 <eventreporter-event-id-11053>`
+- :ref:`Event ID 11056 <eventreporter-event-id-11056>`

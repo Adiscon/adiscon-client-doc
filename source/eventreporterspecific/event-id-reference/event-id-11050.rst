@@ -3,63 +3,63 @@
 .. _eventreporter-event-id-11050:
 
 .. meta::
-   :description: Meaning and troubleshooting for EventReporter Event ID 11050: Network and TLS transport: TLS operation warning.
+   :description: Meaning and troubleshooting for EventReporter Event ID 11050: TLS certificate or private key could not be loaded.
    :event-id: 11050
    :event-product: EventReporter
    :event-severity: Warning
-   :event-component: Network and TLS transport
+   :event-component: TLS certificate loading
    :event-reference: true
 
-EventReporter Event ID 11050: Network and TLS transport: TLS operation warning
-==============================================================================
+EventReporter Event ID 11050: TLS certificate or private key could not be loaded
+================================================================================
 
 Answer
 ------
 
-Network and TLS transport: TLS operation warning. The product recorded this while processing network and tls transport; the appended event detail identifies the affected object, operation, or provider error.
+The product could not load the configured local certificate and private key as a matching pair. The TLS endpoint can remain configured or listening, but handshakes that require its certificate cannot succeed until both files load.
 
 Event details
 -------------
 
 - **Event ID:** ``11050``
 - **Severity:** Warning
-- **Component:** Network and TLS transport
+- **Component:** TLS certificate loading
 - **Windows Event Log source:** ``Adiscon EvntSLog``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Cwinsock initowncertandkey. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`TLS certificate or private key could not be loaded. Additional detail: {event_detail}`
 
 Possible causes
 ---------------
 
-- The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.
-- TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match.
+- The private-key path points to a certificate request, certificate, or unrelated key instead of the matching private key.
+- The private key is passphrase-encrypted, the certificate and key do not match, a file is malformed, or the service account cannot read one of the files.
 
 Immediate checks
 ----------------
 
-#. Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.
-#. Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.
-#. Send one unique test message and verify positive receipt and queue recovery.
+#. Preserve the configured certificate and key paths plus the complete OpenSSL detail; messages such as PEM lib, unable to get private key, and bad password read identify the failing file class.
+#. Confirm that the key file contains an unencrypted private key rather than a certificate request, and verify that the certificate and key form a pair and are readable by the service account.
+#. Back up the configuration, replace only the incorrect file or path, restrict the unencrypted key to the service account and administrators, then restart the affected service and send one test message.
 
 Detailed procedures
 -------------------
 
 - :ref:`Resolve a destination and test its TCP port <event-id-procedure-network-resolve-host-and-test-tcp-port>` — Verify DNS, selected address, routing, and TCP establishment.
-- :ref:`Verify TLS certificates, private keys, and permitted peers <event-id-procedure-tls-verify-certificate-chain-and-peer>` — Check validity, trust chain, key pairing, protocol mode, and peer authorization.
+- :ref:`Verify TLS certificates, private keys, and permitted peers <event-id-procedure-tls-verify-certificate-chain-and-peer>` — Identify CA, certificate, private-key, trust-chain, and permitted-peer failures without exposing private key material.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11050 does not recur and that network and tls transport processing continues.
+Restart the affected service, confirm that Event ID 11050 does not recur during certificate loading, and complete a TLS exchange that positively delivers one test message.
 
 Evidence to collect
 -------------------
 
 - The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The product version, affected listener or action, TLS mode, service account, and event timestamp with time zone.
+- Redacted paths, file metadata, key-header classification, ACL output, configuration export, and bounded debug log; never provide the private key or its contents.
 
 Escalation
 ----------
@@ -69,6 +69,6 @@ If the event continues after the detailed procedures, collect the listed evidenc
 Related Event IDs
 -----------------
 
-- :ref:`Event ID 11048 <eventreporter-event-id-11048>`
 - :ref:`Event ID 11049 <eventreporter-event-id-11049>`
 - :ref:`Event ID 11051 <eventreporter-event-id-11051>`
+- :ref:`Event ID 11052 <eventreporter-event-id-11052>`
