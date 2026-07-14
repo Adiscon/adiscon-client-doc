@@ -1901,8 +1901,12 @@ webhooks
 ö
 ACL
 bitness
+booleans
+certutil
+cryptographic
 NTFS
 pktmon
+reproducibly
 Winsock
 Wireshark
 callruleset

@@ -3,7 +3,7 @@
 .. _event-id-procedure-tls-verify-certificate-chain-and-peer:
 
 .. meta::
-   :description: Check validity, trust chain, key pairing, protocol mode, and peer authorization.
+   :description: Identify CA, certificate, private-key, trust-chain, and permitted-peer failures without exposing private key material.
    :procedure-id: tls.verify-certificate-chain-and-peer
    :procedure-reference: true
 
@@ -13,7 +13,7 @@ Verify TLS certificates, private keys, and permitted peers
 When to use this procedure
 --------------------------
 
-Use after TCP succeeds but TLS, DTLS, SETP, RELP, or secure syslog fails.
+Use when an Event ID reports a TLS certificate, private-key, trust-chain, fingerprint, or permitted-peer failure, or when TCP succeeds but the secure session does not.
 
 Applies to
 ----------
@@ -25,12 +25,14 @@ Prerequisites
 
 - Use an account that can read the product configuration and Windows diagnostic state.
 - Replace angle-bracket placeholders with values from the affected system.
+- Record whether the affected object is a listener or a forwarding action and whether certificate-name or certificate-fingerprint authentication is configured.
 
 Safety
 ------
 
 - Run diagnostic checks before changing configuration.
-- Remove passwords, private keys, license data, and other secrets from evidence.
+- Never display, copy, upload, or include a private key or passphrase in troubleshooting evidence.
+- Back up the affected configuration and certificate files before changing paths, files, or permissions.
 
 Configuration path
 ------------------
@@ -40,39 +42,73 @@ Configuration Client > the service, rule, or action named on the Event ID page.
 Procedure
 ---------
 
-#. Record CA PEM, certificate PEM, key PEM, peer identity, and authentication mode.
+#. Record the configured CA PEM, certificate PEM, private-key PEM, permitted peers, and authentication mode. Do not record file contents.
 
-   **Expected result:** The affected object and its effective settings are identified.
+   **Expected result:** The affected object and the exact configured paths and peer-authentication mode are identified.
 
-   **If it fails:** Return to the complete Event Log detail and configuration export before changing settings.
+   **If it fails:** Use the complete Event Log detail and a redacted configuration export to identify the affected object before changing settings.
 
-#. Run the native Windows checks below from the affected product host.
+#. Confirm that each configured file exists, is readable, and contains the expected PEM object type. The private-key check reports only classification booleans.
 
    .. code-block:: powershell
 
-      certutil -dump '<CERTIFICATE_PATH>'
-      certutil -verify '<CERTIFICATE_PATH>'
+      Get-Item -LiteralPath '<CA_PEM_PATH>','<CERTIFICATE_PEM_PATH>','<PRIVATE_KEY_PEM_PATH>' | Format-Table FullName,Length,LastWriteTime
+      certutil -dump '<CA_PEM_PATH>'
+      certutil -dump '<CERTIFICATE_PEM_PATH>'
+      $keyText = [IO.File]::ReadAllText('<PRIVATE_KEY_PEM_PATH>'); [pscustomobject]@{ HasPrivateKey = $keyText -match '-----BEGIN (?:RSA |EC |DSA )?PRIVATE KEY-----'; IsCertificateRequest = $keyText -match '-----BEGIN (?:NEW )?CERTIFICATE REQUEST-----'; IsEncrypted = $keyText -match '-----BEGIN ENCRYPTED PRIVATE KEY-----' }; Remove-Variable keyText
+      icacls '<PRIVATE_KEY_PEM_PATH>'
 
-   **Expected result:** The certificate is valid for its purpose, chains to the intended trust anchor, and matches the configured peer policy.
+   **Expected result:** The CA and certificate parse successfully. The key classification reports HasPrivateKey=True, IsCertificateRequest=False, and IsEncrypted=False. The product service account has read access.
 
-   **If it fails:** Replace invalid files, provide the matching unencrypted PEM key, or correct trust and peer settings; do not disable validation permanently.
+   **If it fails:** Correct a wrong or missing path, replace a CSR with the actual matching private key, export an unencrypted service key, or grant the product service account the minimum required read access. Never weaken access for all users.
 
-#. Perform one uniquely identifiable product test through the same service, rule, or action.
+#. Verify the certificate chain and compare the peer identity with the configured authentication mode.
 
-   **Expected result:** The intended destination records the test exactly once.
+   .. code-block:: powershell
 
-   **If it fails:** Collect the first new product event and bounded debug output; do not change unrelated settings.
+      certutil -verify '<CERTIFICATE_PEM_PATH>' '<CA_PEM_PATH>'
+
+   **Expected result:** The chain verifies to the intended CA. In certificate-name mode, a configured permitted peer matches a certificate subject alternative name or common name. In fingerprint mode, a configured fingerprint matches the peer certificate using the configured format.
+
+   **If it fails:** Correct the CA chain or permitted-peer value. Do not disable peer validation as a permanent repair.
+
+#. After saving the correction and restarting or reloading the affected object as required, perform one uniquely identifiable TLS test through the same listener or forwarding action.
+
+   **Expected result:** The secure session completes and the intended destination records the test exactly once.
+
+   **If it fails:** Collect the first new product event and bounded debug output from the same test. A later 'no shared cipher' handshake error can be a consequence of a local certificate or key that did not load.
+
+Repair
+------
+
+#. Copy corrected CA, certificate, and unencrypted matching private-key files to a service-readable protected directory, then update only the affected object's paths.
+#. Restrict the private-key ACL to administrators and the product service account with read access; do not grant broad user access.
+#. Correct permitted peers from the actual peer certificate identity: use a subject alternative name or common name for certificate-name mode, or the documented fingerprint format for certificate-fingerprint mode.
+
+Rollback
+--------
+
+#. Restore the backed-up configuration paths and files if the corrected TLS test fails.
+#. Restore the prior ACL from the recorded backup, then restart or reload only the affected object as required.
 
 Verify the result
 -----------------
 
-Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.
+Repeat the same uniquely identifiable secure transfer, confirm positive receipt, and verify that the applicable TLS Event ID does not recur during that test and that queued delivery or listener acceptance continues normally.
 
 Evidence to collect
 -------------------
 
 - The complete Event Log entry and neighboring product events with timestamps.
-- The command output, relevant configuration export, and bounded debug log from the same interval.
+- A redacted configuration export showing the affected TLS mode and paths, with hostnames and addresses replaced by example values.
+- Certificate metadata, chain-verification output, private-key classification booleans, and the private-key ACL; never collect the private key or its contents.
+- A bounded debug log covering one failed test after removing credentials, private material, customer names, addresses, and environment-specific object names.
+
+Optional tools
+--------------
+
+- OpenSSL may be used offline to compare the public key derived from the certificate with the public key derived from the private key. Compare hashes only, never key contents, and never place a passphrase on a command line.
+- Wireshark may be used for a bounded handshake capture when native evidence is insufficient; redact addresses before sharing it.
 
 Related Event IDs
 -----------------

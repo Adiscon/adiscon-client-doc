@@ -3,63 +3,63 @@
 .. _rsyslog-event-id-11051:
 
 .. meta::
-   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11051: Network and TLS transport: TLS operation warning.
+   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11051: TLS client certificate verification failed.
    :event-id: 11051
    :event-product: rsyslog Windows Agent
    :event-severity: Warning
-   :event-component: Network and TLS transport
+   :event-component: TLS client certificate verification
    :event-reference: true
 
-rsyslog Windows Agent Event ID 11051: Network and TLS transport: TLS operation warning
-======================================================================================
+rsyslog Windows Agent Event ID 11051: TLS client certificate verification failed
+================================================================================
 
 Answer
 ------
 
-Network and TLS transport: TLS operation warning. The product recorded this while processing network and tls transport; the appended event detail identifies the affected object, operation, or provider error.
+During an incoming TLS handshake, OpenSSL returned a verification error for the client certificate. The listener rejects the connection unless the only error is certificate expiration and the listener is explicitly configured to allow expired certificates.
 
 Event details
 -------------
 
 - **Event ID:** ``11051``
 - **Severity:** Warning
-- **Component:** Network and TLS transport
+- **Component:** TLS client certificate verification
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
-- **Message pattern:** :spelling:ignore:`Cwinsock initopensslserversession client ssl certificate verification. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`TLS client certificate verification failed. Additional detail: {x509_verification_error}`
 
 Possible causes
 ---------------
 
-- The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.
-- TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match.
+- The client certificate is expired or not yet valid, or its chain is missing an intermediate or does not lead to the configured CA.
+- The certificate signature, purpose, issuer, or another X.509 validation requirement failed; the event detail contains the specific OpenSSL reason.
 
 Immediate checks
 ----------------
 
-#. Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.
-#. Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.
-#. Send one unique test message and verify positive receipt and queue recovery.
+#. Record the exact X.509 verification reason from the event and identify the client certificate presented during that handshake.
+#. Verify the client certificate, its complete intermediate chain, the listener's CA PEM file, certificate purpose, and current system time.
+#. Correct the client chain or listener trust configuration and retry one mutual-TLS session; do not make disabled validation the permanent repair.
 
 Detailed procedures
 -------------------
 
 - :ref:`Resolve a destination and test its TCP port <event-id-procedure-network-resolve-host-and-test-tcp-port>` — Verify DNS, selected address, routing, and TCP establishment.
-- :ref:`Verify TLS certificates, private keys, and permitted peers <event-id-procedure-tls-verify-certificate-chain-and-peer>` — Check validity, trust chain, key pairing, protocol mode, and peer authorization.
+- :ref:`Verify TLS certificates, private keys, and permitted peers <event-id-procedure-tls-verify-certificate-chain-and-peer>` — Identify CA, certificate, private-key, trust-chain, and permitted-peer failures without exposing private key material.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11051 does not recur and that network and tls transport processing continues.
+Complete one mutual-TLS handshake from the affected client, positively verify receipt of its test message, and confirm that Event ID 11051 does not recur.
 
 Evidence to collect
 -------------------
 
 - The complete Windows Application Event Log entry, including all event detail.
-- The product name, exact version, service account, and event timestamp with time zone.
-- A configuration export and debug log covering the same time window, with secrets removed.
+- The product version, listener name, TLS mode, event timestamp with time zone, and sanitized client-certificate subject, issuer, serial number, and validity dates.
+- The listener CA and client-chain certutil output, configuration export, and bounded debug log; omit private keys and unrelated identities.
 
 Escalation
 ----------
@@ -69,6 +69,6 @@ If the event continues after the detailed procedures, collect the listed evidenc
 Related Event IDs
 -----------------
 
-- :ref:`Event ID 11048 <rsyslog-event-id-11048>`
 - :ref:`Event ID 11049 <rsyslog-event-id-11049>`
-- :ref:`Event ID 11050 <rsyslog-event-id-11050>`
+- :ref:`Event ID 11052 <rsyslog-event-id-11052>`
+- :ref:`Event ID 11053 <rsyslog-event-id-11053>`

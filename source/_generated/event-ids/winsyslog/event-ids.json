@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "catalog_status": "ready",
-  "source_commit": "1e66c20ee45bff4ff4892db8d905409aef436a97",
+  "source_commit": "3ee9a9b50f5d94487221416de7b536a172b2d816",
   "product": "winsyslog",
   "product_name": "WinSyslog",
   "product_version": "26.07",
@@ -1143,48 +1143,73 @@
     {
       "id": "tls.verify-certificate-chain-and-peer",
       "title": "Verify TLS certificates, private keys, and permitted peers",
-      "summary": "Check validity, trust chain, key pairing, protocol mode, and peer authorization.",
+      "summary": "Identify CA, certificate, private-key, trust-chain, and permitted-peer failures without exposing private key material.",
       "url": "https://www.winsyslog.com/files/manual/current/winsyslogspecific/event-id-reference/procedure/tls-verify-certificate-chain-and-peer.html",
-      "when_to_use": "Use after TCP succeeds but TLS, DTLS, SETP, RELP, or secure syslog fails.",
+      "when_to_use": "Use when an Event ID reports a TLS certificate, private-key, trust-chain, fingerprint, or permitted-peer failure, or when TCP succeeds but the secure session does not.",
       "prerequisites": [
         "Use an account that can read the product configuration and Windows diagnostic state.",
-        "Replace angle-bracket placeholders with values from the affected system."
+        "Replace angle-bracket placeholders with values from the affected system.",
+        "Record whether the affected object is a listener or a forwarding action and whether certificate-name or certificate-fingerprint authentication is configured."
       ],
       "safety": [
         "Run diagnostic checks before changing configuration.",
-        "Remove passwords, private keys, license data, and other secrets from evidence."
+        "Never display, copy, upload, or include a private key or passphrase in troubleshooting evidence.",
+        "Back up the affected configuration and certificate files before changing paths, files, or permissions."
       ],
       "steps": [
         {
-          "instruction": "Record CA PEM, certificate PEM, key PEM, peer identity, and authentication mode.",
+          "instruction": "Record the configured CA PEM, certificate PEM, private-key PEM, permitted peers, and authentication mode. Do not record file contents.",
           "commands": [],
-          "expected": "The affected object and its effective settings are identified.",
-          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+          "expected": "The affected object and the exact configured paths and peer-authentication mode are identified.",
+          "failure": "Use the complete Event Log detail and a redacted configuration export to identify the affected object before changing settings."
         },
         {
-          "instruction": "Run the native Windows checks below from the affected product host.",
+          "instruction": "Confirm that each configured file exists, is readable, and contains the expected PEM object type. The private-key check reports only classification booleans.",
           "commands": [
-            "certutil -dump '<CERTIFICATE_PATH>'",
-            "certutil -verify '<CERTIFICATE_PATH>'"
+            "Get-Item -LiteralPath '<CA_PEM_PATH>','<CERTIFICATE_PEM_PATH>','<PRIVATE_KEY_PEM_PATH>' | Format-Table FullName,Length,LastWriteTime",
+            "certutil -dump '<CA_PEM_PATH>'",
+            "certutil -dump '<CERTIFICATE_PEM_PATH>'",
+            "$keyText = [IO.File]::ReadAllText('<PRIVATE_KEY_PEM_PATH>'); [pscustomobject]@{ HasPrivateKey = $keyText -match '-----BEGIN (?:RSA |EC |DSA )?PRIVATE KEY-----'; IsCertificateRequest = $keyText -match '-----BEGIN (?:NEW )?CERTIFICATE REQUEST-----'; IsEncrypted = $keyText -match '-----BEGIN ENCRYPTED PRIVATE KEY-----' }; Remove-Variable keyText",
+            "icacls '<PRIVATE_KEY_PEM_PATH>'"
           ],
-          "expected": "The certificate is valid for its purpose, chains to the intended trust anchor, and matches the configured peer policy.",
-          "failure": "Replace invalid files, provide the matching unencrypted PEM key, or correct trust and peer settings; do not disable validation permanently."
+          "expected": "The CA and certificate parse successfully. The key classification reports HasPrivateKey=True, IsCertificateRequest=False, and IsEncrypted=False. The product service account has read access.",
+          "failure": "Correct a wrong or missing path, replace a CSR with the actual matching private key, export an unencrypted service key, or grant the product service account the minimum required read access. Never weaken access for all users."
         },
         {
-          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "instruction": "Verify the certificate chain and compare the peer identity with the configured authentication mode.",
+          "commands": [
+            "certutil -verify '<CERTIFICATE_PEM_PATH>' '<CA_PEM_PATH>'"
+          ],
+          "expected": "The chain verifies to the intended CA. In certificate-name mode, a configured permitted peer matches a certificate subject alternative name or common name. In fingerprint mode, a configured fingerprint matches the peer certificate using the configured format.",
+          "failure": "Correct the CA chain or permitted-peer value. Do not disable peer validation as a permanent repair."
+        },
+        {
+          "instruction": "After saving the correction and restarting or reloading the affected object as required, perform one uniquely identifiable TLS test through the same listener or forwarding action.",
           "commands": [],
-          "expected": "The intended destination records the test exactly once.",
-          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+          "expected": "The secure session completes and the intended destination records the test exactly once.",
+          "failure": "Collect the first new product event and bounded debug output from the same test. A later 'no shared cipher' handshake error can be a consequence of a local certificate or key that did not load."
         }
       ],
-      "repair_steps": [],
-      "rollback_steps": [],
-      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "repair_steps": [
+        "Copy corrected CA, certificate, and unencrypted matching private-key files to a service-readable protected directory, then update only the affected object's paths.",
+        "Restrict the private-key ACL to administrators and the product service account with read access; do not grant broad user access.",
+        "Correct permitted peers from the actual peer certificate identity: use a subject alternative name or common name for certificate-name mode, or the documented fingerprint format for certificate-fingerprint mode."
+      ],
+      "rollback_steps": [
+        "Restore the backed-up configuration paths and files if the corrected TLS test fails.",
+        "Restore the prior ACL from the recorded backup, then restart or reload only the affected object as required."
+      ],
+      "verification": "Repeat the same uniquely identifiable secure transfer, confirm positive receipt, and verify that the applicable TLS Event ID does not recur during that test and that queued delivery or listener acceptance continues normally.",
       "evidence_to_collect": [
         "The complete Event Log entry and neighboring product events with timestamps.",
-        "The command output, relevant configuration export, and bounded debug log from the same interval."
+        "A redacted configuration export showing the affected TLS mode and paths, with hostnames and addresses replaced by example values.",
+        "Certificate metadata, chain-verification output, private-key classification booleans, and the private-key ACL; never collect the private key or its contents.",
+        "A bounded debug log covering one failed test after removing credentials, private material, customer names, addresses, and environment-specific object names."
       ],
-      "optional_tools": [],
+      "optional_tools": [
+        "OpenSSL may be used offline to compare the public key derived from the certificate with the public key derived from the private key. Compare hashes only, never key contents, and never place a passphrase on a command line.",
+        "Wireshark may be used for a bounded handshake capture when native evidence is insufficient; redact addresses before sharing it."
+      ],
       "related_procedures": [
         "network.resolve-host-and-test-tcp-port",
         "evidence.export-configuration-and-debug-log"
@@ -4311,29 +4336,28 @@
       "event_id": 11049,
       "severity": "warning",
       "event_source": "AdisconWinSyslog",
-      "title": "Network and TLS transport: TLS operation warning",
-      "component": "Network and TLS transport",
-      "message_pattern": "Cwinsock initcacertificate. Additional detail: {event_detail}",
-      "meaning": "Network and TLS transport: TLS operation warning. The product recorded this while processing network and tls transport; the appended event detail identifies the affected object, operation, or provider error.",
+      "title": "TLS CA certificate file could not be loaded",
+      "component": "TLS certificate loading",
+      "message_pattern": "TLS CA certificate file could not be loaded. Additional detail: {event_detail}",
+      "meaning": "The product could not load the configured CA PEM file into the TLS trust store. Connections using certificate authentication cannot verify peer certificates with that trust anchor until the file loads.",
       "likely_causes": [
-        "The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.",
-        "TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match."
+        "The configured CA path is wrong, the file is missing, or the product service account cannot read it.",
+        "The file is empty, damaged, uses an unsupported encoding, or does not contain a valid PEM CA certificate."
       ],
       "immediate_checks": [
-        "Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.",
-        "Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.",
-        "Send one unique test message and verify positive receipt and queue recovery."
+        "Record the configured CA PEM path and the complete OpenSSL detail from the event.",
+        "Confirm that the service account can read the file and that certutil identifies it as the intended CA certificate, not a leaf certificate.",
+        "Correct the path or permissions, or replace the file with the intended PEM CA chain; reload the affected object and run one certificate-authenticated TLS test."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11049 does not recur and that network and tls transport processing continues.",
+      "success_verification": "Reload or restart the affected TLS object, confirm that Event ID 11049 does not recur, and complete one certificate-authenticated TLS exchange that positively delivers a test message.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
-        "The product name, exact version, service account, and event timestamp with time zone.",
-        "A configuration export and debug log covering the same time window, with secrets removed."
+        "The product version, affected listener or action, TLS mode, service account, and event timestamp with time zone.",
+        "The redacted CA path, file metadata, certutil output, configuration export, and bounded debug log; do not include private keys."
       ],
       "disposition": "self_service",
       "introduced_in": "26.07",
       "related_event_ids": [
-        11048,
         11050,
         11051
       ],
@@ -4364,31 +4388,31 @@
       "event_id": 11050,
       "severity": "warning",
       "event_source": "AdisconWinSyslog",
-      "title": "Network and TLS transport: TLS operation warning",
-      "component": "Network and TLS transport",
-      "message_pattern": "Cwinsock initowncertandkey. Additional detail: {event_detail}",
-      "meaning": "Network and TLS transport: TLS operation warning. The product recorded this while processing network and tls transport; the appended event detail identifies the affected object, operation, or provider error.",
+      "title": "TLS certificate or private key could not be loaded",
+      "component": "TLS certificate loading",
+      "message_pattern": "TLS certificate or private key could not be loaded. Additional detail: {event_detail}",
+      "meaning": "The product could not load the configured local certificate and private key as a matching pair. The TLS endpoint can remain configured or listening, but handshakes that require its certificate cannot succeed until both files load.",
       "likely_causes": [
-        "The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.",
-        "TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match."
+        "The private-key path points to a certificate request, certificate, or unrelated key instead of the matching private key.",
+        "The private key is passphrase-encrypted, the certificate and key do not match, a file is malformed, or the service account cannot read one of the files."
       ],
       "immediate_checks": [
-        "Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.",
-        "Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.",
-        "Send one unique test message and verify positive receipt and queue recovery."
+        "Preserve the configured certificate and key paths plus the complete OpenSSL detail; messages such as PEM lib, unable to get private key, and bad password read identify the failing file class.",
+        "Confirm that the key file contains an unencrypted private key rather than a certificate request, and verify that the certificate and key form a pair and are readable by the service account.",
+        "Back up the configuration, replace only the incorrect file or path, restrict the unencrypted key to the service account and administrators, then restart the affected service and send one test message."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11050 does not recur and that network and tls transport processing continues.",
+      "success_verification": "Restart the affected service, confirm that Event ID 11050 does not recur during certificate loading, and complete a TLS exchange that positively delivers one test message.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
-        "The product name, exact version, service account, and event timestamp with time zone.",
-        "A configuration export and debug log covering the same time window, with secrets removed."
+        "The product version, affected listener or action, TLS mode, service account, and event timestamp with time zone.",
+        "Redacted paths, file metadata, key-header classification, ACL output, configuration export, and bounded debug log; never provide the private key or its contents."
       ],
       "disposition": "self_service",
       "introduced_in": "26.07",
       "related_event_ids": [
-        11048,
         11049,
-        11051
+        11051,
+        11052
       ],
       "procedures": [
         {
@@ -4417,31 +4441,31 @@
       "event_id": 11051,
       "severity": "warning",
       "event_source": "AdisconWinSyslog",
-      "title": "Network and TLS transport: TLS operation warning",
-      "component": "Network and TLS transport",
-      "message_pattern": "Cwinsock initopensslserversession client ssl certificate verification. Additional detail: {event_detail}",
-      "meaning": "Network and TLS transport: TLS operation warning. The product recorded this while processing network and tls transport; the appended event detail identifies the affected object, operation, or provider error.",
+      "title": "TLS client certificate verification failed",
+      "component": "TLS client certificate verification",
+      "message_pattern": "TLS client certificate verification failed. Additional detail: {x509_verification_error}",
+      "meaning": "During an incoming TLS handshake, OpenSSL returned a verification error for the client certificate. The listener rejects the connection unless the only error is certificate expiration and the listener is explicitly configured to allow expired certificates.",
       "likely_causes": [
-        "The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.",
-        "TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match."
+        "The client certificate is expired or not yet valid, or its chain is missing an intermediate or does not lead to the configured CA.",
+        "The certificate signature, purpose, issuer, or another X.509 validation requirement failed; the event detail contains the specific OpenSSL reason."
       ],
       "immediate_checks": [
-        "Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.",
-        "Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.",
-        "Send one unique test message and verify positive receipt and queue recovery."
+        "Record the exact X.509 verification reason from the event and identify the client certificate presented during that handshake.",
+        "Verify the client certificate, its complete intermediate chain, the listener's CA PEM file, certificate purpose, and current system time.",
+        "Correct the client chain or listener trust configuration and retry one mutual-TLS session; do not make disabled validation the permanent repair."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11051 does not recur and that network and tls transport processing continues.",
+      "success_verification": "Complete one mutual-TLS handshake from the affected client, positively verify receipt of its test message, and confirm that Event ID 11051 does not recur.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
-        "The product name, exact version, service account, and event timestamp with time zone.",
-        "A configuration export and debug log covering the same time window, with secrets removed."
+        "The product version, listener name, TLS mode, event timestamp with time zone, and sanitized client-certificate subject, issuer, serial number, and validity dates.",
+        "The listener CA and client-chain certutil output, configuration export, and bounded debug log; omit private keys and unrelated identities."
       ],
       "disposition": "self_service",
       "introduced_in": "26.07",
       "related_event_ids": [
-        11048,
         11049,
-        11050
+        11052,
+        11053
       ],
       "procedures": [
         {
@@ -4470,31 +4494,31 @@
       "event_id": 11052,
       "severity": "warning",
       "event_source": "AdisconWinSyslog",
-      "title": "Network and TLS transport: TLS operation warning",
-      "component": "Network and TLS transport",
-      "message_pattern": "Cwinsock initopensslserversession. Additional detail: {event_detail}",
-      "meaning": "Network and TLS transport: TLS operation warning. The product recorded this while processing network and tls transport; the appended event detail identifies the affected object, operation, or provider error.",
+      "title": "TLS client certificate identity is unavailable",
+      "component": "TLS client certificate verification",
+      "message_pattern": "TLS client certificate identity is unavailable. Additional detail: {event_detail}",
+      "meaning": "The certificate-authenticated listener could not obtain both a usable client certificate and its subject identity. This branch includes a client that sent no certificate, a certificate with no usable subject, or a subject-conversion failure, and the listener rejects the connection.",
       "likely_causes": [
-        "The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.",
-        "TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match."
+        "The client is not configured to present a certificate, uses an authentication mode that does not send one, or selected the wrong certificate.",
+        "The presented certificate has no usable subject identity or OpenSSL could not convert that subject for peer authorization."
       ],
       "immediate_checks": [
-        "Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.",
-        "Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.",
-        "Send one unique test message and verify positive receipt and queue recovery."
+        "Confirm that the listener requires certificate authentication and identify the client involved in the rejected handshake.",
+        "Verify that the client presents the intended certificate and that certutil displays a usable subject and identity values.",
+        "Correct the client certificate selection or replace a malformed certificate, then retry one mutual-TLS session and verify message receipt."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11052 does not recur and that network and tls transport processing continues.",
+      "success_verification": "Complete one mutual-TLS handshake with the intended client certificate, positively verify receipt of its test message, and confirm that Event ID 11052 does not recur.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
-        "The product name, exact version, service account, and event timestamp with time zone.",
-        "A configuration export and debug log covering the same time window, with secrets removed."
+        "The product version, listener name, TLS mode, timestamp with time zone, and sanitized client-certificate metadata if a certificate was presented.",
+        "The client and listener configuration exports plus a bounded handshake debug log; omit private keys and unrelated identities."
       ],
       "disposition": "self_service",
       "introduced_in": "26.07",
       "related_event_ids": [
-        11048,
-        11049,
-        11050
+        11051,
+        11053,
+        11054
       ],
       "procedures": [
         {
@@ -4523,31 +4547,32 @@
       "event_id": 11053,
       "severity": "warning",
       "event_source": "AdisconWinSyslog",
-      "title": "Network and TLS transport: TLS operation warning",
-      "component": "Network and TLS transport",
-      "message_pattern": "Cwinsock initopensslserversession. Additional detail: {event_detail}",
-      "meaning": "Network and TLS transport: TLS operation warning. The product recorded this while processing network and tls transport; the appended event detail identifies the affected object, operation, or provider error.",
+      "title": "TLS client certificate does not match a permitted peer",
+      "component": "TLS peer authorization",
+      "message_pattern": "TLS client certificate does not match a permitted peer. Additional detail: {rejected_peer_identity}",
+      "meaning": "The client certificate passed chain verification, but the listener could not authorize it against the configured permitted peers. In certificate-name mode, no permitted value matched the certificate CN or SAN; in fingerprint mode, no permitted SHA-1 or SHA-256 fingerprint matched.",
       "likely_causes": [
-        "The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.",
-        "TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match."
+        "The permitted-peer list contains a different name, SAN, or fingerprint than the certificate presented by the client.",
+        "The client certificate was renewed or replaced, or the listener uses the wrong peer-authorization mode or fingerprint format."
       ],
       "immediate_checks": [
-        "Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.",
-        "Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.",
-        "Send one unique test message and verify positive receipt and queue recovery."
+        "Use the event detail to determine whether the rejected value was a certificate name or fingerprint and identify the affected listener.",
+        "Compare the presented certificate's CN and SAN values or calculated fingerprint with the listener's permitted peers and current authorization mode.",
+        "After independently verifying the client's identity and certificate ownership, correct the permitted value or client certificate and retry one TLS session."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11053 does not recur and that network and tls transport processing continues.",
+      "success_verification": "Confirm that the authorized client completes TLS and delivers one test message, that Event ID 11053 does not recur, and that a certificate outside the permitted-peer policy remains rejected.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
-        "The product name, exact version, service account, and event timestamp with time zone.",
-        "A configuration export and debug log covering the same time window, with secrets removed."
+        "The product version, listener name, TLS authorization mode, timestamp with time zone, and sanitized permitted-peer values.",
+        "The presented certificate's sanitized subject, SANs, issuer, serial number, and calculated fingerprint plus a bounded debug log; omit private keys."
       ],
       "disposition": "self_service",
       "introduced_in": "26.07",
       "related_event_ids": [
-        11048,
-        11049,
-        11050
+        11051,
+        11054,
+        11055,
+        11056
       ],
       "procedures": [
         {
@@ -4576,31 +4601,31 @@
       "event_id": 11054,
       "severity": "warning",
       "event_source": "AdisconWinSyslog",
-      "title": "Network and TLS transport: TLS operation warning",
-      "component": "Network and TLS transport",
-      "message_pattern": "Cwinsock initopensslserversession. Additional detail: {event_detail}",
-      "meaning": "Network and TLS transport: TLS operation warning. The product recorded this while processing network and tls transport; the appended event detail identifies the affected object, operation, or provider error.",
+      "title": "TLS certificate-name authentication has no permitted peers",
+      "component": "TLS peer authorization",
+      "message_pattern": "TLS certificate-name authentication has no permitted peers. Additional detail: {event_detail}",
+      "meaning": "The listener is configured for certificate-name authentication, but its permitted-peer list is empty. It therefore rejects every client certificate after chain verification because no certificate name can be authorized.",
       "likely_causes": [
-        "The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.",
-        "TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match."
+        "Certificate-name authentication was selected without adding any permitted certificate names.",
+        "The permitted-peer entries were removed, saved under a different listener, or were not present in the configuration loaded by the service."
       ],
       "immediate_checks": [
-        "Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.",
-        "Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.",
-        "Send one unique test message and verify positive receipt and queue recovery."
+        "Identify the affected listener and confirm that its TLS mode is certificate-name authentication.",
+        "Inspect that listener's permitted peers and derive the intended value from the authorized client's certificate CN or SAN, not from an unrelated system name.",
+        "After verifying ownership, add the permitted name, save and reload the configuration, and retry one authorized client connection."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11054 does not recur and that network and tls transport processing continues.",
+      "success_verification": "Confirm that the intended client name completes TLS and delivers one test message, Event ID 11054 does not recur, and an unlisted certificate name remains rejected.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
-        "The product name, exact version, service account, and event timestamp with time zone.",
-        "A configuration export and debug log covering the same time window, with secrets removed."
+        "The product version, listener name, TLS mode, timestamp with time zone, and redacted permitted-peer configuration.",
+        "The authorized client's sanitized certificate subject and SANs plus a bounded debug log; omit private keys and unrelated identities."
       ],
       "disposition": "self_service",
       "introduced_in": "26.07",
       "related_event_ids": [
-        11048,
-        11049,
-        11050
+        11052,
+        11053,
+        11056
       ],
       "procedures": [
         {
@@ -4629,31 +4654,30 @@
       "event_id": 11055,
       "severity": "warning",
       "event_source": "AdisconWinSyslog",
-      "title": "Network and TLS transport: TLS operation warning",
-      "component": "Network and TLS transport",
-      "message_pattern": "Cwinsock initopensslserversession. Additional detail: {event_detail}",
-      "meaning": "Network and TLS transport: TLS operation warning. The product recorded this while processing network and tls transport; the appended event detail identifies the affected object, operation, or provider error.",
+      "title": "TLS client certificate fingerprint could not be computed",
+      "component": "TLS peer authorization",
+      "message_pattern": "TLS client certificate fingerprint could not be computed. Additional detail: {event_detail}",
+      "meaning": "The listener is configured for certificate-fingerprint authentication and could not compute the required SHA-1 digest from the verified client certificate. It rejects the connection before comparing the certificate with permitted fingerprints.",
       "likely_causes": [
-        "The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.",
-        "TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match."
+        "The presented certificate has an unexpected or unsupported encoding that prevents fingerprint calculation.",
+        "The cryptographic provider could not perform the digest operation, or a resource or library error occurred after certificate verification."
       ],
       "immediate_checks": [
-        "Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.",
-        "Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.",
-        "Send one unique test message and verify positive receipt and queue recovery."
+        "Preserve the complete event and bounded debug log and identify the exact client certificate used for the rejected handshake.",
+        "Use certutil to dump and verify the certificate and reproduce the failure once with the same client and listener.",
+        "Replace the client certificate only if validation fails; if a valid certificate still triggers this event, collect the listed evidence and escalate without weakening peer authentication."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11055 does not recur and that network and tls transport processing continues.",
+      "success_verification": "Confirm that the listener computes and matches the authorized fingerprint, accepts one TLS test session, delivers its message, and no longer emits Event ID 11055.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
-        "The product name, exact version, service account, and event timestamp with time zone.",
-        "A configuration export and debug log covering the same time window, with secrets removed."
+        "The product version, listener name, TLS mode, timestamp with time zone, OpenSSL detail, and sanitized permitted-fingerprint format.",
+        "Certutil output and sanitized certificate subject, issuer, serial number, validity dates, and calculated fingerprints plus a bounded debug log; omit private keys."
       ],
       "disposition": "self_service",
       "introduced_in": "26.07",
       "related_event_ids": [
-        11048,
-        11049,
-        11050
+        11053,
+        11056
       ],
       "procedures": [
         {
@@ -4682,31 +4706,31 @@
       "event_id": 11056,
       "severity": "warning",
       "event_source": "AdisconWinSyslog",
-      "title": "Network and TLS transport: TLS operation warning",
-      "component": "Network and TLS transport",
-      "message_pattern": "Cwinsock initopensslserversession. Additional detail: {event_detail}",
-      "meaning": "Network and TLS transport: TLS operation warning. The product recorded this while processing network and tls transport; the appended event detail identifies the affected object, operation, or provider error.",
+      "title": "TLS certificate-fingerprint authentication has no permitted peers",
+      "component": "TLS peer authorization",
+      "message_pattern": "TLS certificate-fingerprint authentication has no permitted peers. Additional detail: {event_detail}",
+      "meaning": "The listener is configured for certificate-fingerprint authentication, but its permitted-peer list is empty. It therefore rejects every client certificate because no fingerprint can be authorized.",
       "likely_causes": [
-        "The destination or listener is unavailable, blocked, bound to another address or port, or configured for a different transport.",
-        "TLS certificates, peer authorization, protocol settings, or sender and receiver configuration do not match."
+        "Certificate-fingerprint authentication was selected without adding any permitted certificate fingerprints.",
+        "The permitted-peer entries were removed, saved under a different listener, or were not present in the configuration loaded by the service."
       ],
       "immediate_checks": [
-        "Record the endpoint, address family, port, transport, TLS mode, and complete runtime detail.",
-        "Verify DNS, route, listener ownership, firewall policy, and TCP or UDP reachability as applicable.",
-        "Send one unique test message and verify positive receipt and queue recovery."
+        "Identify the affected listener and confirm that its TLS mode is certificate-fingerprint authentication.",
+        "Calculate the fingerprint from the authorized client's current certificate and compare its algorithm and format with the listener's permitted-peer requirements.",
+        "After verifying ownership, add the permitted fingerprint, save and reload the configuration, and retry one authorized client connection."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11056 does not recur and that network and tls transport processing continues.",
+      "success_verification": "Confirm that the intended client fingerprint completes TLS and delivers one test message, Event ID 11056 does not recur, and an unlisted fingerprint remains rejected.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
-        "The product name, exact version, service account, and event timestamp with time zone.",
-        "A configuration export and debug log covering the same time window, with secrets removed."
+        "The product version, listener name, TLS mode, timestamp with time zone, and sanitized permitted-fingerprint configuration.",
+        "The authorized client's sanitized certificate metadata and calculated fingerprint plus a bounded debug log; omit private keys and unrelated identities."
       ],
       "disposition": "self_service",
       "introduced_in": "26.07",
       "related_event_ids": [
-        11048,
-        11049,
-        11050
+        11053,
+        11054,
+        11055
       ],
       "procedures": [
         {

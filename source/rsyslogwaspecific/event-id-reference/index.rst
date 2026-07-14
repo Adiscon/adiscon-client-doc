@@ -273,37 +273,37 @@ Event ID index
      - Warning
      - Network and TLS transport
    * - :ref:`11049 <rsyslog-event-id-11049>`
-     - Network and TLS transport: TLS operation warning
+     - TLS CA certificate file could not be loaded
      - Warning
-     - Network and TLS transport
+     - TLS certificate loading
    * - :ref:`11050 <rsyslog-event-id-11050>`
-     - Network and TLS transport: TLS operation warning
+     - TLS certificate or private key could not be loaded
      - Warning
-     - Network and TLS transport
+     - TLS certificate loading
    * - :ref:`11051 <rsyslog-event-id-11051>`
-     - Network and TLS transport: TLS operation warning
+     - TLS client certificate verification failed
      - Warning
-     - Network and TLS transport
+     - TLS client certificate verification
    * - :ref:`11052 <rsyslog-event-id-11052>`
-     - Network and TLS transport: TLS operation warning
+     - TLS client certificate identity is unavailable
      - Warning
-     - Network and TLS transport
+     - TLS client certificate verification
    * - :ref:`11053 <rsyslog-event-id-11053>`
-     - Network and TLS transport: TLS operation warning
+     - TLS client certificate does not match a permitted peer
      - Warning
-     - Network and TLS transport
+     - TLS peer authorization
    * - :ref:`11054 <rsyslog-event-id-11054>`
-     - Network and TLS transport: TLS operation warning
+     - TLS certificate-name authentication has no permitted peers
      - Warning
-     - Network and TLS transport
+     - TLS peer authorization
    * - :ref:`11055 <rsyslog-event-id-11055>`
-     - Network and TLS transport: TLS operation warning
+     - TLS client certificate fingerprint could not be computed
      - Warning
-     - Network and TLS transport
+     - TLS peer authorization
    * - :ref:`11056 <rsyslog-event-id-11056>`
-     - Network and TLS transport: TLS operation warning
+     - TLS certificate-fingerprint authentication has no permitted peers
      - Warning
-     - Network and TLS transport
+     - TLS peer authorization
    * - :ref:`11057 <rsyslog-event-id-11057>`
      - Network and TLS transport: TLS server initialization failed
      - Warning
