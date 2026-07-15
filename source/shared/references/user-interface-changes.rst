@@ -84,8 +84,37 @@ File formats
 
 The **File** menu supports:
 
-.. image:: ../../images/file-menu-yaml.png
-   :width: 100%
+.. only:: mwagent
+
+   .. image:: ../../images/file-menu-yaml-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent File menu with YAML import and export commands
+
+   *MonitorWare Agent File menu with YAML import and export commands*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../../images/file-menu-yaml-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog File menu with YAML import and export commands
+
+   *WinSyslog File menu with YAML import and export commands*
+
+.. only:: eventreporter
+
+   .. image:: ../../images/file-menu-yaml-eventreporter.png
+      :width: 100%
+      :alt: EventReporter File menu with YAML import and export commands
+
+   *EventReporter File menu with YAML import and export commands*
+
+.. only:: rsyslog
+
+   .. image:: ../../images/file-menu-yaml-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent File menu with YAML import and export commands
+
+   *rsyslog Windows Agent File menu with YAML import and export commands*
 
 - **Adiscon YAML Config Format** (``.yaml``) - import and export
 - **Adiscon Legacy Format** (``.cfg``) - legacy text configuration

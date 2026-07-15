@@ -4,10 +4,37 @@ Date/Time
 This filter condition is used to check the time frame and / or day of week in
 which an event occurred.
 
-.. image:: ../images/f-datetime.png
-   :width: 100%
+.. only:: mwagent
 
-* Filter Conditions - Date/Time*
+   .. image:: ../images/f-datetime-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Add Filter menu with Date/Time filters
+
+   *MonitorWare Agent Filter Conditions - Date/Time*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/f-datetime-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Add Filter menu with Date/Time filters
+
+   *WinSyslog Filter Conditions - Date/Time*
+
+.. only:: eventreporter
+
+   .. image:: ../images/f-datetime-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Add Filter menu with Date/Time filters
+
+   *EventReporter Filter Conditions - Date/Time*
+
+.. only:: rsyslog
+
+   .. image:: ../images/f-datetime-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Add Filter menu with Date/Time filters
+
+   *rsyslog Windows Agent Filter Conditions - Date/Time*
 
 
 **Time**

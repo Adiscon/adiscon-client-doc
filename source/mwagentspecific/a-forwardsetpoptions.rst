@@ -127,10 +127,29 @@ Send / Receive Timeout
 Action Queue Options
 --------------------
 
-.. image:: ../images/a-forwardsetp-actionqueue.png
-   :width: 100%
+.. only:: mwagent
 
-* Action - Send SETP Action Queue*
+   .. image:: ../images/a-forwardsetp-actionqueue-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Send SETP Action Queue Options
+
+   *MonitorWare Agent - Send SETP Action Queue Options*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/a-forwardsetp-actionqueue-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Send SETP Action Queue Options
+
+   *WinSyslog - Send SETP Action Queue Options*
+
+.. only:: eventreporter
+
+   .. image:: ../images/a-forwardsetp-actionqueue-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Send SETP Action Queue Options
+
+   *EventReporter - Send SETP Action Queue Options*
 
 
 Use Diskqueue if connection to Syslog server fails

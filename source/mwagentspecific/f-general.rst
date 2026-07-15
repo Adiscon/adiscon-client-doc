@@ -3,10 +3,37 @@ General
 
 These are non-event log specific settings.
 
-.. image:: ../images/f-general.png
-   :width: 100%
+.. only:: mwagent
 
-* Filter Conditions - General*
+   .. image:: ../images/f-general-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Add Filter menu with General filters
+
+   *MonitorWare Agent Filter Conditions - General*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/f-general-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Add Filter menu with General filters
+
+   *WinSyslog Filter Conditions - General*
+
+.. only:: eventreporter
+
+   .. image:: ../images/f-general-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Add Filter menu with General filters
+
+   *EventReporter Filter Conditions - General*
+
+.. only:: rsyslog
+
+   .. image:: ../images/f-general-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Add Filter menu with General filters
+
+   *rsyslog Windows Agent Filter Conditions - General*
 
 
 **Source**

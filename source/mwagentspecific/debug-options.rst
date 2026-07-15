@@ -18,8 +18,37 @@ to a specific level while doing troubleshooting.
 
 
 
-.. image:: ../images/generaloptions_013.png
-   :width: 100%
+.. only:: mwagent
+
+   .. image:: ../images/generaloptions_013-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Debug options
+
+   *MonitorWare Agent Debug options*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/generaloptions_013-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Debug options
+
+   *WinSyslog Debug options*
+
+.. only:: eventreporter
+
+   .. image:: ../images/generaloptions_013-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Debug options
+
+   *EventReporter Debug options*
+
+.. only:: rsyslog
+
+   .. image:: ../images/generaloptions_013-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Debug options
+
+   *rsyslog Windows Agent Debug options*
 
 
 Enable Debug output into file

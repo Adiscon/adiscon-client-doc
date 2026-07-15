@@ -6,10 +6,29 @@ Information Unit has assigned a Syslog priority and facility and thus these
 filters can be used with all Information Units.
 
 
-.. image:: ../images/f-syslog.png
-   :width: 100%
+.. only:: mwagent
 
-* Filter Conditions - Syslog*
+   .. image:: ../images/f-syslog-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Add Filter menu with Syslog filters
+
+   *MonitorWare Agent Filter Conditions - Syslog*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/f-syslog-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Add Filter menu with Syslog filters
+
+   *WinSyslog Filter Conditions - Syslog*
+
+.. only:: rsyslog
+
+   .. image:: ../images/f-syslog-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Add Filter menu with Syslog filters
+
+   *rsyslog Windows Agent Filter Conditions - Syslog*
 
 
 **Syslog Facility**

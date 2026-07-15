@@ -4,10 +4,37 @@ Extended Number Property
 Extended Number Property specific filter is described here.
 
 
-.. image:: ../images/f-extendednumberproperty.png
-   :width: 100%
+.. only:: mwagent
 
-* Filter Conditions - Extended Number Property*
+   .. image:: ../images/f-extendednumberproperty-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Add Filter menu with the Extended Number Property filter
+
+   *MonitorWare Agent Filter Conditions - Extended Number Property*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/f-extendednumberproperty-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Add Filter menu with the Extended Number Property filter
+
+   *WinSyslog Filter Conditions - Extended Number Property*
+
+.. only:: eventreporter
+
+   .. image:: ../images/f-extendednumberproperty-eventreporter.png
+      :width: 100%
+      :alt: EventReporter Add Filter menu with the Extended Number Property filter
+
+   *EventReporter Filter Conditions - Extended Number Property*
+
+.. only:: rsyslog
+
+   .. image:: ../images/f-extendednumberproperty-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Add Filter menu with the Extended Number Property filter
+
+   *rsyslog Windows Agent Filter Conditions - Extended Number Property*
 
 
 **Extended Number Property**

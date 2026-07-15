@@ -45,10 +45,37 @@ the service. These can be found under File -> Options
   change the default sorting behavior from ascending to descending here.
 
 
-.. image:: ../images/clientoptions_3.png
-   :width: 80%
+.. only:: mwagent
 
-* Config Access Tab*
+   .. image:: ../images/clientoptions_3-mwagent.png
+      :width: 80%
+      :alt: MonitorWare Agent Config Access tab
+
+   *MonitorWare Agent Config Access tab*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/clientoptions_3-winsyslog.png
+      :width: 80%
+      :alt: WinSyslog Config Access tab
+
+   *WinSyslog Config Access tab*
+
+.. only:: eventreporter
+
+   .. image:: ../images/clientoptions_3-eventreporter.png
+      :width: 80%
+      :alt: EventReporter Config Access tab
+
+   *EventReporter Config Access tab*
+
+.. only:: rsyslog
+
+   .. image:: ../images/clientoptions_3-rsyslog.png
+      :width: 80%
+      :alt: rsyslog Windows Agent Config Access tab
+
+   *rsyslog Windows Agent Config Access tab*
 
 
 **Load Configuration from Registry**

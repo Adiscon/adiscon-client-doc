@@ -3,8 +3,29 @@
 Connect to Computer
 ===================
 
-.. image:: ../../images/reference_006.png
-   :width: 60%
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../../images/reference_006-winsyslog.png
+      :width: 60%
+      :alt: WinSyslog Connect to Computer window
+
+   *WinSyslog Connect to Computer window*
+
+.. only:: eventreporter
+
+   .. image:: ../../images/reference_006-eventreporter.png
+      :width: 60%
+      :alt: EventReporter Connect to Computer window
+
+   *EventReporter Connect to Computer window*
+
+.. only:: rsyslog
+
+   .. image:: ../../images/reference_006-rsyslog.png
+      :width: 60%
+      :alt: rsyslog Windows Agent Connect to Computer window
+
+   *rsyslog Windows Agent Connect to Computer window*
 
 
 Click the Connect button in order to access another machine remotely.

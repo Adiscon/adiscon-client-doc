@@ -183,10 +183,29 @@ Select Key PEM
 Action Queue Options
 --------------------
 
-.. image:: ../images/a-sendrelp-actionqueue.png
-   :width: 100%
+.. only:: mwagent
 
-* Action - Send RELP Action Queue*
+   .. image:: ../images/a-sendrelp-actionqueue-mwagent.png
+      :width: 100%
+      :alt: MonitorWare Agent Send RELP Action Queue Options
+
+   *MonitorWare Agent - Send RELP Action Queue Options*
+
+.. only:: winsyslog or winsyslog_j
+
+   .. image:: ../images/a-sendrelp-actionqueue-winsyslog.png
+      :width: 100%
+      :alt: WinSyslog Send RELP Action Queue Options
+
+   *WinSyslog - Send RELP Action Queue Options*
+
+.. only:: rsyslog
+
+   .. image:: ../images/a-sendrelp-actionqueue-rsyslog.png
+      :width: 100%
+      :alt: rsyslog Windows Agent Send RELP Action Queue Options
+
+   *rsyslog Windows Agent - Send RELP Action Queue Options*
 
 
 Use Diskqueue if connection to Syslog server fails
