@@ -42,27 +42,29 @@ Procedure
 
 #. Record the Event Log source, Event ID, level, timestamp, and complete General and Details data.
 
-   **Expected result:** The affected object and its effective settings are identified.
+   **Expected result:** The record includes the provider, Event ID, timestamp with time zone, message text, and all dynamic detail.
 
-   **If it fails:** Return to the complete Event Log detail and configuration export before changing settings.
+   **If it fails:** Export the original event as an EVTX file before copying text or changing filters.
 
-#. Run the native Windows checks below from the affected product host.
+#. Record the host clock state, then collect only the product events in a bounded window around the event.
 
    .. code-block:: powershell
 
+      Get-Date -Format o
+      w32tm /query /status
       $start=(Get-Date '<EVENT_TIME>').AddMinutes(-5)
       $end=(Get-Date '<EVENT_TIME>').AddMinutes(5)
       Get-WinEvent -FilterHashtable @{LogName='Application';StartTime=$start;EndTime=$end} | Where-Object ProviderName -eq '<EVENT_SOURCE>' | Format-List TimeCreated,Id,LevelDisplayName,Message
 
-   **Expected result:** The output contains the first product failure and later state or recovery events.
+   **Expected result:** The clock output is recorded and the event sequence contains the first failure plus any later state or recovery event.
 
-   **If it fails:** Increase the bounded time window and verify the Event Log source shown on the Event ID page.
+   **If it fails:** Verify the provider shown on the Event ID page. Expand the window only enough to include the first related event.
 
-#. Perform one uniquely identifiable product test through the same service, rule, or action.
+#. After diagnosis, perform one uniquely identifiable product test through the same input, rule, and action, and record its sender and destination timestamps.
 
    **Expected result:** The intended destination records the test exactly once.
 
-   **If it fails:** Collect the first new product event and bounded debug output; do not change unrelated settings.
+   **If it fails:** Collect the first new product event and bounded debug output from that exact test; do not change unrelated settings.
 
 Verify the result
 -----------------
@@ -72,8 +74,9 @@ Repeat the affected operation, confirm its positive output, and verify that queu
 Evidence to collect
 -------------------
 
-- The complete Event Log entry and neighboring product events with timestamps.
-- The command output, relevant configuration export, and bounded debug log from the same interval.
+- The original EVTX record plus the complete rendered event and neighboring product events with timestamps.
+- Clock-status output from every involved host and the sender and destination timestamps for the identifiable test.
+- The relevant configuration export and bounded debug log from the same interval, with credentials, license data, private keys, addresses, hostnames, and environment-specific object names removed.
 
 Related Event IDs
 -----------------

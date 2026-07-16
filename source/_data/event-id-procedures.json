@@ -32,32 +32,35 @@
         {
           "instruction": "Record the Event Log source, Event ID, level, timestamp, and complete General and Details data.",
           "commands": [],
-          "expected": "The affected object and its effective settings are identified.",
-          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+          "expected": "The record includes the provider, Event ID, timestamp with time zone, message text, and all dynamic detail.",
+          "failure": "Export the original event as an EVTX file before copying text or changing filters."
         },
         {
-          "instruction": "Run the native Windows checks below from the affected product host.",
+          "instruction": "Record the host clock state, then collect only the product events in a bounded window around the event.",
           "commands": [
+            "Get-Date -Format o",
+            "w32tm /query /status",
             "$start=(Get-Date '<EVENT_TIME>').AddMinutes(-5)",
             "$end=(Get-Date '<EVENT_TIME>').AddMinutes(5)",
             "Get-WinEvent -FilterHashtable @{LogName='Application';StartTime=$start;EndTime=$end} | Where-Object ProviderName -eq '<EVENT_SOURCE>' | Format-List TimeCreated,Id,LevelDisplayName,Message"
           ],
-          "expected": "The output contains the first product failure and later state or recovery events.",
-          "failure": "Increase the bounded time window and verify the Event Log source shown on the Event ID page."
+          "expected": "The clock output is recorded and the event sequence contains the first failure plus any later state or recovery event.",
+          "failure": "Verify the provider shown on the Event ID page. Expand the window only enough to include the first related event."
         },
         {
-          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "instruction": "After diagnosis, perform one uniquely identifiable product test through the same input, rule, and action, and record its sender and destination timestamps.",
           "commands": [],
           "expected": "The intended destination records the test exactly once.",
-          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+          "failure": "Collect the first new product event and bounded debug output from that exact test; do not change unrelated settings."
         }
       ],
       "repair_steps": [],
       "rollback_steps": [],
       "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
       "evidence_to_collect": [
-        "The complete Event Log entry and neighboring product events with timestamps.",
-        "The command output, relevant configuration export, and bounded debug log from the same interval."
+        "The original EVTX record plus the complete rendered event and neighboring product events with timestamps.",
+        "Clock-status output from every involved host and the sender and destination timestamps for the identifiable test.",
+        "The relevant configuration export and bounded debug log from the same interval, with credentials, license data, private keys, addresses, hostnames, and environment-specific object names removed."
       ],
       "optional_tools": [],
       "related_procedures": []
@@ -90,33 +93,36 @@
       },
       "steps": [
         {
-          "instruction": "Export settings as a text registry file, then enable the minimum debug level that reproduces the problem.",
+          "instruction": "Before changing settings, use Computer > Export Settings to Registry File and save a pre-change text export in a protected working directory.",
           "commands": [],
-          "expected": "The affected object and its effective settings are identified.",
-          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+          "expected": "A readable pre-change export exists and its modification time precedes the troubleshooting change.",
+          "failure": "Do not continue with a state-changing repair until a readable pre-change export exists."
         },
         {
-          "instruction": "Run the native Windows checks below from the affected product host.",
+          "instruction": "Record the start time, enable only the debug output required to reproduce once, then record the end time and disable debugging immediately.",
           "commands": [
+            "$captureStart=Get-Date; $captureStart.ToString('o')",
             "Get-Item -LiteralPath '<CONFIG_EXPORT>' | Format-List FullName,Length,LastWriteTime",
-            "Get-Item -LiteralPath '<DEBUG_LOG>' | Format-List FullName,Length,LastWriteTime"
+            "Get-Item -LiteralPath '<DEBUG_LOG>' | Format-List FullName,Length,LastWriteTime",
+            "$captureEnd=Get-Date; $captureEnd.ToString('o')"
           ],
-          "expected": "Both files exist, are readable, and cover the recorded reproduction interval.",
-          "failure": "Verify the service account can write the debug directory and restart only if the setting requires it."
+          "expected": "The export and debug log are readable, the log covers the recorded interval, and debug output is disabled after the reproduction.",
+          "failure": "Verify the configured debug path and service-account write access. Do not leave debugging enabled while investigating a missing log."
         },
         {
-          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "instruction": "Preserve only the bounded interval around one uniquely identifiable test, then create redacted copies for review.",
           "commands": [],
-          "expected": "The intended destination records the test exactly once.",
-          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+          "expected": "The test and its outcome can be correlated across the redacted export, Event Log, and bounded debug interval.",
+          "failure": "Repeat only after correcting the capture window; do not collect an unbounded debug log."
         }
       ],
       "repair_steps": [],
       "rollback_steps": [],
       "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
       "evidence_to_collect": [
-        "The complete Event Log entry and neighboring product events with timestamps.",
-        "The command output, relevant configuration export, and bounded debug log from the same interval."
+        "The capture start and end timestamps, complete Event Log entry, and neighboring product events.",
+        "The pre-change configuration export and bounded debug log from the same interval.",
+        "Redacted review copies with credentials, license data, private keys, addresses, hostnames, paths, database identifiers, certificate identities, and environment-specific service, ruleset, and action names removed."
       ],
       "optional_tools": [],
       "related_procedures": []
@@ -213,28 +219,31 @@
         {
           "instruction": "Identify the internal Windows service name and intended service account.",
           "commands": [],
-          "expected": "The affected object and its effective settings are identified.",
-          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+          "expected": "The internal service name and intended account are known before any start, stop, or account change.",
+          "failure": "Use the service Properties dialog or the command output below; do not guess the internal name."
         },
         {
-          "instruction": "Run the native Windows checks below from the affected product host.",
+          "instruction": "Capture current service configuration, state, required dependencies, and bounded Service Control Manager events.",
           "commands": [
-            "Get-CimInstance Win32_Service -Filter \"Name='<SERVICE_NAME>'\" | Format-List Name,State,StartMode,StartName,ExitCode",
-            "Get-Service -Name '<SERVICE_NAME>' -RequiredServices | Format-Table Name,Status,StartType"
+            "Get-CimInstance Win32_Service -Filter \"Name='<SERVICE_NAME>'\" | Format-List Name,DisplayName,State,StartMode,StartName,PathName,ExitCode",
+            "Get-Service -Name '<SERVICE_NAME>' -RequiredServices | Format-Table Name,Status,StartType",
+            "$start=(Get-Date '<EVENT_TIME>').AddMinutes(-5)",
+            "$end=(Get-Date '<EVENT_TIME>').AddMinutes(5)",
+            "Get-WinEvent -FilterHashtable @{LogName='System';ProviderName='Service Control Manager';StartTime=$start;EndTime=$end} | Format-List TimeCreated,Id,LevelDisplayName,Message"
           ],
-          "expected": "The service and required dependencies are in the intended state under the intended account.",
-          "failure": "Use recent Service Control Manager events to correct a dependency, logon, timeout, or termination failure."
+          "expected": "The executable path, start mode, service account, dependencies, and first Windows service error agree with the intended installation.",
+          "failure": "Use the first Service Control Manager error to distinguish a dependency, account-logon, path, timeout, or process-termination failure."
         },
         {
-          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "instruction": "After correcting the specific startup condition, start the service once and perform one identifiable product test.",
           "commands": [],
-          "expected": "The intended destination records the test exactly once.",
-          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+          "expected": "The service remains Running, at least one configured input is active, and the intended destination records the test exactly once.",
+          "failure": "Stop retrying and collect the first new product and Service Control Manager errors from that start attempt."
         }
       ],
       "repair_steps": [],
       "rollback_steps": [],
-      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "verification": "Confirm that the service remains Running and that one configured input processes an identifiable event through its intended destination.",
       "evidence_to_collect": [
         "The complete Event Log entry and neighboring product events with timestamps.",
         "The command output, relevant configuration export, and bounded debug log from the same interval."
@@ -270,24 +279,24 @@
       },
       "steps": [
         {
-          "instruction": "Export the configuration and open the exact service, rule, filter, or action named in the event.",
+          "instruction": "Export the pre-change configuration, then open only the exact service, ruleset, filter, or action named in the event.",
           "commands": [],
-          "expected": "The affected object and its effective settings are identified.",
-          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+          "expected": "The event detail and Configuration Client identify the same object and a readable pre-change export exists.",
+          "failure": "Do not infer the object from its type alone; collect the complete event and configuration export first."
         },
         {
-          "instruction": "Run the native Windows checks below from the affected product host.",
+          "instruction": "Verify the backup metadata, then check required references, product availability, paths, addresses, ports, and credentials for that object only.",
           "commands": [
             "Get-Item -LiteralPath '<CONFIG_EXPORT>' | Format-List FullName,Length,LastWriteTime"
           ],
-          "expected": "A readable pre-change backup exists and all required fields reference valid product objects.",
-          "failure": "Restore the export if the edited configuration cannot load; do not copy objects from another product manual."
+          "expected": "Every required reference resolves to an existing object and every selected feature is available in this product and edition.",
+          "failure": "Restore the export if the edited configuration cannot load; do not copy unsupported objects from another product or edition."
         },
         {
-          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "instruction": "Save the smallest correction, reload the configuration using the Configuration Client's normal apply path, and run one identifiable test through the edited object.",
           "commands": [],
           "expected": "The intended destination records the test exactly once.",
-          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+          "failure": "Restore the pre-change export if loading fails, then collect the first new product event and bounded debug output without changing unrelated objects."
         }
       ],
       "repair_steps": [],
@@ -295,7 +304,7 @@
         "Restore the configuration export created before the change.",
         "Reload the restored configuration and verify the previous behavior."
       ],
-      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "verification": "Confirm that the corrected object loads, the intended destination records one identifiable test, and neighboring rules and services continue normally.",
       "evidence_to_collect": [
         "The complete Event Log entry and neighboring product events with timestamps.",
         "The command output, relevant configuration export, and bounded debug log from the same interval."
@@ -1408,30 +1417,31 @@
         {
           "instruction": "Record product version, displayed license status, edition, and feature named in the event without copying the license payload.",
           "commands": [],
-          "expected": "The affected object and its effective settings are identified.",
-          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+          "expected": "The running product, version, edition, license mode, and required feature or client allowance are known without exposing license material.",
+          "failure": "Do not copy the license file or key; record only the product UI's status and non-secret version information."
         },
         {
-          "instruction": "Run the native Windows checks below from the affected product host.",
+          "instruction": "Verify the running executable's product and version, then compare the displayed entitlement with the module or client allowance named by the event.",
           "commands": [
             "Get-Item -LiteralPath '<PRODUCT_EXECUTABLE>' | Select-Object -ExpandProperty VersionInfo | Format-List ProductName,ProductVersion,FileVersion"
           ],
-          "expected": "The signed license targets the running product/version and includes the configured feature.",
-          "failure": "Install the authorized license or disable unsupported configuration; never edit signed data."
+          "expected": "The authorized license targets the running product and version and includes the required feature or sufficient client capacity.",
+          "failure": "Install authorized replacement license material or disable the unsupported configuration; never edit signed data."
         },
         {
-          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "instruction": "Restart or reload only as required by the license installation, then test the previously denied module or intended sender once.",
           "commands": [],
-          "expected": "The intended destination records the test exactly once.",
-          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+          "expected": "The service remains Running and the intended module or sender processes the test exactly once without a license-denial event.",
+          "failure": "Record the new license-status and denial events without sharing license data; do not repeatedly reinstall or alter the license."
         }
       ],
       "repair_steps": [],
       "rollback_steps": [],
-      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "verification": "Confirm the intended license mode in the product UI and prove the previously denied module or sender works once without exposing license material.",
       "evidence_to_collect": [
         "The complete Event Log entry and neighboring product events with timestamps.",
-        "The command output, relevant configuration export, and bounded debug log from the same interval."
+        "Product name, executable version, displayed edition or license mode, and the non-secret feature or client allowance involved.",
+        "A redacted configuration export showing only the affected object; never collect license files, keys, signed payloads, activation data, or customer identifiers."
       ],
       "optional_tools": [],
       "related_procedures": []
@@ -3362,7 +3372,7 @@
     "legacy.himalaya_servicemanager_cpp_reporterror_reg_trialexp_339": {
       "disposition": "self_service",
       "procedure_ids": [
-        "config.validate-and-reload",
+        "license.verify-license-state",
         "evidence.collect-event-and-neighboring-events",
         "evidence.export-configuration-and-debug-log"
       ],

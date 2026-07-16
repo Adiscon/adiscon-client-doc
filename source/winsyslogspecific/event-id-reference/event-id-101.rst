@@ -26,20 +26,19 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** :spelling:ignore:`The service was removed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The {service_name} service was removed.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- A product uninstall or explicit service-remove operation deleted the Windows service registration.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. No repair is required when service removal was intended.
+#. If removal was unexpected, identify the uninstall or administrative action that occurred at the same time.
+#. Reinstall the service only after confirming that the product files and configuration should remain on this system.
 
 Detailed procedures
 -------------------
@@ -51,7 +50,7 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 101 does not recur and that windows service lifecycle processing continues.
+Confirm that the service registration is absent after an intended removal, or is present and starts normally after an authorized reinstall.
 
 Evidence to collect
 -------------------

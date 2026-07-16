@@ -40,28 +40,30 @@ Configuration Client > Computer > Export Settings to Registry File; then General
 Procedure
 ---------
 
-#. Export settings as a text registry file, then enable the minimum debug level that reproduces the problem.
+#. Before changing settings, use Computer > Export Settings to Registry File and save a pre-change text export in a protected working directory.
 
-   **Expected result:** The affected object and its effective settings are identified.
+   **Expected result:** A readable pre-change export exists and its modification time precedes the troubleshooting change.
 
-   **If it fails:** Return to the complete Event Log detail and configuration export before changing settings.
+   **If it fails:** Do not continue with a state-changing repair until a readable pre-change export exists.
 
-#. Run the native Windows checks below from the affected product host.
+#. Record the start time, enable only the debug output required to reproduce once, then record the end time and disable debugging immediately.
 
    .. code-block:: powershell
 
+      $captureStart=Get-Date; $captureStart.ToString('o')
       Get-Item -LiteralPath '<CONFIG_EXPORT>' | Format-List FullName,Length,LastWriteTime
       Get-Item -LiteralPath '<DEBUG_LOG>' | Format-List FullName,Length,LastWriteTime
+      $captureEnd=Get-Date; $captureEnd.ToString('o')
 
-   **Expected result:** Both files exist, are readable, and cover the recorded reproduction interval.
+   **Expected result:** The export and debug log are readable, the log covers the recorded interval, and debug output is disabled after the reproduction.
 
-   **If it fails:** Verify the service account can write the debug directory and restart only if the setting requires it.
+   **If it fails:** Verify the configured debug path and service-account write access. Do not leave debugging enabled while investigating a missing log.
 
-#. Perform one uniquely identifiable product test through the same service, rule, or action.
+#. Preserve only the bounded interval around one uniquely identifiable test, then create redacted copies for review.
 
-   **Expected result:** The intended destination records the test exactly once.
+   **Expected result:** The test and its outcome can be correlated across the redacted export, Event Log, and bounded debug interval.
 
-   **If it fails:** Collect the first new product event and bounded debug output; do not change unrelated settings.
+   **If it fails:** Repeat only after correcting the capture window; do not collect an unbounded debug log.
 
 Verify the result
 -----------------
@@ -71,8 +73,9 @@ Repeat the affected operation, confirm its positive output, and verify that queu
 Evidence to collect
 -------------------
 
-- The complete Event Log entry and neighboring product events with timestamps.
-- The command output, relevant configuration export, and bounded debug log from the same interval.
+- The capture start and end timestamps, complete Event Log entry, and neighboring product events.
+- The pre-change configuration export and bounded debug log from the same interval.
+- Redacted review copies with credentials, license data, private keys, addresses, hostnames, paths, database identifiers, certificate identities, and environment-specific service, ruleset, and action names removed.
 
 Related Event IDs
 -----------------

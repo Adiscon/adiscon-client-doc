@@ -16,7 +16,7 @@ rsyslog Windows Agent Event ID 106: The service received an unsupported control 
 Answer
 ------
 
-The requested Windows service-control operation was not performed.
+Windows delivered a service-control code that this product service does not implement. The requested control is ignored while supported service operations continue. This legacy event does not identify the control code.
 
 Event details
 -------------
@@ -26,20 +26,20 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** :spelling:ignore:`The service received an unsupported control request. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The service received an unsupported request.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- A management tool or script sent a control code that the product does not support.
+- A monitoring or service-management integration used the wrong control operation.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Use management-tool, script, and Service Control Manager logs from the event timestamp to identify the caller and control operation.
+#. Change the caller to use supported start, stop, or other documented service operations.
+#. Confirm that the service remains in its intended state after removing the unsupported request.
 
 Detailed procedures
 -------------------
@@ -51,7 +51,7 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 106 does not recur and that windows service lifecycle processing continues.
+Run the corrected management operation and confirm the intended service state without Event ID 106.
 
 Evidence to collect
 -------------------

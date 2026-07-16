@@ -16,7 +16,7 @@ rsyslog Windows Agent Event ID 104: The service initialization process failed
 Answer
 ------
 
-The product service did not start.
+Product initialization returned a failure to the Windows service wrapper, so the service does not enter the Running state. An earlier product event normally identifies the specific initialization failure.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** :spelling:ignore:`The service initialization process failed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The initialization process failed.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- License validation, configuration loading, or input-service startup failed earlier in the same startup attempt.
+- The service account cannot access a required file, registry key, network resource, provider, or certificate.
+- A required Windows resource or product component failed during initialization.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Find the first product error immediately before Event ID 104 in the same startup attempt; treat that earlier event as the primary cause.
+#. Record the service account, registered executable path, dependencies, and complete Service Control Manager events for the attempt.
+#. Correct only the specific earlier failure, then perform one controlled service start.
 
 Detailed procedures
 -------------------
@@ -51,7 +52,7 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 104 does not recur and that windows service lifecycle processing continues.
+Confirm that the service reaches Running, at least one configured input starts, and Event ID 104 does not recur during that start.
 
 Evidence to collect
 -------------------

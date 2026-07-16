@@ -42,31 +42,34 @@ Procedure
 
 #. Identify the internal Windows service name and intended service account.
 
-   **Expected result:** The affected object and its effective settings are identified.
+   **Expected result:** The internal service name and intended account are known before any start, stop, or account change.
 
-   **If it fails:** Return to the complete Event Log detail and configuration export before changing settings.
+   **If it fails:** Use the service Properties dialog or the command output below; do not guess the internal name.
 
-#. Run the native Windows checks below from the affected product host.
+#. Capture current service configuration, state, required dependencies, and bounded Service Control Manager events.
 
    .. code-block:: powershell
 
-      Get-CimInstance Win32_Service -Filter "Name='<SERVICE_NAME>'" | Format-List Name,State,StartMode,StartName,ExitCode
+      Get-CimInstance Win32_Service -Filter "Name='<SERVICE_NAME>'" | Format-List Name,DisplayName,State,StartMode,StartName,PathName,ExitCode
       Get-Service -Name '<SERVICE_NAME>' -RequiredServices | Format-Table Name,Status,StartType
+      $start=(Get-Date '<EVENT_TIME>').AddMinutes(-5)
+      $end=(Get-Date '<EVENT_TIME>').AddMinutes(5)
+      Get-WinEvent -FilterHashtable @{LogName='System';ProviderName='Service Control Manager';StartTime=$start;EndTime=$end} | Format-List TimeCreated,Id,LevelDisplayName,Message
 
-   **Expected result:** The service and required dependencies are in the intended state under the intended account.
+   **Expected result:** The executable path, start mode, service account, dependencies, and first Windows service error agree with the intended installation.
 
-   **If it fails:** Use recent Service Control Manager events to correct a dependency, logon, timeout, or termination failure.
+   **If it fails:** Use the first Service Control Manager error to distinguish a dependency, account-logon, path, timeout, or process-termination failure.
 
-#. Perform one uniquely identifiable product test through the same service, rule, or action.
+#. After correcting the specific startup condition, start the service once and perform one identifiable product test.
 
-   **Expected result:** The intended destination records the test exactly once.
+   **Expected result:** The service remains Running, at least one configured input is active, and the intended destination records the test exactly once.
 
-   **If it fails:** Collect the first new product event and bounded debug output; do not change unrelated settings.
+   **If it fails:** Stop retrying and collect the first new product and Service Control Manager errors from that start attempt.
 
 Verify the result
 -----------------
 
-Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.
+Confirm that the service remains Running and that one configured input processes an identifiable event through its intended destination.
 
 Evidence to collect
 -------------------
