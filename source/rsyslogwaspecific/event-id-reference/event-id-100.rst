@@ -26,20 +26,19 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** :spelling:ignore:`The service was installed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The {service_name} service was installed.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- A product installation or explicit service-install operation registered the Windows service.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. No repair is required when service installation was intended.
+#. If the registration was unexpected, identify the installation or administrative action that occurred at the same time.
+#. Verify the registered service name, executable path, start mode, and service account before starting it.
 
 Detailed procedures
 -------------------
@@ -51,7 +50,7 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 100 does not recur and that windows service lifecycle processing continues.
+Confirm that Windows reports the intended service registration and that the service can enter the Running state.
 
 Evidence to collect
 -------------------

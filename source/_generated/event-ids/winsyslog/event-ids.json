@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "catalog_status": "ready",
-  "source_commit": "3ee9a9b50f5d94487221416de7b536a172b2d816",
+  "source_commit": "7b77bacbd5b91724bebfed41e923a0348270250f",
   "product": "winsyslog",
   "product_name": "WinSyslog",
   "product_version": "26.07",
@@ -25,32 +25,35 @@
         {
           "instruction": "Record the Event Log source, Event ID, level, timestamp, and complete General and Details data.",
           "commands": [],
-          "expected": "The affected object and its effective settings are identified.",
-          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+          "expected": "The record includes the provider, Event ID, timestamp with time zone, message text, and all dynamic detail.",
+          "failure": "Export the original event as an EVTX file before copying text or changing filters."
         },
         {
-          "instruction": "Run the native Windows checks below from the affected product host.",
+          "instruction": "Record the host clock state, then collect only the product events in a bounded window around the event.",
           "commands": [
+            "Get-Date -Format o",
+            "w32tm /query /status",
             "$start=(Get-Date '<EVENT_TIME>').AddMinutes(-5)",
             "$end=(Get-Date '<EVENT_TIME>').AddMinutes(5)",
             "Get-WinEvent -FilterHashtable @{LogName='Application';StartTime=$start;EndTime=$end} | Where-Object ProviderName -eq '<EVENT_SOURCE>' | Format-List TimeCreated,Id,LevelDisplayName,Message"
           ],
-          "expected": "The output contains the first product failure and later state or recovery events.",
-          "failure": "Increase the bounded time window and verify the Event Log source shown on the Event ID page."
+          "expected": "The clock output is recorded and the event sequence contains the first failure plus any later state or recovery event.",
+          "failure": "Verify the provider shown on the Event ID page. Expand the window only enough to include the first related event."
         },
         {
-          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "instruction": "After diagnosis, perform one uniquely identifiable product test through the same input, rule, and action, and record its sender and destination timestamps.",
           "commands": [],
           "expected": "The intended destination records the test exactly once.",
-          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+          "failure": "Collect the first new product event and bounded debug output from that exact test; do not change unrelated settings."
         }
       ],
       "repair_steps": [],
       "rollback_steps": [],
       "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
       "evidence_to_collect": [
-        "The complete Event Log entry and neighboring product events with timestamps.",
-        "The command output, relevant configuration export, and bounded debug log from the same interval."
+        "The original EVTX record plus the complete rendered event and neighboring product events with timestamps.",
+        "Clock-status output from every involved host and the sender and destination timestamps for the identifiable test.",
+        "The relevant configuration export and bounded debug log from the same interval, with credentials, license data, private keys, addresses, hostnames, and environment-specific object names removed."
       ],
       "optional_tools": [],
       "related_procedures": []
@@ -220,33 +223,36 @@
       ],
       "steps": [
         {
-          "instruction": "Export settings as a text registry file, then enable the minimum debug level that reproduces the problem.",
+          "instruction": "Before changing settings, use Computer > Export Settings to Registry File and save a pre-change text export in a protected working directory.",
           "commands": [],
-          "expected": "The affected object and its effective settings are identified.",
-          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+          "expected": "A readable pre-change export exists and its modification time precedes the troubleshooting change.",
+          "failure": "Do not continue with a state-changing repair until a readable pre-change export exists."
         },
         {
-          "instruction": "Run the native Windows checks below from the affected product host.",
+          "instruction": "Record the start time, enable only the debug output required to reproduce once, then record the end time and disable debugging immediately.",
           "commands": [
+            "$captureStart=Get-Date; $captureStart.ToString('o')",
             "Get-Item -LiteralPath '<CONFIG_EXPORT>' | Format-List FullName,Length,LastWriteTime",
-            "Get-Item -LiteralPath '<DEBUG_LOG>' | Format-List FullName,Length,LastWriteTime"
+            "Get-Item -LiteralPath '<DEBUG_LOG>' | Format-List FullName,Length,LastWriteTime",
+            "$captureEnd=Get-Date; $captureEnd.ToString('o')"
           ],
-          "expected": "Both files exist, are readable, and cover the recorded reproduction interval.",
-          "failure": "Verify the service account can write the debug directory and restart only if the setting requires it."
+          "expected": "The export and debug log are readable, the log covers the recorded interval, and debug output is disabled after the reproduction.",
+          "failure": "Verify the configured debug path and service-account write access. Do not leave debugging enabled while investigating a missing log."
         },
         {
-          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "instruction": "Preserve only the bounded interval around one uniquely identifiable test, then create redacted copies for review.",
           "commands": [],
-          "expected": "The intended destination records the test exactly once.",
-          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+          "expected": "The test and its outcome can be correlated across the redacted export, Event Log, and bounded debug interval.",
+          "failure": "Repeat only after correcting the capture window; do not collect an unbounded debug log."
         }
       ],
       "repair_steps": [],
       "rollback_steps": [],
       "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
       "evidence_to_collect": [
-        "The complete Event Log entry and neighboring product events with timestamps.",
-        "The command output, relevant configuration export, and bounded debug log from the same interval."
+        "The capture start and end timestamps, complete Event Log entry, and neighboring product events.",
+        "The pre-change configuration export and bounded debug log from the same interval.",
+        "Redacted review copies with credentials, license data, private keys, addresses, hostnames, paths, database identifiers, certificate identities, and environment-specific service, ruleset, and action names removed."
       ],
       "optional_tools": [],
       "related_procedures": []
@@ -465,24 +471,24 @@
       ],
       "steps": [
         {
-          "instruction": "Export the configuration and open the exact service, rule, filter, or action named in the event.",
+          "instruction": "Export the pre-change configuration, then open only the exact service, ruleset, filter, or action named in the event.",
           "commands": [],
-          "expected": "The affected object and its effective settings are identified.",
-          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+          "expected": "The event detail and Configuration Client identify the same object and a readable pre-change export exists.",
+          "failure": "Do not infer the object from its type alone; collect the complete event and configuration export first."
         },
         {
-          "instruction": "Run the native Windows checks below from the affected product host.",
+          "instruction": "Verify the backup metadata, then check required references, product availability, paths, addresses, ports, and credentials for that object only.",
           "commands": [
             "Get-Item -LiteralPath '<CONFIG_EXPORT>' | Format-List FullName,Length,LastWriteTime"
           ],
-          "expected": "A readable pre-change backup exists and all required fields reference valid product objects.",
-          "failure": "Restore the export if the edited configuration cannot load; do not copy objects from another product manual."
+          "expected": "Every required reference resolves to an existing object and every selected feature is available in this product and edition.",
+          "failure": "Restore the export if the edited configuration cannot load; do not copy unsupported objects from another product or edition."
         },
         {
-          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "instruction": "Save the smallest correction, reload the configuration using the Configuration Client's normal apply path, and run one identifiable test through the edited object.",
           "commands": [],
           "expected": "The intended destination records the test exactly once.",
-          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+          "failure": "Restore the pre-change export if loading fails, then collect the first new product event and bounded debug output without changing unrelated objects."
         }
       ],
       "repair_steps": [],
@@ -490,7 +496,7 @@
         "Restore the configuration export created before the change.",
         "Reload the restored configuration and verify the previous behavior."
       ],
-      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "verification": "Confirm that the corrected object loads, the intended destination records one identifiable test, and neighboring rules and services continue normally.",
       "evidence_to_collect": [
         "The complete Event Log entry and neighboring product events with timestamps.",
         "The command output, relevant configuration export, and bounded debug log from the same interval."
@@ -966,30 +972,31 @@
         {
           "instruction": "Record product version, displayed license status, edition, and feature named in the event without copying the license payload.",
           "commands": [],
-          "expected": "The affected object and its effective settings are identified.",
-          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+          "expected": "The running product, version, edition, license mode, and required feature or client allowance are known without exposing license material.",
+          "failure": "Do not copy the license file or key; record only the product UI's status and non-secret version information."
         },
         {
-          "instruction": "Run the native Windows checks below from the affected product host.",
+          "instruction": "Verify the running executable's product and version, then compare the displayed entitlement with the module or client allowance named by the event.",
           "commands": [
             "Get-Item -LiteralPath '<PRODUCT_EXECUTABLE>' | Select-Object -ExpandProperty VersionInfo | Format-List ProductName,ProductVersion,FileVersion"
           ],
-          "expected": "The signed license targets the running product/version and includes the configured feature.",
-          "failure": "Install the authorized license or disable unsupported configuration; never edit signed data."
+          "expected": "The authorized license targets the running product and version and includes the required feature or sufficient client capacity.",
+          "failure": "Install authorized replacement license material or disable the unsupported configuration; never edit signed data."
         },
         {
-          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "instruction": "Restart or reload only as required by the license installation, then test the previously denied module or intended sender once.",
           "commands": [],
-          "expected": "The intended destination records the test exactly once.",
-          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+          "expected": "The service remains Running and the intended module or sender processes the test exactly once without a license-denial event.",
+          "failure": "Record the new license-status and denial events without sharing license data; do not repeatedly reinstall or alter the license."
         }
       ],
       "repair_steps": [],
       "rollback_steps": [],
-      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "verification": "Confirm the intended license mode in the product UI and prove the previously denied module or sender works once without exposing license material.",
       "evidence_to_collect": [
         "The complete Event Log entry and neighboring product events with timestamps.",
-        "The command output, relevant configuration export, and bounded debug log from the same interval."
+        "Product name, executable version, displayed edition or license mode, and the non-secret feature or client allowance involved.",
+        "A redacted configuration export showing only the affected object; never collect license files, keys, signed payloads, activation data, or customer identifiers."
       ],
       "optional_tools": [],
       "related_procedures": []
@@ -1061,28 +1068,31 @@
         {
           "instruction": "Identify the internal Windows service name and intended service account.",
           "commands": [],
-          "expected": "The affected object and its effective settings are identified.",
-          "failure": "Return to the complete Event Log detail and configuration export before changing settings."
+          "expected": "The internal service name and intended account are known before any start, stop, or account change.",
+          "failure": "Use the service Properties dialog or the command output below; do not guess the internal name."
         },
         {
-          "instruction": "Run the native Windows checks below from the affected product host.",
+          "instruction": "Capture current service configuration, state, required dependencies, and bounded Service Control Manager events.",
           "commands": [
-            "Get-CimInstance Win32_Service -Filter \"Name='<SERVICE_NAME>'\" | Format-List Name,State,StartMode,StartName,ExitCode",
-            "Get-Service -Name '<SERVICE_NAME>' -RequiredServices | Format-Table Name,Status,StartType"
+            "Get-CimInstance Win32_Service -Filter \"Name='<SERVICE_NAME>'\" | Format-List Name,DisplayName,State,StartMode,StartName,PathName,ExitCode",
+            "Get-Service -Name '<SERVICE_NAME>' -RequiredServices | Format-Table Name,Status,StartType",
+            "$start=(Get-Date '<EVENT_TIME>').AddMinutes(-5)",
+            "$end=(Get-Date '<EVENT_TIME>').AddMinutes(5)",
+            "Get-WinEvent -FilterHashtable @{LogName='System';ProviderName='Service Control Manager';StartTime=$start;EndTime=$end} | Format-List TimeCreated,Id,LevelDisplayName,Message"
           ],
-          "expected": "The service and required dependencies are in the intended state under the intended account.",
-          "failure": "Use recent Service Control Manager events to correct a dependency, logon, timeout, or termination failure."
+          "expected": "The executable path, start mode, service account, dependencies, and first Windows service error agree with the intended installation.",
+          "failure": "Use the first Service Control Manager error to distinguish a dependency, account-logon, path, timeout, or process-termination failure."
         },
         {
-          "instruction": "Perform one uniquely identifiable product test through the same service, rule, or action.",
+          "instruction": "After correcting the specific startup condition, start the service once and perform one identifiable product test.",
           "commands": [],
-          "expected": "The intended destination records the test exactly once.",
-          "failure": "Collect the first new product event and bounded debug output; do not change unrelated settings."
+          "expected": "The service remains Running, at least one configured input is active, and the intended destination records the test exactly once.",
+          "failure": "Stop retrying and collect the first new product and Service Control Manager errors from that start attempt."
         }
       ],
       "repair_steps": [],
       "rollback_steps": [],
-      "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
+      "verification": "Confirm that the service remains Running and that one configured input processes an identifiable event through its intended destination.",
       "evidence_to_collect": [
         "The complete Event Log entry and neighboring product events with timestamps.",
         "The command output, relevant configuration export, and bounded debug log from the same interval."
@@ -1223,18 +1233,17 @@
       "event_source": "AdisconWinSyslog",
       "title": "The service was installed",
       "component": "Windows service lifecycle",
-      "message_pattern": "The service was installed. Additional detail: {event_detail}",
+      "message_pattern": "The {service_name} service was installed.",
       "meaning": "The Windows service registration completed.",
       "likely_causes": [
-        "The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.",
-        "Windows returned the appended startup, shutdown, permission, timeout, or resource error."
+        "A product installation or explicit service-install operation registered the Windows service."
       ],
       "immediate_checks": [
-        "Record the affected service or component, service account, state, dependencies, and complete runtime detail.",
-        "Check recent Service Control Manager and neighboring product events for the first failure.",
-        "Correct the specific dependency, account, permission, or resource condition and perform one controlled retry."
+        "No repair is required when service installation was intended.",
+        "If the registration was unexpected, identify the installation or administrative action that occurred at the same time.",
+        "Verify the registered service name, executable path, start mode, and service account before starting it."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 100 does not recur and that windows service lifecycle processing continues.",
+      "success_verification": "Confirm that Windows reports the intended service registration and that the service can enter the Running state.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -1271,18 +1280,17 @@
       "event_source": "AdisconWinSyslog",
       "title": "The service was removed",
       "component": "Windows service lifecycle",
-      "message_pattern": "The service was removed. Additional detail: {event_detail}",
+      "message_pattern": "The {service_name} service was removed.",
       "meaning": "The Windows service registration was removed.",
       "likely_causes": [
-        "The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.",
-        "Windows returned the appended startup, shutdown, permission, timeout, or resource error."
+        "A product uninstall or explicit service-remove operation deleted the Windows service registration."
       ],
       "immediate_checks": [
-        "Record the affected service or component, service account, state, dependencies, and complete runtime detail.",
-        "Check recent Service Control Manager and neighboring product events for the first failure.",
-        "Correct the specific dependency, account, permission, or resource condition and perform one controlled retry."
+        "No repair is required when service removal was intended.",
+        "If removal was unexpected, identify the uninstall or administrative action that occurred at the same time.",
+        "Reinstall the service only after confirming that the product files and configuration should remain on this system."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 101 does not recur and that windows service lifecycle processing continues.",
+      "success_verification": "Confirm that the service registration is absent after an intended removal, or is present and starts normally after an authorized reinstall.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -1319,18 +1327,19 @@
       "event_source": "AdisconWinSyslog",
       "title": "The service could not be removed",
       "component": "Windows service lifecycle",
-      "message_pattern": "The service could not be removed. Additional detail: {event_detail}",
-      "meaning": "The Windows service remains registered.",
+      "message_pattern": "The {service_name} service could not be removed.",
+      "meaning": "Windows rejected the request to delete the product service registration, so the service remains registered. This legacy event does not include the Windows error code.",
       "likely_causes": [
-        "The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.",
-        "Windows returned the appended startup, shutdown, permission, timeout, or resource error."
+        "The account performing removal lacks permission to delete the service.",
+        "The service or another process still holds a Service Control Manager handle and Windows has marked it for deletion.",
+        "The service name or registration state changed during removal."
       ],
       "immediate_checks": [
-        "Record the affected service or component, service account, state, dependencies, and complete runtime detail.",
-        "Check recent Service Control Manager and neighboring product events for the first failure.",
-        "Correct the specific dependency, account, permission, or resource condition and perform one controlled retry."
+        "Record the event timestamp and inspect neighboring Service Control Manager and installer events for the underlying Windows error.",
+        "Confirm the current service registration and whether Windows already marked the service for deletion.",
+        "Close management tools that hold service handles, use an authorized administrator account, and retry the intended uninstall once."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 102 does not recur and that windows service lifecycle processing continues.",
+      "success_verification": "Confirm that the service registration is absent after the authorized removal and that Event ID 102 does not recur.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -1367,18 +1376,19 @@
       "event_source": "AdisconWinSyslog",
       "title": "The service control handler could not be installed",
       "component": "Windows service lifecycle",
-      "message_pattern": "The service control handler could not be installed. Additional detail: {event_detail}",
-      "meaning": "Windows cannot deliver normal service control requests to the process.",
+      "message_pattern": "The control handler could not be installed.",
+      "meaning": "The service process could not register its control handler with Windows and terminates startup before normal service controls can be processed.",
       "likely_causes": [
-        "The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.",
-        "Windows returned the appended startup, shutdown, permission, timeout, or resource error."
+        "The executable was started outside the Service Control Manager instead of as the registered Windows service.",
+        "Windows rejected handler registration because the service process or registration state is invalid.",
+        "A Windows service-control failure occurred during very early startup."
       ],
       "immediate_checks": [
-        "Record the affected service or component, service account, state, dependencies, and complete runtime detail.",
-        "Check recent Service Control Manager and neighboring product events for the first failure.",
-        "Correct the specific dependency, account, permission, or resource condition and perform one controlled retry."
+        "Start the product through Windows Services or Start-Service, not by launching the service executable interactively.",
+        "Check neighboring Service Control Manager events and the registered executable path.",
+        "Repair the product installation if the service registration points to the wrong executable, then perform one controlled start."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 103 does not recur and that windows service lifecycle processing continues.",
+      "success_verification": "Confirm that Windows reports the service as Running and that normal stop and start controls work without Event ID 103.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -1415,18 +1425,19 @@
       "event_source": "AdisconWinSyslog",
       "title": "The service initialization process failed",
       "component": "Windows service lifecycle",
-      "message_pattern": "The service initialization process failed. Additional detail: {event_detail}",
-      "meaning": "The product service did not start.",
+      "message_pattern": "The initialization process failed.",
+      "meaning": "Product initialization returned a failure to the Windows service wrapper, so the service does not enter the Running state. An earlier product event normally identifies the specific initialization failure.",
       "likely_causes": [
-        "The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.",
-        "Windows returned the appended startup, shutdown, permission, timeout, or resource error."
+        "License validation, configuration loading, or input-service startup failed earlier in the same startup attempt.",
+        "The service account cannot access a required file, registry key, network resource, provider, or certificate.",
+        "A required Windows resource or product component failed during initialization."
       ],
       "immediate_checks": [
-        "Record the affected service or component, service account, state, dependencies, and complete runtime detail.",
-        "Check recent Service Control Manager and neighboring product events for the first failure.",
-        "Correct the specific dependency, account, permission, or resource condition and perform one controlled retry."
+        "Find the first product error immediately before Event ID 104 in the same startup attempt; treat that earlier event as the primary cause.",
+        "Record the service account, registered executable path, dependencies, and complete Service Control Manager events for the attempt.",
+        "Correct only the specific earlier failure, then perform one controlled service start."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 104 does not recur and that windows service lifecycle processing continues.",
+      "success_verification": "Confirm that the service reaches Running, at least one configured input starts, and Event ID 104 does not recur during that start.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -1463,18 +1474,17 @@
       "event_source": "AdisconWinSyslog",
       "title": "The service was started",
       "component": "Windows service lifecycle",
-      "message_pattern": "The service was started. Additional detail: {event_detail}",
+      "message_pattern": "The service was started.",
       "meaning": "The product service entered its running state.",
       "likely_causes": [
-        "The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.",
-        "Windows returned the appended startup, shutdown, permission, timeout, or resource error."
+        "Windows started the product service and product initialization completed successfully."
       ],
       "immediate_checks": [
-        "Record the affected service or component, service account, state, dependencies, and complete runtime detail.",
-        "Check recent Service Control Manager and neighboring product events for the first failure.",
-        "Correct the specific dependency, account, permission, or resource condition and perform one controlled retry."
+        "No repair is required when the start was intended.",
+        "If starts are unexpected or frequent, correlate this event with preceding stop, crash, restart-recovery, update, or administrative events.",
+        "Verify one configured input and destination instead of relying on service state alone."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 105 does not recur and that windows service lifecycle processing continues.",
+      "success_verification": "Confirm that the service remains Running and processes one identifiable event through the intended destination.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -1511,18 +1521,18 @@
       "event_source": "AdisconWinSyslog",
       "title": "The service received an unsupported control request",
       "component": "Windows service lifecycle",
-      "message_pattern": "The service received an unsupported control request. Additional detail: {event_detail}",
-      "meaning": "The requested Windows service-control operation was not performed.",
+      "message_pattern": "The service received an unsupported request.",
+      "meaning": "Windows delivered a service-control code that this product service does not implement. The requested control is ignored while supported service operations continue. This legacy event does not identify the control code.",
       "likely_causes": [
-        "The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.",
-        "Windows returned the appended startup, shutdown, permission, timeout, or resource error."
+        "A management tool or script sent a control code that the product does not support.",
+        "A monitoring or service-management integration used the wrong control operation."
       ],
       "immediate_checks": [
-        "Record the affected service or component, service account, state, dependencies, and complete runtime detail.",
-        "Check recent Service Control Manager and neighboring product events for the first failure.",
-        "Correct the specific dependency, account, permission, or resource condition and perform one controlled retry."
+        "Use management-tool, script, and Service Control Manager logs from the event timestamp to identify the caller and control operation.",
+        "Change the caller to use supported start, stop, or other documented service operations.",
+        "Confirm that the service remains in its intended state after removing the unsupported request."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 106 does not recur and that windows service lifecycle processing continues.",
+      "success_verification": "Run the corrected management operation and confirm the intended service state without Event ID 106.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -1559,18 +1569,17 @@
       "event_source": "AdisconWinSyslog",
       "title": "The service was stopped",
       "component": "Windows service lifecycle",
-      "message_pattern": "The service was stopped. Additional detail: {event_detail}",
+      "message_pattern": "The service was stopped.",
       "meaning": "The product service completed shutdown.",
       "likely_causes": [
-        "The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.",
-        "Windows returned the appended startup, shutdown, permission, timeout, or resource error."
+        "Windows, an administrator, an installer, or product shutdown logic requested an orderly stop."
       ],
       "immediate_checks": [
-        "Record the affected service or component, service account, state, dependencies, and complete runtime detail.",
-        "Check recent Service Control Manager and neighboring product events for the first failure.",
-        "Correct the specific dependency, account, permission, or resource condition and perform one controlled retry."
+        "No repair is required when the stop was intended.",
+        "If the stop was unexpected, inspect preceding product and Service Control Manager events for the initiating condition.",
+        "Distinguish this orderly stop from a process termination or crash before changing configuration."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 108 does not recur and that windows service lifecycle processing continues.",
+      "success_verification": "Confirm that an intended stop leaves the service Stopped, or that an authorized restart remains Running and processes one identifiable event.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -1605,20 +1614,20 @@
       "event_id": 118,
       "severity": "information",
       "event_source": "AdisconWinSyslog",
-      "title": "Trial mode reminder",
+      "title": "Product license status reminder",
       "component": "Licensing",
-      "message_pattern": "The product is running in trial mode; the event detail contains the remaining trial information. Additional detail: {event_detail}",
-      "meaning": "Trial limits and expiration apply to the running product.",
+      "message_pattern": "The product reports its trial or registered license mode. Additional detail: {license_status_detail}",
+      "meaning": "The service reports its current license mode at startup. The event detail states whether the product is in trial mode with remaining evaluation time or is running in a registered edition.",
       "likely_causes": [
-        "The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.",
-        "Windows or a required provider returned the operation-specific error appended to the event."
+        "The service started in trial mode and reports the remaining evaluation period.",
+        "The service started with a valid license and reports the active registered edition."
       ],
       "immediate_checks": [
-        "Identify the exact service, rule, filter, action, or setting named by the complete event detail.",
-        "Compare that object with the product reference and preserve the first related error in the same time window.",
-        "Correct only the identified setting or dependency, then run one controlled test."
+        "Read the complete event detail to distinguish trial mode from registered mode.",
+        "No repair is required when the reported mode and edition are expected.",
+        "If the mode is unexpected, compare the running product and version with the displayed license status without copying license data."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 118 does not recur and that licensing processing continues.",
+      "success_verification": "Confirm that the service remains Running and that the reported license mode matches the intended product and edition.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -1658,15 +1667,15 @@
       "message_pattern": "WinSyslog is running in freeware mode; the event detail describes the active limitation. Additional detail: {event_detail}",
       "meaning": "Freeware-mode limits apply to the running WinSyslog service.",
       "likely_causes": [
-        "The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.",
-        "Windows or a required provider returned the operation-specific error appended to the event."
+        "The WinSyslog trial expired and the installed version permits continued operation in Free Edition mode.",
+        "No registered WinSyslog license is active, so Free Edition limits apply."
       ],
       "immediate_checks": [
-        "Identify the exact service, rule, filter, action, or setting named by the complete event detail.",
-        "Compare that object with the product reference and preserve the first related error in the same time window.",
-        "Correct only the identified setting or dependency, then run one controlled test."
+        "No repair is required when Free Edition mode is intended.",
+        "Review the active Free Edition limits before relying on additional senders or licensed features.",
+        "If registered operation is intended, install the authorized WinSyslog license and restart the service."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 125 does not recur and that licensing processing continues.",
+      "success_verification": "Confirm that WinSyslog reports the intended Free Edition or registered mode and processes one event within that edition's limits.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -1706,15 +1715,15 @@
       "message_pattern": "WinSyslog rejected an invalid license key during startup. Additional detail: {event_detail}",
       "meaning": "The WinSyslog service does not start with the rejected key.",
       "likely_causes": [
-        "The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.",
-        "Windows or a required provider returned the operation-specific error appended to the event."
+        "The installed key is invalid, altered, or not issued for this WinSyslog product and version.",
+        "License material was copied incompletely or placed in the wrong product configuration."
       ],
       "immediate_checks": [
-        "Identify the exact service, rule, filter, action, or setting named by the complete event detail.",
-        "Compare that object with the product reference and preserve the first related error in the same time window.",
-        "Correct only the identified setting or dependency, then run one controlled test."
+        "Confirm the running WinSyslog version and displayed license status without copying or editing the key.",
+        "Replace the rejected material with the authorized license issued for this product and version.",
+        "Start WinSyslog once and verify the reported license mode."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 900 does not recur and that licensing processing continues.",
+      "success_verification": "Confirm that WinSyslog reaches Running, reports the intended licensed mode, and does not emit Event ID 900 during startup.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -1754,15 +1763,15 @@
       "message_pattern": "The product rejected a blocked license key during startup. Additional detail: {event_detail}",
       "meaning": "The product service does not start with the blocked key.",
       "likely_causes": [
-        "The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.",
-        "Windows or a required provider returned the operation-specific error appended to the event."
+        "The installed key is on the product's blocked-key list and cannot authorize startup.",
+        "License material intended for a different or superseded installation is still configured."
       ],
       "immediate_checks": [
-        "Identify the exact service, rule, filter, action, or setting named by the complete event detail.",
-        "Compare that object with the product reference and preserve the first related error in the same time window.",
-        "Correct only the identified setting or dependency, then run one controlled test."
+        "Do not modify or repeatedly re-enter the blocked key.",
+        "Confirm the exact product and version, then obtain and install authorized replacement license material.",
+        "Start the service once and verify the reported license mode."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 901 does not recur and that licensing processing continues.",
+      "success_verification": "Confirm that the service reaches Running, reports the intended licensed mode, and does not emit Event ID 901 during startup.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -2090,17 +2099,18 @@
       "title": "Configured feature is not licensed",
       "component": "Licensing",
       "message_pattern": "A configured module is not covered by the signed license feature entitlements. Additional detail: {event_detail}",
-      "meaning": "The module or option is not loaded at startup.",
+      "meaning": "The product skipped the named input service, action, or advanced feature because the signed license does not include its required feature entitlement.",
       "likely_causes": [
-        "The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.",
-        "Windows or a required provider returned the operation-specific error appended to the event."
+        "The configuration enables a module that is not included in the installed edition or license.",
+        "A configuration copied from another product or edition contains a feature that is unavailable here.",
+        "The installed signed license does not match the intended product, version, or feature set."
       ],
       "immediate_checks": [
-        "Identify the exact service, rule, filter, action, or setting named by the complete event detail.",
-        "Compare that object with the product reference and preserve the first related error in the same time window.",
-        "Correct only the identified setting or dependency, then run one controlled test."
+        "Record the module kind, module name, and required feature identifier from the complete event detail.",
+        "Confirm the running product, version, edition, and displayed license status without copying the license payload.",
+        "Either install an authorized license that includes the feature or disable the unsupported configured object, then reload the configuration."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11005 does not recur and that licensing processing continues.",
+      "success_verification": "Confirm that the intended module loads after configuration reload and performs one positive test without Event ID 11005 recurring.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -4051,20 +4061,21 @@
       "event_id": 11043,
       "severity": "error",
       "event_source": "AdisconWinSyslog",
-      "title": "Licensing: connection attempt failed",
-      "component": "Licensing",
+      "title": "A sender connection was refused by the permitted-senders limit",
+      "component": "Client connection licensing",
       "message_pattern": "Connection refused. Additional detail: {event_detail}",
-      "meaning": "Licensing: connection attempt failed. The product recorded this while processing licensing; the appended event detail identifies the affected object, operation, or provider error.",
+      "meaning": "The product refused the sender identified in the event because the configured permitted-senders limit had already been reached.",
       "likely_causes": [
-        "The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.",
-        "Windows or a required provider returned the operation-specific error appended to the event."
+        "Permitted Senders is enabled and the configured number of sender entries is already in use.",
+        "The connecting sender is not one of the currently permitted senders.",
+        "The permitted-senders configuration no longer matches the intended sender inventory."
       ],
       "immediate_checks": [
-        "Identify the exact service, rule, filter, action, or setting named by the complete event detail.",
-        "Compare that object with the product reference and preserve the first related error in the same time window.",
-        "Correct only the identified setting or dependency, then run one controlled test."
+        "Record the configured permitted-senders limit and whether the rejected sender should be allowed; do not publish the sender address.",
+        "Review the current permitted-senders entries and remove only entries that are confirmed obsolete.",
+        "If the intended sender count exceeds the configured or licensed allowance, update the authorized configuration or license before retrying."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11043 does not recur and that licensing processing continues.",
+      "success_verification": "Send one identifiable test from an authorized sender and confirm that it is accepted exactly once without Event ID 11043.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -4099,20 +4110,21 @@
       "event_id": 11044,
       "severity": "error",
       "event_source": "AdisconWinSyslog",
-      "title": "Licensing: licensed client limit exceeded",
-      "component": "Licensing",
+      "title": "A sender connection exceeded the licensed client limit",
+      "component": "Client connection licensing",
       "message_pattern": "Client license limit exceeded. Additional detail: {event_detail}",
-      "meaning": "Licensing: licensed client limit exceeded. The product recorded this while processing licensing; the appended event detail identifies the affected object, operation, or provider error.",
+      "meaning": "The product refused the sender identified in the event because accepting it would exceed the client-connection allowance of the installed edition or license.",
       "likely_causes": [
-        "The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.",
-        "Windows or a required provider returned the operation-specific error appended to the event."
+        "More distinct senders are connecting than the installed edition or license permits.",
+        "A changed sender address causes an existing device to be counted as an additional client.",
+        "The installed license is not the intended license for this product or system."
       ],
       "immediate_checks": [
-        "Identify the exact service, rule, filter, action, or setting named by the complete event detail.",
-        "Compare that object with the product reference and preserve the first related error in the same time window.",
-        "Correct only the identified setting or dependency, then run one controlled test."
+        "Confirm the running product, edition, displayed license status, and client allowance without copying license data.",
+        "Compare the intended sender inventory with the currently accepted senders and identify address changes or unintended sources.",
+        "Remove unintended senders or install an authorized license with sufficient client capacity, then retry one controlled sender test."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11044 does not recur and that licensing processing continues.",
+      "success_verification": "Send one identifiable test from the intended sender and confirm that it is accepted exactly once without Event ID 11044.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -11095,20 +11107,20 @@
       "event_id": 11186,
       "severity": "error",
       "event_source": "AdisconWinSyslog",
-      "title": "Service configuration: trial period expired",
-      "component": "Service configuration",
-      "message_pattern": "Servicemanager. Additional detail: {event_detail}",
-      "meaning": "Service configuration: trial period expired. The product recorded this while processing service configuration; the appended event detail identifies the affected object, operation, or provider error.",
+      "title": "The trial expired and the service was disabled",
+      "component": "Licensing",
+      "message_pattern": "ServiceManager. Trial expired. The service is disabled and the existing configuration remains intact. Additional detail: {event_detail}",
+      "meaning": "The evaluation period ended without a valid license, and this product does not permit continued free operation. The product keeps the configuration but does not start its input services.",
       "likely_causes": [
-        "The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.",
-        "Windows returned the appended startup, shutdown, permission, timeout, or resource error."
+        "The evaluation period expired and no valid product license is installed.",
+        "The installed license is invalid for the running product or version."
       ],
       "immediate_checks": [
-        "Record the affected service or component, service account, state, dependencies, and complete runtime detail.",
-        "Check recent Service Control Manager and neighboring product events for the first failure.",
-        "Correct the specific dependency, account, permission, or resource condition and perform one controlled retry."
+        "Confirm the exact product, version, and displayed license state without copying license data.",
+        "Install the authorized license for this product and version; do not edit signed license content.",
+        "Start the service and verify that its configured inputs load and process one controlled test."
       ],
-      "success_verification": "Repeat or monitor the affected operation and confirm that Event ID 11186 does not recur and that service configuration processing continues.",
+      "success_verification": "Confirm that the Windows service remains running, at least one configured input starts, and Event ID 11186 does not recur.",
       "evidence_to_collect": [
         "The complete Windows Application Event Log entry, including all event detail.",
         "The product name, exact version, service account, and event timestamp with time zone.",
@@ -11123,9 +11135,9 @@
       ],
       "procedures": [
         {
-          "id": "config.validate-and-reload",
-          "title": "Validate configuration and reload it safely",
-          "url": "https://www.winsyslog.com/files/manual/current/winsyslogspecific/event-id-reference/procedure/config-validate-and-reload.html"
+          "id": "license.verify-license-state",
+          "title": "Verify product license and feature entitlement state",
+          "url": "https://www.winsyslog.com/files/manual/current/winsyslogspecific/event-id-reference/procedure/license-verify-license-state.html"
         },
         {
           "id": "evidence.collect-event-and-neighboring-events",

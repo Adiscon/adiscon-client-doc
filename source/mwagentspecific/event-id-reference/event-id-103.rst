@@ -16,7 +16,7 @@ MonitorWare Agent Event ID 103: The service control handler could not be install
 Answer
 ------
 
-Windows cannot deliver normal service control requests to the process.
+The service process could not register its control handler with Windows and terminates startup before normal service controls can be processed.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** :spelling:ignore:`The service control handler could not be installed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The control handler could not be installed.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- The executable was started outside the Service Control Manager instead of as the registered Windows service.
+- Windows rejected handler registration because the service process or registration state is invalid.
+- A Windows service-control failure occurred during very early startup.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Start the product through Windows Services or Start-Service, not by launching the service executable interactively.
+#. Check neighboring Service Control Manager events and the registered executable path.
+#. Repair the product installation if the service registration points to the wrong executable, then perform one controlled start.
 
 Detailed procedures
 -------------------
@@ -51,7 +52,7 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 103 does not recur and that windows service lifecycle processing continues.
+Confirm that Windows reports the service as Running and that normal stop and start controls work without Event ID 103.
 
 Evidence to collect
 -------------------

@@ -31,15 +31,15 @@ Event details
 Possible causes
 ---------------
 
-- The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.
-- Windows or a required provider returned the operation-specific error appended to the event.
+- The installed key is invalid, altered, or not issued for this WinSyslog product and version.
+- License material was copied incompletely or placed in the wrong product configuration.
 
 Immediate checks
 ----------------
 
-#. Identify the exact service, rule, filter, action, or setting named by the complete event detail.
-#. Compare that object with the product reference and preserve the first related error in the same time window.
-#. Correct only the identified setting or dependency, then run one controlled test.
+#. Confirm the running WinSyslog version and displayed license status without copying or editing the key.
+#. Replace the rejected material with the authorized license issued for this product and version.
+#. Start WinSyslog once and verify the reported license mode.
 
 Detailed procedures
 -------------------
@@ -51,7 +51,7 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 900 does not recur and that licensing processing continues.
+Confirm that WinSyslog reaches Running, reports the intended licensed mode, and does not emit Event ID 900 during startup.
 
 Evidence to collect
 -------------------

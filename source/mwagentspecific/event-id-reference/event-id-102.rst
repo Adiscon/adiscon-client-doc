@@ -16,7 +16,7 @@ MonitorWare Agent Event ID 102: The service could not be removed
 Answer
 ------
 
-The Windows service remains registered.
+Windows rejected the request to delete the product service registration, so the service remains registered. This legacy event does not include the Windows error code.
 
 Event details
 -------------
@@ -26,20 +26,21 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** :spelling:ignore:`The service could not be removed. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The {service_name} service could not be removed.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- The account performing removal lacks permission to delete the service.
+- The service or another process still holds a Service Control Manager handle and Windows has marked it for deletion.
+- The service name or registration state changed during removal.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. Record the event timestamp and inspect neighboring Service Control Manager and installer events for the underlying Windows error.
+#. Confirm the current service registration and whether Windows already marked the service for deletion.
+#. Close management tools that hold service handles, use an authorized administrator account, and retry the intended uninstall once.
 
 Detailed procedures
 -------------------
@@ -51,7 +52,7 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 102 does not recur and that windows service lifecycle processing continues.
+Confirm that the service registration is absent after the authorized removal and that Event ID 102 does not recur.
 
 Evidence to collect
 -------------------
