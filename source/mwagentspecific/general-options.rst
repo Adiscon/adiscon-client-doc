@@ -134,9 +134,28 @@ Protect Service against shutdown
   nProtectAgainstShutdown
 
 **Description**
-  When enabled, the Agent will not stop processing the internal queue when it
-  is stopped.
-  **Please note that it will remain in the stopping state then.**
+  When enabled, the service stops inputs first and drains the internal queue
+  and retryable action work before it exits. The timeout setting below controls
+  whether this protected shutdown is unlimited or has an overall deadline.
+
+
+Shutdown protection timeout
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**File Configuration field:**
+  nShutdownProtectionTimeout
+
+**Description**
+  This value applies only when ``nProtectAgainstShutdown`` is enabled and is
+  expressed in milliseconds. The default value, zero (0), keeps the protected
+  shutdown cooperative and unlimited. A positive value sets one overall
+  deadline beginning with the stop request; individual shutdown phases do not
+  receive new time budgets.
+
+  When the deadline expires, the service exits to honor the configured upper
+  bound. Messages that are only in memory or have not yet been transferred to
+  durable action storage can be lost. Ring-buffer recovery remains at-least-
+  once, so completed records after an incomplete gap can be replayed.
 
 
 Log Warnings into the Windows Application Eventlog
