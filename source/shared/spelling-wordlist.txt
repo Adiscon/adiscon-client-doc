@@ -1320,6 +1320,7 @@ nPropertiesTable
 nPropertyMsgSep
 nPropertyMsgSepReset
 nProtectAgainstShutdown
+nShutdownProtectionTimeout
 nProtocolType
 nQueueLimit
 nRFC
