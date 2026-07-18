@@ -40,27 +40,27 @@ Configuration Client > the service, rule, or action named on the Event ID page.
 Procedure
 ---------
 
-#. Export the configuration and open the exact service, rule, filter, or action named in the event.
+#. Export the pre-change configuration, then open only the exact service, ruleset, filter, or action named in the event.
 
-   **Expected result:** The affected object and its effective settings are identified.
+   **Expected result:** The event detail and Configuration Client identify the same object and a readable pre-change export exists.
 
-   **If it fails:** Return to the complete Event Log detail and configuration export before changing settings.
+   **If it fails:** Do not infer the object from its type alone; collect the complete event and configuration export first.
 
-#. Run the native Windows checks below from the affected product host.
+#. Verify the backup metadata, then check required references, product availability, paths, addresses, ports, and credentials for that object only.
 
    .. code-block:: powershell
 
       Get-Item -LiteralPath '<CONFIG_EXPORT>' | Format-List FullName,Length,LastWriteTime
 
-   **Expected result:** A readable pre-change backup exists and all required fields reference valid product objects.
+   **Expected result:** Every required reference resolves to an existing object and every selected feature is available in this product and edition.
 
-   **If it fails:** Restore the export if the edited configuration cannot load; do not copy objects from another product manual.
+   **If it fails:** Restore the export if the edited configuration cannot load; do not copy unsupported objects from another product or edition.
 
-#. Perform one uniquely identifiable product test through the same service, rule, or action.
+#. Save the smallest correction, reload the configuration using the Configuration Client's normal apply path, and run one identifiable test through the edited object.
 
    **Expected result:** The intended destination records the test exactly once.
 
-   **If it fails:** Collect the first new product event and bounded debug output; do not change unrelated settings.
+   **If it fails:** Restore the pre-change export if loading fails, then collect the first new product event and bounded debug output without changing unrelated objects.
 
 Rollback
 --------
@@ -71,7 +71,7 @@ Rollback
 Verify the result
 -----------------
 
-Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.
+Confirm that the corrected object loads, the intended destination records one identifiable test, and neighboring rules and services continue normally.
 
 Evidence to collect
 -------------------
@@ -107,7 +107,6 @@ Related Event IDs
 - :ref:`EventReporter Event ID 11183 <eventreporter-event-id-11183>`
 - :ref:`EventReporter Event ID 11184 <eventreporter-event-id-11184>`
 - :ref:`EventReporter Event ID 11185 <eventreporter-event-id-11185>`
-- :ref:`EventReporter Event ID 11186 <eventreporter-event-id-11186>`
 - :ref:`EventReporter Event ID 11187 <eventreporter-event-id-11187>`
 - :ref:`EventReporter Event ID 11189 <eventreporter-event-id-11189>`
 - :ref:`EventReporter Event ID 11191 <eventreporter-event-id-11191>`

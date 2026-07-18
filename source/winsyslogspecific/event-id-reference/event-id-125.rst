@@ -31,15 +31,15 @@ Event details
 Possible causes
 ---------------
 
-- The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.
-- Windows or a required provider returned the operation-specific error appended to the event.
+- The WinSyslog trial expired and the installed version permits continued operation in Free Edition mode.
+- No registered WinSyslog license is active, so Free Edition limits apply.
 
 Immediate checks
 ----------------
 
-#. Identify the exact service, rule, filter, action, or setting named by the complete event detail.
-#. Compare that object with the product reference and preserve the first related error in the same time window.
-#. Correct only the identified setting or dependency, then run one controlled test.
+#. No repair is required when Free Edition mode is intended.
+#. Review the active Free Edition limits before relying on additional senders or licensed features.
+#. If registered operation is intended, install the authorized WinSyslog license and restart the service.
 
 Detailed procedures
 -------------------
@@ -51,7 +51,7 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 125 does not recur and that licensing processing continues.
+Confirm that WinSyslog reports the intended Free Edition or registered mode and processes one event within that edition's limits.
 
 Evidence to collect
 -------------------

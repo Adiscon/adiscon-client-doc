@@ -42,36 +42,37 @@ Procedure
 
 #. Record product version, displayed license status, edition, and feature named in the event without copying the license payload.
 
-   **Expected result:** The affected object and its effective settings are identified.
+   **Expected result:** The running product, version, edition, license mode, and required feature or client allowance are known without exposing license material.
 
-   **If it fails:** Return to the complete Event Log detail and configuration export before changing settings.
+   **If it fails:** Do not copy the license file or key; record only the product UI's status and non-secret version information.
 
-#. Run the native Windows checks below from the affected product host.
+#. Verify the running executable's product and version, then compare the displayed entitlement with the module or client allowance named by the event.
 
    .. code-block:: powershell
 
       Get-Item -LiteralPath '<PRODUCT_EXECUTABLE>' | Select-Object -ExpandProperty VersionInfo | Format-List ProductName,ProductVersion,FileVersion
 
-   **Expected result:** The signed license targets the running product/version and includes the configured feature.
+   **Expected result:** The authorized license targets the running product and version and includes the required feature or sufficient client capacity.
 
-   **If it fails:** Install the authorized license or disable unsupported configuration; never edit signed data.
+   **If it fails:** Install authorized replacement license material or disable the unsupported configuration; never edit signed data.
 
-#. Perform one uniquely identifiable product test through the same service, rule, or action.
+#. Restart or reload only as required by the license installation, then test the previously denied module or intended sender once.
 
-   **Expected result:** The intended destination records the test exactly once.
+   **Expected result:** The service remains Running and the intended module or sender processes the test exactly once without a license-denial event.
 
-   **If it fails:** Collect the first new product event and bounded debug output; do not change unrelated settings.
+   **If it fails:** Record the new license-status and denial events without sharing license data; do not repeatedly reinstall or alter the license.
 
 Verify the result
 -----------------
 
-Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.
+Confirm the intended license mode in the product UI and prove the previously denied module or sender works once without exposing license material.
 
 Evidence to collect
 -------------------
 
 - The complete Event Log entry and neighboring product events with timestamps.
-- The command output, relevant configuration export, and bounded debug log from the same interval.
+- Product name, executable version, displayed edition or license mode, and the non-secret feature or client allowance involved.
+- A redacted configuration export showing only the affected object; never collect license files, keys, signed payloads, activation data, or customer identifiers.
 
 Related Event IDs
 -----------------
@@ -81,3 +82,4 @@ Related Event IDs
 - :ref:`EventReporter Event ID 11005 <eventreporter-event-id-11005>`
 - :ref:`EventReporter Event ID 11043 <eventreporter-event-id-11043>`
 - :ref:`EventReporter Event ID 11044 <eventreporter-event-id-11044>`
+- :ref:`EventReporter Event ID 11186 <eventreporter-event-id-11186>`

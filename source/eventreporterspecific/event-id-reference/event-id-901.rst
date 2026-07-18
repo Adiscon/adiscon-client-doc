@@ -31,15 +31,15 @@ Event details
 Possible causes
 ---------------
 
-- The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.
-- Windows or a required provider returned the operation-specific error appended to the event.
+- The installed key is on the product's blocked-key list and cannot authorize startup.
+- License material intended for a different or superseded installation is still configured.
 
 Immediate checks
 ----------------
 
-#. Identify the exact service, rule, filter, action, or setting named by the complete event detail.
-#. Compare that object with the product reference and preserve the first related error in the same time window.
-#. Correct only the identified setting or dependency, then run one controlled test.
+#. Do not modify or repeatedly re-enter the blocked key.
+#. Confirm the exact product and version, then obtain and install authorized replacement license material.
+#. Start the service once and verify the reported license mode.
 
 Detailed procedures
 -------------------
@@ -51,7 +51,7 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 901 does not recur and that licensing processing continues.
+Confirm that the service reaches Running, reports the intended licensed mode, and does not emit Event ID 901 during startup.
 
 Evidence to collect
 -------------------
