@@ -3682,6 +3682,58 @@
       ],
       "review_status": "reviewed"
     },
+    "action.shutdown.persistence_failed": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "file.verify-path-permissions-and-disk-space",
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "infosource.relp.shutdown_wake_fallback": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "infosource.snmp.shutdown_wake_fallback": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "network.verify-listener-binding-and-firewall",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
+    "queue.shutdown.enqueue_rejected": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "service.reload.shutdown_incomplete": {
+      "disposition": "escalation_only",
+      "procedure_ids": [
+        "runtime.collect-escalation-evidence"
+      ],
+      "review_status": "reviewed"
+    },
+    "service.shutdown.deadline_expired": {
+      "disposition": "self_service",
+      "procedure_ids": [
+        "service.verify-state-and-account",
+        "queue.diagnose-backlog-and-disk-queue",
+        "evidence.collect-event-and-neighboring-events",
+        "evidence.export-configuration-and-debug-log"
+      ],
+      "review_status": "reviewed"
+    },
     "legacy.himalaya_logrotationsubsystem_cpp_consumed_queue_deletefail_1491": {
       "disposition": "self_service",
       "procedure_ids": [

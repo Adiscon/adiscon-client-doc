@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "catalog_status": "ready",
-  "source_commit": "7b77bacbd5b91724bebfed41e923a0348270250f",
+  "source_commit": "b1d024ddc253bc74690a0d2af326e9015b3772e2",
   "products": {
     "eventreporter": {
       "name": "EventReporter",
@@ -11393,6 +11393,267 @@
         "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_600",
         "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_610",
         "legacy.himalaya_logrotationsubsystem_cpp_reportwarning_anymsg_624"
+      ]
+    },
+    {
+      "id": "service.shutdown.deadline_expired",
+      "event_id": 11223,
+      "kind": "structured",
+      "severity": "error",
+      "message_pattern": "The protected service shutdown deadline expired; the process will exit without destroying live worker owners. Additional detail: {event_detail}",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "event_sources": {
+        "eventreporter": "Adiscon EvntSLog",
+        "winsyslog": "AdisconWinSyslog",
+        "mwagent": "AdisconMonitoreWareAgent",
+        "rsyslog-client": "RSyslogWindowsAgent"
+      },
+      "title": "Protected service shutdown deadline expired",
+      "component": "Service shutdown",
+      "meaning": "Cooperative shutdown did not reach a safe terminal boundary before the configured process-wide deadline.",
+      "likely_causes": [
+        "A source, action callback, queue worker, or log rotation operation exceeded its cancellation or persistence allowance."
+      ],
+      "troubleshooting_steps": [
+        "Review the event detail for the blocking phase and queue counts.",
+        "Correct the blocked component or configure a larger shutdown protection timeout."
+      ],
+      "success_verification": "Stop the service again and confirm that Event ID 11223 does not recur and the process exits within the configured bound.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry and adjacent shutdown events.",
+        "The product version, shutdown configuration, debug log, and queue or ring-buffer configuration."
+      ],
+      "resolution_type": "self_service",
+      "introduced_in": {
+        "eventreporter": "26.08",
+        "winsyslog": "26.08",
+        "mwagent": "26.08",
+        "rsyslog-client": "26.08"
+      },
+      "related_ids": [
+        "service.reload.shutdown_incomplete",
+        "queue.shutdown.enqueue_rejected"
+      ]
+    },
+    {
+      "id": "service.reload.shutdown_incomplete",
+      "event_id": 11224,
+      "kind": "structured",
+      "severity": "error",
+      "message_pattern": "Configuration reload was stopped because the old runtime did not shut down completely; restart the process. Additional detail: {event_detail}",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "event_sources": {
+        "eventreporter": "Adiscon EvntSLog",
+        "winsyslog": "AdisconWinSyslog",
+        "mwagent": "AdisconMonitoreWareAgent",
+        "rsyslog-client": "RSyslogWindowsAgent"
+      },
+      "title": "Configuration reload shutdown incomplete",
+      "component": "Service shutdown",
+      "meaning": "The old runtime could not stop safely, so replacement configuration was not initialized.",
+      "likely_causes": [
+        "A source, action callback, queue worker, or persistence operation did not complete within the configured allowance."
+      ],
+      "troubleshooting_steps": [
+        "Restart the service process.",
+        "Review the event detail for the blocking phase before attempting another reload."
+      ],
+      "success_verification": "Perform one configuration reload and confirm that Event ID 11224 does not recur and the new configuration starts.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry and adjacent reload events.",
+        "The product version, configuration export, and debug log covering the reload."
+      ],
+      "resolution_type": "escalate",
+      "introduced_in": {
+        "eventreporter": "26.08",
+        "winsyslog": "26.08",
+        "mwagent": "26.08",
+        "rsyslog-client": "26.08"
+      },
+      "related_ids": [
+        "service.shutdown.deadline_expired"
+      ]
+    },
+    {
+      "id": "infosource.relp.shutdown_wake_fallback",
+      "event_id": 11225,
+      "kind": "structured",
+      "severity": "warning",
+      "message_pattern": "The RELP listener loopback wake failed; shutdown is using the bounded external-library fallback. Additional detail: {event_detail}",
+      "products": [
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "event_sources": {
+        "winsyslog": "AdisconWinSyslog",
+        "mwagent": "AdisconMonitoreWareAgent",
+        "rsyslog-client": "RSyslogWindowsAgent"
+      },
+      "title": "RELP listener shutdown wake fallback",
+      "component": "RELP listener",
+      "meaning": "The immediate local wake could not be delivered, so shutdown uses the bounded listener fallback.",
+      "likely_causes": [
+        "Local socket creation or loopback connection failed because of resource pressure or address-family configuration."
+      ],
+      "troubleshooting_steps": [
+        "Check local socket resource usage and the configured RELP listener address and port."
+      ],
+      "success_verification": "Stop an idle RELP listener and confirm that Event ID 11225 does not recur and shutdown completes promptly.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry.",
+        "The RELP listener address family, bind address, port, and debug log."
+      ],
+      "resolution_type": "self_service",
+      "introduced_in": {
+        "winsyslog": "26.08",
+        "mwagent": "26.08",
+        "rsyslog-client": "26.08"
+      },
+      "related_ids": [
+        "service.shutdown.deadline_expired"
+      ]
+    },
+    {
+      "id": "infosource.snmp.shutdown_wake_fallback",
+      "event_id": 11226,
+      "kind": "structured",
+      "severity": "warning",
+      "message_pattern": "The SNMP listener wake descriptor is unavailable; shutdown is using the bounded select fallback. Additional detail: {event_detail}",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "event_sources": {
+        "eventreporter": "Adiscon EvntSLog",
+        "winsyslog": "AdisconWinSyslog",
+        "mwagent": "AdisconMonitoreWareAgent",
+        "rsyslog-client": "RSyslogWindowsAgent"
+      },
+      "title": "SNMP listener shutdown wake fallback",
+      "component": "SNMP trap listener",
+      "meaning": "The local wake descriptor could not be used, so shutdown uses a bounded receive wait.",
+      "likely_causes": [
+        "Local UDP socket setup or send failed, or the descriptor set reached its capacity."
+      ],
+      "troubleshooting_steps": [
+        "Check local socket resource usage and descriptor pressure, then restart the service."
+      ],
+      "success_verification": "Stop an idle SNMP trap listener and confirm that Event ID 11226 does not recur and shutdown completes promptly.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry.",
+        "The SNMP listener configuration and debug log covering shutdown."
+      ],
+      "resolution_type": "self_service",
+      "introduced_in": {
+        "eventreporter": "26.08",
+        "winsyslog": "26.08",
+        "mwagent": "26.08",
+        "rsyslog-client": "26.08"
+      },
+      "related_ids": [
+        "service.shutdown.deadline_expired"
+      ]
+    },
+    {
+      "id": "queue.shutdown.enqueue_rejected",
+      "event_id": 11227,
+      "kind": "structured",
+      "severity": "warning",
+      "message_pattern": "The main queue rejected an event because shutdown intake is closed. Additional detail: {event_detail}",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "event_sources": {
+        "eventreporter": "Adiscon EvntSLog",
+        "winsyslog": "AdisconWinSyslog",
+        "mwagent": "AdisconMonitoreWareAgent",
+        "rsyslog-client": "RSyslogWindowsAgent"
+      },
+      "title": "Event rejected after shutdown intake closed",
+      "component": "Main message queue",
+      "meaning": "A producer submitted an event after all producer owners were expected to have stopped and queue intake had closed.",
+      "likely_causes": [
+        "A producer callback or child worker remained active beyond its documented join boundary."
+      ],
+      "troubleshooting_steps": [
+        "Identify the source active at shutdown and verify that its callbacks and child workers join before owner completion."
+      ],
+      "success_verification": "Repeat the stop or reload and confirm that Event ID 11227 does not recur.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry.",
+        "The source inventory, debug log, and queue drain snapshot."
+      ],
+      "resolution_type": "escalate",
+      "introduced_in": {
+        "eventreporter": "26.08",
+        "winsyslog": "26.08",
+        "mwagent": "26.08",
+        "rsyslog-client": "26.08"
+      },
+      "related_ids": [
+        "service.shutdown.deadline_expired",
+        "service.reload.shutdown_incomplete"
+      ]
+    },
+    {
+      "id": "action.shutdown.persistence_failed",
+      "event_id": 11228,
+      "kind": "structured",
+      "severity": "error",
+      "message_pattern": "An action disk queue could not be flushed during shutdown; retryable work may be lost. Additional detail: {event_detail}",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "event_sources": {
+        "eventreporter": "Adiscon EvntSLog",
+        "winsyslog": "AdisconWinSyslog",
+        "mwagent": "AdisconMonitoreWareAgent",
+        "rsyslog-client": "RSyslogWindowsAgent"
+      },
+      "title": "Action disk queue flush failed during shutdown",
+      "component": "Action persistence",
+      "meaning": "The runtime could not force the affected retry queue data to stable storage at the shutdown boundary.",
+      "likely_causes": [
+        "The disk is full or unavailable, the queue path is inaccessible, or the storage device returned an I/O error."
+      ],
+      "troubleshooting_steps": [
+        "Check free space, storage health, queue-directory permissions, and the Windows system log.",
+        "Preserve the queue files before restarting if recovery is required."
+      ],
+      "success_verification": "Stop the service again and confirm that Event ID 11228 does not recur and the action queue remains recoverable.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry.",
+        "The action queue path, storage free space, permissions, and debug log."
+      ],
+      "resolution_type": "self_service",
+      "introduced_in": {
+        "eventreporter": "26.08",
+        "winsyslog": "26.08",
+        "mwagent": "26.08",
+        "rsyslog-client": "26.08"
+      },
+      "related_ids": [
+        "service.shutdown.deadline_expired",
+        "service.reload.shutdown_incomplete"
       ]
     }
   ]

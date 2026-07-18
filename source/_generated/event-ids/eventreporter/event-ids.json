@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "catalog_status": "ready",
-  "source_commit": "7b77bacbd5b91724bebfed41e923a0348270250f",
+  "source_commit": "b1d024ddc253bc74690a0d2af326e9015b3772e2",
   "product": "eventreporter",
   "product_name": "EventReporter",
   "product_version": "26.07",
