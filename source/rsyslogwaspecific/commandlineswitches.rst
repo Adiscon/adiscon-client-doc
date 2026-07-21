@@ -24,6 +24,27 @@ stop working.
 
 The ``-v`` switch gives you information about the version of the service.
 
+Direct foreground configuration
+-------------------------------
+
+Foreground runs can use an ephemeral configuration without installing a
+service or creating a service ``Parameters`` key:
+
+- ``-r -fileconfig <path> [-datadir <path>]``
+- ``-r -accessmode file -fileconfig <path> [-datadir <path>]``
+- ``-r -accessmode registry [-regpath <path>]``
+
+Direct options take precedence for that foreground process only. File mode
+requires ``-fileconfig``; ``-datadir`` cannot be used alone or with explicit
+registry mode, and ``-regpath`` is available only with explicit registry mode.
+The existing ``-i`` installation configuration remains persistent and
+unchanged.
+
+The first direct foreground run registers the canonical Windows Event Log
+provider using the executable message file. This does not create a service.
+Provider creation or an update can require one elevated first run; the command
+reports that requirement before startup.
+
 **Custom service name examples:**
 
 - ``rsyslogd.exe -i CustomServiceName``
