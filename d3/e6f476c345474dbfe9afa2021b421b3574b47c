@@ -1,0 +1,25 @@
+source/eventreporterspecific/commandlineswitches.rst
+  s_429184e27ad6cb::t_34b2c9ba897dfd 26-46
+source/winsyslogspecific/commandlineswitches.rst
+  s_429184e27ad6cb::t_34b2c9ba897dfd 26-46
+source/rsyslogwaspecific/commandlineswitches.rst
+  s_429184e27ad6cb::t_34b2c9ba897dfd 27-47
+source/shared/references/commandlineswitches.rst
+  s_429184e27ad6cb::t_34b2c9ba897dfd 35-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "d3e6f476c345474dbfe9afa2021b421b3574b47c",
+  "prompts": {},
+  "sessions": {
+    "s_429184e27ad6cb": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8307-706d-7092-8dc1-133e345b1d59",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
