@@ -1,0 +1,126 @@
+source/shared/spelling-wordlist.txt
+  s_aa5e81a409cea0::t_a07c8ab390c30c 454,1347,1733-1734,1736
+  s_aa5e81a409cea0::t_0728a031353206 1933-1936
+  s_aa5e81a409cea0::t_80bb4dedadbb8a 1937-1939
+  s_276f4a92629fab::t_90162408cd4f8c 455
+source/mwagentspecific/actions.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 53
+source/mwagentspecific/tutorial-enter-license-information.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 21-23
+source/winsyslogspecific/actions.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 54
+source/mwagentspecific/license-options.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 56-60,70-72
+source/shared/partials/shutdown-protection-timeout.rst
+  s_276f4a92629fab::t_1b6871ac2be2b4 4-5
+  s_276f4a92629fab::t_b8da111e41d2e2 1-3
+  s_276f4a92629fab::t_5e15688679f221 6-8
+  s_276f4a92629fab::t_704afa6a6f3dba 19
+source/winsyslogspecific/general-options.rst
+  s_276f4a92629fab::t_0e9417d9e9597b 122-123
+  s_72c8b58c01f4ab::t_0f1cdab115d3ba 121
+AGENTS.md
+  s_49b371a50fe46b::t_d14121da56b9ac 385-408
+source/shared/faq/unsupported-configuration-blocks.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 23-30
+source/mwagentspecific/eventlogmonitorv1.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 105-112,520-522
+  s_72c8b58c01f4ab::t_77f01282943bbd 523-529
+  s_276f4a92629fab::t_a51a21dedd4105 102-104,517-518
+  s_72c8b58c01f4ab::t_5af78d8e5a578f 519
+source/mwagentspecific/general-options.rst
+  s_aa5e81a409cea0::t_86c260a37935d5 143-144
+  s_aa5e81a409cea0::t_405e37a3d5d5eb 142
+source/shared/faq/metrics-http-listener.rst
+  s_276f4a92629fab::t_29bcd43e765285 20-21
+  s_276f4a92629fab::t_6f3c50742b97ef 17-19
+  s_276f4a92629fab::t_50113765997fab 22-24
+source/mwagentspecific/usingfilebasedconfiguration.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 185
+source/mwagentspecific/a-messageringbuffer.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 1-8,12-17,23-72,77-78,80-84,87
+  s_276f4a92629fab::t_d1f12cd511ec9b 9-11
+  s_276f4a92629fab::t_31a5a93f16bf03 18-22
+  s_aa5e81a409cea0::t_913e2f157dbc5e 79
+  s_276f4a92629fab::t_8a60c5fd233865 85-86
+  s_276f4a92629fab::t_0cc735212401d7 88-90
+  s_276f4a92629fab::t_19a6a27dd4d076 73-74
+  s_9d8e2ed0b41ff7::t_061aa84146a475 75-76,91-92
+source/eventreporterspecific/actions.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 50
+source/winsyslogspecific/general-options-j.rst
+  s_276f4a92629fab::t_9ed50f2ec896d4 122-123
+  s_72c8b58c01f4ab::t_6466c260857190 121
+source/rsyslogwaspecific/actions.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 31
+eventreporter/conf.py
+  s_276f4a92629fab::t_8874f6e0a64923 161-163
+rsyslog/conf.py
+  s_1f292187b0e28a::t_c6dfa065d63c95 165-166
+source/mwagentspecific/filemonitor.rst
+  s_72c8b58c01f4ab::t_bc0f5acd36fbdb 110-113,119-130,132,142-143,145-147
+source/shared/conf.py
+  s_72c8b58c01f4ab::t_48e35dd31deae0 23
+winsyslog-j/conf.py
+  s_1f292187b0e28a::t_173f42d2594e70 173-174
+winsyslog/conf.py
+  s_1f292187b0e28a::t_4b67d43f403a12 175-176
+syslogviewer/conf.py
+  s_276f4a92629fab::t_2597c0083e65e5 164-165
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "05e2d95908d9c8fa01b52d25c2225c2a7d899ba0",
+  "prompts": {},
+  "sessions": {
+    "s_1f292187b0e28a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fad83-3683-7b62-96f5-73f55eb5c143",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_276f4a92629fab": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "15a7807d-c8ac-417f-8c92-8aed0fe895a0",
+        "model": "default"
+      },
+      "human_author": null
+    },
+    "s_49b371a50fe46b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fac5d-6ac8-71f0-b45d-b802f1d58d16",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_72c8b58c01f4ab": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4c59-edc7-74f3-962d-bdd9f47ff571",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_9d8e2ed0b41ff7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa733-a843-7fe0-96ea-037725f299dd",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_aa5e81a409cea0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa8bf-c123-7f32-99ea-06a506b167ac",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
