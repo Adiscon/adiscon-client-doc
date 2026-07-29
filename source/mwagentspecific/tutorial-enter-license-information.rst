@@ -18,10 +18,9 @@ Steps
 
 1. Open the MonitorWare Agent Configuration Client.
 2. Select **General** -> **License**.
-3. Open the **License File** tab.
-4. Browse for ``license.alic``, drag-and-drop the file, or paste the file path.
-5. Save and apply the configuration.
-6. Restart the MonitorWare Agent service if required in your environment.
+3. Browse for ``license.alic``, drag-and-drop the file, or paste the file path.
+4. Save and apply the configuration.
+5. Restart the MonitorWare Agent service if required in your environment.
 
 Verification
 ------------

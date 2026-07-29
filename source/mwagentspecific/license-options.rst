@@ -53,6 +53,11 @@ Use this page to apply ``license.alic``.
   file path. The license is validated and applied when you save the
   configuration.
 
+  Current configuration clients use the license file path only. They do not
+  read or save legacy registration-name or numeric license-key configuration
+  values. Update an existing configuration to use ``szLicenseV2Path`` and a
+  ``license.alic`` file.
+
   The main window status bar shows license status (for example, the licensed
   organization). A version mismatch between the license file and the installed
   service may show a warning banner until you apply a matching license.
@@ -62,3 +67,6 @@ Verify License
 
 Use this control to verify that the configured license is valid before or after
 you save.
+
+If a newly issued file reports that it is not active yet, wait until the
+activation time shown by the client and then verify it again.

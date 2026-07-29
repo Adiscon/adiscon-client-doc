@@ -382,7 +382,30 @@ Before making any changes:
    - Changes to files in `/source/` affect multiple documentation sets
    - Each product must build cleanly: eventreporter, mwagent, rsyslog, syslogviewer, winsyslog, winsyslog-j
 
-### 4.9a Local Working Notes for Structural Cleanup
+### 4.9a Legacy client screenshot captures
+
+- Use only a real, installed configuration client. Create a temporary action or
+  service only in unsaved UI state; never use Save, Apply, Start, Stop, or
+  Restart. When the client asks whether to keep temporary changes, choose the
+  discard/no-save option.
+- The legacy clients may run elevated. Run the supported `winapp ui` helper at
+  the same Windows integrity level. If it reports an integrity-level mismatch
+  or cannot click the client, stop and report that blocker; do not try a
+  different automation method or restart a service.
+- Inspect the live accessibility tree immediately before interacting. In the
+  WinForms MDI client, capture the focused child form with
+  `winapp ui screenshot frmConfig --app mwclient --capture-screen --output <png>`.
+  The normal element capture can show the MDI background instead of the child
+  form.
+- Use neutral sample values and capture only the focused form. Exclude the
+  status bar, red licensing/version warnings, licence details, user names,
+  host names, and machine-specific paths. Inspect every PNG at full size before
+  adding it under `source/images/`.
+- Reuse an existing image only when it accurately shows the current UI. Add a
+  concise alt text and caption near the documented setting, then inspect the
+  rendered HTML as part of the required full validation.
+
+### 4.9b Local Working Notes for Structural Cleanup
 
 - When a task changes documentation structure, migration rules, or reusable
   cleanup patterns, also update the local helper notes if they exist:

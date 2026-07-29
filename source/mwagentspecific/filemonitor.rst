@@ -107,17 +107,29 @@ TimeMode used for Filename
 
 
 
-Allow Directories or read multiple files (Needs Wildcard in Filename)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Allow Directories or Read Multiple Files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This capability is available starting with **26.08**.
 
 **File Configuration field:**
   nMultipleFiles
 
 **Description:**
-  This is the new Multiple Files feature which means you can now read an array
-  of files. This will require a wildcard in the filename. If using directories,
-  the amount of subdirectories is unlimited.
+  This option reads a set of matching files. It supports wildcards in directory
+  names and in the filename. For example, ``C:\\logs\\tenant*\\app\\*.log`` and
+  ``C:\\logs\\foo*\\bar*\\*.log`` first expand matching directories, then apply
+  the filename pattern inside them. Each matching file keeps separate read
+  state.
 
+  Use this option for multiple files or wildcard directories. Directory matches
+  are recursive only; similarly named files are not treated as directories.
+
+.. image:: ../images/filemonitor-multiple-files.png
+   :width: 100%
+   :alt: File Monitor configured for multiple files and filename wildcards
+
+*File Monitor configured for multiple files and filename wildcards.*
 
 
 Use wildcards in Filename
@@ -127,9 +139,12 @@ Use wildcards in Filename
   nUseWildcard
 
 **Description:**
-  This option allows you use ``*`` as random character sequence in the filename.
+  This option allows you use ``*`` as a random character sequence in the
+  filename for a single-file configuration.
 
-  **Please note:** this character can only be used in Filename and not in the file path.
+  **Please note:** with this single-file option, wildcards are limited to the
+  filename, not the file path. To use wildcard directories, enable
+  **Allow Directories or Read Multiple Files** instead.
 
 
 

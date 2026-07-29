@@ -303,6 +303,7 @@ Mailserver
 MariaDB
 McAfee
 MessageID
+Metrics
 Microsoft-Windows-Security-Auditing
 Microsystems
 mitigations
@@ -451,6 +452,8 @@ RuleSet
 RuleSets
 Rulebase
 Rulebases
+Ringbuffer
+ringbuffer
 Ruleset
 S-1-5-11-222222222-333333333-4444444444-5555
 SAN
@@ -1295,6 +1298,8 @@ nMaxValueLength
 nMessageFormatType
 nMessageMode
 nMessagePriority
+nMetricsEnable
+nMetricsHttpEnable
 nMultipleFiles
 nNNTPPort
 nNbrOfRetries
@@ -1342,6 +1347,7 @@ nResolveLongMibNames
 nResolveMibNamesShort
 nResolveNames
 nRetryInterval
+nRingBufferMaxMessages
 nRingBufferSize
 nRoundRobinMsgCount
 nRtsControl
@@ -1358,6 +1364,7 @@ nSendExpect
 nSendMode
 nSendRecvTimeOut
 nSendTimeOut
+nShutdownProtectionTimeout
 nSkipLinesEnabled
 nSleepTime
 nSnmpVersion
@@ -1727,7 +1734,10 @@ szReferer
 szRemoteHost
 szRequestType
 szResource
+szRingBufferAllowedClientCertificateThumbprints
+szRingBufferAllowedWindowsPrincipals
 szRingBufferFile
+szRingBufferId
 szRuleSet
 szRuleSetName
 szRulebase
@@ -1796,6 +1806,7 @@ tour-powerfulleventprocessing
 tour-powerfulleventprocessing-er
 tour-powerfulleventprocessing-ws
 tp-server
+transactional
 treeview
 type-ahead
 u-
@@ -1890,6 +1901,7 @@ hypervisors
 replacers
 szLicenseV
 szLicenseV2Path
+szMessageTemplate
 szMethod
 szOpenSearchIndex
 szOpenSearchOperation
@@ -1913,6 +1925,7 @@ callruleset
 dtls
 enablement
 imap
+interoperable
 lifecycle
 microsoft
 nntp

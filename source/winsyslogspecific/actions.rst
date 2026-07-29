@@ -51,6 +51,7 @@ Internal processing actions
    ../mwagentspecific/a-normalizeevent
    ../mwagentspecific/a-postprocessevent
    ../mwagentspecific/a-resolvehostname
+   ../mwagentspecific/a-messageringbuffer
    ../mwagentspecific/a-setproperty
    ../mwagentspecific/a-setstatus
 

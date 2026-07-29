@@ -47,6 +47,7 @@ Internal actions
    ../mwagentspecific/a-computestatusvariable
    ../mwagentspecific/a-discard
    ../mwagentspecific/a-resolvehostname
+   ../mwagentspecific/a-messageringbuffer
    ../mwagentspecific/a-setproperty
    ../mwagentspecific/a-setstatus
 

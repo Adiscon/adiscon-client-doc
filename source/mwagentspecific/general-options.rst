@@ -139,6 +139,9 @@ Protect Service against shutdown
   **Please note that it will remain in the stopping state then.**
 
 
+.. include:: ../shared/partials/shutdown-protection-timeout.rst
+
+
 Log Warnings into the Windows Application Eventlog
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
