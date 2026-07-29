@@ -33,6 +33,21 @@ the same issue does not return in later cleanup passes.
 - Do not edit generated troubleshooting pages under
   `source/shared/troubleshooting/event-id/`. Edit the docs-owned procedure
   registry and regenerate.
+- When a shared Event ID procedure serves operations with different intended
+  terminal states, branch its repair and verification by the originating
+  event. Do not assume a startup test after service removal or a denial path
+  for a status-only event.
+- When a native Windows diagnostic may require elevation or a dependent
+  service may be unavailable, state the non-blocking fallback, preserve the
+  query error, and identify any resulting evidence as unverified.
+- For multi-host investigations, direct clock checks on every involved host;
+  do not imply that the affected host's clock proves sender or destination
+  time synchronization.
+- Redact secrets from support evidence, but preserve the host and configuration
+  object identifiers needed to correlate the affected systems and settings.
+- For a permitted-senders refusal, prefer adding or reordering an authorized
+  sender within the active allowance. Do not recommend disabling the sender
+  restriction as a generic repair.
 - Do not publish an Event ID appendix when either the imported Himalaya catalog
   or the procedure catalog is still `draft`. Both review gates are mandatory.
 - Do not expose internal diagnostic keys, source paths, enum names, or C++

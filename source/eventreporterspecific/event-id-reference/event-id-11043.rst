@@ -16,7 +16,7 @@ EventReporter Event ID 11043: A sender connection was refused by the permitted-s
 Answer
 ------
 
-The product refused the sender identified in the event because the configured permitted-senders limit had already been reached.
+The product refused the sender identified in the event because the permitted-senders configuration has no available entry, does not include that sender, or no longer matches the intended sender inventory.
 
 Event details
 -------------
@@ -45,7 +45,7 @@ Immediate checks
 Detailed procedures
 -------------------
 
-- :ref:`Verify product license and feature entitlement state <event-id-procedure-license-verify-license-state>` — Confirm product, version, validity, edition, and required feature without exposing license data.
+- :ref:`Repair the permitted-senders configuration <event-id-procedure-license-repair-permitted-senders-configuration>` — Authorize an intended sender without weakening the sender restriction.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 

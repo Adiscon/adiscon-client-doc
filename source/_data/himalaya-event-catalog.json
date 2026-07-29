@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "catalog_status": "ready",
-  "source_commit": "b1d024ddc253bc74690a0d2af326e9015b3772e2",
+  "source_commit": "6303266429db09363d7bd37e35db26ebff443b90",
   "products": {
     "eventreporter": {
       "name": "EventReporter",
@@ -2732,7 +2732,7 @@
       },
       "title": "A sender connection was refused by the permitted-senders limit",
       "component": "Client connection licensing",
-      "meaning": "The product refused the sender identified in the event because the configured permitted-senders limit had already been reached.",
+      "meaning": "The product refused the sender identified in the event because the permitted-senders configuration has no available entry, does not include that sender, or no longer matches the intended sender inventory.",
       "likely_causes": [
         "Permitted Senders is enabled and the configured number of sender entries is already in use.",
         "The connecting sender is not one of the currently permitted senders.",
@@ -11655,6 +11655,51 @@
         "service.shutdown.deadline_expired",
         "service.reload.shutdown_incomplete"
       ]
+    },
+    {
+      "id": "action.ringbuffer.not_registered",
+      "event_id": 11229,
+      "kind": "structured",
+      "severity": "error",
+      "message_pattern": "A Message Ringbuffer action could not store messages because its buffer is not registered. Additional detail: {event_detail}",
+      "products": [
+        "eventreporter",
+        "winsyslog",
+        "mwagent",
+        "rsyslog-client"
+      ],
+      "event_sources": {
+        "eventreporter": "Adiscon EvntSLog",
+        "winsyslog": "AdisconWinSyslog",
+        "mwagent": "AdisconMonitoreWareAgent",
+        "rsyslog-client": "RSyslogWindowsAgent"
+      },
+      "title": "Message Ringbuffer action is not registered",
+      "component": "Message Ringbuffer action",
+      "meaning": "The action could not retain processed messages because no named buffer is registered for its configured id.",
+      "likely_causes": [
+        "szRingBufferId is empty, invalid, or reserved (diagnostics).",
+        "The service configuration was loaded before the process-wide ringbuffer registry was available.",
+        "The Message Ringbuffer action is disabled or not present in the running configuration."
+      ],
+      "troubleshooting_steps": [
+        "Confirm szRingBufferId is set to a URL-safe id of 1..64 characters and is not diagnostics.",
+        "Save the configuration and restart or reload the service.",
+        "Query GET v1/ringbuffers on the metrics listener and confirm the configured id is listed."
+      ],
+      "success_verification": "Process a message through the action and confirm Event ID 11229 does not recur and the Metrics ringbuffer endpoints return the retained message.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry.",
+        "The action configuration including szRingBufferId, and a Metrics v1/ringbuffers response."
+      ],
+      "resolution_type": "self_service",
+      "introduced_in": {
+        "eventreporter": "26.08",
+        "winsyslog": "26.08",
+        "mwagent": "26.08",
+        "rsyslog-client": "26.08"
+      },
+      "related_ids": []
     }
   ]
 }

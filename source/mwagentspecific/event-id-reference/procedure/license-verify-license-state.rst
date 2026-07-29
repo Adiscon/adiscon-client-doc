@@ -13,7 +13,7 @@ Verify product license and feature entitlement state
 When to use this procedure
 --------------------------
 
-Use for trial, license validation, edition, and feature-denied events.
+Use for trial or registered-status, license-validation, edition, and feature-denied events.
 
 Applies to
 ----------
@@ -46,26 +46,26 @@ Procedure
 
    **If it fails:** Do not copy the license file or key; record only the product UI's status and non-secret version information.
 
-#. Verify the running executable's product and version, then compare the displayed entitlement with the module or client allowance named by the event.
+#. Verify the running executable's product and version, then compare the displayed entitlement with the state identified by the event. For a denial event, also compare the named module, feature, or client allowance.
 
    .. code-block:: powershell
 
       Get-Item -LiteralPath '<PRODUCT_EXECUTABLE>' | Select-Object -ExpandProperty VersionInfo | Format-List ProductName,ProductVersion,FileVersion
 
-   **Expected result:** The authorized license targets the running product and version and includes the required feature or sufficient client capacity.
+   **Expected result:** For a denial event, the authorized license targets the running product and version and includes the required feature or sufficient client capacity. For a status reminder, the displayed state matches the intended product and edition.
 
-   **If it fails:** Install authorized replacement license material or disable the unsupported configuration; never edit signed data.
+   **If it fails:** For a denial event, install authorized replacement license material or disable the unsupported configuration. For an unexpected status reminder, record the non-secret product version and displayed state before seeking license assistance; never edit signed data.
 
-#. Restart or reload only as required by the license installation, then test the previously denied module or intended sender once.
+#. For a denial event after changing license material, restart or reload only as required, then test the previously denied module or intended sender once. For a status reminder, do not change licensing; confirm the displayed state and that the service continues normally.
 
-   **Expected result:** The service remains Running and the intended module or sender processes the test exactly once without a license-denial event.
+   **Expected result:** For a denial event, the service remains Running and the intended module or sender processes the test exactly once without a license-denial event. For a status reminder, the displayed license state is expected and the service remains Running.
 
    **If it fails:** Record the new license-status and denial events without sharing license data; do not repeatedly reinstall or alter the license.
 
 Verify the result
 -----------------
 
-Confirm the intended license mode in the product UI and prove the previously denied module or sender works once without exposing license material.
+For a denial event, confirm the intended license mode in the product UI and prove the previously denied module or sender works once without exposing license material. For a status reminder, confirm that the displayed license mode and service state are expected.
 
 Evidence to collect
 -------------------
@@ -79,6 +79,5 @@ Related Event IDs
 
 - :ref:`MonitorWare Agent Event ID 118 <mwagent-event-id-118>`
 - :ref:`MonitorWare Agent Event ID 11005 <mwagent-event-id-11005>`
-- :ref:`MonitorWare Agent Event ID 11043 <mwagent-event-id-11043>`
 - :ref:`MonitorWare Agent Event ID 11044 <mwagent-event-id-11044>`
 - :ref:`MonitorWare Agent Event ID 11186 <mwagent-event-id-11186>`

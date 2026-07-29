@@ -13,7 +13,7 @@ Verify service state, dependencies, and service account
 When to use this procedure
 --------------------------
 
-Use for service startup, shutdown, permission, and monitoring events.
+Use for service startup, shutdown, removal, permission, and monitoring events.
 
 Applies to
 ----------
@@ -60,16 +60,16 @@ Procedure
 
    **If it fails:** Use the first Service Control Manager error to distinguish a dependency, account-logon, path, timeout, or process-termination failure.
 
-#. After correcting the specific startup condition, start the service once and perform one identifiable product test.
+#. After correcting the condition, repeat the requested lifecycle operation once. For startup events, start the service and perform one identifiable product test; for removal events, retry the intended removal and do not restart the service.
 
-   **Expected result:** The service remains Running, at least one configured input is active, and the intended destination records the test exactly once.
+   **Expected result:** For startup events, the service remains Running, at least one configured input is active, and the intended destination records the test exactly once. For removal events, the service registration is absent after the authorized removal. For other lifecycle events, only the requested state changes.
 
-   **If it fails:** Stop retrying and collect the first new product and Service Control Manager errors from that start attempt.
+   **If it fails:** Stop retrying and collect the first new product and Service Control Manager errors from the attempted operation.
 
 Verify the result
 -----------------
 
-Confirm that the service remains Running and that one configured input processes an identifiable event through its intended destination.
+Confirm the requested lifecycle state: Running after startup, Stopped after shutdown, and registration absent after removal. Perform an identifiable product test only when the service is expected to run.
 
 Evidence to collect
 -------------------

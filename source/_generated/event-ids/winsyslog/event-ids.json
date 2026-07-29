@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "catalog_status": "ready",
-  "source_commit": "b1d024ddc253bc74690a0d2af326e9015b3772e2",
+  "source_commit": "6303266429db09363d7bd37e35db26ebff443b90",
   "product": "winsyslog",
   "product_name": "WinSyslog",
   "product_version": "26.07",
@@ -29,16 +29,23 @@
           "failure": "Export the original event as an EVTX file before copying text or changing filters."
         },
         {
-          "instruction": "Record the host clock state, then collect only the product events in a bounded window around the event.",
+          "instruction": "For every host involved in the affected flow, including the affected product host, sender, and destination, use an elevated PowerShell session when available to record that host's clock state.",
           "commands": [
             "Get-Date -Format o",
-            "w32tm /query /status",
+            "w32tm /query /status"
+          ],
+          "expected": "Each involved host has a recorded local timestamp and either clock-status output or the recorded query error. If elevation is unavailable or the time service cannot be queried, treat that host's clock synchronization as unverified.",
+          "failure": "If the Windows Time status command returns access denied or the time service is unavailable, do not change time settings or services. Record Get-Date output and the query error, request clock status from an authorized administrator if correlation is required, and continue with the affected-host event capture."
+        },
+        {
+          "instruction": "On the affected product host, collect only the product events in a bounded window around the event.",
+          "commands": [
             "$start=(Get-Date '<EVENT_TIME>').AddMinutes(-5)",
             "$end=(Get-Date '<EVENT_TIME>').AddMinutes(5)",
             "Get-WinEvent -FilterHashtable @{LogName='Application';StartTime=$start;EndTime=$end} | Where-Object ProviderName -eq '<EVENT_SOURCE>' | Format-List TimeCreated,Id,LevelDisplayName,Message"
           ],
-          "expected": "The clock output is recorded and the event sequence contains the first failure plus any later state or recovery event.",
-          "failure": "Verify the provider shown on the Event ID page. Expand the window only enough to include the first related event."
+          "expected": "The event sequence contains the first failure plus any later state or recovery event.",
+          "failure": "Verify the provider shown on the Event ID page and expand the window only enough to include the first related event."
         },
         {
           "instruction": "After diagnosis, perform one uniquely identifiable product test through the same input, rule, and action, and record its sender and destination timestamps.",
@@ -52,8 +59,8 @@
       "verification": "Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.",
       "evidence_to_collect": [
         "The original EVTX record plus the complete rendered event and neighboring product events with timestamps.",
-        "Clock-status output from every involved host and the sender and destination timestamps for the identifiable test.",
-        "The relevant configuration export and bounded debug log from the same interval, with credentials, license data, private keys, addresses, hostnames, and environment-specific object names removed."
+        "Clock-status output or the recorded query error from every involved host, plus the sender and destination timestamps for the identifiable test.",
+        "The relevant configuration export and bounded debug log from the same interval, with credentials, license data, private keys, addresses, and other secrets removed. Preserve hostnames and configuration object names needed to identify the affected systems and settings."
       ],
       "optional_tools": [],
       "related_procedures": []
@@ -305,6 +312,59 @@
       "optional_tools": [],
       "related_procedures": [
         "evidence.collect-event-and-neighboring-events"
+      ]
+    },
+    {
+      "id": "license.repair-permitted-senders-configuration",
+      "title": "Repair the permitted-senders configuration",
+      "summary": "Authorize an intended sender without weakening the sender restriction.",
+      "url": "https://www.winsyslog.com/files/manual/current/winsyslogspecific/event-id-reference/procedure/license-repair-permitted-senders-configuration.html",
+      "when_to_use": "Use for Event ID 11043 when a sender should be permitted but is absent from, or outside the active range of, the permitted-senders configuration.",
+      "prerequisites": [
+        "Use an account that can read and update the affected product configuration.",
+        "Replace angle-bracket placeholders with values from the affected system."
+      ],
+      "safety": [
+        "Do not disable permitted-senders protection solely to accept a sender.",
+        "Do not publish sender addresses or a full configuration export."
+      ],
+      "steps": [
+        {
+          "instruction": "Record whether permitted senders is enabled, the configured sender count, and the position of each intended sender without recording sender addresses.",
+          "commands": [],
+          "expected": "The intended sender and the active permitted-sender positions are known.",
+          "failure": "Collect a redacted configuration summary and the complete Event ID 11043 detail before changing the sender list."
+        },
+        {
+          "instruction": "Compare the intended sender inventory with the configured count and active entry order.",
+          "commands": [],
+          "expected": "Each required sender is present within the active permitted-sender range.",
+          "failure": "Remove or replace an entry only when it is confirmed obsolete; do not disable permitted-senders protection."
+        },
+        {
+          "instruction": "If the rejected sender is intended and capacity is available, add it to, or move it into, the active permitted-sender range. If the required inventory exceeds the configured or licensed allowance, obtain the authorized capacity before retrying.",
+          "commands": [],
+          "expected": "The intended sender is authorized without admitting unapproved senders.",
+          "failure": "Do not broaden network access as a workaround. Record the non-secret configured count and license allowance, then follow the approved capacity process."
+        },
+        {
+          "instruction": "Apply the configuration as required by the product, then send one uniquely identifiable test from the intended sender.",
+          "commands": [],
+          "expected": "The product accepts the test exactly once and Event ID 11043 does not recur.",
+          "failure": "Restore the previous sender order if the change was unintended, then collect the new Event ID 11043 detail and a redacted configuration summary."
+        }
+      ],
+      "repair_steps": [],
+      "rollback_steps": [],
+      "verification": "Confirm that every required sender remains authorized, unapproved senders remain refused, and the intended sender completes one test without Event ID 11043.",
+      "evidence_to_collect": [
+        "The complete Event ID 11043 entry and neighboring product events with timestamps.",
+        "A redacted list of sender positions, configured count, and intended-sender status; do not collect sender addresses.",
+        "The product version and non-secret license allowance when the intended inventory exceeds the configured count."
+      ],
+      "optional_tools": [],
+      "related_procedures": [
+        "license.verify-license-state"
       ]
     },
     {
@@ -959,7 +1019,7 @@
       "title": "Verify product license and feature entitlement state",
       "summary": "Confirm product, version, validity, edition, and required feature without exposing license data.",
       "url": "https://www.winsyslog.com/files/manual/current/winsyslogspecific/event-id-reference/procedure/license-verify-license-state.html",
-      "when_to_use": "Use for trial, license validation, edition, and feature-denied events.",
+      "when_to_use": "Use for trial or registered-status, license-validation, edition, and feature-denied events.",
       "prerequisites": [
         "Use an account that can read the product configuration and Windows diagnostic state.",
         "Replace angle-bracket placeholders with values from the affected system."
@@ -976,23 +1036,23 @@
           "failure": "Do not copy the license file or key; record only the product UI's status and non-secret version information."
         },
         {
-          "instruction": "Verify the running executable's product and version, then compare the displayed entitlement with the module or client allowance named by the event.",
+          "instruction": "Verify the running executable's product and version, then compare the displayed entitlement with the state identified by the event. For a denial event, also compare the named module, feature, or client allowance.",
           "commands": [
             "Get-Item -LiteralPath '<PRODUCT_EXECUTABLE>' | Select-Object -ExpandProperty VersionInfo | Format-List ProductName,ProductVersion,FileVersion"
           ],
-          "expected": "The authorized license targets the running product and version and includes the required feature or sufficient client capacity.",
-          "failure": "Install authorized replacement license material or disable the unsupported configuration; never edit signed data."
+          "expected": "For a denial event, the authorized license targets the running product and version and includes the required feature or sufficient client capacity. For a status reminder, the displayed state matches the intended product and edition.",
+          "failure": "For a denial event, install authorized replacement license material or disable the unsupported configuration. For an unexpected status reminder, record the non-secret product version and displayed state before seeking license assistance; never edit signed data."
         },
         {
-          "instruction": "Restart or reload only as required by the license installation, then test the previously denied module or intended sender once.",
+          "instruction": "For a denial event after changing license material, restart or reload only as required, then test the previously denied module or intended sender once. For a status reminder, do not change licensing; confirm the displayed state and that the service continues normally.",
           "commands": [],
-          "expected": "The service remains Running and the intended module or sender processes the test exactly once without a license-denial event.",
+          "expected": "For a denial event, the service remains Running and the intended module or sender processes the test exactly once without a license-denial event. For a status reminder, the displayed license state is expected and the service remains Running.",
           "failure": "Record the new license-status and denial events without sharing license data; do not repeatedly reinstall or alter the license."
         }
       ],
       "repair_steps": [],
       "rollback_steps": [],
-      "verification": "Confirm the intended license mode in the product UI and prove the previously denied module or sender works once without exposing license material.",
+      "verification": "For a denial event, confirm the intended license mode in the product UI and prove the previously denied module or sender works once without exposing license material. For a status reminder, confirm that the displayed license mode and service state are expected.",
       "evidence_to_collect": [
         "The complete Event Log entry and neighboring product events with timestamps.",
         "Product name, executable version, displayed edition or license mode, and the non-secret feature or client allowance involved.",
@@ -1055,7 +1115,7 @@
       "title": "Verify service state, dependencies, and service account",
       "summary": "Confirm service state, start mode, dependencies, account, and SCM errors.",
       "url": "https://www.winsyslog.com/files/manual/current/winsyslogspecific/event-id-reference/procedure/service-verify-state-and-account.html",
-      "when_to_use": "Use for service startup, shutdown, permission, and monitoring events.",
+      "when_to_use": "Use for service startup, shutdown, removal, permission, and monitoring events.",
       "prerequisites": [
         "Use an account that can read the product configuration and Windows diagnostic state.",
         "Replace angle-bracket placeholders with values from the affected system."
@@ -1084,15 +1144,15 @@
           "failure": "Use the first Service Control Manager error to distinguish a dependency, account-logon, path, timeout, or process-termination failure."
         },
         {
-          "instruction": "After correcting the specific startup condition, start the service once and perform one identifiable product test.",
+          "instruction": "After correcting the condition, repeat the requested lifecycle operation once. For startup events, start the service and perform one identifiable product test; for removal events, retry the intended removal and do not restart the service.",
           "commands": [],
-          "expected": "The service remains Running, at least one configured input is active, and the intended destination records the test exactly once.",
-          "failure": "Stop retrying and collect the first new product and Service Control Manager errors from that start attempt."
+          "expected": "For startup events, the service remains Running, at least one configured input is active, and the intended destination records the test exactly once. For removal events, the service registration is absent after the authorized removal. For other lifecycle events, only the requested state changes.",
+          "failure": "Stop retrying and collect the first new product and Service Control Manager errors from the attempted operation."
         }
       ],
       "repair_steps": [],
       "rollback_steps": [],
-      "verification": "Confirm that the service remains Running and that one configured input processes an identifiable event through its intended destination.",
+      "verification": "Confirm the requested lifecycle state: Running after startup, Stopped after shutdown, and registration absent after removal. Perform an identifiable product test only when the service is expected to run.",
       "evidence_to_collect": [
         "The complete Event Log entry and neighboring product events with timestamps.",
         "The command output, relevant configuration export, and bounded debug log from the same interval."
@@ -4064,7 +4124,7 @@
       "title": "A sender connection was refused by the permitted-senders limit",
       "component": "Client connection licensing",
       "message_pattern": "Connection refused. Additional detail: {event_detail}",
-      "meaning": "The product refused the sender identified in the event because the configured permitted-senders limit had already been reached.",
+      "meaning": "The product refused the sender identified in the event because the permitted-senders configuration has no available entry, does not include that sender, or no longer matches the intended sender inventory.",
       "likely_causes": [
         "Permitted Senders is enabled and the configured number of sender entries is already in use.",
         "The connecting sender is not one of the currently permitted senders.",
@@ -4090,9 +4150,9 @@
       ],
       "procedures": [
         {
-          "id": "license.verify-license-state",
-          "title": "Verify product license and feature entitlement state",
-          "url": "https://www.winsyslog.com/files/manual/current/winsyslogspecific/event-id-reference/procedure/license-verify-license-state.html"
+          "id": "license.repair-permitted-senders-configuration",
+          "title": "Repair the permitted-senders configuration",
+          "url": "https://www.winsyslog.com/files/manual/current/winsyslogspecific/event-id-reference/procedure/license-repair-permitted-senders-configuration.html"
         },
         {
           "id": "evidence.collect-event-and-neighboring-events",
