@@ -1,15 +1,11 @@
-source/shared/references/commandlineswitches.rst
-  s_276f4a92629fab::t_a1c43673f51cd1 38-39
-  s_429184e27ad6cb::t_34b2c9ba897dfd 35-37,40-58
-source/eventreporterspecific/commandlineswitches.rst
-  s_276f4a92629fab::t_b733da33709743 29-30
-  s_429184e27ad6cb::t_34b2c9ba897dfd 26-28,31-48
-source/rsyslogwaspecific/commandlineswitches.rst
-  s_429184e27ad6cb::t_34b2c9ba897dfd 27-29,32-49
-  s_276f4a92629fab::t_cac2280c90d198 30-31
 source/winsyslogspecific/commandlineswitches.rst
-  s_429184e27ad6cb::t_34b2c9ba897dfd 26-28,31-48
-  s_276f4a92629fab::t_8afaa35cb3d812 29-30
+  s_429184e27ad6cb::t_34b2c9ba897dfd 26-48
+source/eventreporterspecific/commandlineswitches.rst
+  s_429184e27ad6cb::t_34b2c9ba897dfd 26-48
+source/shared/references/commandlineswitches.rst
+  s_429184e27ad6cb::t_34b2c9ba897dfd 35-58
+source/rsyslogwaspecific/commandlineswitches.rst
+  s_429184e27ad6cb::t_34b2c9ba897dfd 27-49
 ---
 {
   "schema_version": "authorship/3.0.0",
@@ -17,14 +13,6 @@ source/winsyslogspecific/commandlineswitches.rst
   "base_commit_sha": "88ca20eeacfe830a18d00a789bd16734ca136edf",
   "prompts": {},
   "sessions": {
-    "s_276f4a92629fab": {
-      "agent_id": {
-        "tool": "cursor",
-        "id": "15a7807d-c8ac-417f-8c92-8aed0fe895a0",
-        "model": "grok-4.5"
-      },
-      "human_author": null
-    },
     "s_429184e27ad6cb": {
       "agent_id": {
         "tool": "codex",
