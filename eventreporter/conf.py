@@ -158,7 +158,9 @@ exclude_patterns = ['index.mwagent.rst','index.rsyslog.rst','index.winsyslog.rst
     'shared/references/editioncomparison.rst',
     'shared/references/icmpcodes.rst',
     'shared/references/mwagentshortcutkeys.rst',
-    'shared/references/registrypaths.rst'
+    'shared/references/registrypaths.rst',
+    'shared/partials/installation-overview.rst',
+    'shared/partials/shutdown-protection-timeout.rst'
 ]
 
 # The name of the Pygments (syntax highlighting) style to use.

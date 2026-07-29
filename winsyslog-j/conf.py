@@ -170,7 +170,8 @@ exclude_patterns = ['articles/index-mwagent.rst','articles/include-event-id-in-s
    'shared/references/mwagentshortcutkeys.rst',
    'shared/supporting-labels.rst',
    'shared/faq-supporting-labels.rst',
-   'shared/partials/installation-overview.rst'
+   'shared/partials/installation-overview.rst',
+   'shared/partials/shutdown-protection-timeout.rst'
 ]
 
 # The name of the Pygments (syntax highlighting) style to use.

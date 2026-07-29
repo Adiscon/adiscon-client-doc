@@ -50,6 +50,7 @@ internal actions
    a-normalizeevent
    a-postprocessevent
    a-resolvehostname
+   a-messageringbuffer
    a-setproperty
    a-setstatus
 

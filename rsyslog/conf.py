@@ -162,7 +162,8 @@ exclude_patterns = ['index.eventreporter.rst','index.mwagent.rst','index.winsysl
     'shared/references/registrypaths.rst',
     'shared/supporting-labels.rst',
     'shared/faq-supporting-labels.rst',
-    'shared/partials/installation-overview.rst'
+    'shared/partials/installation-overview.rst',
+    'shared/partials/shutdown-protection-timeout.rst'
 ]
 
 # The name of the Pygments (syntax highlighting) style to use.

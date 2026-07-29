@@ -161,6 +161,8 @@ _raw_exclude_patterns = [
     'monitorwareconcepts.rst','mwagent/*.rst','index.winsyslog-j.rst',
     'faq/*.rst','mwagentspecific/faq/*.rst',
     'shared/faq/palo-alto-log-format-change.rst',
+    'shared/partials/installation-overview.rst',
+    'shared/partials/shutdown-protection-timeout.rst',
     'eventreporterspecific/event-id-reference/**',
     'mwagentspecific/event-id-reference/**',
     'rsyslogwaspecific/event-id-reference/**',

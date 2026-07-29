@@ -28,5 +28,6 @@ Internal actions
    ../mwagentspecific/a-discard
    ../mwagentspecific/a-normalizeevent
    ../mwagentspecific/a-resolvehostname
+   ../mwagentspecific/a-messageringbuffer
    ../mwagentspecific/a-setproperty
    ../mwagentspecific/a-setstatus

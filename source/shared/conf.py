@@ -20,6 +20,7 @@ exclude_patterns = [
     "Thumbs.db",
     ".DS_Store",
     "gettingstarted/monitorwareagenttutorial.rst",
+    "partials/shutdown-protection-timeout.rst",
 ]
 
 # The shared library frequently references documents that live in the

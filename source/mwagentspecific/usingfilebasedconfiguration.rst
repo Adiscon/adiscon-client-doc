@@ -182,6 +182,7 @@ Using File based configuration
    1029 = Normalize Event
    1030 = Syslog Queue
    1032 = HTTP REST Output
+   1033 = Message Ringbuffer
 
 
 

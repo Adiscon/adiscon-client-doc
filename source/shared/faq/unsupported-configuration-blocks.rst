@@ -20,9 +20,14 @@ understand. Saving the configuration may remove those unsupported sections.
 Details
 -------
 
-Newer service or file formats can introduce configuration blocks (for example
-``general(name="Metrics")``) that an older configuration client cannot edit.
-The client loads what it supports and displays a one-time warning.
+Newer service or file formats can introduce configuration blocks that a
+configuration client cannot edit. The client loads what it supports and
+displays a one-time warning.
+
+Current configuration clients preserve an existing ``general(name="Metrics")``
+block when they load and save CFG, YAML, or registry configuration. They do not
+provide a Metrics editor. Other unknown blocks can still be skipped and may be
+lost when the configuration is saved.
 
 If you save without upgrading the client, unsupported blocks may be dropped from
 the saved file.

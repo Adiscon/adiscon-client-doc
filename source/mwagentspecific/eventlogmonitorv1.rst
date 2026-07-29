@@ -99,6 +99,17 @@ Preferred language
   and message libs are available with the preferred language. If this fails, it
   will automatically fall back to the system default language.
 
+  **System Default** is available as an explicit selection starting with
+  **26.08**.
+
+  **System Default** is a valid selection and is stored as ``0``.
+
+.. image:: ../images/eventlogmonitorv1-preferred-language.png
+   :width: 100%
+   :alt: Event Log Monitor V1 preferred language
+
+*Event Log Monitor V1 preferred language.*
+
 
 
 Enable remote Event Log monitoring
@@ -502,6 +513,19 @@ Last Record
   Windows Event Log records are numbered serially, starting at one. The service
   records the last record processed. This textbox allows you to override this
   value.
+
+  Automatic refresh of the persisted bookmark values when you open this service
+  property window is available starting with **26.08**.
+
+  When you open this service property window, the configuration client refreshes
+  the persisted bookmark values from the service. It does not replace unsaved
+  edits in the open form.
+
+  .. image:: ../images/eventlogmonitorv1-bookmark.png
+     :width: 100%
+     :alt: Event Log Monitor V1 Last Record bookmark
+
+  *Event Log Monitor V1 Event Channels tab with the Last Record bookmark.*
 
   **Use it with caution!**
 
