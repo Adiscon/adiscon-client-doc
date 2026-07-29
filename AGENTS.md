@@ -362,7 +362,11 @@ Before making any changes:
    - **Note**: If your environment lacks `python`, run
      `make validate-rst PYTHON=python3`
 
-3. **Run spelling check**: `make spelling`
+3. **Run the CI-equivalent spelling check**:
+   `SPHINXOPTS="-W --keep-going" make spelling`
+   - This is the exact command used by the `Spelling check` GitHub Actions job.
+     Run it as a standalone gate; a successful HTML build does not run or
+     replace the spelling check.
    - Validates spelling across all documentation products
    - Flags unknown words that may need to be added to `source/shared/spelling-wordlist.txt`
    - For legitimate technical terms or product-specific words, add them to the wordlist rather than changing the content
