@@ -1,0 +1,81 @@
+source/mwagentspecific/tutorial-enter-license-information.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 21-23
+source/rsyslogwaspecific/actions.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 31
+source/shared/spelling-wordlist.txt
+  s_aa5e81a409cea0::t_a07c8ab390c30c 454,1346,1732-1733,1735
+  s_aa5e81a409cea0::t_0728a031353206 1932-1935
+source/mwagentspecific/filemonitor.rst
+  s_72c8b58c01f4ab::t_5a869bb958afee 144-145
+  s_aa5e81a409cea0::t_a56e7101f53cf4 110-111,117-121,123-130,140-141,143
+AGENTS.md
+  s_49b371a50fe46b::t_d14121da56b9ac 385-408
+source/winsyslogspecific/actions.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 54
+source/eventreporterspecific/actions.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 50
+source/mwagentspecific/eventlogmonitorv1.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 102-109,514-516
+  s_72c8b58c01f4ab::t_77f01282943bbd 517-523
+source/winsyslogspecific/general-options.rst
+  s_276f4a92629fab::t_0e9417d9e9597b 122-123
+source/shared/faq/unsupported-configuration-blocks.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 23-30
+source/mwagentspecific/general-options.rst
+  s_aa5e81a409cea0::t_86c260a37935d5 143-144
+source/mwagentspecific/a-messageringbuffer.rst
+  s_276f4a92629fab::t_31a5a93f16bf03 17,21
+  s_276f4a92629fab::t_0cc735212401d7 87-89
+  s_aa5e81a409cea0::t_a56e7101f53cf4 1-16,22-71,76-77,79-83,86
+  s_276f4a92629fab::t_19a6a27dd4d076 72-73
+  s_aa5e81a409cea0::t_913e2f157dbc5e 78
+  s_276f4a92629fab::t_8a60c5fd233865 84-85
+source/mwagentspecific/usingfilebasedconfiguration.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 185
+source/mwagentspecific/actions.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 53
+source/mwagentspecific/license-options.rst
+  s_aa5e81a409cea0::t_a56e7101f53cf4 56-60,70-72
+source/winsyslogspecific/general-options-j.rst
+  s_276f4a92629fab::t_9ed50f2ec896d4 122-123
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "f1e30b11f23e1525068928f0d3a0fba655e61e55",
+  "prompts": {},
+  "sessions": {
+    "s_276f4a92629fab": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "15a7807d-c8ac-417f-8c92-8aed0fe895a0",
+        "model": "default"
+      },
+      "human_author": null
+    },
+    "s_49b371a50fe46b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fac5d-6ac8-71f0-b45d-b802f1d58d16",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_72c8b58c01f4ab": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4c59-edc7-74f3-962d-bdd9f47ff571",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_aa5e81a409cea0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa8bf-c123-7f32-99ea-06a506b167ac",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
