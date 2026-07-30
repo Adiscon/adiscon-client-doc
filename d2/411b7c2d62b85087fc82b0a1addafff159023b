@@ -1,0 +1,112 @@
+source/winsyslogspecific/event-id-reference/procedure/license-verify-license-state.rst
+  s_b27dd5c420a3d9::t_06203f1e494e44 16,49,55,57,59,61,68
+source/_generated/event-ids/rsyslog-client/event-ids.json
+  s_b27dd5c420a3d9::t_7e67d460fbf398 4,3976
+  s_b27dd5c420a3d9::t_492bd4d112ae41 32,40,55
+  s_b27dd5c420a3d9::t_5d75b61c20443e 310
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 1015,1032,1036-1037,1040,1042,1048,1111,1140,1142-1143,1148
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 41,311-362,4002-4004
+AGENT_ANTIPATTERNS.md
+  s_b27dd5c420a3d9::t_681724cc0d394d 36-39
+  s_b27dd5c420a3d9::t_7454d5094fdd72 43-45
+  s_b27dd5c420a3d9::t_e07068e64e44e2 40-42
+source/eventreporterspecific/event-id-reference/event-id-11043.rst
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 48
+  s_b27dd5c420a3d9::t_7e67d460fbf398 19
+source/winsyslogspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.rst
+  s_b27dd5c420a3d9::t_492bd4d112ae41 49,59,61,78
+source/rsyslogwaspecific/event-id-reference/procedure/license-repair-permitted-senders-configuration.rst
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 1-88
+source/rsyslogwaspecific/event-id-reference/event-id-11043.rst
+  s_b27dd5c420a3d9::t_7e67d460fbf398 19
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 48
+source/_generated/event-ids/winsyslog/event-ids.json
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 1015,1032,1036-1037,1040,1042,1048,1111,1140,1142-1143,1148
+  s_b27dd5c420a3d9::t_7e67d460fbf398 4,4120
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 41,311-362,4146-4148
+  s_b27dd5c420a3d9::t_2c097b0e55b9ef 310
+  s_b27dd5c420a3d9::t_492bd4d112ae41 32,40,55
+source/mwagentspecific/event-id-reference/procedure/service-verify-state-and-account.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,63,65,67,72
+source/mwagentspecific/event-id-reference/procedures.rst
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 18
+source/_generated/event-ids/eventreporter/event-ids.json
+  s_b27dd5c420a3d9::t_7e67d460fbf398 4,4024
+  s_b27dd5c420a3d9::t_63f8652325d670 310
+  s_b27dd5c420a3d9::t_492bd4d112ae41 32,40,55
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 41,311-362,4050-4052
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 1015,1032,1036-1037,1040,1042,1048,1111,1140,1142-1143,1148
+source/rsyslogwaspecific/event-id-reference/procedures.rst
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 18
+source/winsyslogspecific/event-id-reference/procedure/service-verify-state-and-account.rst
+  s_b27dd5c420a3d9::t_d7efea707c5a7d 16,63,65,67,72
+source/rsyslogwaspecific/event-id-reference/procedure/service-verify-state-and-account.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,63,65,67,72
+source/mwagentspecific/event-id-reference/event-id-11043.rst
+  s_b27dd5c420a3d9::t_7e67d460fbf398 19
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 48
+source/eventreporterspecific/event-id-reference/procedure/license-repair-permitted-senders-configuration.rst
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 1-88
+source/_generated/event-ids/mwagent/event-ids.json
+  s_b27dd5c420a3d9::t_7e67d460fbf398 4,3976
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 41,311-362,4002-4004
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 1015,1032,1036-1037,1040,1042,1048,1111,1140,1142-1143,1148
+  s_b27dd5c420a3d9::t_492bd4d112ae41 32,40,55
+  s_b27dd5c420a3d9::t_a0f07ab01cc4ed 310
+source/mwagentspecific/event-id-reference/procedure/license-verify-license-state.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,49,55,57,59,61,68
+source/_data/himalaya-event-catalog.json
+  s_b27dd5c420a3d9::t_1007194223973b 4,2735,11658-11702
+source/eventreporterspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.rst
+  s_b27dd5c420a3d9::t_492bd4d112ae41 49,59,78
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 61
+source/winsyslogspecific/event-id-reference/event-id-11043.rst
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 48
+  s_b27dd5c420a3d9::t_7e67d460fbf398 19
+source/eventreporterspecific/event-id-reference/procedure/service-verify-state-and-account.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,63,65,67,72
+source/eventreporterspecific/event-id-reference/procedure/license-verify-license-state.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,49,55,57,59,61,68
+source/winsyslogspecific/event-id-reference/procedures.rst
+  s_b27dd5c420a3d9::t_ced84e6e2ab1fb 18
+source/rsyslogwaspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.rst
+  s_b27dd5c420a3d9::t_492bd4d112ae41 49,59,78
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 61
+source/eventreporterspecific/event-id-reference/procedures.rst
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 18
+source/rsyslogwaspecific/event-id-reference/procedure/license-verify-license-state.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,49,55,57,59,61,68
+source/mwagentspecific/event-id-reference/procedure/license-repair-permitted-senders-configuration.rst
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 1-88
+source/mwagentspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.rst
+  s_b27dd5c420a3d9::t_b6e652c5be2d18 61
+  s_b27dd5c420a3d9::t_492bd4d112ae41 49,59,78
+source/_data/event-id-procedures.json
+  s_cfd7ecd92d1106::t_f42d1a5d04ecd9 39,47-48,62,203,238,240-241,246,1401,1424,1428-1429,1432,1434,1440,1449-1513,2110,3760-3768
+source/winsyslogspecific/event-id-reference/procedure/license-repair-permitted-senders-configuration.rst
+  s_b27dd5c420a3d9::t_a9d1b908c54e60 1-88
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "d2411b7c2d62b85087fc82b0a1addafff159023b",
+  "prompts": {},
+  "sessions": {
+    "s_b27dd5c420a3d9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fadd1-bc1b-7933-a89d-d7d2c4d2bd0d",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": null
+    },
+    "s_cfd7ecd92d1106": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fadce-ecea-7fa0-a00f-7775358312ec",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
