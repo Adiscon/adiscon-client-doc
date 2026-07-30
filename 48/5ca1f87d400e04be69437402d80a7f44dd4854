@@ -1,0 +1,80 @@
+source/_generated/event-ids/rsyslog-client/event-ids.json
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 962,979,983-984,987,989,995,1058,1087,1089-1090,1095
+  s_b27dd5c420a3d9::t_7e67d460fbf398 4,3923
+  s_b27dd5c420a3d9::t_492bd4d112ae41 32,40-41,55
+source/rsyslogwaspecific/event-id-reference/event-id-11043.rst
+  s_b27dd5c420a3d9::t_7e67d460fbf398 19
+source/mwagentspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.rst
+  s_b27dd5c420a3d9::t_492bd4d112ae41 49,59,61,78
+source/_data/himalaya-event-catalog.json
+  s_b27dd5c420a3d9::t_1007194223973b 4,2735,11658-11702
+source/mwagentspecific/event-id-reference/procedure/license-verify-license-state.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,49,55,57,59,61,68
+source/eventreporterspecific/event-id-reference/event-id-11043.rst
+  s_b27dd5c420a3d9::t_7e67d460fbf398 19
+source/_generated/event-ids/mwagent/event-ids.json
+  s_b27dd5c420a3d9::t_7e67d460fbf398 4,3923
+  s_b27dd5c420a3d9::t_492bd4d112ae41 32,40-41,55
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 962,979,983-984,987,989,995,1058,1087,1089-1090,1095
+source/_generated/event-ids/eventreporter/event-ids.json
+  s_b27dd5c420a3d9::t_7e67d460fbf398 4,3971
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 962,979,983-984,987,989,995,1058,1087,1089-1090,1095
+  s_b27dd5c420a3d9::t_492bd4d112ae41 32,40-41,55
+source/rsyslogwaspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.rst
+  s_b27dd5c420a3d9::t_492bd4d112ae41 49,59,61,78
+source/mwagentspecific/event-id-reference/event-id-11043.rst
+  s_b27dd5c420a3d9::t_7e67d460fbf398 19
+source/_generated/event-ids/winsyslog/event-ids.json
+  s_b27dd5c420a3d9::t_492bd4d112ae41 32,40-41,55
+  s_b27dd5c420a3d9::t_7e67d460fbf398 4,4067
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 962,979,983-984,987,989,995,1058,1087,1089-1090,1095
+source/rsyslogwaspecific/event-id-reference/procedure/license-verify-license-state.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,49,55,57,59,61,68
+source/mwagentspecific/event-id-reference/procedure/service-verify-state-and-account.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,63,65,67,72
+source/eventreporterspecific/event-id-reference/procedure/service-verify-state-and-account.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,63,65,67,72
+source/winsyslogspecific/event-id-reference/event-id-11043.rst
+  s_b27dd5c420a3d9::t_7e67d460fbf398 19
+source/eventreporterspecific/event-id-reference/procedure/license-verify-license-state.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,49,55,57,59,61,68
+source/eventreporterspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.rst
+  s_b27dd5c420a3d9::t_492bd4d112ae41 49,59,61,78
+source/winsyslogspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.rst
+  s_b27dd5c420a3d9::t_492bd4d112ae41 49,59,61,78
+source/rsyslogwaspecific/event-id-reference/procedure/service-verify-state-and-account.rst
+  s_b27dd5c420a3d9::t_2e72d0f8ea5f1c 16,63,65,67,72
+AGENT_ANTIPATTERNS.md
+  s_b27dd5c420a3d9::t_e07068e64e44e2 40-42
+  s_b27dd5c420a3d9::t_681724cc0d394d 36-39
+source/_data/event-id-procedures.json
+  s_cfd7ecd92d1106::t_196e62d5c61684 39,47-48,62,203,238,240-241,246,1401,1424,1428-1429,1432,1434,1440,3695-3703
+source/winsyslogspecific/event-id-reference/procedure/license-verify-license-state.rst
+  s_b27dd5c420a3d9::t_06203f1e494e44 16,49,55,57,59,61,68
+source/winsyslogspecific/event-id-reference/procedure/service-verify-state-and-account.rst
+  s_b27dd5c420a3d9::t_d7efea707c5a7d 16,63,65,67,72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "485ca1f87d400e04be69437402d80a7f44dd4854",
+  "prompts": {},
+  "sessions": {
+    "s_b27dd5c420a3d9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fadd1-bc1b-7933-a89d-d7d2c4d2bd0d",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": null
+    },
+    "s_cfd7ecd92d1106": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fadce-ecea-7fa0-a00f-7775358312ec",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
