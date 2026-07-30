@@ -49,15 +49,23 @@ def get_shared_templates_path() -> str:
 
 
 def enable_spelling_extension(extensions: List[str]) -> List[str]:
-    """Add spelling extension only when the package and Enchant C library are available."""
-    if "sphinxcontrib.spelling" in extensions:
-        return extensions
+    """Add spelling extension when available; always ensure spelling roles exist.
 
-    try:
-        import sphinxcontrib.spelling  # noqa: F401
-        extensions.append("sphinxcontrib.spelling")
-    except Exception:  # pragma: no cover - e.g. Enchant C library not installed
-        pass
+    ``:spelling:ignore:`` / ``:spelling:word:`` are used in event-id pages. If
+    ``sphinxcontrib.spelling`` cannot be imported (missing package or Enchant),
+    those roles are unknown and strict builds (``-W``) fail — including CHM.
+    Always append ``spelling_role_fallback`` last so a no-op domain is registered
+    when the real spelling extension is absent.
+    """
+    if "sphinxcontrib.spelling" not in extensions:
+        try:
+            import sphinxcontrib.spelling  # noqa: F401
+            extensions.append("sphinxcontrib.spelling")
+        except Exception:  # pragma: no cover - e.g. Enchant C library not installed
+            pass
+
+    if "spelling_role_fallback" not in extensions:
+        extensions.append("spelling_role_fallback")
 
     return extensions
 
