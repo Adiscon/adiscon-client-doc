@@ -26,20 +26,19 @@ Event details
 - **Component:** Windows service lifecycle
 - **Windows Event Log source:** ``AdisconWinSyslog``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** :spelling:ignore:`The service was stopped. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The service was stopped.`
 
 Possible causes
 ---------------
 
-- The product service, dependency, service account, or required Windows resource is unavailable or incorrectly configured.
-- Windows returned the appended startup, shutdown, permission, timeout, or resource error.
+- Windows, an administrator, an installer, or product shutdown logic requested an orderly stop.
 
 Immediate checks
 ----------------
 
-#. Record the affected service or component, service account, state, dependencies, and complete runtime detail.
-#. Check recent Service Control Manager and neighboring product events for the first failure.
-#. Correct the specific dependency, account, permission, or resource condition and perform one controlled retry.
+#. No repair is required when the stop was intended.
+#. If the stop was unexpected, inspect preceding product and Service Control Manager events for the initiating condition.
+#. Distinguish this orderly stop from a process termination or crash before changing configuration.
 
 Detailed procedures
 -------------------
@@ -51,7 +50,7 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 108 does not recur and that windows service lifecycle processing continues.
+Confirm that an intended stop leaves the service Stopped, or that an authorized restart remains Running and processes one identifiable event.
 
 Evidence to collect
 -------------------

@@ -42,11 +42,22 @@ Procedure
 
 #. Record the Event Log source, Event ID, level, timestamp, and complete General and Details data.
 
-   **Expected result:** The affected object and its effective settings are identified.
+   **Expected result:** The record includes the provider, Event ID, timestamp with time zone, message text, and all dynamic detail.
 
-   **If it fails:** Return to the complete Event Log detail and configuration export before changing settings.
+   **If it fails:** Export the original event as an EVTX file before copying text or changing filters.
 
-#. Run the native Windows checks below from the affected product host.
+#. For every host involved in the affected flow, including the affected product host, sender, and destination, use an elevated PowerShell session when available to record that host's clock state.
+
+   .. code-block:: powershell
+
+      Get-Date -Format o
+      w32tm /query /status
+
+   **Expected result:** Each involved host has a recorded local timestamp and either clock-status output or the recorded query error. If elevation is unavailable or the time service cannot be queried, treat that host's clock synchronization as unverified.
+
+   **If it fails:** If the Windows Time status command returns access denied or the time service is unavailable, do not change time settings or services. Record Get-Date output and the query error, request clock status from an authorized administrator if correlation is required, and continue with the affected-host event capture.
+
+#. On the affected product host, collect only the product events in a bounded window around the event.
 
    .. code-block:: powershell
 
@@ -54,15 +65,15 @@ Procedure
       $end=(Get-Date '<EVENT_TIME>').AddMinutes(5)
       Get-WinEvent -FilterHashtable @{LogName='Application';StartTime=$start;EndTime=$end} | Where-Object ProviderName -eq '<EVENT_SOURCE>' | Format-List TimeCreated,Id,LevelDisplayName,Message
 
-   **Expected result:** The output contains the first product failure and later state or recovery events.
+   **Expected result:** The event sequence contains the first failure plus any later state or recovery event.
 
-   **If it fails:** Increase the bounded time window and verify the Event Log source shown on the Event ID page.
+   **If it fails:** Verify the provider shown on the Event ID page and expand the window only enough to include the first related event.
 
-#. Perform one uniquely identifiable product test through the same service, rule, or action.
+#. After diagnosis, perform one uniquely identifiable product test through the same input, rule, and action, and record its sender and destination timestamps.
 
    **Expected result:** The intended destination records the test exactly once.
 
-   **If it fails:** Collect the first new product event and bounded debug output; do not change unrelated settings.
+   **If it fails:** Collect the first new product event and bounded debug output from that exact test; do not change unrelated settings.
 
 Verify the result
 -----------------
@@ -72,8 +83,9 @@ Repeat the affected operation, confirm its positive output, and verify that queu
 Evidence to collect
 -------------------
 
-- The complete Event Log entry and neighboring product events with timestamps.
-- The command output, relevant configuration export, and bounded debug log from the same interval.
+- The original EVTX record plus the complete rendered event and neighboring product events with timestamps.
+- Clock-status output or the recorded query error from every involved host, plus the sender and destination timestamps for the identifiable test.
+- The relevant configuration export and bounded debug log from the same interval, with credentials, license data, private keys, addresses, and other secrets removed. Preserve hostnames and configuration object names needed to identify the affected systems and settings.
 
 Related Event IDs
 -----------------

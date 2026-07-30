@@ -73,7 +73,7 @@ Event ID index
      - Information
      - Windows service lifecycle
    * - :ref:`118 <winsyslog-event-id-118>`
-     - Trial mode reminder
+     - Product license status reminder
      - Information
      - Licensing
    * - :ref:`125 <winsyslog-event-id-125>`
@@ -261,13 +261,13 @@ Event ID index
      - Error
      - Write to File action
    * - :ref:`11043 <winsyslog-event-id-11043>`
-     - Licensing: connection attempt failed
+     - A sender connection was refused by the permitted-senders limit
      - Error
-     - Licensing
+     - Client connection licensing
    * - :ref:`11044 <winsyslog-event-id-11044>`
-     - Licensing: licensed client limit exceeded
+     - A sender connection exceeded the licensed client limit
      - Error
-     - Licensing
+     - Client connection licensing
    * - :ref:`11045 <winsyslog-event-id-11045>`
      - File-based configuration: file-based configuration could not be loaded
      - Error
@@ -829,9 +829,9 @@ Event ID index
      - Error
      - Service configuration
    * - :ref:`11186 <winsyslog-event-id-11186>`
-     - Service configuration: trial period expired
+     - The trial expired and the service was disabled
      - Error
-     - Service configuration
+     - Licensing
    * - :ref:`11187 <winsyslog-event-id-11187>`
      - A configured input service type is not recognized
      - Error

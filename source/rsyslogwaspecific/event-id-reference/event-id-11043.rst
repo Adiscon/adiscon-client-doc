@@ -3,27 +3,27 @@
 .. _rsyslog-event-id-11043:
 
 .. meta::
-   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11043: Licensing: connection attempt failed.
+   :description: Meaning and troubleshooting for rsyslog Windows Agent Event ID 11043: A sender connection was refused by the permitted-senders limit.
    :event-id: 11043
    :event-product: rsyslog Windows Agent
    :event-severity: Error
-   :event-component: Licensing
+   :event-component: Client connection licensing
    :event-reference: true
 
-rsyslog Windows Agent Event ID 11043: Licensing: connection attempt failed
-==========================================================================
+rsyslog Windows Agent Event ID 11043: A sender connection was refused by the permitted-senders limit
+====================================================================================================
 
 Answer
 ------
 
-Licensing: connection attempt failed. The product recorded this while processing licensing; the appended event detail identifies the affected object, operation, or provider error.
+The product refused the sender identified in the event because the permitted-senders configuration has no available entry, does not include that sender, or no longer matches the intended sender inventory.
 
 Event details
 -------------
 
 - **Event ID:** ``11043``
 - **Severity:** Error
-- **Component:** Licensing
+- **Component:** Client connection licensing
 - **Windows Event Log source:** ``RSyslogWindowsAgent``
 - **Available since:** 26.07
 - **Message pattern:** :spelling:ignore:`Connection refused. Additional detail: {event_detail}`
@@ -31,27 +31,28 @@ Event details
 Possible causes
 ---------------
 
-- The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.
-- Windows or a required provider returned the operation-specific error appended to the event.
+- Permitted Senders is enabled and the configured number of sender entries is already in use.
+- The connecting sender is not one of the currently permitted senders.
+- The permitted-senders configuration no longer matches the intended sender inventory.
 
 Immediate checks
 ----------------
 
-#. Identify the exact service, rule, filter, action, or setting named by the complete event detail.
-#. Compare that object with the product reference and preserve the first related error in the same time window.
-#. Correct only the identified setting or dependency, then run one controlled test.
+#. Record the configured permitted-senders limit and whether the rejected sender should be allowed; do not publish the sender address.
+#. Review the current permitted-senders entries and remove only entries that are confirmed obsolete.
+#. If the intended sender count exceeds the configured or licensed allowance, update the authorized configuration or license before retrying.
 
 Detailed procedures
 -------------------
 
-- :ref:`Verify product license and feature entitlement state <event-id-procedure-license-verify-license-state>` — Confirm product, version, validity, edition, and required feature without exposing license data.
+- :ref:`Repair the permitted-senders configuration <event-id-procedure-license-repair-permitted-senders-configuration>` — Authorize an intended sender without weakening the sender restriction.
 - :ref:`Collect an Event ID and neighboring product events <event-id-procedure-evidence-collect-event-and-neighboring-events>` — Preserve the complete event and the product events immediately before and after it.
 - :ref:`Export configuration and collect a bounded debug log <event-id-procedure-evidence-export-configuration-and-debug-log>` — Create a text configuration export and time-bounded debug capture, then disable debugging.
 
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 11043 does not recur and that licensing processing continues.
+Send one identifiable test from an authorized sender and confirm that it is accepted exactly once without Event ID 11043.
 
 Evidence to collect
 -------------------

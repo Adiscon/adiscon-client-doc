@@ -3,20 +3,20 @@
 .. _mwagent-event-id-118:
 
 .. meta::
-   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 118: Trial mode reminder.
+   :description: Meaning and troubleshooting for MonitorWare Agent Event ID 118: Product license status reminder.
    :event-id: 118
    :event-product: MonitorWare Agent
    :event-severity: Information
    :event-component: Licensing
    :event-reference: true
 
-MonitorWare Agent Event ID 118: Trial mode reminder
-===================================================
+MonitorWare Agent Event ID 118: Product license status reminder
+===============================================================
 
 Answer
 ------
 
-Trial limits and expiration apply to the running product.
+The service reports its current license mode at startup. The event detail states whether the product is in trial mode with remaining evaluation time or is running in a registered edition.
 
 Event details
 -------------
@@ -26,20 +26,20 @@ Event details
 - **Component:** Licensing
 - **Windows Event Log source:** ``AdisconMonitoreWareAgent``
 - **Available since:** Current supported versions; original introduction not recorded
-- **Message pattern:** :spelling:ignore:`The product is running in trial mode; the event detail contains the remaining trial information. Additional detail: {event_detail}`
+- **Message pattern:** :spelling:ignore:`The product reports its trial or registered license mode. Additional detail: {license_status_detail}`
 
 Possible causes
 ---------------
 
-- The configured object is missing, invalid, unsupported by this product, or unavailable at runtime.
-- Windows or a required provider returned the operation-specific error appended to the event.
+- The service started in trial mode and reports the remaining evaluation period.
+- The service started with a valid license and reports the active registered edition.
 
 Immediate checks
 ----------------
 
-#. Identify the exact service, rule, filter, action, or setting named by the complete event detail.
-#. Compare that object with the product reference and preserve the first related error in the same time window.
-#. Correct only the identified setting or dependency, then run one controlled test.
+#. Read the complete event detail to distinguish trial mode from registered mode.
+#. No repair is required when the reported mode and edition are expected.
+#. If the mode is unexpected, compare the running product and version with the displayed license status without copying license data.
 
 Detailed procedures
 -------------------
@@ -51,7 +51,7 @@ Detailed procedures
 Verify the result
 -----------------
 
-Repeat or monitor the affected operation and confirm that Event ID 118 does not recur and that licensing processing continues.
+Confirm that the service remains Running and that the reported license mode matches the intended product and edition.
 
 Evidence to collect
 -------------------

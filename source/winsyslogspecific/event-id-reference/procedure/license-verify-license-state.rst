@@ -13,7 +13,7 @@ Verify product license and feature entitlement state
 When to use this procedure
 --------------------------
 
-Use for trial, license validation, edition, and feature-denied events.
+Use for trial or registered-status, license-validation, edition, and feature-denied events.
 
 Applies to
 ----------
@@ -42,36 +42,37 @@ Procedure
 
 #. Record product version, displayed license status, edition, and feature named in the event without copying the license payload.
 
-   **Expected result:** The affected object and its effective settings are identified.
+   **Expected result:** The running product, version, edition, license mode, and required feature or client allowance are known without exposing license material.
 
-   **If it fails:** Return to the complete Event Log detail and configuration export before changing settings.
+   **If it fails:** Do not copy the license file or key; record only the product UI's status and non-secret version information.
 
-#. Run the native Windows checks below from the affected product host.
+#. Verify the running executable's product and version, then compare the displayed entitlement with the state identified by the event. For a denial event, also compare the named module, feature, or client allowance.
 
    .. code-block:: powershell
 
       Get-Item -LiteralPath '<PRODUCT_EXECUTABLE>' | Select-Object -ExpandProperty VersionInfo | Format-List ProductName,ProductVersion,FileVersion
 
-   **Expected result:** The signed license targets the running product/version and includes the configured feature.
+   **Expected result:** For a denial event, the authorized license targets the running product and version and includes the required feature or sufficient client capacity. For a status reminder, the displayed state matches the intended product and edition.
 
-   **If it fails:** Install the authorized license or disable unsupported configuration; never edit signed data.
+   **If it fails:** For a denial event, install authorized replacement license material or disable the unsupported configuration. For an unexpected status reminder, record the non-secret product version and displayed state before seeking license assistance; never edit signed data.
 
-#. Perform one uniquely identifiable product test through the same service, rule, or action.
+#. For a denial event after changing license material, restart or reload only as required, then test the previously denied module or intended sender once. For a status reminder, do not change licensing; confirm the displayed state and that the service continues normally.
 
-   **Expected result:** The intended destination records the test exactly once.
+   **Expected result:** For a denial event, the service remains Running and the intended module or sender processes the test exactly once without a license-denial event. For a status reminder, the displayed license state is expected and the service remains Running.
 
-   **If it fails:** Collect the first new product event and bounded debug output; do not change unrelated settings.
+   **If it fails:** Record the new license-status and denial events without sharing license data; do not repeatedly reinstall or alter the license.
 
 Verify the result
 -----------------
 
-Repeat the affected operation, confirm its positive output, and verify that queues, collection positions, or remote delivery continue normally.
+For a denial event, confirm the intended license mode in the product UI and prove the previously denied module or sender works once without exposing license material. For a status reminder, confirm that the displayed license mode and service state are expected.
 
 Evidence to collect
 -------------------
 
 - The complete Event Log entry and neighboring product events with timestamps.
-- The command output, relevant configuration export, and bounded debug log from the same interval.
+- Product name, executable version, displayed edition or license mode, and the non-secret feature or client allowance involved.
+- A redacted configuration export showing only the affected object; never collect license files, keys, signed payloads, activation data, or customer identifiers.
 
 Related Event IDs
 -----------------
@@ -81,5 +82,5 @@ Related Event IDs
 - :ref:`WinSyslog Event ID 900 <winsyslog-event-id-900>`
 - :ref:`WinSyslog Event ID 901 <winsyslog-event-id-901>`
 - :ref:`WinSyslog Event ID 11005 <winsyslog-event-id-11005>`
-- :ref:`WinSyslog Event ID 11043 <winsyslog-event-id-11043>`
 - :ref:`WinSyslog Event ID 11044 <winsyslog-event-id-11044>`
+- :ref:`WinSyslog Event ID 11186 <winsyslog-event-id-11186>`
