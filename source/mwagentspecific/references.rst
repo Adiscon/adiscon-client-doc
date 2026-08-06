@@ -32,6 +32,16 @@ Technical lookup material
 
 .. include:: ../_generated/event-ids/mwagent/navigation.inc
 
+.. only:: winsyslog or winsyslog_j or mwagent
+
+   Known issues and errata
+   -----------------------
+
+   .. toctree::
+      :maxdepth: 1
+
+      ../shared/errata/index
+
 External reference
 ------------------
 

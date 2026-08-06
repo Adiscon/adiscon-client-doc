@@ -42,6 +42,16 @@ troubleshooting.
 
 .. include:: ../_generated/event-ids/winsyslog/navigation.inc
 
+.. only:: winsyslog or winsyslog_j or mwagent
+
+   Known issues and errata
+   -----------------------
+
+   .. toctree::
+      :maxdepth: 1
+
+      ../shared/errata/index
+
 External reference
 ------------------
 
