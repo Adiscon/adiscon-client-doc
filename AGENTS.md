@@ -480,6 +480,73 @@ make linkcheck                 # Check for broken links
 - Default behavior is enabled. Disable only when explicitly required by setting `DISABLE_JSON_LD=1` (or `true`/`yes`) in the build environment.
 - When changing Sphinx config/template behavior, verify generated HTML still contains `<script type="application/ld+json">`.
 
+### 4.12 Errata Decision and Publication Policy (IMPORTANT)
+
+When repository work identifies a product defect, evaluate customer-facing
+errata as part of the task. Do not wait for a separate documentation request
+when the automatic-publication criteria below are satisfied.
+
+Here, **automatically** means adding the erratum to the current documented
+change set for normal review. It does not authorize bypassing pull-request,
+approval, merge, release, or deployment controls.
+
+**Automatically create or update an erratum** when all of these gates are met:
+
+1. The defect is confirmed with sufficient evidence and affects at least one
+   released product version.
+2. The behavior is customer-visible and materially important. Examples include:
+   - data loss, corruption, incorrect attribution, or misleading output that can
+     affect operational or security decisions
+   - a security, privacy, compliance, or auditability impact
+   - a service crash, hang, serious availability problem, or material feature
+     breakage
+   - a regression with broad exposure or no safe configuration workaround
+   - an issue for which customers or partners need timely action, avoidance, or
+     upgrade guidance
+3. The affected products, released service versions, impact, and current
+   mitigation can be stated without speculation.
+
+**Suggest an erratum candidate** instead of creating one automatically when a
+confirmed issue affects a released product and is customer-visible, but its
+impact is limited, an easy and safe workaround exists, or its importance is
+uncertain. Put the suggestion in the task summary or PR description and include:
+
+- a proposed public title
+- the affected products and versions known so far
+- the customer impact and available workaround
+- why publication may or may not be worthwhile
+- the evidence or decision still needed before publication
+
+Do not create or suggest an erratum for speculative or unconfirmed behavior,
+issues confined to unreleased builds, purely internal implementation defects
+with no customer-visible effect, or ordinary documentation corrections.
+
+**Authoring requirements:**
+
+- Store canonical notices under `source/shared/errata/` and add them to the
+  shared errata index. Use one notice for one behavior even when multiple
+  related products are affected.
+- Check every related product before setting scope. Every notice must contain an
+  **Affected products** section with exact released service versions or the
+  narrowest supportable version range.
+- Guard both the erratum body and its navigation with the applicable Sphinx
+  product tags. Shared orphan pages are still rendered by other builds, so a
+  navigation-only guard is insufficient.
+- Include a stable public ID, status, first-publication date, description,
+  impact, affected products and versions, detection guidance, workarounds and
+  their risks, resolution status, and revision history.
+- Distinguish confirmed releases from plans. Use wording such as "scheduled"
+  until the corrected release and exact service build are publicly available;
+  then update the existing notice rather than creating a second one.
+- Write only product-level reasoning. Never expose private ticket IDs, private
+  repository issues, source paths, class or function names, customer identity,
+  or other internal evidence in customer-facing text.
+- Validate every product build and inspect rendered HTML to confirm that the
+  notice appears only in manuals that contain the affected feature. Watch for
+  product-name substitutions performed by product-specific Sphinx builds.
+- Release notes and version-history content should link to or summarize the
+  canonical erratum rather than duplicating a second authoritative description.
+
 ## 5. How to Use AI Agents: Prompt Recipes
 
 To ensure consistency and efficiency, please use the following prompt templates when instructing an AI agent to perform tasks. These recipes are designed to provide clear, actionable instructions that help AI agents understand the context and requirements.
@@ -627,6 +694,10 @@ Act as a technical documentation specialist. Your task is to create or update re
    - Clear and concise
    - Free of internal jargon
    - Properly integrated into the documentation structure
+
+5. Apply the errata policy in section 4.12 to known defects. Link to or briefly
+   summarize the canonical erratum instead of maintaining duplicate issue text
+   in the release notes.
 ```
 
 ### Recipe 6: Fixing Sphinx Warnings Systematically
