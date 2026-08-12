@@ -4,7 +4,7 @@
   "source_commit": "6303266429db09363d7bd37e35db26ebff443b90",
   "product": "rsyslog-client",
   "product_name": "rsyslog Windows Agent",
-  "product_version": "26.07",
+  "product_version": "26.08",
   "procedure_index_url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedures.html",
   "procedures": [
     {
@@ -12363,6 +12363,298 @@
           "id": "file.diagnose-log-rotation",
           "title": "Diagnose log rotation and retention",
           "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/file-diagnose-log-rotation.html"
+        },
+        {
+          "id": "evidence.collect-event-and-neighboring-events",
+          "title": "Collect an Event ID and neighboring product events",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.html"
+        },
+        {
+          "id": "evidence.export-configuration-and-debug-log",
+          "title": "Export configuration and collect a bounded debug log",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/evidence-export-configuration-and-debug-log.html"
+        }
+      ]
+    },
+    {
+      "event_id": 11223,
+      "severity": "error",
+      "event_source": "RSyslogWindowsAgent",
+      "title": "Protected service shutdown deadline expired",
+      "component": "Service shutdown",
+      "message_pattern": "The protected service shutdown deadline expired; the process will exit without destroying live worker owners. Additional detail: {event_detail}",
+      "meaning": "Cooperative shutdown did not reach a safe terminal boundary before the configured process-wide deadline.",
+      "likely_causes": [
+        "A source, action callback, queue worker, or log rotation operation exceeded its cancellation or persistence allowance."
+      ],
+      "immediate_checks": [
+        "Review the event detail for the blocking phase and queue counts.",
+        "Correct the blocked component or configure a larger shutdown protection timeout."
+      ],
+      "success_verification": "Stop the service again and confirm that Event ID 11223 does not recur and the process exits within the configured bound.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry and adjacent shutdown events.",
+        "The product version, shutdown configuration, debug log, and queue or ring-buffer configuration."
+      ],
+      "disposition": "self_service",
+      "introduced_in": "26.08",
+      "related_event_ids": [
+        11224,
+        11227
+      ],
+      "procedures": [
+        {
+          "id": "service.verify-state-and-account",
+          "title": "Verify service state, dependencies, and service account",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/service-verify-state-and-account.html"
+        },
+        {
+          "id": "queue.diagnose-backlog-and-disk-queue",
+          "title": "Diagnose an action backlog or disk queue",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/queue-diagnose-backlog-and-disk-queue.html"
+        },
+        {
+          "id": "evidence.collect-event-and-neighboring-events",
+          "title": "Collect an Event ID and neighboring product events",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.html"
+        },
+        {
+          "id": "evidence.export-configuration-and-debug-log",
+          "title": "Export configuration and collect a bounded debug log",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/evidence-export-configuration-and-debug-log.html"
+        }
+      ]
+    },
+    {
+      "event_id": 11224,
+      "severity": "error",
+      "event_source": "RSyslogWindowsAgent",
+      "title": "Configuration reload shutdown incomplete",
+      "component": "Service shutdown",
+      "message_pattern": "Configuration reload was stopped because the old runtime did not shut down completely; restart the process. Additional detail: {event_detail}",
+      "meaning": "The old runtime could not stop safely, so replacement configuration was not initialized.",
+      "likely_causes": [
+        "A source, action callback, queue worker, or persistence operation did not complete within the configured allowance."
+      ],
+      "immediate_checks": [
+        "Restart the service process.",
+        "Review the event detail for the blocking phase before attempting another reload."
+      ],
+      "success_verification": "Perform one configuration reload and confirm that Event ID 11224 does not recur and the new configuration starts.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry and adjacent reload events.",
+        "The product version, configuration export, and debug log covering the reload."
+      ],
+      "disposition": "escalation_only",
+      "introduced_in": "26.08",
+      "related_event_ids": [
+        11223
+      ],
+      "procedures": [
+        {
+          "id": "runtime.collect-escalation-evidence",
+          "title": "Collect evidence for an escalation-only runtime event",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/runtime-collect-escalation-evidence.html"
+        }
+      ]
+    },
+    {
+      "event_id": 11225,
+      "severity": "warning",
+      "event_source": "RSyslogWindowsAgent",
+      "title": "RELP listener shutdown wake fallback",
+      "component": "RELP listener",
+      "message_pattern": "The RELP listener loopback wake failed; shutdown is using the bounded external-library fallback. Additional detail: {event_detail}",
+      "meaning": "The immediate local wake could not be delivered, so shutdown uses the bounded listener fallback.",
+      "likely_causes": [
+        "Local socket creation or loopback connection failed because of resource pressure or address-family configuration."
+      ],
+      "immediate_checks": [
+        "Check local socket resource usage and the configured RELP listener address and port."
+      ],
+      "success_verification": "Stop an idle RELP listener and confirm that Event ID 11225 does not recur and shutdown completes promptly.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry.",
+        "The RELP listener address family, bind address, port, and debug log."
+      ],
+      "disposition": "self_service",
+      "introduced_in": "26.08",
+      "related_event_ids": [
+        11223
+      ],
+      "procedures": [
+        {
+          "id": "network.verify-listener-binding-and-firewall",
+          "title": "Verify listener binding and Windows Firewall rules",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/network-verify-listener-binding-and-firewall.html"
+        },
+        {
+          "id": "evidence.collect-event-and-neighboring-events",
+          "title": "Collect an Event ID and neighboring product events",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.html"
+        },
+        {
+          "id": "evidence.export-configuration-and-debug-log",
+          "title": "Export configuration and collect a bounded debug log",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/evidence-export-configuration-and-debug-log.html"
+        }
+      ]
+    },
+    {
+      "event_id": 11226,
+      "severity": "warning",
+      "event_source": "RSyslogWindowsAgent",
+      "title": "SNMP listener shutdown wake fallback",
+      "component": "SNMP trap listener",
+      "message_pattern": "The SNMP listener wake descriptor is unavailable; shutdown is using the bounded select fallback. Additional detail: {event_detail}",
+      "meaning": "The local wake descriptor could not be used, so shutdown uses a bounded receive wait.",
+      "likely_causes": [
+        "Local UDP socket setup or send failed, or the descriptor set reached its capacity."
+      ],
+      "immediate_checks": [
+        "Check local socket resource usage and descriptor pressure, then restart the service."
+      ],
+      "success_verification": "Stop an idle SNMP trap listener and confirm that Event ID 11226 does not recur and shutdown completes promptly.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry.",
+        "The SNMP listener configuration and debug log covering shutdown."
+      ],
+      "disposition": "self_service",
+      "introduced_in": "26.08",
+      "related_event_ids": [
+        11223
+      ],
+      "procedures": [
+        {
+          "id": "network.verify-listener-binding-and-firewall",
+          "title": "Verify listener binding and Windows Firewall rules",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/network-verify-listener-binding-and-firewall.html"
+        },
+        {
+          "id": "evidence.collect-event-and-neighboring-events",
+          "title": "Collect an Event ID and neighboring product events",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.html"
+        },
+        {
+          "id": "evidence.export-configuration-and-debug-log",
+          "title": "Export configuration and collect a bounded debug log",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/evidence-export-configuration-and-debug-log.html"
+        }
+      ]
+    },
+    {
+      "event_id": 11227,
+      "severity": "warning",
+      "event_source": "RSyslogWindowsAgent",
+      "title": "Event rejected after shutdown intake closed",
+      "component": "Main message queue",
+      "message_pattern": "The main queue rejected an event because shutdown intake is closed. Additional detail: {event_detail}",
+      "meaning": "A producer submitted an event after all producer owners were expected to have stopped and queue intake had closed.",
+      "likely_causes": [
+        "A producer callback or child worker remained active beyond its documented join boundary."
+      ],
+      "immediate_checks": [
+        "Identify the source active at shutdown and verify that its callbacks and child workers join before owner completion."
+      ],
+      "success_verification": "Repeat the stop or reload and confirm that Event ID 11227 does not recur.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry.",
+        "The source inventory, debug log, and queue drain snapshot."
+      ],
+      "disposition": "escalation_only",
+      "introduced_in": "26.08",
+      "related_event_ids": [
+        11223,
+        11224
+      ],
+      "procedures": [
+        {
+          "id": "runtime.collect-escalation-evidence",
+          "title": "Collect evidence for an escalation-only runtime event",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/runtime-collect-escalation-evidence.html"
+        }
+      ]
+    },
+    {
+      "event_id": 11228,
+      "severity": "error",
+      "event_source": "RSyslogWindowsAgent",
+      "title": "Action disk queue flush failed during shutdown",
+      "component": "Action persistence",
+      "message_pattern": "An action disk queue could not be flushed during shutdown; retryable work may be lost. Additional detail: {event_detail}",
+      "meaning": "The runtime could not force the affected retry queue data to stable storage at the shutdown boundary.",
+      "likely_causes": [
+        "The disk is full or unavailable, the queue path is inaccessible, or the storage device returned an I/O error."
+      ],
+      "immediate_checks": [
+        "Check free space, storage health, queue-directory permissions, and the Windows system log.",
+        "Preserve the queue files before restarting if recovery is required."
+      ],
+      "success_verification": "Stop the service again and confirm that Event ID 11228 does not recur and the action queue remains recoverable.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry.",
+        "The action queue path, storage free space, permissions, and debug log."
+      ],
+      "disposition": "self_service",
+      "introduced_in": "26.08",
+      "related_event_ids": [
+        11223,
+        11224
+      ],
+      "procedures": [
+        {
+          "id": "file.verify-path-permissions-and-disk-space",
+          "title": "Verify file paths, permissions, and free space",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/file-verify-path-permissions-and-disk-space.html"
+        },
+        {
+          "id": "queue.diagnose-backlog-and-disk-queue",
+          "title": "Diagnose an action backlog or disk queue",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/queue-diagnose-backlog-and-disk-queue.html"
+        },
+        {
+          "id": "evidence.collect-event-and-neighboring-events",
+          "title": "Collect an Event ID and neighboring product events",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/evidence-collect-event-and-neighboring-events.html"
+        },
+        {
+          "id": "evidence.export-configuration-and-debug-log",
+          "title": "Export configuration and collect a bounded debug log",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/evidence-export-configuration-and-debug-log.html"
+        }
+      ]
+    },
+    {
+      "event_id": 11229,
+      "severity": "error",
+      "event_source": "RSyslogWindowsAgent",
+      "title": "Message Ringbuffer action is not registered",
+      "component": "Message Ringbuffer action",
+      "message_pattern": "A Message Ringbuffer action could not store messages because its buffer is not registered. Additional detail: {event_detail}",
+      "meaning": "The action could not retain processed messages because no named buffer is registered for its configured id.",
+      "likely_causes": [
+        "szRingBufferId is empty, invalid, or reserved (diagnostics).",
+        "The service configuration was loaded before the process-wide ringbuffer registry was available.",
+        "The Message Ringbuffer action is disabled or not present in the running configuration."
+      ],
+      "immediate_checks": [
+        "Confirm szRingBufferId is set to a URL-safe id of 1..64 characters and is not diagnostics.",
+        "Save the configuration and restart or reload the service.",
+        "Query GET v1/ringbuffers on the metrics listener and confirm the configured id is listed."
+      ],
+      "success_verification": "Process a message through the action and confirm Event ID 11229 does not recur and the Metrics ringbuffer endpoints return the retained message.",
+      "evidence_to_collect": [
+        "The complete Windows Application Event Log entry.",
+        "The action configuration including szRingBufferId, and a Metrics v1/ringbuffers response."
+      ],
+      "disposition": "self_service",
+      "introduced_in": "26.08",
+      "related_event_ids": [],
+      "procedures": [
+        {
+          "id": "config.validate-and-reload",
+          "title": "Validate configuration and reload it safely",
+          "url": "https://www.rsyslog.com/download/files/windows-agent-manual/rsyslogwaspecific/event-id-reference/procedure/config-validate-and-reload.html"
         },
         {
           "id": "evidence.collect-event-and-neighboring-events",

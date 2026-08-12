@@ -1927,12 +1927,14 @@ enablement
 imap
 interoperable
 lifecycle
+loopback
 microsoft
 nntp
 odbc
 reachability
 relp
 retryable
+ringbuffers
 setp
 smtp
 snmp

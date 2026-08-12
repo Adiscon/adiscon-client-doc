@@ -1,6 +1,6 @@
 # WinSyslog documentation
 
-> Canonical documentation for WinSyslog 26.07.
+> Canonical documentation for WinSyslog 26.08.
 
 ## Event ID reference
 

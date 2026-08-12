@@ -96,3 +96,4 @@ Related Event IDs
 - :ref:`EventReporter Event ID 11080 <eventreporter-event-id-11080>`
 - :ref:`EventReporter Event ID 11081 <eventreporter-event-id-11081>`
 - :ref:`EventReporter Event ID 11173 <eventreporter-event-id-11173>`
+- :ref:`EventReporter Event ID 11228 <eventreporter-event-id-11228>`

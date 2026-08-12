@@ -104,6 +104,8 @@ Related Event IDs
 - :ref:`MonitorWare Agent Event ID 11213 <mwagent-event-id-11213>`
 - :ref:`MonitorWare Agent Event ID 11214 <mwagent-event-id-11214>`
 - :ref:`MonitorWare Agent Event ID 11215 <mwagent-event-id-11215>`
+- :ref:`MonitorWare Agent Event ID 11224 <mwagent-event-id-11224>`
+- :ref:`MonitorWare Agent Event ID 11227 <mwagent-event-id-11227>`
 
 
 Related procedures

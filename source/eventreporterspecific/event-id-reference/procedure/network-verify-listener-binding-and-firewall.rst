@@ -105,6 +105,7 @@ Related Event IDs
 - :ref:`EventReporter Event ID 11200 <eventreporter-event-id-11200>`
 - :ref:`EventReporter Event ID 11201 <eventreporter-event-id-11201>`
 - :ref:`EventReporter Event ID 11202 <eventreporter-event-id-11202>`
+- :ref:`EventReporter Event ID 11226 <eventreporter-event-id-11226>`
 
 
 Related procedures

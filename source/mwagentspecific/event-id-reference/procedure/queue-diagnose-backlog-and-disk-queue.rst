@@ -93,6 +93,8 @@ Related Event IDs
 - :ref:`MonitorWare Agent Event ID 11180 <mwagent-event-id-11180>`
 - :ref:`MonitorWare Agent Event ID 11181 <mwagent-event-id-11181>`
 - :ref:`MonitorWare Agent Event ID 11182 <mwagent-event-id-11182>`
+- :ref:`MonitorWare Agent Event ID 11223 <mwagent-event-id-11223>`
+- :ref:`MonitorWare Agent Event ID 11228 <mwagent-event-id-11228>`
 
 
 Related procedures

@@ -93,6 +93,8 @@ Related Event IDs
 - :ref:`EventReporter Event ID 11180 <eventreporter-event-id-11180>`
 - :ref:`EventReporter Event ID 11181 <eventreporter-event-id-11181>`
 - :ref:`EventReporter Event ID 11182 <eventreporter-event-id-11182>`
+- :ref:`EventReporter Event ID 11223 <eventreporter-event-id-11223>`
+- :ref:`EventReporter Event ID 11228 <eventreporter-event-id-11228>`
 
 
 Related procedures
