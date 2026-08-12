@@ -104,6 +104,8 @@ Related Event IDs
 - :ref:`WinSyslog Event ID 11213 <winsyslog-event-id-11213>`
 - :ref:`WinSyslog Event ID 11214 <winsyslog-event-id-11214>`
 - :ref:`WinSyslog Event ID 11215 <winsyslog-event-id-11215>`
+- :ref:`WinSyslog Event ID 11224 <winsyslog-event-id-11224>`
+- :ref:`WinSyslog Event ID 11227 <winsyslog-event-id-11227>`
 
 
 Related procedures

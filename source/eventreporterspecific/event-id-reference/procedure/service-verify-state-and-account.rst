@@ -100,3 +100,4 @@ Related Event IDs
 - :ref:`EventReporter Event ID 11207 <eventreporter-event-id-11207>`
 - :ref:`EventReporter Event ID 11208 <eventreporter-event-id-11208>`
 - :ref:`EventReporter Event ID 11209 <eventreporter-event-id-11209>`
+- :ref:`EventReporter Event ID 11223 <eventreporter-event-id-11223>`

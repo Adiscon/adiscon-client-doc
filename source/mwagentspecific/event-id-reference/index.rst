@@ -928,3 +928,31 @@ Event ID index
      - Consumed log-rotation queue file could not be deleted
      - Warning
      - Log rotation queue
+   * - :ref:`11223 <mwagent-event-id-11223>`
+     - Protected service shutdown deadline expired
+     - Error
+     - Service shutdown
+   * - :ref:`11224 <mwagent-event-id-11224>`
+     - Configuration reload shutdown incomplete
+     - Error
+     - Service shutdown
+   * - :ref:`11225 <mwagent-event-id-11225>`
+     - RELP listener shutdown wake fallback
+     - Warning
+     - RELP listener
+   * - :ref:`11226 <mwagent-event-id-11226>`
+     - SNMP listener shutdown wake fallback
+     - Warning
+     - SNMP trap listener
+   * - :ref:`11227 <mwagent-event-id-11227>`
+     - Event rejected after shutdown intake closed
+     - Warning
+     - Main message queue
+   * - :ref:`11228 <mwagent-event-id-11228>`
+     - Action disk queue flush failed during shutdown
+     - Error
+     - Action persistence
+   * - :ref:`11229 <mwagent-event-id-11229>`
+     - Message Ringbuffer action is not registered
+     - Error
+     - Message Ringbuffer action

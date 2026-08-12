@@ -112,6 +112,7 @@ Related Event IDs
 - :ref:`WinSyslog Event ID 11191 <winsyslog-event-id-11191>`
 - :ref:`WinSyslog Event ID 11192 <winsyslog-event-id-11192>`
 - :ref:`WinSyslog Event ID 11193 <winsyslog-event-id-11193>`
+- :ref:`WinSyslog Event ID 11229 <winsyslog-event-id-11229>`
 
 
 Related procedures
