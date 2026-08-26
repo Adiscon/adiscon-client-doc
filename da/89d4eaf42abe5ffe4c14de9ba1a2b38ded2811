@@ -1,0 +1,68 @@
+source/eventreporterspecific/installation.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 69-73
+source/winsyslogspecific/faq/cross-upgrade-v16-to-v18-installer.rst
+  s_3f5d61dedecf9c::t_1479990905d262 37
+  s_3f5d61dedecf9c::t_a91455f9f09113 1-36,38-97
+source/rsyslogwaspecific/faq.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 18,29
+source/rsyslogwaspecific/references.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 38-47
+source/shared/gettingstarted/installation.rst
+  s_3f5d61dedecf9c::t_be13712e310cc6 20
+  s_3f5d61dedecf9c::t_a11fda0824f97c 16-17,21
+  s_3f5d61dedecf9c::t_09b7ea14dcd3f1 18-19
+source/eventreporterspecific/faq.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 23,34
+source/winsyslogspecific/installation.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 56-60
+source/rsyslogwaspecific/installation.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 60-64
+source/winsyslogspecific/faq.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 28,41
+source/mwagentspecific/references.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 35
+source/mwagentspecific/faq.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 23,44
+source/shared/errata/index.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 5,21
+  s_3f5d61dedecf9c::t_181e789b5afe7f 22-24
+  s_3f5d61dedecf9c::t_0f80bd4d6caced 25-26
+source/mwagentspecific/faq/cross-upgrade-v13-to-v15-installer.rst
+  s_3f5d61dedecf9c::t_1479990905d262 37
+  s_3f5d61dedecf9c::t_a91455f9f09113 1-36,38-91,93-96
+  s_3f5d61dedecf9c::t_dc36cfc8c0ea7a 92
+source/shared/errata/err-2026-002-cross-generation-installer-upgrade.rst
+  s_3f5d61dedecf9c::t_139f7f593cf548 4-5
+  s_3f5d61dedecf9c::t_a11fda0824f97c 1-3,6-136
+source/shared/spelling-wordlist.txt
+  s_3f5d61dedecf9c::t_2aa57836d26ffe 1941
+source/winsyslogspecific/references.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 45
+source/eventreporterspecific/references.rst
+  s_3f5d61dedecf9c::t_a11fda0824f97c 39-48
+source/rsyslogwaspecific/faq/cross-upgrade-v6-to-v8-installer.rst
+  s_3f5d61dedecf9c::t_a91455f9f09113 1-36,38-96
+  s_3f5d61dedecf9c::t_1479990905d262 37
+source/shared/partials/cross-upgrade-installer-evidence.rst
+  s_3f5d61dedecf9c::t_d95781ab95d5c9 1-2
+  s_3f5d61dedecf9c::t_a91455f9f09113 3-65
+source/eventreporterspecific/faq/cross-upgrade-v17-to-v19-installer.rst
+  s_3f5d61dedecf9c::t_a91455f9f09113 1-37,39-98
+  s_3f5d61dedecf9c::t_1479990905d262 38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "da89d4eaf42abe5ffe4c14de9ba1a2b38ded2811",
+  "prompts": {},
+  "sessions": {
+    "s_3f5d61dedecf9c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a03e57-56b4-7a41-9306-834c9bb06073",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
