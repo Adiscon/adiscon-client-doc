@@ -90,7 +90,7 @@ Action path
 Related information
 --------------------
 
-* :ref:`err-2026-002-cross-generation-installer-upgrade`
+* :ref:`err-2026-002-eventreporter-cross-generation-installer-upgrade`
 * :doc:`../installation`
 * `Microsoft Windows Installer ADDLOCAL property <https://learn.microsoft.com/en-us/windows/win32/msi/addlocal>`_
 * `Microsoft Windows Installer REINSTALL property <https://learn.microsoft.com/en-us/windows/win32/msi/reinstall>`_

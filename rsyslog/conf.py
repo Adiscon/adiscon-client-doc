@@ -153,6 +153,8 @@ exclude_patterns = ['index.eventreporter.rst','index.mwagent.rst','index.winsysl
     'mwagentspecific/tutorial-*.rst',
     'shared/index.rst',
     'shared/errata/err-2026-002-cross-generation-installer-upgrade.rst',
+    'shared/errata/err-2026-002-winsyslog-cross-generation-installer-upgrade.rst',
+    'shared/errata/err-2026-002-mwagent-cross-generation-installer-upgrade.rst',
     'shared/gettingstarted/*.rst',
     'shared/references/index.rst',
     'shared/references/commandlineswitches.rst',

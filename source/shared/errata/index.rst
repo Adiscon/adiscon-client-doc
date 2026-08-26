@@ -19,9 +19,27 @@
 
    * `ERR-2026-002: EventReporter update reports success but program files are
      not upgraded correctly
-     <err-2026-002-cross-generation-installer-upgrade.html>`_
+     <err-2026-002-cross-generation-installer-upgrade.html>`__
 
 .. only:: winsyslog or winsyslog_j or mwagent
 
    * `ERR-2026-001: Incorrect source address for received SNMP traps
      <err-2026-001-snmp-trap-source-address.html>`_
+
+.. only:: winsyslog or winsyslog_j
+
+   * `ERR-2026-002: WinSyslog update reports success but program files are not
+     upgraded correctly
+     <err-2026-002-winsyslog-cross-generation-installer-upgrade.html>`__
+
+.. only:: mwagent
+
+   * `ERR-2026-002: MonitorWare Agent update reports success but program files
+     are not upgraded correctly
+     <err-2026-002-mwagent-cross-generation-installer-upgrade.html>`__
+
+.. only:: rsyslog
+
+   * `ERR-2026-002: rsyslog Windows Agent update reports success but program
+     files are not upgraded correctly
+     <err-2026-002-rsyslogwa-cross-generation-installer-upgrade.html>`__
