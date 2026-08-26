@@ -1938,4 +1938,5 @@ ringbuffers
 setp
 smtp
 snmp
+subfeatures
 tls

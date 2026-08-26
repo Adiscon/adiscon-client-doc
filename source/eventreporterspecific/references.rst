@@ -36,6 +36,16 @@ Technical lookup material
 
 .. include:: ../_generated/event-ids/eventreporter/navigation.inc
 
+.. only:: eventreporter
+
+   Known issues and errata
+   -----------------------
+
+   .. toctree::
+      :maxdepth: 1
+
+      ../shared/errata/index
+
 External reference
 ------------------
 

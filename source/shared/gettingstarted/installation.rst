@@ -13,6 +13,12 @@ Installation
    as direct install sets so you can launch them immediately without searching
    for a separate setup program.
 
+   If an in-place update reports success but the client, service, or selected
+   features still show older files, see
+   `the MonitorWare Agent cross-generation installer FAQ
+   <../../mwagentspecific/faq/cross-upgrade-v13-to-v15-installer.html>`_ before
+   attempting another repair.
+
 
 .. toctree::
    :maxdepth: 1

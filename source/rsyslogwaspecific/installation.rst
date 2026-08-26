@@ -57,3 +57,8 @@ After installation, continue with:
 - :doc:`understand-the-components`
 - :doc:`collect-and-forward-windows-events`
 - :doc:`creatinganinitialconfiguration`
+
+If an in-place update reports success but the client, service, or selected
+features still show older files, see
+:ref:`rsyslogwa-cross-upgrade-v6-to-v8-installer` before attempting another
+repair.

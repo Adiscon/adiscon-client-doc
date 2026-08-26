@@ -35,6 +35,16 @@ Technical lookup material
 
 .. include:: ../_generated/event-ids/rsyslog-client/navigation.inc
 
+.. only:: rsyslog
+
+   Known issues and errata
+   -----------------------
+
+   .. toctree::
+      :maxdepth: 1
+
+      ../shared/errata/index
+
 External reference
 ------------------
 

@@ -20,6 +20,7 @@ Deployment and licensing
    faq/repeatable-deployment
    faq/repeatable-update-deployment
    faq/repeatable-deployment-vs-repeatable-update-deployment
+   faq/cross-upgrade-v13-to-v15-installer
    faq/cluster-server-support
    faq/database-formats
 
@@ -40,6 +41,7 @@ Operation and troubleshooting
    faq/order-of-stopping-service
    faq/openssl-cve-impact
    faq/mwagent-iot2025-support
+   faq/cross-upgrade-v13-to-v15-installer
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support

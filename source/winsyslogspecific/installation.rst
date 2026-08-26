@@ -53,3 +53,8 @@ Installation
    :doc:`Understand the Components <producttour/understand-the-components>` and
    then :doc:`Creating an Initial Configuration <creatinganinitialconfiguration>`
    to build a first working setup.
+
+   If an in-place update reports success but the client, service, or selected
+   features still show older files, see
+   :ref:`winsyslog-cross-upgrade-v16-to-v18-installer` before attempting
+   another repair.

@@ -66,3 +66,8 @@ After installation, continue with:
 - :doc:`understand-the-components`
 - :doc:`collect-windows-events`
 - :doc:`creating-an-initial-configuration`
+
+If an in-place update reports success but the client, service, or selected
+features still show older files, see
+:ref:`eventreporter-cross-upgrade-v17-to-v19-installer` before attempting
+another repair.
