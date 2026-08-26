@@ -163,6 +163,7 @@ _raw_exclude_patterns = [
     'shared/faq/palo-alto-log-format-change.rst',
     'shared/partials/installation-overview.rst',
     'shared/partials/shutdown-protection-timeout.rst',
+    'shared/errata/err-2026-002-cross-generation-installer-upgrade.rst',
     'eventreporterspecific/event-id-reference/**',
     'mwagentspecific/event-id-reference/**',
     'rsyslogwaspecific/event-id-reference/**',

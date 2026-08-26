@@ -15,12 +15,13 @@
    Current errata
    --------------
 
-   .. toctree::
-      :maxdepth: 1
+.. only:: eventreporter
 
-      err-2026-002-cross-generation-installer-upgrade
+   * `ERR-2026-002: EventReporter update reports success but program files are
+     not upgraded correctly
+     <err-2026-002-cross-generation-installer-upgrade.html>`_
 
-   .. only:: winsyslog or winsyslog_j or mwagent
+.. only:: winsyslog or winsyslog_j or mwagent
 
-      * `ERR-2026-001: Incorrect source address for received SNMP traps
-        <err-2026-001-snmp-trap-source-address.html>`_
+   * `ERR-2026-001: Incorrect source address for received SNMP traps
+     <err-2026-001-snmp-trap-source-address.html>`_
