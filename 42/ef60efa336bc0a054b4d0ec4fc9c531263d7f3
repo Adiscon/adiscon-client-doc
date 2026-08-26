@@ -1,0 +1,33 @@
+mwagent/conf.py
+  s_3f5d61dedecf9c::t_dfc57d0953fd4d 117
+winsyslog/conf.py
+  s_3f5d61dedecf9c::t_dfc57d0953fd4d 166
+syslogviewer/conf.py
+  s_3f5d61dedecf9c::t_dfc57d0953fd4d 166
+source/shared/errata/index.rst
+  s_3f5d61dedecf9c::t_24d99eec070931 18
+  s_3f5d61dedecf9c::t_99d5d2b96eac26 20-22
+  s_3f5d61dedecf9c::t_ba1bb7857a75af 24,26-27
+rsyslog/conf.py
+  s_3f5d61dedecf9c::t_dfc57d0953fd4d 155
+source/shared/errata/err-2026-002-cross-generation-installer-upgrade.rst
+  s_3f5d61dedecf9c::t_13ee86321379c0 3,7-8,17,20-45,51-56,63-64,66-69,73-74,79,81-97,103-104,108,110-114,122,127-128
+winsyslog-j/conf.py
+  s_3f5d61dedecf9c::t_dfc57d0953fd4d 164
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "42ef60efa336bc0a054b4d0ec4fc9c531263d7f3",
+  "prompts": {},
+  "sessions": {
+    "s_3f5d61dedecf9c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a03e57-56b4-7a41-9306-834c9bb06073",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
