@@ -1,0 +1,55 @@
+winsyslog-j/conf.py
+  s_3f5d61dedecf9c::t_4580230ba6369e 165-166
+source/shared/errata/err-2026-002-mwagent-cross-generation-installer-upgrade.rst
+  s_3f5d61dedecf9c::t_efd4b1d30284b3 1-131
+  s_3f5d61dedecf9c::t_7fba071091175a 132-133
+eventreporter/conf.py
+  s_3f5d61dedecf9c::t_4580230ba6369e 139-141
+source/shared/errata/err-2026-002-cross-generation-installer-upgrade.rst
+  s_3f5d61dedecf9c::t_c188ad5f309c73 5,129-132
+  s_3f5d61dedecf9c::t_016ff49b84381d 133
+source/rsyslogwaspecific/faq/cross-upgrade-v6-to-v8-installer.rst
+  s_3f5d61dedecf9c::t_c188ad5f309c73 91
+mwagent/conf.py
+  s_3f5d61dedecf9c::t_4580230ba6369e 118-119
+source/winsyslogspecific/faq/cross-upgrade-v16-to-v18-installer.rst
+  s_3f5d61dedecf9c::t_c188ad5f309c73 92
+source/mwagentspecific/faq/cross-upgrade-v13-to-v15-installer.rst
+  s_3f5d61dedecf9c::t_c188ad5f309c73 91
+source/shared/errata/err-2026-002-winsyslog-cross-generation-installer-upgrade.rst
+  s_3f5d61dedecf9c::t_7fba071091175a 131-132
+  s_3f5d61dedecf9c::t_efd4b1d30284b3 1-130
+syslogviewer/conf.py
+  s_3f5d61dedecf9c::t_4580230ba6369e 167-169
+winsyslog/conf.py
+  s_3f5d61dedecf9c::t_4580230ba6369e 167-168
+source/shared/errata/index.rst
+  s_3f5d61dedecf9c::t_46d6f42ee61c2c 22,33,39,45
+  s_3f5d61dedecf9c::t_c188ad5f309c73 28-32,34-38,40-44
+source/shared/errata/err-2026-002-rsyslogwa-cross-generation-installer-upgrade.rst
+  s_3f5d61dedecf9c::t_7fba071091175a 133-134
+  s_3f5d61dedecf9c::t_efd4b1d30284b3 1-7,9-132
+  s_3f5d61dedecf9c::t_63974614100311 8
+source/eventreporterspecific/faq/cross-upgrade-v17-to-v19-installer.rst
+  s_3f5d61dedecf9c::t_c188ad5f309c73 93
+rsyslog/conf.py
+  s_3f5d61dedecf9c::t_4580230ba6369e 156-157
+source/shared/conf.py
+  s_3f5d61dedecf9c::t_e9f188d48e7fd8 24-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "c5570dc769df7509c424828d5a85d6495393c8d7",
+  "prompts": {},
+  "sessions": {
+    "s_3f5d61dedecf9c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a03e57-56b4-7a41-9306-834c9bb06073",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": null
+    }
+  }
+}
