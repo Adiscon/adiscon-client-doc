@@ -15,6 +15,7 @@ Operation and troubleshooting
    faq/start-program-action-troubleshooting
    faq/config-reload-high-load
    faq/export-settings-support-call
+   faq/cross-upgrade-v6-to-v8-installer
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support
 
@@ -25,6 +26,7 @@ Deployment and administration
    :maxdepth: 1
 
    faq/repeatable-deployment
+   faq/cross-upgrade-v6-to-v8-installer
    faq/copying-configuration
    faq/printable-manual
 

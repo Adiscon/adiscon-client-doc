@@ -25,6 +25,7 @@ Operation and troubleshooting
    faq/database-logging-troubleshooting
    faq/two-date-stamps
    faq/event-id-1011
+   faq/cross-upgrade-v16-to-v18-installer
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/high-load-performance-worker-threads
    ../shared/faq/mariadb-odbc-support
@@ -37,6 +38,7 @@ Deployment and administration
    :maxdepth: 1
 
    faq/repeatable-deployment
+   faq/cross-upgrade-v16-to-v18-installer
    faq/copying-configuration
    ../shared/faq/remote-administration-and-browser-based-review
    faq/printable-manual

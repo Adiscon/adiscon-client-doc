@@ -20,6 +20,7 @@ Operation and troubleshooting
    faq/order-of-stopping-service
    faq/cluster-server-support
    faq/export-settings-support-call
+   faq/cross-upgrade-v17-to-v19-installer
    ../shared/faq/file-handle-conflicts-duplicate-paths
    ../shared/faq/mariadb-odbc-support
 
@@ -30,6 +31,7 @@ Deployment and administration
    :maxdepth: 1
 
    faq/repeatable-deployment
+   faq/cross-upgrade-v17-to-v19-installer
    faq/copying-configuration
    ../shared/faq/remote-administration-and-browser-based-review
    faq/printable-manual

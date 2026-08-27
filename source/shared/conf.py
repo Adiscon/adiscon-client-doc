@@ -21,6 +21,8 @@ exclude_patterns = [
     ".DS_Store",
     "gettingstarted/monitorwareagenttutorial.rst",
     "partials/shutdown-protection-timeout.rst",
+    # Product-only errata may reference labels from their product manual.
+    "errata/err-2026-002-cross-generation-installer-upgrade.rst",
 ]
 
 # The shared library frequently references documents that live in the

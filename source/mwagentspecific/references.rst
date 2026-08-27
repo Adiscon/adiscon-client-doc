@@ -32,7 +32,7 @@ Technical lookup material
 
 .. include:: ../_generated/event-ids/mwagent/navigation.inc
 
-.. only:: winsyslog or winsyslog_j or mwagent
+.. only:: winsyslog or winsyslog_j or mwagent or eventreporter or rsyslog
 
    Known issues and errata
    -----------------------
