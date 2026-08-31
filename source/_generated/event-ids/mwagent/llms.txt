@@ -1,6 +1,6 @@
 # MonitorWare Agent documentation
 
-> Canonical documentation for MonitorWare Agent 26.08.
+> Canonical documentation for MonitorWare Agent 26.09.
 
 ## Event ID reference
 
