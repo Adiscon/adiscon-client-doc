@@ -1,6 +1,6 @@
 # rsyslog Windows Agent documentation
 
-> Canonical documentation for rsyslog Windows Agent 26.08.
+> Canonical documentation for rsyslog Windows Agent 26.09.
 
 ## Event ID reference
 

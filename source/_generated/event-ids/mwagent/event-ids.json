@@ -4,7 +4,7 @@
   "source_commit": "6303266429db09363d7bd37e35db26ebff443b90",
   "product": "mwagent",
   "product_name": "MonitorWare Agent",
-  "product_version": "26.08",
+  "product_version": "26.09",
   "procedure_index_url": "https://www.mwagent.com/files/manual/current/mwagentspecific/event-id-reference/procedures.html",
   "procedures": [
     {
