@@ -7,7 +7,7 @@
    ERR-2026-002: rsyslog Windows Agent update reports success but program files are not upgraded correctly
    ================================================================================================================
 
-   **Status:** Workaround available
+   **Status:** Resolved
 
    **First published:** August 26, 2026
 
@@ -116,14 +116,29 @@
    Resolution status
    -----------------
 
-   The workaround is available while the installer behavior is being
-   investigated. A corrected setup build and its exact affected-version scope
-   are not stated here until they are publicly confirmed. This notice will be
-   revised when a corrected rsyslog Windows Agent setup is published.
+   The ``26.09`` rsyslog Windows Agent setup release corrects the
+   cross-generation installer behavior. The corrected rsyslog Windows Agent
+   service build is ``26.9.0.353``.
+
+   The correction applies when the update is performed with the ``26.09``
+   setup. It does not retroactively repair an installation that was already
+   left incomplete by an earlier setup; use the recovery steps above for that
+   situation.
+
+   After a direct update from an earlier product generation, confirm that the
+   installed service and Configuration Client report the expected ``26.09``
+   versions and that the required features are present.
+
+   Related release notes
+   ---------------------
+
+   - `rsyslog Windows Agent 26.09 Technical Release Notes <https://www.rsyslog.com/rsyslog-windows-agent-26-09-technical-release-notes/>`__
 
    Revision history
    ----------------
 
+   * September 1, 2026: Resolved in the ``26.09`` rsyslog Windows Agent setup
+     release; added the Technical Release Notes link.
    * August 26, 2026: Initial publication for rsyslog Windows Agent, with the
      two-stage repair workaround and cross-version symptom guidance.
 

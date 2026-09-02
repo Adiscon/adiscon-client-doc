@@ -7,7 +7,7 @@
    ERR-2026-002: WinSyslog update reports success but program files are not upgraded correctly
    ============================================================================================
 
-   **Status:** Workaround available
+   **Status:** Resolved
 
    **First published:** August 26, 2026
 
@@ -114,14 +114,29 @@
    Resolution status
    -----------------
 
-   The workaround is available while the installer behavior is being
-   investigated. A corrected setup build and its exact affected-version scope
-   are not stated here until they are publicly confirmed. This notice will be
-   revised when a corrected WinSyslog setup is published.
+   The ``26.09`` WinSyslog setup release corrects the cross-generation
+   installer behavior. The corrected WinSyslog service build is
+   ``26.9.0.774``.
+
+   The correction applies when the update is performed with the ``26.09``
+   setup. It does not retroactively repair an installation that was already
+   left incomplete by an earlier setup; use the recovery steps above for that
+   situation.
+
+   After a direct update from an earlier product generation, confirm that the
+   installed service and Configuration Client report the expected ``26.09``
+   versions and that the required features are present.
+
+   Related release notes
+   ---------------------
+
+   - `WinSyslog 26.09 Technical Release Notes <https://www.winsyslog.com/version-history/winsyslog-26-09-technical-release-notes/>`__
 
    Revision history
    ----------------
 
+   * September 1, 2026: Resolved in the ``26.09`` WinSyslog setup release;
+     added the Technical Release Notes link.
    * August 26, 2026: Initial publication for WinSyslog, with the two-stage
      repair workaround and cross-version symptom guidance.
 
