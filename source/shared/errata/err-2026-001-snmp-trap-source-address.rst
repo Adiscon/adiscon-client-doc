@@ -7,7 +7,7 @@
    ERR-2026-001: Incorrect source address for received SNMP traps
    ================================================================
 
-   **Status:** Correction scheduled
+   **Status:** Resolved
 
    **First published:** August 6, 2026
 
@@ -75,15 +75,23 @@
    Resolution
    ----------
 
-   A correction is scheduled for the ``26.09`` release of WinSyslog and
-   MonitorWare `Agent <https://www.mwagent.com/>`_. This notice will be updated
-   with the exact corrected service builds when those releases are available.
+   The correction is included in the ``26.09`` releases: WinSyslog service
+   version ``26.9.0.774`` and MonitorWare `Agent <https://www.mwagent.com/>`_
+   service version ``26.9.0.689``.
 
    After updating, send a test trap from a device with a known address and
    confirm that the event source property and formatted message identify that
    device.
 
+   Related release notes
+   ---------------------
+
+   - `WinSyslog 26.09 Technical Release Notes <https://www.winsyslog.com/version-history/winsyslog-26-09-technical-release-notes/>`_
+   - `MonitorWare Agent 26.09 Technical Release Notes <https://www.mwagent.com/version-history/monitorware-agent-26-09-technical-release-notes/>`_
+
    Revision history
    ----------------
 
+   - **September 1, 2026:** Resolved in the ``26.09`` releases; added links to
+     the Technical Release Notes.
    - **August 6, 2026:** Initial publication.
