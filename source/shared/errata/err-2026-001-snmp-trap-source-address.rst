@@ -86,8 +86,8 @@
    Related release notes
    ---------------------
 
-   - `WinSyslog 26.09 Technical Release Notes <https://www.winsyslog.com/version-history/winsyslog-26-09-technical-release-notes/>`_
-   - `MonitorWare Agent 26.09 Technical Release Notes <https://www.mwagent.com/version-history/monitorware-agent-26-09-technical-release-notes/>`_
+   - `WinSyslog 26.09 Technical Release Notes <https://www.winsyslog.com/version-history/winsyslog-26-09-technical-release-notes/>`__
+   - `MonitorWare Agent 26.09 Technical Release Notes <https://www.mwagent.com/version-history/monitorware-agent-26-09-technical-release-notes/>`__
 
    Revision history
    ----------------
