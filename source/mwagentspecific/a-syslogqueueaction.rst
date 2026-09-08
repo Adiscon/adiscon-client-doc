@@ -33,9 +33,9 @@ Split files if the size is reached
   nDiskQueueMaxFileSize
 
 **Description:**
-  The size in bytes when queue files are split, by default this is set to 10MB
-  (10485760). However you may configured a larger size to have less files, but
-  you should not go below 100KB. This could result in to many queuefiles.
+  Files are split when they reach this size in bytes. The default is 10485760
+  (10 MB). The maximum per file is 2147483648 bytes (2 GB). The total
+  diskqueue size is limited by free disk space.
 
 
 
