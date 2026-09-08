@@ -634,8 +634,9 @@ Split files if this size is reached
   nDiskQueueMaxFileSize
 
 **Description:**
-  Files will be split until they reach the configured size in bytes. The
-  maximum support file size is 10485760 bytes.
+  Files are split when they reach this size in bytes. The default is 10485760
+  (10 MB). The maximum per file is 2147483648 bytes (2 GB). The total
+  diskqueue size is limited by free disk space.
 
 
 
@@ -693,7 +694,8 @@ Limit wait time doubling to
   nCacheWaittimeDoublingTimes
 
 **Description:**
-  How often the waittime is doubled after a failed connection try.
+  How many times the wait time is doubled after a failed connection try. This
+  is a count, not seconds. The range is 1 to 100, and the default is 10.
 
 
 
