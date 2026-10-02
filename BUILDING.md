@@ -181,11 +181,34 @@ CSS features like custom properties.
 (or another environment where `hhc.exe` cannot run), use the `build-chm.bat`
 script from Windows (cmd or PowerShell) to compile all CHM files:
 
-```cmd
+```bash
 source venv/bin/activate
-make all-htmlhelp   REM from WSL – generates HTMLHelp files, skips CHM
-build-chm.bat       REM from Windows – compiles all .hhp to .chm
+make all-htmlhelp SPHINXOPTS="-W --keep-going"
+```
+
+```cmd
+build-chm.bat --compile-only
 ```
 
 You can override the compiler path: `set HHC=C:\path\to\hhc.exe` before
 running `build-chm.bat`.
+
+When the sibling `../adiscon-client` checkout is present, the Windows script
+copies five manuals into the build output folders expected by the setup
+refresh:
+
+| Manual | Client build destination |
+|---|---|
+| EventReporter | `CFGEvntSLog/bin/Release/manual/EventReporter.chm` |
+| MonitorWare Agent | `MWAgent/bin/Release/manual/MonitorWareAgent.chm` |
+| RSyslog Windows Agent | `RSyslogConfigClient/bin/Release/manual/RSyslogWindowsAgent.chm` |
+| WinSyslog | `WINSyslogClient/bin/Release/manual/WinSyslog.chm` |
+| WinSyslog Japanese | `WINSyslogClient/bin/Release.JP/manual/WinSyslog.chm` |
+
+The script creates missing `manual` directories and checks each copy. Without
+the sibling checkout, it warns and skips these copies while still building the
+six CHMs in this repository. The Japanese WinSyslog CHM is named
+`WinSyslog-J.chm` under this repository's `build/` directory to keep it
+separate from the English `WinSyslog.chm`.
+Running `build-chm.bat` without `--compile-only` performs the Sphinx build in
+the Windows environment before compiling and copying the CHMs.
