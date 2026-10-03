@@ -92,24 +92,64 @@ Use SMTP Authentication
   nUseSMTPAuth
 
 **Description:**
-  Check this box if your server requires SMTP authentication. To fight SPAM,
-  more and more server operators allow relaying only for authenticated users.
-  It might even happen that an existing account does no longer work because the
-  server has been reconfigured to disallow anonymous posting.
+  Select the authentication mode required by your SMTP server: **None**,
+  **Username and password (LOGIN)**, or **Microsoft 365 OAuth (application)**.
+  Older builds show a checkbox: unchecked means none; checked means LOGIN.
+  For LOGIN, enter the username and password supplied by your mail server
+  administrator. For OAuth, follow the application setup below.
 
-  If your server requires (or supports) SMTP authentication, check this box and
-  enter your User ID and password in the boxes below. The exact values will be
-  provided by your server operator – if in doubt, please ask the mail server
-  support.
+.. only:: mwagent or winsyslog or winsyslog_j or eventreporter
 
-  If the mail server does not support authentication, leave this box unchecked.
+   Microsoft 365 application authentication
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  We recommend using authentication if it is available. Even when the current
-  server configuration allows unauthenticated relay, this potentially will
-  change in the future (as the SPAM problem grows). If you already use
-  authentication, such a server configuration change will not affect you.
-  Otherwise, it will disrupt mail service.
+   In builds offering the **SMTP authentication** selector in the Adiscon User
+   Interface, choose **Microsoft 365 OAuth (application)** for unattended
+   Exchange Online delivery. This first OAuth profile supports Microsoft 365;
+   it does not configure other providers. **None** and **Username and password
+   (LOGIN)** retain their existing behavior. OAuth never falls back to LOGIN.
 
+   Before configuring the action, ask your Microsoft 365 administrator to:
+
+   1. Register an application in Microsoft Entra and create a client secret.
+      Record the tenant ID, application ID, secret value, and expiration.
+   2. Grant the Office 365 Exchange Online application permission
+      ``SMTP.SendAsApp`` and grant administrator consent.
+   3. Register the application's service principal in Exchange Online using
+      ``New-ServicePrincipal``. Use the **Enterprise application** object ID;
+      the app registration object ID is different.
+   4. Grant the service principal access to the selected mailbox, including
+      the required Send As permission for the sender. Confirm SMTP AUTH is
+      permitted for that mailbox under the organization's policies.
+
+   Follow Microsoft's current `OAuth SMTP application setup
+   <https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth#use-client-credentials-grant-flow-to-authenticate-smtp-imap-and-pop-connections>`_
+   for the exact administrative commands and permissions.
+
+   In the action, enter the tenant and application IDs as GUIDs, enter the
+   client secret **value**, and use the mailbox address as the SMTP username.
+   Select ``smtp.office365.com``, port ``587``, **Use SSL / TLS**, and
+   **Use STARTTLS method**. Set the sender to a mailbox the application may
+   send as. No interactive sign-in or refresh token is required.
+
+   Set **SMTP trusted CA file (PEM)** to a trusted CA bundle on the service
+   machine, readable by the service account. The service verifies the SMTP
+   certificate chain and server hostname against this bundle. A missing or
+   invalid bundle, failed STARTTLS, or invalid certificate stops delivery.
+   The Microsoft token endpoint uses Windows HTTPS certificate verification.
+
+   The client secret is masked in the Adiscon User Interface and stored with
+   the existing reversible credential encoding. This is not strong encryption.
+   Restrict configuration file and registry access, including exported files
+   and backups, to administrators and the service account. Rotate the secret
+   before it expires and update the action. Do not include secrets or tokens
+   in support evidence.
+
+   The corresponding file settings are ``nUseSMTPAuth`` (``0`` none, ``1``
+   LOGIN, ``2`` OAuth), ``szSMTPOAuthTenantId``, ``szSMTPOAuthClientId``,
+   ``szSMTPOAuthClientSecret``, ``nSMTPOAuthClientSecretEncrypted`` (``on``),
+   ``szSMTPUsername``, and ``szSMTPTLSCAFile``. Let the Adiscon User Interface
+   write the encoded secret rather than placing a plaintext value in a file.
 
 
 Session Timeout
