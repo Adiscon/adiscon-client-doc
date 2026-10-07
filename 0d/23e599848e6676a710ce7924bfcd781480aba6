@@ -1,0 +1,40 @@
+source/mwagentspecific/a-forwardsyslogoptions.rst
+  s_44050a69001c7f::t_908a4a47837555 604-624
+source/rsyslogwaspecific/a-forwardsyslogoptions.rst
+  s_44050a69001c7f::t_28278c3bc3a0cd 606-623
+source/shared/errata/index.rst
+  s_9e8472d55f2395::t_d323b58a3d3190 46-55
+source/shared/spelling-wordlist.txt
+  s_44050a69001c7f::t_ef179d47e5e5aa 1397
+source/winsyslogspecific/a-forwardsyslogoptions.rst
+  s_44050a69001c7f::t_cb0469c7411bde 606-623
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0d23e599848e6676a710ce7924bfcd781480aba6",
+  "prompts": {},
+  "humans": {
+    "h_8e93f0703d8239": {
+      "author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  },
+  "sessions": {
+    "s_44050a69001c7f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a110f4-59b4-7892-8d42-e0cb66b8ddf4",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_9e8472d55f2395": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a111a8-1b92-7c93-8420-cac8cfabfa6f",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
