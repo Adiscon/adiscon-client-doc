@@ -45,3 +45,4 @@ Thumbs.db
 
 # Local scripts or configs
 config.local.sh
+.agent/skills/publish-manuals/manuals.local.env
