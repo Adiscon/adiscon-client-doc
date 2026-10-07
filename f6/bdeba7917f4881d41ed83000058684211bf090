@@ -1,0 +1,23 @@
+.gitignore
+  s_f4da0104d3197a::t_b43b4e053ab2dd 48
+.agent/skills/publish-manuals/Publish-Manuals.ps1
+  s_f4da0104d3197a::t_3e6a543404e72f 1-366,377-399
+.agent/skills/publish-manuals/SKILL.md
+  s_f4da0104d3197a::t_94768c4b3cddb7 1-95,99-104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f6bdeba7917f4881d41ed83000058684211bf090",
+  "prompts": {},
+  "sessions": {
+    "s_f4da0104d3197a": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "4a0abcd1-3ad9-4bdb-9921-4aa30dec3421",
+        "model": "grok-4.7"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
