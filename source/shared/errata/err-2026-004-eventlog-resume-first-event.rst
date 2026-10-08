@@ -29,8 +29,8 @@
    - **MonitorWare Agent:** ``26.07.0.683``, ``26.08.0.688``, and
      ``26.09.0.689``
    - **EventReporter:** ``26.07.0.603``, ``26.08.0.608``, and ``26.09.0.609``
-   - **rsyslog Windows Agent:** ``26.07.0.347``, ``26.08.0.352``, and
-     ``26.09.0.353``
+   - **rsyslog Windows Agent:** ``26.07.0.347``, ``26.08.0.352``,
+     ``26.09.0.353``, and ``26.10.0.354``
 
    These are the affected releases confirmed so far. The earliest affected
    release has not been established, and other versions are not confirmed here.
