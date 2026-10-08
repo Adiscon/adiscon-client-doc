@@ -26,10 +26,11 @@
 
    The following released service builds are confirmed affected:
 
-   - **MonitorWare Agent:** ``26.7.0.683``, ``26.8.0.688``, and ``26.9.0.689``
-   - **EventReporter:** ``26.7.0.603``, ``26.8.0.608``, and ``26.9.0.609``
-   - **rsyslog Windows Agent:** ``26.7.0.347``, ``26.8.0.352``, and
-     ``26.9.0.353``
+   - **MonitorWare Agent:** ``26.07.0.683``, ``26.08.0.688``, and
+     ``26.09.0.689``
+   - **EventReporter:** ``26.07.0.603``, ``26.08.0.608``, and ``26.09.0.609``
+   - **rsyslog Windows Agent:** ``26.07.0.347``, ``26.08.0.352``, and
+     ``26.09.0.353``
 
    These are the affected releases confirmed so far. The earliest affected
    release has not been established, and other versions are not confirmed here.
@@ -44,10 +45,13 @@
    How to determine whether you are affected
    -----------------------------------------
 
-   Compare the Windows Event Log record IDs with the events processed or
-   forwarded around a service restart. The condition is indicated when the
-   first new record after the saved position is missing but a later record
-   from the same channel is present.
+   Compare the record IDs of events selected by the configured subscription
+   query and event-type filters with the events processed or forwarded around
+   a service restart. Account for both filters before treating a gap as
+   evidence: records excluded by either filter are expected to be absent
+   downstream. The condition is indicated when the first new matching record
+   after the saved position is missing while a later matching record from the
+   same channel is present.
 
    Workarounds
    -----------

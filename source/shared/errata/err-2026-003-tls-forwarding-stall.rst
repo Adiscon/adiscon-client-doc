@@ -34,11 +34,12 @@
 
    The following released service builds are confirmed affected:
 
-   - **WinSyslog:** ``26.7.0.768``, ``26.8.0.773``, and ``26.9.0.774``
-   - **MonitorWare Agent:** ``26.7.0.683``, ``26.8.0.688``, and ``26.9.0.689``
-   - **EventReporter:** ``26.7.0.603``, ``26.8.0.608``, and ``26.9.0.609``
-   - **rsyslog Windows Agent:** ``26.7.0.347``, ``26.8.0.352``, and
-     ``26.9.0.353``
+   - **WinSyslog:** ``26.07.0.768``, ``26.08.0.773``, and ``26.09.0.774``
+   - **MonitorWare Agent:** ``26.07.0.683``, ``26.08.0.688``, and
+     ``26.09.0.689``
+   - **EventReporter:** ``26.07.0.603``, ``26.08.0.608``, and ``26.09.0.609``
+   - **rsyslog Windows Agent:** ``26.07.0.347``, ``26.08.0.352``, and
+     ``26.09.0.353``
 
    These are the affected releases confirmed so far. They do not establish the
    earliest affected release, and other versions may also be affected.
