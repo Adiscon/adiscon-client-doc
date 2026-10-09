@@ -556,8 +556,10 @@ with no customer-visible effect, or ordinary documentation corrections.
 Changes merged into the product's main development branch are guaranteed to
 be included in the next planned product version. Use the current release train
 or the maintainer's explicit version statement to identify that version.
-For example, while the current version is 26.10, changes merged now are included
-in version 26.11.
+Use the explicit release target when provided. For the monthly `YY.MM` release
+train, the next version increments the month; after month `12`, increment the
+year and restart at month `01`. Determine the current release from maintained
+release metadata rather than treating the calendar date as proof of shipment.
 
 - Document the next version explicitly in feature availability and erratum
   resolution text; do not call the first supported version unknown merely
@@ -587,11 +589,13 @@ bump alone does not change a product's release or erratum publication status.
    Review each match for the target release and products. Retain entries for
    later releases and notices whose publication is not approved.
 3. For features included in the confirmed release, replace planned availability
-   with released availability. For example, when preparing the final 26.11
-   release manuals, change `Scheduled for version 26.11` to
-   `Available since version 26.11` in
-   `source/shared/forward-syslog-tls-timeout.inc`. Preserve the requirement for
-   service version 26.11 or later and the client-only upgrade distinction.
+   with released availability in the relevant source files: change
+   `Scheduled for version <target-version>` to
+   `Available since version <target-version>`. Substitute the actual release
+   target, not a version hardcoded in these instructions. Preserve each
+   feature's minimum supported service version and the client-only upgrade
+   distinction. Already released features retain their original introduction
+   version in later manuals; do not replace it with the new manual version.
 4. Update each related canonical erratum with the exact fixed service build
    for each affected product, released resolution wording, status, and revision
    history. Preserve its affected-build history and any existing first-publication

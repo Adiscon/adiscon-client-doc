@@ -49,8 +49,8 @@ Read `version` from these five files. All five must be identical:
 - `winsyslog/conf.py`
 - `winsyslog-j/conf.py`
 
-Accept `26.10` or `2026.10`. Drop the dot and any leading zero on the month:
-`26.09` becomes `269`, and `26.10` becomes `2610`. If the user names a version,
+Accept `YY.MM` or `YYYY.MM`. Form the token from the two-digit year followed
+by the month without a leading zero, removing the dot. If the user names a version,
 it must match the five configuration files. Otherwise stop and point to
 [update-buildnumbers](../update-buildnumbers/SKILL.md). Do not guess.
 
