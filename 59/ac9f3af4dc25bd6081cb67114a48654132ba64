@@ -1,0 +1,21 @@
+.agent/skills/publish-manuals/SKILL.md
+  s_9e8472d55f2395::t_9d55c7dc1fba92 52-53
+AGENTS.md
+  s_9e8472d55f2395::t_9d55c7dc1fba92 559-562,592-598
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "59ac9f3af4dc25bd6081cb67114a48654132ba64",
+  "prompts": {},
+  "sessions": {
+    "s_9e8472d55f2395": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a111a8-1b92-7c93-8420-cac8cfabfa6f",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
