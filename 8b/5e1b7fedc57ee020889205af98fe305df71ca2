@@ -1,0 +1,27 @@
+AGENTS.md
+  s_9e8472d55f2395::t_1518879d19053b 554-571
+source/shared/forward-syslog-tls-timeout.inc
+  s_9e8472d55f2395::t_1518879d19053b 8-10
+source/shared/errata/err-2026-003-tls-forwarding-stall.rst
+  s_9e8472d55f2395::t_20e70270564409 88-89
+source/shared/errata/err-2026-004-eventlog-resume-first-event.rst
+  s_9e8472d55f2395::t_2b17ab6f0b46ef 69-70
+source/shared/errata/err-2026-005-file-rotation-startup-pending.rst
+  s_9e8472d55f2395::t_583c94e8d25185 67-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8b5e1b7fedc57ee020889205af98fe305df71ca2",
+  "prompts": {},
+  "sessions": {
+    "s_9e8472d55f2395": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a111a8-1b92-7c93-8420-cac8cfabfa6f",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
