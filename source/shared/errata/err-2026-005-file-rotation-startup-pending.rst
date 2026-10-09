@@ -1,6 +1,6 @@
 :orphan:
 
-.. only:: winsyslog or winsyslog_j or mwagent or eventreporter or rsyslog
+.. only:: (winsyslog or winsyslog_j or mwagent or eventreporter or rsyslog) and errata_preview
 
    .. _err-2026-005-file-rotation-startup-pending:
 

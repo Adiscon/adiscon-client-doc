@@ -1,6 +1,6 @@
 :orphan:
 
-.. only:: mwagent or eventreporter or rsyslog
+.. only:: (mwagent or eventreporter or rsyslog) and errata_preview
 
    .. _err-2026-004-eventlog-resume-first-event:
 

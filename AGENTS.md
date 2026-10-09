@@ -526,6 +526,10 @@ with no customer-visible effect, or ordinary documentation corrections.
 - Store canonical notices under `source/shared/errata/` and add them to the
   shared errata index. Use one notice for one behavior even when multiple
   related products are affected.
+- Until publication is approved, guard both a draft notice and its index entry
+  with `errata_preview` as well as the applicable product tags. The PR HTML/PDF
+  workflow enables this tag; normal production builds must not enable it.
+  At publication, remove the preview guard and set the first-publication date.
 - Check every related product before setting scope. Every notice must contain an
   **Affected products** section with exact released service versions or the
   narrowest supportable version range.

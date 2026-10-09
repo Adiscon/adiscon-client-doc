@@ -4,6 +4,14 @@ TLS Send Progress Timeout
 **File Configuration field:**
   nTLSSendTimeout
 
+**Availability:**
+  Requires a service build that implements TLS send progress timeout support.
+  The first released service build with this support has not yet been
+  confirmed. The timeout and cancellation guarantees below do not apply to
+  older services that lack this support. Updating the configuration
+  client alone does not add this capability to an older service. Check the
+  service release notes before relying on these guarantees.
+
 **Description:**
   Maximum time without successful TLS send progress, in milliseconds. The
   default is 30000 (30 seconds). Valid values are 1 through 2147483647.
