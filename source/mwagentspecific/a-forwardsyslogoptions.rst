@@ -601,7 +601,14 @@ Session Timeout
 ^^^^^^^^^^^^^^^
 
 **File Configuration field:**
-nTimeoutValue
+  nTimeoutValue
+
+**Description:**
+  Controls when an idle TCP session is closed, including persistent and
+  octet-count based framing connections. This is separate from the TLS Send
+  Progress Timeout, which limits a TLS operation that stops making progress.
+
+.. include:: ../shared/forward-syslog-tls-timeout.inc
 
 Action Queue Options
 --------------------
