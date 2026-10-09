@@ -43,3 +43,18 @@
    * `ERR-2026-002: rsyslog Windows Agent update reports success but program
      files are not upgraded correctly
      <err-2026-002-rsyslogwa-cross-generation-installer-upgrade.html>`__
+
+.. only:: (winsyslog or winsyslog_j or mwagent or eventreporter or rsyslog) and errata_preview
+
+   * `ERR-2026-003: TLS forwarding can stall when a receiver stops reading
+     <err-2026-003-tls-forwarding-stall.html>`__
+
+.. only:: (mwagent or eventreporter or rsyslog) and errata_preview
+
+   * `ERR-2026-004: The first event after a subscription restart can be skipped
+     <err-2026-004-eventlog-resume-first-event.html>`__
+
+.. only:: (winsyslog or winsyslog_j or mwagent or eventreporter or rsyslog) and errata_preview
+
+   * `ERR-2026-005: File Action rotation can remain pending after service startup
+     <err-2026-005-file-rotation-startup-pending.html>`__

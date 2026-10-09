@@ -49,7 +49,8 @@ jobs:
       - name: Build HTML for all projects
         # The -W (or --warning-is-error) option makes Sphinx treat all warnings as errors.
         # We pass this via SPHINXOPTS to the make command.
-        run: make all-html SPHINXOPTS="-W"
+        # Draft errata are visible only in this pull-request preview.
+        run: make all-html SPHINXOPTS="-W -t errata_preview"
 
       - name: Find and prepare HTML output
         id: collect-artifacts
@@ -293,7 +294,7 @@ jobs:
       - name: Build PDF for all projects
         # The -W (or --warning-is-error) option makes Sphinx treat all warnings as errors.
         # We pass this via SPHINXOPTS to the make command.
-        run: make all-pdf SPHINXOPTS="-W"
+        run: make all-pdf SPHINXOPTS="-W -t errata_preview"
 
       - name: Find and prepare PDF output
         id: collect-artifacts

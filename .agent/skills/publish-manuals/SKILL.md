@@ -49,12 +49,18 @@ Read `version` from these five files. All five must be identical:
 - `winsyslog/conf.py`
 - `winsyslog-j/conf.py`
 
-Accept `26.10` or `2026.10`. Drop the dot and any leading zero on the month:
-`26.09` becomes `269`, and `26.10` becomes `2610`. If the user names a version,
+Accept `YY.MM` or `YYYY.MM`. Form the token from the two-digit year followed
+by the month without a leading zero, removing the dot. If the user names a version,
 it must match the five configuration files. Otherwise stop and point to
 [update-buildnumbers](../update-buildnumbers/SKILL.md). Do not guess.
 
 ## Build
+
+Before building final release PDFs, complete the
+[release-manual content checklist](../../../AGENTS.md#414-release-manual-content-checklist).
+Update in-scope scheduled availability and approved errata in the sources,
+then build from those updated sources. A version bump or ordinary rebuild
+alone does not establish product release or erratum publication approval.
 
 In WSL, find the checkout and build only the five manuals. Use the Linux
 virtual environment. Do not build from the Windows virtual environment inside

@@ -526,6 +526,10 @@ with no customer-visible effect, or ordinary documentation corrections.
 - Store canonical notices under `source/shared/errata/` and add them to the
   shared errata index. Use one notice for one behavior even when multiple
   related products are affected.
+- Until publication is approved, guard both a draft notice and its index entry
+  with `errata_preview` as well as the applicable product tags. The PR HTML/PDF
+  workflow enables this tag; normal production builds must not enable it.
+  At publication, remove the preview guard and set the first-publication date.
 - Check every related product before setting scope. Every notice must contain an
   **Affected products** section with exact released service versions or the
   narrowest supportable version range.
@@ -546,6 +550,66 @@ with no customer-visible effect, or ordinary documentation corrections.
   product-name substitutions performed by product-specific Sphinx builds.
 - Release notes and version-history content should link to or summarize the
   canonical erratum rather than duplicating a second authoritative description.
+
+### 4.13 Availability of Merged Changes
+
+Changes merged into the product's main development branch are guaranteed to
+be included in the next planned product version. Use the current release train
+or the maintainer's explicit version statement to identify that version.
+Use the explicit release target when provided. For the monthly `YY.MM` release
+train, the next version increments the month; after month `12`, increment the
+year and restart at month `01`. Determine the current release from maintained
+release metadata rather than treating the calendar date as proof of shipment.
+
+- Document the next version explicitly in feature availability and erratum
+  resolution text; do not call the first supported version unknown merely
+  because an exact service build number has not yet been assigned.
+- Keep version availability separate from shipment: before release, describe
+  the correction as scheduled for that version rather than already released.
+- Do not invent an exact build number or release date. Add those details when
+  assigned or published, and update the existing notice's status on release.
+- A setting implemented by the service requires the supporting service version;
+  updating the configuration client alone does not enable it in older services.
+
+### 4.14 Release Manual Content Checklist
+
+When preparing final manuals for a product release, perform this checklist
+before the final HTML, PDF, or CHM build. A routine rebuild or a manual-version
+bump alone does not change a product's release or erratum publication status.
+
+1. Establish the target product version and release scope from the release task.
+   Use verified product release metadata for exact service build numbers and
+   the maintainer's confirmed publication date; do not invent either.
+2. Search the authoritative sources for pending release text:
+
+   ```bash
+   rg -n 'Scheduled for|scheduled for|first fixed version|not yet known|Pending publication|Draft prepared|errata_preview' source
+   ```
+
+   Review each match for the target release and products. Retain entries for
+   later releases and notices whose publication is not approved.
+3. For features included in the confirmed release, replace planned availability
+   with released availability in the relevant source files: change
+   `Scheduled for version <target-version>` to
+   `Available since version <target-version>`. Substitute the actual release
+   target, not a version hardcoded in these instructions. Preserve each
+   feature's minimum supported service version and the client-only upgrade
+   distinction. Already released features retain their original introduction
+   version in later manuals; do not replace it with the new manual version.
+4. Update each related canonical erratum with the exact fixed service build
+   for each affected product, released resolution wording, status, and revision
+   history. Preserve its affected-build history and any existing first-publication
+   date. For notices approved for first publication, set that date, remove
+   internal draft-publication wording, and remove `errata_preview` from both
+   the notice body and its index entry while retaining product guards.
+5. Run the relevant strict product builds without `errata_preview`. Inspect the
+   rendered setting and erratum pages, including index/navigation, and confirm
+   the final artifacts contain the updated release wording. Rebuild artifacts
+   if their source text changed after an earlier build.
+6. Report the availability and erratum transitions performed, their build/date
+   evidence, and any publication decisions still pending. Do not call release
+   manual preparation complete while in-scope text still incorrectly says the
+   released feature or correction is scheduled or unknown.
 
 ## 5. How to Use AI Agents: Prompt Recipes
 
@@ -698,6 +762,9 @@ Act as a technical documentation specialist. Your task is to create or update re
 5. Apply the errata policy in section 4.12 to known defects. Link to or briefly
    summarize the canonical erratum instead of maintaining duplicate issue text
    in the release notes.
+
+6. For an actual release, complete the release-manual content checklist in
+   section 4.14 before generating final manuals or marking the notes complete.
 ```
 
 ### Recipe 6: Fixing Sphinx Warnings Systematically
@@ -754,6 +821,9 @@ Act as a Sphinx documentation expert. Your task is to fix all warnings across th
 Act as a release-prep assistant. Your goal is to finish all remaining work items and ensure the repo is ready for review.
 
 1. Reconcile the task list: mark completed items, cancel obsolete ones, and list any blockers.
+
+   When this is product-release preparation, complete section 4.14 before the
+   final manual build so availability text and approved errata match the release.
 
 2. Run the full validation suite: `make validate`
    - This runs: `linkcheck`, `spelling`, and `validate-rst` together
