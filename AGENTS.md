@@ -569,6 +569,44 @@ in version 26.11.
 - A setting implemented by the service requires the supporting service version;
   updating the configuration client alone does not enable it in older services.
 
+### 4.14 Release Manual Content Checklist
+
+When preparing final manuals for a product release, perform this checklist
+before the final HTML, PDF, or CHM build. A routine rebuild or a manual-version
+bump alone does not change a product's release or erratum publication status.
+
+1. Establish the target product version and release scope from the release task.
+   Use verified product release metadata for exact service build numbers and
+   the maintainer's confirmed publication date; do not invent either.
+2. Search the authoritative sources for pending release text:
+
+   ```bash
+   rg -n 'Scheduled for|scheduled for|first fixed version|not yet known|Pending publication|Draft prepared|errata_preview' source
+   ```
+
+   Review each match for the target release and products. Retain entries for
+   later releases and notices whose publication is not approved.
+3. For features included in the confirmed release, replace planned availability
+   with released availability. For example, when preparing the final 26.11
+   release manuals, change `Scheduled for version 26.11` to
+   `Available since version 26.11` in
+   `source/shared/forward-syslog-tls-timeout.inc`. Preserve the requirement for
+   service version 26.11 or later and the client-only upgrade distinction.
+4. Update each related canonical erratum with the exact fixed service build
+   for each affected product, released resolution wording, status, and revision
+   history. Preserve its affected-build history and any existing first-publication
+   date. For notices approved for first publication, set that date, remove
+   internal draft-publication wording, and remove `errata_preview` from both
+   the notice body and its index entry while retaining product guards.
+5. Run the relevant strict product builds without `errata_preview`. Inspect the
+   rendered setting and erratum pages, including index/navigation, and confirm
+   the final artifacts contain the updated release wording. Rebuild artifacts
+   if their source text changed after an earlier build.
+6. Report the availability and erratum transitions performed, their build/date
+   evidence, and any publication decisions still pending. Do not call release
+   manual preparation complete while in-scope text still incorrectly says the
+   released feature or correction is scheduled or unknown.
+
 ## 5. How to Use AI Agents: Prompt Recipes
 
 To ensure consistency and efficiency, please use the following prompt templates when instructing an AI agent to perform tasks. These recipes are designed to provide clear, actionable instructions that help AI agents understand the context and requirements.
@@ -720,6 +758,9 @@ Act as a technical documentation specialist. Your task is to create or update re
 5. Apply the errata policy in section 4.12 to known defects. Link to or briefly
    summarize the canonical erratum instead of maintaining duplicate issue text
    in the release notes.
+
+6. For an actual release, complete the release-manual content checklist in
+   section 4.14 before generating final manuals or marking the notes complete.
 ```
 
 ### Recipe 6: Fixing Sphinx Warnings Systematically
@@ -776,6 +817,9 @@ Act as a Sphinx documentation expert. Your task is to fix all warnings across th
 Act as a release-prep assistant. Your goal is to finish all remaining work items and ensure the repo is ready for review.
 
 1. Reconcile the task list: mark completed items, cancel obsolete ones, and list any blockers.
+
+   When this is product-release preparation, complete section 4.14 before the
+   final manual build so availability text and approved errata match the release.
 
 2. Run the full validation suite: `make validate`
    - This runs: `linkcheck`, `spelling`, and `validate-rst` together

@@ -56,6 +56,12 @@ it must match the five configuration files. Otherwise stop and point to
 
 ## Build
 
+Before building final release PDFs, complete the
+[release-manual content checklist](../../../AGENTS.md#414-release-manual-content-checklist).
+Update in-scope scheduled availability and approved errata in the sources,
+then build from those updated sources. A version bump or ordinary rebuild
+alone does not establish product release or erratum publication approval.
+
 In WSL, find the checkout and build only the five manuals. Use the Linux
 virtual environment. Do not build from the Windows virtual environment inside
 WSL.
