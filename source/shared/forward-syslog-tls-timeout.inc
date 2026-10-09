@@ -5,12 +5,9 @@ TLS Send Progress Timeout
   nTLSSendTimeout
 
 **Availability:**
-  Requires a service build that implements TLS send progress timeout support.
-  The first released service build with this support has not yet been
-  confirmed. The timeout and cancellation guarantees below do not apply to
-  older services that lack this support. Updating the configuration
-  client alone does not add this capability to an older service. Check the
-  service release notes before relying on these guarantees.
+  Scheduled for version 26.11. The setting and the timeout and cancellation
+  guarantees below require service version 26.11 or later. Updating the
+  configuration client alone does not add this capability to an older service.
 
 **Description:**
   Maximum time without successful TLS send progress, in milliseconds. The

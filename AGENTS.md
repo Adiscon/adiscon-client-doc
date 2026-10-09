@@ -551,6 +551,24 @@ with no customer-visible effect, or ordinary documentation corrections.
 - Release notes and version-history content should link to or summarize the
   canonical erratum rather than duplicating a second authoritative description.
 
+### 4.13 Availability of Merged Changes
+
+Changes merged into the product's main development branch are guaranteed to
+be included in the next planned product version. Use the current release train
+or the maintainer's explicit version statement to identify that version.
+For example, while the current version is 26.10, changes merged now are included
+in version 26.11.
+
+- Document the next version explicitly in feature availability and erratum
+  resolution text; do not call the first supported version unknown merely
+  because an exact service build number has not yet been assigned.
+- Keep version availability separate from shipment: before release, describe
+  the correction as scheduled for that version rather than already released.
+- Do not invent an exact build number or release date. Add those details when
+  assigned or published, and update the existing notice's status on release.
+- A setting implemented by the service requires the supporting service version;
+  updating the configuration client alone does not enable it in older services.
+
 ## 5. How to Use AI Agents: Prompt Recipes
 
 To ensure consistency and efficiency, please use the following prompt templates when instructing an AI agent to perform tasks. These recipes are designed to provide clear, actionable instructions that help AI agents understand the context and requirements.

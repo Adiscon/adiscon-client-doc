@@ -66,9 +66,8 @@
    Resolution status
    -----------------
 
-   A correction is scheduled. No corrected service build has been publicly
-   confirmed. This notice will be updated with the exact service builds when
-   the correction is released.
+   The correction is scheduled for version 26.11. Exact service build numbers
+   will be added when the release is published.
 
    Revision history
    ----------------
