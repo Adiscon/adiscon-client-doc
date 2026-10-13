@@ -98,7 +98,7 @@ Use SMTP Authentication
   For LOGIN, enter the username and password supplied by your mail server
   administrator. For OAuth, follow the application setup below.
 
-.. only:: mwagent or winsyslog or winsyslog_j or eventreporter
+.. only:: mwagent or winsyslog or eventreporter
 
    Microsoft 365 application authentication
    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -70,9 +70,10 @@ custom service instance.
 
 The supported command profile is exactly
 ``https://127.0.0.1:<port>/metrics/``, including the default port 9109, with
-Windows Integrated Authentication. The command creates missing owned local
-URL reservations and certificate bindings, enables the requested endpoint,
-restarts the selected service, and requires an authenticated health check.
+Windows Integrated Authentication. The ``provision`` and ``repair`` operations
+create missing owned local URL reservations and certificate bindings, enable
+the requested endpoint, restart the selected service, and require an
+authenticated health check.
 Repair can restore a drifted prefix to the service's manifest-owned endpoint.
 Foreign reservations or bindings are rejected rather than adopted or removed.
 
