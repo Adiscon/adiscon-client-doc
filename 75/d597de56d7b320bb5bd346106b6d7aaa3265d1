@@ -1,0 +1,19 @@
+source/mwagentspecific/a-mailoptions.rst
+  s_18465d5b00ce36::t_9ca291ea2bbf1b 95-96,99,121-125
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "75d597de56d7b320bb5bd346106b6d7aaa3265d1",
+  "prompts": {},
+  "sessions": {
+    "s_18465d5b00ce36": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11fc2-a868-7791-930c-652a678560f1",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
