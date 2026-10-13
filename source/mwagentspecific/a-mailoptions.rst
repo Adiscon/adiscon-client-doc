@@ -92,11 +92,11 @@ Use SMTP Authentication
   nUseSMTPAuth
 
 **Description:**
-  Select the authentication mode required by your SMTP server: **None**,
-  **Username and password (LOGIN)**, or **Microsoft 365 OAuth (application)**.
+  Select the authentication mode required by your SMTP server: **None** or
+  **Username and password (LOGIN)**.
   Older builds show a checkbox: unchecked means none; checked means LOGIN.
   For LOGIN, enter the username and password supplied by your mail server
-  administrator. For OAuth, follow the application setup below.
+  administrator.
 
 .. only:: mwagent or winsyslog or eventreporter
 
@@ -118,9 +118,11 @@ Use SMTP Authentication
    3. Register the application's service principal in Exchange Online using
       ``New-ServicePrincipal``. Use the **Enterprise application** object ID;
       the app registration object ID is different.
-   4. Grant the service principal access to the selected mailbox, including
-      the required Send As permission for the sender. Confirm SMTP AUTH is
-      permitted for that mailbox under the organization's policies.
+   4. Grant the Exchange service principal ``FullAccess`` to the selected
+      mailbox with ``Add-MailboxPermission``. Separately, grant it ``SendAs``
+      permission on the sender mailbox with ``Add-RecipientPermission``.
+      Confirm SMTP AUTH is permitted for the selected mailbox under the
+      organization's policies.
 
    Follow Microsoft's current `OAuth SMTP application setup
    <https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth#use-client-credentials-grant-flow-to-authenticate-smtp-imap-and-pop-connections>`_
