@@ -39,6 +39,13 @@ here - it is definitely a worth time spent.
    monitoringnntpserver
    monitoringsmtpserver
 
+.. only:: mwagent or winsyslog or eventreporter
+
+   .. toctree::
+      :maxdepth: 2
+
+      microsoft-365-oauth-mail
+
 .. only:: mwagent
 
    .. toctree::

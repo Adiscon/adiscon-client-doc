@@ -117,7 +117,14 @@ exclude_patterns = ['index.rsyslog.rst',
                     'shared/errata/err-2026-002-cross-generation-installer-upgrade.rst',
                     'shared/errata/err-2026-002-winsyslog-cross-generation-installer-upgrade.rst',
                     'shared/errata/err-2026-002-rsyslogwa-cross-generation-installer-upgrade.rst',
-                    'shared/gettingstarted/*.rst',
+                    *[
+                        f"shared/gettingstarted/{page.name}"
+                        for page in (
+                            Path(__file__).resolve().parents[1]
+                            / 'source' / 'shared' / 'gettingstarted'
+                        ).glob('*.rst')
+                        if page.name != 'microsoft-365-oauth-mail.rst'
+                    ],
                     'shared/references/index.rst',
                     'shared/references/connecttocomputer.rst',
                     'shared/supporting-labels.rst',

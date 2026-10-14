@@ -128,6 +128,9 @@ Use SMTP Authentication
    <https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth#use-client-credentials-grant-flow-to-authenticate-smtp-imap-and-pop-connections>`_
    for the exact administrative commands and permissions.
 
+   For a complete administrator walkthrough and the Adiscon client fields, see
+   :doc:`Microsoft 365 OAuth for email alerts <../shared/gettingstarted/microsoft-365-oauth-mail>`.
+
    In the action, enter the tenant and application IDs as GUIDs, enter the
    client secret **value**, and use the mailbox address as the SMTP username.
    Select ``smtp.office365.com``, port ``587``, **Use SSL / TLS**, and
@@ -203,11 +206,12 @@ Use STARTTLS SMTP Extension
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **File Configuration field:**
-  nUseUTCTimeStamp
+  nUseStartTLSMethod
 
 **Description:**
-  Some Email Readers do not support UTC time in date-headers. Therefore here is
-  a switch to turn the UTC time on or off.
+  Enable the STARTTLS SMTP extension when the mail server supports it. The
+  server begins with a normal SMTP connection and upgrades it to a TLS-secured
+  connection after the STARTTLS command.
 
 
 

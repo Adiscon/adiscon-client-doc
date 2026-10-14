@@ -13,6 +13,7 @@ self-contained and focuses on one outcome.
    tutorial-forward-tls-to-rsyslog
    tutorial-forward-setp
    tutorial-forward-email
+   ../shared/gettingstarted/microsoft-365-oauth-mail
    tutorial-database-logging
    tutorial-custom-database-integration
    tutorial-export-config-and-debug-log
