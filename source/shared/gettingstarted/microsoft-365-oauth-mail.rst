@@ -7,130 +7,157 @@ Microsoft 365 OAuth for email alerts
 
 .. only:: mwagent or winsyslog or eventreporter
 
-   This guide configures a **Send Email** action in MonitorWare Agent,
-   WinSyslog, or EventReporter to submit alert messages to Exchange Online
-   using Microsoft 365 OAuth with application permissions. Follow it only
-   when the installed Adiscon User Interface offers **Microsoft 365 OAuth
-   (application)** in the **SMTP authentication** list. The product service
-   that runs the action must also support application OAuth; a client option
-   alone does not prove that the installed service build supports it. Check
-   both installed components and their release information. This guide does
-   not assign a product version or claim general availability.
-   The client steps cover the classic Adiscon WinForms interface only; they
-   do not cover WinSyslog-ng or another client interface.
+   Use this guide to configure a **Send Email** action in MonitorWare Agent,
+   WinSyslog, or EventReporter with Microsoft 365 OAuth application
+   permissions. Follow it only when the installed classic Adiscon WinForms UI
+   offers **Microsoft 365 OAuth (application)** and the installed product
+   service also supports application OAuth. Check both components and their
+   release information; this guide assigns no product version or general
+   availability. It does not cover WinSyslog-ng or another client interface.
 
-   The steps use the Exchange Online application-permission method: the Entra
-   application receives the Office 365 Exchange Online application permission
-   ``SMTP.SendAsApp``, and Exchange grants the application's service principal
-   access to one mailbox. This is SMTP client submission with an app-only
-   token. It does not use Microsoft Graph mail permissions or delegated
-   ``SMTP.Send`` sign-in, and it does not fall back to username and password.
-   This is a customer configuration guide. You do not need access to an
-   Adiscon developer environment, development scripts, or a sample VBS file.
+   This customer procedure uses the Exchange Online application-permission
+   method: the Entra app gets Office 365 Exchange Online
+   ``SMTP.SendAsApp``, and Exchange grants its service principal access to one
+   mailbox. It uses an app-only SMTP token, not Microsoft Graph mail
+   permissions or delegated ``SMTP.Send``, and has no username/password
+   fallback. You do not need an Adiscon developer environment, development
+   scripts, or a sample VBS file.
 
-   Goal
-   ----
+   1. Confirm prerequisites
+   ------------------------
 
-   Send one alert through ``smtp.office365.com`` from a dedicated, licensed
-   user mailbox such as ``alerts@example.com``. The SMTP username and sender
-   address must be that same mailbox. The recipient is a separate address,
-   such as ``operations@example.com``.
+   Choose an existing licensed user mailbox or ask the Microsoft 365
+   administrator to create one for alerts. In the Microsoft 365 admin center,
+   open **Users** > **Active users** and select **Add a user**, or open the
+   existing user. Assign a license that includes Exchange Online and confirm
+   its primary SMTP address. This guide uses ``alerts@example.com``. The SMTP
+   username and sender must both be that mailbox's primary address; choose a
+   separate destination such as ``operations@example.com``.
 
-   Before you start
-   ----------------
+   Confirm these administrators and access before starting:
 
-   Ask the Microsoft 365 administrator to confirm these prerequisites:
+   - An Entra administrator authorized to register/manage an app, add an
+     Exchange Online application permission, and grant tenant-wide admin
+     consent.
+   - An Exchange Online administrator authorized to register the service
+     principal and grant the mailbox permissions below. This is often a
+     member of **Organization Management** or a delegated role group.
+   - The recipient address, which may be another mailbox or a distribution
+     list.
+   - Network access from the service machine to the Microsoft identity token
+     endpoint over HTTPS (typically TCP 443) and Exchange Online SMTP
+     submission over TCP 587.
 
-   - An existing licensed user mailbox is available, or the administrator
-     creates one for alerts. In the Microsoft 365 admin center, open **Users**
-     > **Active users** and either select **Add a user** or open the existing
-     user. Assign a license that includes Exchange Online, then confirm the
-     primary SMTP address. This guide uses ``alerts@example.com`` as the
-     example mailbox. Use its primary SMTP address consistently.
-   - A Microsoft Entra administrator can register or manage the application,
-     add an Exchange Online application permission, and grant tenant-wide
-     admin consent. Use an administrator role authorized by your tenant for
-     those actions.
-   - An Exchange Online administrator has permission to register the
-     application's service principal and grant the mailbox permissions shown
-     below. In many tenants, this is a member of the **Organization
-     Management** role group or a delegated role group with the required
-     Exchange commands.
-   - The alert recipient is known. It can be a distribution list or another
-     mailbox; it is not the SMTP username unless it is intentionally the same
-     address.
-   - The service machine can reach the Microsoft identity token endpoint over
-     HTTPS (typically TCP port 443) and Exchange Online SMTP submission over
-     TCP port 587.
+   If the authentication selector is absent, stop and check the installed
+   client and service release information or contact Adiscon support. Do not
+   infer availability from an unreleased runtime change.
 
-   If the selector is not present, stop and check the installed build's release
-   information or contact Adiscon support. Do not infer availability from this
-   guide or from an unreleased runtime change.
+   2. Register or select an Entra app
+   ----------------------------------
 
-   1. Prepare the Microsoft Entra application
-   ------------------------------------------
+   In the Microsoft Entra admin center, open **Entra ID** > **App
+   registrations**. Select **New registration**, enter a name, choose
+   **Accounts in this organizational directory only**, and select
+   **Register**. This app-only setup needs no redirect URI. You may instead
+   use an app already registered in your own tenant.
 
-   In the Microsoft Entra admin center, open **Identity** > **Applications** >
-   **App registrations**. Select **New registration**, enter a name, choose
-   **Accounts in this organizational directory only**, and select **Register**.
-   This app-only setup does not need a redirect URI. You can use an existing
-   application registered in your own tenant instead. On the app's
-   **Overview** page, record the **Directory (tenant) ID** and **Application
-   (client) ID** as GUIDs.
+   Record the IDs and secret as follows:
 
-   To find the Exchange service principal Object ID, open **Enterprise
-   applications**, search for the application by its **Application (client)
-   ID**, and open its **Overview** page. Record the **Object ID** from that
-   Enterprise application page. Do not use the App registrations Object ID.
+   .. list-table::
+      :header-rows: 1
+      :widths: 28 72
 
-   In the app registration, open **Certificates & secrets** > **Client
-   secrets** > **New client secret**. Enter a description, choose an expiration
-   that follows your organization's secret lifetime policy, and select **Add**.
-   Copy the secret's **Value** while it is visible. The secret's **ID** is not
-   the secret value and cannot be used in the Adiscon field. Record the
-   expiration date and schedule rotation before expiry. Do not put the secret
-   value in a command, script, command-line argument, or support log. You will
-   enter it only in the Adiscon password field later.
+      * - Value
+        - Where to find it and how to use it
+      * - Directory (tenant) ID
+        - App registration **Overview**. Enter this GUID in the Adiscon client;
+          it is not used by the Exchange commands below.
+      * - Application (client) ID
+        - App registration **Overview**. Enter this GUID in the client and
+          use it to find the Exchange service principal.
+      * - Enterprise application Object ID
+        - Open **Enterprise applications**, search by the Application
+          (client) ID, and record **Object ID** from that app's **Overview**.
+          Use it for Exchange registration. It is different from the App
+          registrations Object ID.
+      * - Client secret Value
+        - In the app registration, open **Certificates & secrets** > **Client
+          secrets** > **New client secret**. Add a description, choose an
+          expiry that follows your organization's policy, and select **Add**.
+          Copy **Value** while visible; **ID** cannot be used as the secret.
+          Record expiry and schedule rotation before then. Enter the Value
+          only in the Adiscon password field. Never put it in a command,
+          script, command-line argument, or support log.
 
-   2. Add the Exchange SMTP application permission
-   -----------------------------------------------
+   The following four Microsoft Learn screenshots are reference examples;
+   labels can differ, and they do not show this tenant's current settings.
+
+   .. figure:: ../../images/m365-oauth-microsoft-app-overview.png
+      :alt: Microsoft Entra app registration overview with tenant and client IDs
+      :width: 100%
+
+      Microsoft Learn reference example (cropped): record your own Directory and
+      Application IDs from these fields; shown values are illustrative. The
+      App registrations Object ID is not the Enterprise application Object ID
+      required by Exchange.
+
+   .. figure:: ../../images/m365-oauth-microsoft-enterprise-object-id.png
+      :alt: Microsoft Entra Enterprise applications list with service principal Object ID
+      :width: 100%
+
+      Microsoft Learn reference example (cropped): use the Enterprise
+      application Object ID when registering the Exchange service principal.
+
+   .. figure:: ../../images/m365-oauth-microsoft-add-secret.png
+      :alt: Microsoft Entra dialog for creating a client secret
+      :width: 100%
+
+      Microsoft Learn reference example: the expiry shown is illustrative.
+      The dialog does not show the secret Value; copy it once when creating
+      the secret.
+
+   3. Add permission and grant admin consent
+   -----------------------------------------
 
    In the app registration, open **API permissions** > **Add a permission** >
-   **APIs my organization uses**. Search for and select **Office 365 Exchange
-   Online**, choose **Application permissions**, then select
-   ``SMTP.SendAsApp`` and add the permission. Do not choose Microsoft Graph or
-   delegated ``SMTP.Send`` for this application-only setup.
+   **APIs my organization uses**. Select **Office 365 Exchange Online** >
+   **Application permissions**, select ``SMTP.SendAsApp``, and add it. Do not
+   choose Microsoft Graph or delegated ``SMTP.Send`` for this setup.
+
+   .. figure:: ../../images/m365-oauth-microsoft-smtp-permission.png
+      :alt: Microsoft Exchange Online SMTP application permission selection
+      :width: 100%
+
+      Microsoft Learn reference example (cropped): select only ``SMTP.SendAsApp``
+      for this guide. **Yes** in **Admin consent required** means the
+      permission requires admin consent; it does not show consent status.
+      Verify **Granted** in API permissions.
 
    .. figure:: ../../images/m365-oauth-consent-required.png
       :alt: Exchange Online SMTP.SendAsApp application permission awaiting administrator consent
       :width: 100%
 
-      Before administrator consent: adding ``SMTP.SendAsApp`` alone is
-      insufficient. This German-language example still shows **Not granted**.
-      The visible Microsoft Graph ``User.Read`` permission is unrelated and is
-      not required for this SMTP setup.
+      Before administrator consent, adding ``SMTP.SendAsApp`` is
+      insufficient. This German-language example shows **Not granted**.
+      Microsoft Graph ``User.Read`` is visible but unrelated and not required.
 
-   Select **Grant admin consent for <your tenant>** and confirm the prompt.
-   Before continuing, verify that the permission appears with status
-   **Granted for <your tenant>** in the app's API permissions list. A
-   permission listed as pending or not granted is not
-   ready for Exchange configuration.
+   Select **Grant admin consent for <your tenant>** and confirm. Before
+   continuing, verify the permission status is **Granted for <your tenant>**
+   in API permissions. A pending or not-granted permission is not ready for
+   Exchange configuration.
 
-   3. Register the application in Exchange Online and grant one mailbox
-   --------------------------------------------------------------------
+   4. Register the Exchange service principal and grant mailbox access
+   -------------------------------------------------------------------
 
-   Use Exchange Online PowerShell from an administrator workstation. Replace
-   the application (client) ID and **Object ID from the Enterprise applications
-   entry** for this application. The Enterprise application Object ID is not
-   the Object ID on the App registrations page. The tenant ID is entered in
-   the Adiscon client later; it is not needed by these Exchange commands. No
-   client secret is used in these commands.
+   Use Exchange Online PowerShell from an administrator workstation. The
+   commands are examples for the Exchange administrator to review and run;
+   they do not run from this guide. Run all four blocks in the same
+   authenticated PowerShell session. The tenant ID and client secret are not
+   used in these commands.
 
-   The commands below are examples for an administrator to review and run in
-   their tenant. They do not run from this guide. The service-principal lookup
-   stops if the application ID is already registered more than once, creates
-   it only when no match exists, and stops if the registered object ID differs
-   from the Enterprise application Object ID supplied above.
+   **Prepare the session.** Replace the placeholders with the Application
+   (client) ID and the Object ID from **Enterprise applications**. Connect
+   interactively as an authorized administrator:
 
    .. code-block:: powershell
 
@@ -144,6 +171,12 @@ Microsoft 365 OAuth for email alerts
       Import-Module ExchangeOnlineManagement -ErrorAction Stop
       Connect-ExchangeOnline -UserPrincipalName '<administrator UPN>' `
           -ErrorAction Stop
+
+   **Register or reuse one service principal.** Zero matches creates it, one
+   match reuses it, and more than one stops for administrator review. The
+   registered Object ID must match the Enterprise application Object ID:
+
+   .. code-block:: powershell
 
       $servicePrincipals = @(Get-ServicePrincipal -ErrorAction Stop |
           Where-Object { $_.AppId -eq $AppId })
@@ -166,13 +199,20 @@ Microsoft 365 OAuth for email alerts
               'Enterprise application Object ID.'
       }
 
+   **Grant access to this mailbox only.** The checks stop for explicit Deny
+   permissions and add an Allow only when it is missing. Use the Exchange
+   service principal's ``Identity`` for both grants, never its App ID or Entra
+   Object ID:
+
+   .. code-block:: powershell
+
       $mailboxPermissions = @(Get-MailboxPermission -Identity $Mailbox `
           -User $exoServicePrincipal.Identity -ErrorAction Stop)
       if (@($mailboxPermissions | Where-Object {
           $_.AccessRights -contains 'FullAccess' -and $_.Deny
       }).Count -gt 0) {
           throw 'A FullAccess deny permission exists for this mailbox. ' +
-              'Stop and have the administrator review it.'
+              'Stop for administrator review.'
       }
       $fullAccessPermission = @($mailboxPermissions | Where-Object {
           $_.AccessRights -contains 'FullAccess' -and -not $_.Deny
@@ -190,7 +230,8 @@ Microsoft 365 OAuth for email alerts
       if (@($recipientPermissions | Where-Object {
           $_.AccessControlType -eq 'Deny'
       }).Count -gt 0) {
-          throw 'A SendAs deny permission exists for this mailbox. Resolve it before continuing.'
+          throw 'A SendAs deny permission exists for this mailbox. ' +
+              'Resolve it before continuing.'
       }
       $sendAsPermission = @($recipientPermissions | Where-Object {
           $_.AccessControlType -eq 'Allow'
@@ -201,33 +242,45 @@ Microsoft 365 OAuth for email alerts
               -AccessRights SendAs -ErrorAction Stop
       }
 
-      Get-ServicePrincipal -ErrorAction Stop |
-          Where-Object { $_.AppId -eq $AppId } |
+   **Verify the result.** Stop and recheck with the administrator if any
+   check fails or expected permission is missing. Expected results: exactly
+   one Exchange service principal with the expected App ID and matching
+   Enterprise application Object ID, ``FullAccess`` with ``Deny`` set to
+   ``False``, and ``SendAs`` with ``AccessControlType`` set to ``Allow``.
+
+   .. code-block:: powershell
+
+      $servicePrincipalCheck = @(Get-ServicePrincipal -ErrorAction Stop |
+          Where-Object { $_.AppId -eq $AppId })
+      if ($servicePrincipalCheck.Count -ne 1 -or
+          $servicePrincipalCheck[0].ObjectId -ne $EnterpriseAppObjectId) {
+          throw 'Expected exactly one matching Exchange service principal. ' +
+              'Stop and recheck.'
+      }
+      $verifiedFullAccess = @(Get-MailboxPermission -Identity $Mailbox `
+          -User $exoServicePrincipal.Identity -ErrorAction Stop | Where-Object {
+          $_.AccessRights -contains 'FullAccess' -and -not $_.Deny
+      })
+      if ($verifiedFullAccess.Count -eq 0) {
+          throw 'FullAccess with Deny=False is missing. Stop and recheck.'
+      }
+      $verifiedSendAs = @(Get-RecipientPermission -Identity $Mailbox `
+          -Trustee $exoServicePrincipal.Identity -ErrorAction Stop | Where-Object {
+          $_.AccessRights -contains 'SendAs' -and $_.AccessControlType -eq 'Allow'
+      })
+      if ($verifiedSendAs.Count -eq 0) {
+          throw 'SendAs Allow is missing. Stop and recheck.'
+      }
+
+      $servicePrincipalCheck |
           Format-List AppId,ObjectId,Identity,DisplayName
-      Get-MailboxPermission -Identity $Mailbox -User $exoServicePrincipal.Identity `
-          -ErrorAction Stop | Where-Object {
-          $_.AccessRights -contains 'FullAccess'
-      } | Format-Table User,AccessRights,Deny
-      Get-RecipientPermission -Identity $Mailbox `
-          -Trustee $exoServicePrincipal.Identity -ErrorAction Stop |
-          Format-List Trustee,AccessRights,AccessControlType,IsInherited
+      $verifiedFullAccess | Format-Table User,AccessRights,Deny
+      $verifiedSendAs | Format-List Trustee,AccessRights,AccessControlType,IsInherited
 
-   Review each command with your Exchange administrator before running it.
-   The permission checks make repeated runs skip grants already present. Keep
-   the service principal's ``Identity`` value for both mailbox permission
-   commands; do not substitute the App ID or Entra Object ID there. The
-   verification output must show exactly one Exchange service principal with
-   the expected App ID and matching Enterprise application Object ID, a
-   ``FullAccess`` row with ``Deny`` set to ``False``, and a ``SendAs`` row
-   with ``AccessControlType`` set to ``Allow``. If any expected row is missing
-   or the IDs do not match, stop and recheck the permissions before configuring
-   the client.
+   5. Check SMTP AUTH for the mailbox
+   ----------------------------------
 
-   4. Check SMTP AUTH policy for the mailbox
-   -----------------------------------------
-
-   SMTP AUTH must be allowed for the selected Exchange Online mailbox. Check
-   its mailbox setting and the organization setting:
+   Check both mailbox and organization policy:
 
    .. code-block:: powershell
 
@@ -236,11 +289,25 @@ Microsoft 365 OAuth for email alerts
       Get-TransportConfig -ErrorAction Stop |
           Format-List SmtpClientAuthenticationDisabled
 
-   For the mailbox setting, ``False`` means SMTP AUTH is enabled for that
-   mailbox, ``True`` means it is disabled, and a blank value means it inherits
-   the organization setting. A mailbox value of ``False`` overrides an
-   organization-wide disabled value for that mailbox. If your administrator
-   approves enabling SMTP AUTH for this mailbox, the per-mailbox command is:
+   The mailbox value determines whether SMTP AUTH is disabled for this
+   mailbox:
+
+   .. list-table::
+      :header-rows: 1
+      :widths: 22 78
+
+      * - Mailbox value
+        - Meaning
+      * - ``False``
+        - SMTP AUTH is enabled for this mailbox, including when the
+          organization setting disables it.
+      * - ``True``
+        - SMTP AUTH is disabled for this mailbox.
+      * - Blank
+        - The mailbox inherits the organization setting.
+
+   If an administrator approves enabling SMTP AUTH for this mailbox, set it
+   per mailbox, then verify the result is ``False``:
 
    .. code-block:: powershell
 
@@ -249,98 +316,105 @@ Microsoft 365 OAuth for email alerts
       Get-CASMailbox -Identity 'alerts@example.com' -ErrorAction Stop |
           Format-List SmtpClientAuthenticationDisabled
 
-   After an approved change, the mailbox query should show ``False``. If it
-   shows ``True`` or blank, stop and ask the administrator to recheck the
-   setting and applicable policies before testing.
+   If the query result is ``True`` or blank, stop and ask the administrator to check
+   the setting and applicable policies. Do not enable SMTP AUTH organization
+   wide as a shortcut. If Security Defaults or another policy blocks SMTP
+   AUTH, ask an administrator to decide whether a policy change is
+   appropriate; do not disable Security Defaults automatically. See
+   Microsoft's `authenticated client SMTP submission
+   <https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission>`_
+   guidance.
 
-   Do not enable SMTP AUTH organization-wide as a setup shortcut. If Security
-   Defaults or another administrator policy blocks SMTP AUTH, stop and ask the
-   administrator to decide whether an approved policy change is appropriate.
-   Do not disable Security Defaults automatically. Microsoft documents these
-   organization and mailbox settings in `Enable or disable authenticated
-   client SMTP submission
-   <https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission>`_.
+   6. Prepare a trusted SMTP CA bundle
+   -----------------------------------
 
-   5. Prepare a trusted SMTP CA bundle on the service machine
-   ----------------------------------------------------------
+   SMTP validates the Exchange server certificate against a PEM CA file.
+   Microsoft identity token requests use Windows HTTPS certificate
+   validation separately and do not use this SMTP file.
 
-   The Adiscon SMTP connection validates the Exchange server certificate using
-   a PEM CA file. The Microsoft identity token request uses Windows HTTPS
-   certificate validation separately; it does not use this SMTP CA file.
-
-   On the Windows machine that runs the Adiscon service, download the current
-   PEM bundle from the `curl CA Extract page
-   <https://curl.se/docs/caextract.html>`_ over HTTPS. The page links to
-   ``https://curl.se/ca/cacert.pem`` and publishes the current file's SHA-256
-   checksum. Compare that checksum with the downloaded file's result from:
+   On the Windows service machine, download the current PEM from the
+   `curl CA Extract page <https://curl.se/docs/caextract.html>`_ over HTTPS.
+   The page links to ``https://curl.se/ca/cacert.pem`` and publishes the
+   current SHA-256 checksum. Download to a temporary location and compare:
 
    .. code-block:: powershell
 
       Get-FileHash '<downloaded cacert.pem path>' -Algorithm SHA256
 
-   Download it to a temporary location first. After the hash matches, use File
-   Explorer to create ``C:\ProgramData\Adiscon\certs`` on the service machine.
-   Save the verified file there as ``cacert.pem``. If the configuration is edited on a
-   remote computer, this path still refers to the service machine, not the
-   computer running the client. To identify the service account without
-   changing or stopping the service, open ``services.msc``, find the Adiscon
-   product service, and view **Properties** > **Log On**. In the folder's
-   **Properties** > **Security** > **Advanced** permissions, keep existing
-   inherited entries, including **SYSTEM**. Add **Read & execute** access for
-   the service account and ensure Administrators retain **Modify** access. Do
-   not remove or reduce existing SYSTEM permissions. The certificate bundle is
-   a list of trusted
-   certificate authorities; do not place the Exchange SMTP server's leaf
-   certificate in this field. Do not disable certificate or hostname
-   verification to work around a trust error.
+   After the hash matches, create ``C:\ProgramData\Adiscon\certs`` on the
+   service machine and save the bundle there as ``cacert.pem``. If editing
+   remotely, this path still resolves on the service host. To identify the
+   service account without changing or stopping the service, open
+   ``services.msc``, find the Adiscon product service, and view **Properties**
+   > **Log On**. In the folder's **Properties** > **Security** > **Advanced**,
+   1. preserve existing inherited entries, including **SYSTEM**;
+   2. add **Read & execute** for the service account; and
+   3. ensure Administrators retain **Modify** access.
+   Do not remove or reduce existing SYSTEM permissions. The bundle contains
+   trusted certificate authorities, not the Exchange leaf certificate. Do not
+   disable certificate or hostname verification to work around a trust error.
 
-   6. Configure the Send Email action
+   7. Configure the Send Email action
    ----------------------------------
 
-   In the classic Adiscon WinForms client, expand **Rules/Rule Sets**, select
-   the rule, open **Actions**, then choose **Add Action** > **Send Email**.
-   Create or edit that action and use these values in **Mail Server Options**:
+   In the classic Adiscon WinForms client, open **Rules/Rule Sets** > select
+   the rule > **Actions** > **Add Action** > **Send Email**. Add or edit the
+   action, then set **Mail Server Options**:
 
-   - **Mailserver**: ``smtp.office365.com``
-   - **Mailserver port**: ``587``
-   - **SMTP authentication**: **Microsoft 365 OAuth (application)**
-   - **SMTP Username**: the primary SMTP address of the licensed mailbox, for
-     example ``alerts@example.com``
-   - **Tenant ID (GUID)**: the Entra tenant ID
-   - **Application ID (GUID)**: the Entra application (client) ID
-   - **Application client secret**: the client secret **Value**, not its ID
-   - **SMTP trusted CA file (PEM)**: the verified CA bundle path on the service
-     machine
-   - **Use a secure connection (SSL) to the mail server**: enabled
-   - **Use STARTTLS SMTP Extension**: enabled
+   .. list-table::
+      :header-rows: 1
+      :widths: 43 57
 
-   In **Mail Format Options**, set **Sender Emailaddress** to the same primary
-   mailbox address used for **SMTP Username**. Set **Recipient Emailaddress**
-   to the destination address, such as ``operations@example.com``. Keep the
-   sender and recipient roles separate unless your recipient is intentionally
-   the sender mailbox.
+      * - Field
+        - Value
+      * - **Mailserver**
+        - ``smtp.office365.com``
+      * - **Mailserver port**
+        - ``587``
+      * - **SMTP authentication**
+        - **Microsoft 365 OAuth (application)**
+      * - **SMTP Username**
+        - The licensed mailbox's primary SMTP address, such as
+          ``alerts@example.com``.
+      * - **Tenant ID (GUID)**
+        - The Entra Directory (tenant) ID.
+      * - **Application ID (GUID)**
+        - The Entra Application (client) ID.
+      * - **Application client secret**
+        - The secret **Value**, not its ID.
+      * - **SMTP trusted CA file (PEM)**
+        - Verified CA bundle path on the service machine.
+      * - **Use a secure connection (SSL) to the mail server**
+        - Enabled.
+      * - **Use STARTTLS SMTP Extension**
+        - Enabled.
 
-   The client masks the secret in its password field and stores it using the
-   existing reversible credential encoding. This is not strong encryption.
-   Restrict access to the configuration, registry data, exported settings, and
-   their backups to administrators and the service account. Rotate the secret
-   before expiry and update the action. Do not include the secret or access
-   tokens in support evidence.
+   In **Mail Format Options**, set **Sender Emailaddress** to the same
+   primary mailbox as the SMTP username. Set **Recipient Emailaddress** to
+   the separate destination, for example ``operations@example.com``.
 
-   7. Save, apply, and send one test event
-   ---------------------------------------
+   The client masks the secret but stores it with existing reversible
+   credential encoding; this is not strong encryption. Restrict configuration,
+   registry data, exported settings, and backups to administrators and the
+   service account. Rotate the secret before expiry and update the action.
+   Never include the secret or access tokens in support evidence.
 
-   Add the action to a rule that matches one deliberate test event. Use the
-   product's normal configuration save and apply workflow. If your deployment
-   requires a service restart for configuration changes, follow your normal
-   change process before testing.
+   8. Save, apply, and test one event
+   ----------------------------------
 
-   For a concrete test, use one known event collected by the selected product.
-   For example, send one controlled syslog test event from
-   ``test-host.example.com`` with warning priority and message
-   ``[TEST] Backup job DailyBackup finished with warnings: simulated file skipped.``.
-   Configure the action's subject and body with event properties rather than
-   hard-coded test text:
+   Add the action to a rule matching one deliberate test event. Save and apply
+   configuration through the product's normal operator workflow. If your
+   deployment requires a service restart, follow its normal change process
+   before testing.
+
+   For a controlled syslog example, send one warning-priority event from
+   ``test-host.example.com`` with this message:
+
+   .. code-block:: text
+
+      [TEST] Backup job DailyBackup finished with warnings: simulated file skipped.
+
+   Use event properties in the action's subject and body:
 
    .. code-block:: text
 
@@ -350,74 +424,89 @@ Microsoft 365 OAuth for email alerts
       Message: %msg%
       Priority: %syslogpriority%
 
-   Use the client's **Insert Property** control to confirm that each property
-   is available for the event type you chose. ``%syslogpriority%`` applies to
-   syslog events; for Windows events, use the available event properties and
-   omit the priority line if it is not listed. In EventReporter, choose one
-   actual Windows event rather than a syslog event. Save and apply the
-   configuration using the normal operator workflow, then trigger the rule
-   once and check the intended recipient mailbox.
+   Use **Insert Property** to confirm properties are available for the event
+   type. ``%syslogpriority%`` applies to syslog; use available Windows event
+   properties and omit the priority line if it is unavailable. EventReporter
+   must use an actual Windows event. Save and apply using the normal operator
+   workflow, trigger the rule once, and check the intended recipient mailbox.
 
-   A successful OAuth authentication response such as SMTP ``235`` confirms
-   authentication only. SMTP ``250`` after the message ``DATA`` command means
-   the server accepted the message for processing; it does not confirm inbox
-   delivery. Check message trace, quarantine, and non-delivery reports before
-   repeating a test, so a delayed message is not sent twice.
+   SMTP ``235`` confirms authentication only. SMTP ``250`` after ``DATA``
+   means the server accepted the message for processing, not that it reached
+   the inbox. Check message trace, quarantine, and non-delivery reports before
+   repeating a test to avoid duplicate messages.
 
    Troubleshooting
    ---------------
 
-   1. **Entra application and secret**: for missing-token or ``535`` errors,
-      verify the tenant ID, application ID, secret **Value**, and expiration.
-      Do not copy the secret ID into the client.
-   2. **Consent and Exchange identity**: verify that ``SMTP.SendAsApp`` has
-      tenant admin consent. Confirm there is exactly one Exchange service
-      principal for the App ID and its Object ID matches the Enterprise
-      application Object ID. A duplicate or mismatch needs administrator
-      review.
-   3. **Mailbox authorization**: confirm ``FullAccess`` and ``SendAs`` are
-      allowed for the Exchange service principal on the same mailbox used as
-      SMTP username and sender. Stop for administrator review if an explicit
-      deny exists.
-   4. **SMTP AUTH and secure connection**: if SMTP AUTH is rejected, check the
-      mailbox's ``SmtpClientAuthenticationDisabled`` value and the tenant
-      setting. ``True`` blocks SMTP AUTH; blank inherits the tenant value.
-      Ask an administrator to review Security Defaults and other policies.
-      For a connection failure before OAuth, check outbound TCP port 587,
-      STARTTLS, the PEM path and service-account read access, and certificate
-      chain and hostname validation. Windows HTTPS trust for token requests is
-      separate from the SMTP PEM bundle.
-   5. **Service, event, and delivery**: check that the installed service
-      supports the option, then check its startup/configuration log and
-      whether the rule matched the test event. A startup failure before an
-      event is processed does not prove OAuth authentication failed. SMTP
-      ``235`` confirms authentication only. SMTP ``250`` after ``DATA`` means
-      the server accepted the message for processing, not that it reached the
-      inbox. Check message trace, quarantine, and non-delivery reports before
-      repeating a test to avoid duplicate messages.
+   .. list-table::
+      :header-rows: 1
+      :widths: 29 71
 
-   Microsoft also documents an Exchange Online **application RBAC** method for
-   SMTP. It uses the Exchange role ``Application SMTP.SendAsApp`` and a scoped
-   role assignment, without adding the Entra SMTP application permission or
-   granting the mailbox ``FullAccess`` and ``SendAs`` permissions shown in
-   this guide. These are separate authorization models; do not combine their
-   steps. See Microsoft's `SMTP onboarding to app RBAC
+      * - Symptom or phase
+        - Checks
+      * - Entra application or missing token / ``535``
+        - Check service OAuth support, tenant ID, application ID, secret
+          **Value**, and expiry. Never use the secret ID.
+      * - Consent or Exchange identity
+        - Confirm ``SMTP.SendAsApp`` has admin consent. Verify exactly one
+          Exchange service principal matches the App ID and its Object ID
+          matches the Enterprise application Object ID. Stop for
+          administrator review on duplicates or mismatches.
+      * - Mailbox authorization or SMTP AUTH rejected
+        - On the SMTP username/sender mailbox, confirm ``FullAccess`` and
+          ``SendAs`` Allow permissions and no explicit Deny. Check
+          ``SmtpClientAuthenticationDisabled``: ``True`` disables SMTP AUTH,
+          ``False`` enables it for the mailbox, and blank inherits tenant
+          policy. Ask an administrator to review Security Defaults and other
+          policies; do not enable SMTP AUTH tenant wide as a shortcut.
+      * - Connection fails before OAuth
+        - Check outbound TCP 587, STARTTLS, the PEM path and service-account
+          read access, plus certificate chain and hostname validation. Token
+          requests use separate Windows HTTPS trust. A connection or startup
+          failure before an event is processed does not prove OAuth failed.
+      * - Service starts but no delivered message
+        - Check the installed service supports OAuth, startup/configuration
+          logs, and whether the rule matched the event. SMTP ``235`` is
+          authentication only; ``250`` after ``DATA`` means accepted for
+          processing, not inbox delivery. Check trace, quarantine, and
+          non-delivery reports before retrying to avoid duplicate messages.
+
+   Microsoft also documents Exchange Online **application RBAC** for SMTP.
+   That separate model uses the Exchange role ``Application SMTP.SendAsApp``
+   and a scoped role assignment, without the Entra ``SMTP.SendAsApp``
+   permission or the mailbox ``FullAccess`` and ``SendAs`` grants above. Do
+   not combine the models. See Microsoft's `SMTP onboarding to app RBAC
    <https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/smtp-app-rbac-onboarding>`_
-   for that alternative. The Adiscon setup described here follows the
-   application-permission model.
+   for the alternative.
 
-   Microsoft documents a different OAuth flow for `shared mailbox access
-   <https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth#sasl-xoauth2-authentication-for-shared-mailboxes-in-office-365>`_.
-   That guidance obtains a token on behalf of a user. Adiscon has not tested
-   that shared-mailbox flow with this application-only configuration; this
-   guide uses a licensed user mailbox.
+   Microsoft's `shared mailbox OAuth guidance
+   <https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth#sasl-xoauth2-authentication-for-shared-mailboxes-in-office-365>`_
+   describes a different flow that gets a token on behalf of a user. Adiscon
+   has not tested it with this app-only setup; this guide uses a licensed user
+   mailbox.
+
+   Screenshot credits
+   ------------------
+
+   The four Microsoft Learn reference screenshots are cropped or reproduced
+   from `Register an application for token-based authentication
+   <https://learn.microsoft.com/en-us/azure/azure-monitor/logs/api/register-app-for-token?tabs=portal>`_
+   and `Authenticate an IMAP, POP or SMTP application by using OAuth
+   <https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth>`_.
+   They are used under `CC BY 4.0
+   <https://creativecommons.org/licenses/by/4.0/>`_; see the
+   `Azure Monitor documentation license
+   <https://github.com/MicrosoftDocs/azure-monitor-docs/blob/main/LICENSE>`_
+   and `Exchange documentation license
+   <https://github.com/MicrosoftDocs/office-developer-exchange-docs/blob/main/LICENSE>`_.
+   UI labels and tenant settings may differ.
 
    Related information
    -------------------
 
    - `Microsoft: Authenticate SMTP using OAuth
      <https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth>`_
-   - `Microsoft: Enable or disable authenticated client SMTP submission
+   - `Microsoft: Authenticated client SMTP submission
      <https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission>`_
    - `Microsoft: Connect-ExchangeOnline
      <https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/connect-exchangeonline?view=exchange-ps>`_

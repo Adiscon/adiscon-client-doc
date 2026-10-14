@@ -92,13 +92,16 @@ Use SMTP Authentication
   nUseSMTPAuth
 
 **Description:**
-  Select the authentication mode required by your SMTP server: **None** or
+  Select an authentication mode offered by your SMTP server: **None** or
   **Username and password (LOGIN)**.
   Older builds show a checkbox: unchecked means none; checked means LOGIN.
   For LOGIN, enter the username and password supplied by your mail server
   administrator.
 
 .. only:: mwagent or winsyslog or eventreporter
+
+   Supported classic WinForms builds also offer **Microsoft 365 OAuth
+   (application)**. See the section below for the customer setup guide.
 
    Microsoft 365 application authentication
    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

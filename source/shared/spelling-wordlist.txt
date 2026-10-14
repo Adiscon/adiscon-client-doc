@@ -1951,3 +1951,7 @@ smtp.office365.com
 snmp
 subfeatures
 tls
+Add-MailboxPermission
+Add-RecipientPermission
+FullAccess
+SendAs
