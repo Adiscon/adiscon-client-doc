@@ -399,6 +399,58 @@ Microsoft 365 OAuth for email alerts
    service account. Rotate the secret before expiry and update the action.
    Never include the secret or access tokens in support evidence.
 
+   Test the mail settings from the client
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+   In the **Send Mail** action, open **Mail Format Options** and select
+   **Send test mail…**. Review the current values in the dialog before
+   sending. The test uses the current unsaved mail values and the SMTP
+   settings for the one selected mail-server entry. It sends one message
+   directly from the computer running the client; it does not test
+   connectivity from the configured service computer or send through the
+   service.
+
+   The configured trusted CA file must also be readable by the client on the
+   computer running this test. When the configured service later sends mail,
+   its service account must be able to read the CA file on the service
+   computer.
+
+   Enter a recipient you can check, review the sender, subject, and message,
+   and select **Send test mail** once. The result reports whether the SMTP
+   server accepted the message for processing. Acceptance does not confirm
+   inbox delivery; check the recipient mailbox and, if needed, message trace,
+   quarantine, or non-delivery reports before trying again.
+
+   .. figure:: ../../images/smtp-test-mail-client-dialog.png
+      :alt: Classic Test Mail dialog with placeholder addresses and a loopback
+         SMTP server
+      :width: 100%
+
+      This preview illustrates the dialog only. Its plaintext, no-auth
+      loopback settings are not for Microsoft 365; use required STARTTLS and
+      Microsoft 365 application OAuth, shown in the transport summary below.
+      The ``example.invalid`` addresses are placeholders.
+
+   .. figure:: ../../images/smtp-test-mail-client-transport.png
+      :alt: Classic client reporting required STARTTLS and Microsoft 365
+         application OAuth
+      :width: 90%
+
+      Transport summary from a Classic client test using Microsoft 365
+      application OAuth and required STARTTLS.
+
+   .. figure:: ../../images/smtp-test-mail-client-accepted.png
+      :alt: Classic client status reporting that the SMTP server accepted the
+         test message
+      :width: 60%
+
+      The SMTP server accepted the test message. This status does not confirm
+      delivery to the recipient's inbox.
+
+   The **Send test mail…** command is available only in client builds that
+   include this feature. If it is absent, check the installed client release
+   information or contact Adiscon support.
+
    8. Save, apply, and test one event
    ----------------------------------
 
