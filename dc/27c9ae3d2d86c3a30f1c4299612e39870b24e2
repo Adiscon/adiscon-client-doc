@@ -1,0 +1,24 @@
+source/shared/gettingstarted/microsoft-365-oauth-mail.rst
+  s_3e0869f06f73a6::t_6d3cec677e273a 402-404,417-424,428,433-434,438-442,446-449,452-453
+  s_3e0869f06f73a6::t_559bfcfd8779e5 405-411
+  s_3e0869f06f73a6::t_cd2e4a429fd7d1 412-416,450-451
+  s_3e0869f06f73a6::t_c788f6a049a6c2 425-426,435-436,443-444
+  s_3e0869f06f73a6::t_8e5907b5e1f9d4 429-432
+  s_3e0869f06f73a6::t_33730a13f0aede 427,437,445
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dc27c9ae3d2d86c3a30f1c4299612e39870b24e2",
+  "prompts": {},
+  "sessions": {
+    "s_3e0869f06f73a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11fc4-06da-79b2-bbdf-5531555ff365",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
