@@ -1,5 +1,11 @@
 """Minimal Sphinx configuration for building the shared content library."""
 import importlib
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from conf_common import configure_builder_extensions
 
 project = "Shared Content Library"
 author = "Adiscon GmbH"
@@ -9,6 +15,7 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.ifconfig",
 ]
+extensions = configure_builder_extensions(extensions)
 
 master_doc = "index"
 source_suffix = ".rst"

@@ -1,0 +1,8 @@
+button.copybtn {
+    opacity: 1;
+}
+
+button.copybtn:focus-visible {
+    outline: 2px solid var(--color-brand-primary, #336699);
+    outline-offset: 2px;
+}

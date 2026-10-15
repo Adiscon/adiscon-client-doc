@@ -77,19 +77,35 @@ def get_sphinx_builder_name() -> str:
         return builder
 
     for index, arg in enumerate(sys.argv):
-        if arg in {"-b", "--builder"} and index + 1 < len(sys.argv):
+        if arg in {"-b", "--builder", "-M", "--make-mode"} and index + 1 < len(sys.argv):
             return sys.argv[index + 1]
         if arg.startswith("--builder="):
             return arg.split("=", 1)[1]
+        if arg.startswith(("-b", "-M")) and len(arg) > 2:
+            return arg[2:]
 
     return ""
 
 
 def configure_builder_extensions(extensions: List[str]) -> List[str]:
-    """Remove extensions that are only useful for specific Sphinx builders."""
+    """Configure extensions that are only useful for specific Sphinx builders."""
     builder = get_sphinx_builder_name()
-    if builder and builder not in {"html", "dirhtml", "singlehtml"}:
-        extensions = [extension for extension in extensions if extension != "sphinx_sitemap"]
+    html_builders = {"html", "dirhtml", "singlehtml"}
+    # Sphinx defaults to the HTML builder when none is specified.
+    if not builder or builder in html_builders:
+        extensions = [
+            extension
+            for extension in extensions
+            if extension not in {"sphinx_copybutton", "copybutton_support"}
+        ]
+        extensions.append("copybutton_support")
+    else:
+        extensions = [
+            extension
+            for extension in extensions
+            if extension
+            not in {"sphinx_sitemap", "sphinx_copybutton", "copybutton_support"}
+        ]
 
     return extensions
 
