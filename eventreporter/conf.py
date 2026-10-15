@@ -154,7 +154,14 @@ exclude_patterns = ['index.mwagent.rst','index.rsyslog.rst','index.winsyslog.rst
     'mwagentspecific/tutorial-*.rst',
     'shared/faq/palo-alto-log-format-change.rst',
     'shared/index.rst',
-    'shared/gettingstarted/*.rst',
+    *[
+        f"shared/gettingstarted/{page.name}"
+        for page in (
+            Path(__file__).resolve().parents[1]
+            / 'source' / 'shared' / 'gettingstarted'
+        ).glob('*.rst')
+        if page.name != 'microsoft-365-oauth-mail.rst'
+    ],
     'shared/references/index.rst',
     'shared/references/mwagentservice2.rst',
     'shared/references/commandlineswitches.rst',

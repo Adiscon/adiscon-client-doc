@@ -15,3 +15,10 @@ configuration tasks.
    tutorial-setp-server
    tutorial-forward-syslog
    tutorial-forward-email
+
+.. only:: winsyslog
+
+   .. toctree::
+      :maxdepth: 1
+
+      ../shared/gettingstarted/microsoft-365-oauth-mail

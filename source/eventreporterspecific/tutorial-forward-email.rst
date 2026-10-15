@@ -49,4 +49,5 @@ Next step
 If the alert works, narrow the matching rule and review:
 
 - :doc:`../mwagentspecific/a-mailoptions`
+- :doc:`Microsoft 365 OAuth for email alerts <../shared/gettingstarted/microsoft-365-oauth-mail>`
 - :doc:`store-and-forward`

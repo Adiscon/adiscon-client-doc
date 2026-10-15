@@ -53,3 +53,7 @@ If the basic alert works, narrow the matching rule and review:
 
 - :doc:`../mwagentspecific/a-mailoptions`
 - :doc:`producttour/store-and-forward`
+
+.. only:: winsyslog
+
+   - :doc:`Microsoft 365 OAuth for email alerts <../shared/gettingstarted/microsoft-365-oauth-mail>`

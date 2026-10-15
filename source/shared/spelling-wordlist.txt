@@ -127,6 +127,7 @@ EXE
 EXPIRED
 End-of-Life
 EnterPrise
+Entra
 ErrorMessage
 Event-Specific
 EventData
@@ -184,6 +185,7 @@ HKEY
 HOST
 HTML
 HTTP
+HTTP.sys
 HTTPS
 HTTp
 Hostname
@@ -204,6 +206,7 @@ INSERT
 INTEGER
 INTEGER32
 IP-Address
+IP-loopback
 IP-to-hostname
 IPADDR
 IPV4Addr
@@ -323,6 +326,7 @@ NAS-devices
 NET
 NETBIOS
 NEVER
+New-ServicePrincipal
 NEWUUID
 NNTP
 NNTPProbe
@@ -333,6 +337,7 @@ NOT
 NOTNEEDED
 NOW
 NTEventLogType
+NTLM
 NTSLog
 NTService
 NULL
@@ -347,6 +352,7 @@ OCTETSTRING
 ODBC
 OID
 OIDs
+OAuth
 OLEDB
 ONCE
 ONE
@@ -492,6 +498,7 @@ SSLv3
 STARTTLS
 SUCCESS
 Security-conscious
+SendAsApp
 Sendmode
 SerialPort
 Serialport
@@ -1129,6 +1136,7 @@ multihome
 multiple-rulesets-rules-actions
 multithread-capable
 multithreaded
+mTLS
 mutex
 mwa-flowchart
 mwa42
@@ -1415,6 +1423,7 @@ nUseLegacyProcessing
 nUseLegacySubjectProcessing
 nUseSMTPAuth
 nUseSSL
+nUseStartTLSMethod
 nUseUTCForTimestamps
 nUseUTCInFileName
 nUseUTCTimeStamp
@@ -1938,6 +1947,11 @@ retryable
 ringbuffers
 setp
 smtp
+smtp.office365.com
 snmp
 subfeatures
 tls
+Add-MailboxPermission
+Add-RecipientPermission
+FullAccess
+SendAs

@@ -164,7 +164,14 @@ exclude_patterns = ['articles/index-mwagent.rst','articles/include-event-id-in-s
    'shared/errata/err-2026-002-cross-generation-installer-upgrade.rst',
    'shared/errata/err-2026-002-mwagent-cross-generation-installer-upgrade.rst',
    'shared/errata/err-2026-002-rsyslogwa-cross-generation-installer-upgrade.rst',
-   'shared/gettingstarted/*.rst',
+   *[
+      f"shared/gettingstarted/{page.name}"
+      for page in (
+         Path(__file__).resolve().parents[1]
+         / 'source' / 'shared' / 'gettingstarted'
+      ).glob('*.rst')
+      if page.name != 'microsoft-365-oauth-mail.rst'
+   ],
    'shared/references/index.rst',
    'shared/references/commandlineswitches.rst',
    'shared/references/editioncomparison.rst',

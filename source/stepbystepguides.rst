@@ -18,3 +18,4 @@ self-contained and focused on one practical outcome.
    mwagentspecific/tutorial-custom-database-integration
    mwagentspecific/tutorial-eventlogmonitor-v2
    mwagentspecific/tutorial-syslog-server
+   shared/gettingstarted/microsoft-365-oauth-mail

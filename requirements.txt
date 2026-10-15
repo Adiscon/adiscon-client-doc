@@ -7,3 +7,4 @@ sphinxcontrib-spelling==8.0.0
 pyenchant==3.2.2
 sphinxcontrib-htmlhelp==2.0.0
 sphinx-sitemap==2.9.0
+sphinx-copybutton==0.5.2

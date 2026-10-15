@@ -12,6 +12,11 @@ Actions": "Send Email".
 In the action details, be sure to configure at least the mail server, recipient
 and subject properties.
 
+.. only:: mwagent or winsyslog or eventreporter
+
+   For Microsoft 365 SMTP submission with application OAuth, see
+   :doc:`Microsoft 365 OAuth for email alerts <microsoft-365-oauth-mail>`.
+
 **Please note that many mail servers also need a valid sender mail address otherwise they deny the delivery of the message.**
 
 .. image:: ../../images/emailnotifications_1.png
