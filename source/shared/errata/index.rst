@@ -58,3 +58,8 @@
 
    * `ERR-2026-005: File Action rotation can remain pending after service startup
      <err-2026-005-file-rotation-startup-pending.html>`__
+
+.. only:: eventreporter and errata_preview
+
+   * `ERR-2026-006: EventReporter may not find the default license file
+     <err-2026-006-eventreporter-default-license.html>`__
