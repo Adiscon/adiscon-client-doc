@@ -739,6 +739,7 @@ an-unix-like-logger-for-windows
 anti-SPAM
 appname
 async
+auth
 authenticationFailure
 auto-increments
 auto-saving
