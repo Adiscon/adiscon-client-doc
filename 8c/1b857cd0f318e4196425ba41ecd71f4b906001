@@ -1,0 +1,45 @@
+mwagent/conf.py
+  s_7e55147355fa65::t_d33b2a42091463 89,91
+eventreporter/conf.py
+  s_7e55147355fa65::t_d33b2a42091463 89,91
+rsyslog/conf.py
+  s_7e55147355fa65::t_d33b2a42091463 89,91
+winsyslog-j/conf.py
+  s_7e55147355fa65::t_d33b2a42091463 91,93
+winsyslog/conf.py
+  s_7e55147355fa65::t_d33b2a42091463 90,92
+source/_generated/event-ids/eventreporter/event-ids.json
+  s_7e55147355fa65::t_2c54d94d872448 7
+source/_generated/event-ids/mwagent/event-ids.json
+  s_7e55147355fa65::t_2c54d94d872448 7
+source/_generated/event-ids/winsyslog/llms.txt
+  s_7e55147355fa65::t_2c54d94d872448 3
+syslogviewer/conf.py
+  s_7e55147355fa65::t_d33b2a42091463 85,87
+source/_generated/event-ids/mwagent/llms.txt
+  s_7e55147355fa65::t_2c54d94d872448 3
+source/_generated/event-ids/winsyslog/event-ids.json
+  s_7e55147355fa65::t_2c54d94d872448 7
+source/_generated/event-ids/eventreporter/llms.txt
+  s_7e55147355fa65::t_2c54d94d872448 3
+source/_generated/event-ids/rsyslog-client/event-ids.json
+  s_7e55147355fa65::t_cb5c5f2fd0e6ab 7
+source/_generated/event-ids/rsyslog-client/llms.txt
+  s_7e55147355fa65::t_84fd6cfe39bc6d 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8c1b857cd0f318e4196425ba41ecd71f4b906001",
+  "prompts": {},
+  "sessions": {
+    "s_7e55147355fa65": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1a06d-dd8a-7b30-abfb-ba57e7f94159",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
