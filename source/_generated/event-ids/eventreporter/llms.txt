@@ -1,6 +1,6 @@
 # EventReporter documentation
 
-> Canonical documentation for EventReporter 26.10.
+> Canonical documentation for EventReporter 26.11.
 
 ## Event ID reference
 
