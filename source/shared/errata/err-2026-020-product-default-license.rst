@@ -28,10 +28,19 @@
    The behavior has been identified for the following client and service
    version combinations:
 
-   - **WinSyslog:** client ``26.10.0.793`` and service ``26.10.0.775``
-   - **MonitorWare Agent:** client ``26.10.0.1773`` and service ``26.10.0.690``
-   - **rsyslog Windows Agent:** client ``26.10.0.443`` and service
-     ``26.10.0.354``
+   .. only:: winsyslog or winsyslog_j
+
+      - **WinSyslog:** client ``26.10.0.793`` and service ``26.10.0.775``
+
+   .. only:: mwagent
+
+      - **MonitorWare Agent:** client ``26.10.0.1773`` and service
+        ``26.10.0.690``
+
+   .. only:: rsyslog
+
+      - **rsyslog Windows Agent:** client ``26.10.0.443`` and service
+        ``26.10.0.354``
 
    The issue requires an empty configured license path, a valid license at the
    client default location, and no valid license at the different location
@@ -80,9 +89,21 @@
 
    For registry configurations with an empty license path and no configured
    data directory, a correction is scheduled for version 26.11. The target
-   service builds are WinSyslog ``26.11.0.778``, MonitorWare Agent
-   ``26.11.0.693``, and rsyslog Windows Agent ``26.11.0.357``. These target
-   builds do not confirm that a corrected release is available.
+   service build is:
+
+   .. only:: winsyslog or winsyslog_j
+
+      - **WinSyslog:** ``26.11.0.778``
+
+   .. only:: mwagent
+
+      - **MonitorWare Agent:** ``26.11.0.693``
+
+   .. only:: rsyslog
+
+      - **rsyslog Windows Agent:** ``26.11.0.357``
+
+   This target build does not confirm that a corrected release is available.
 
    With no configured data directory, the scheduled correction first checks
    the product-specific default license location under the Windows common
