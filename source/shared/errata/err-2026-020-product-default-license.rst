@@ -1,4 +1,3 @@
-Attempting to perform the InitializeDefaultDrives operation on the 'FileSystem' provider failed.
 :orphan:
 
 .. only:: (winsyslog or winsyslog_j or mwagent or rsyslog) and errata_preview
