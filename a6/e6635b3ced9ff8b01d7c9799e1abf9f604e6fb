@@ -1,0 +1,19 @@
+source/shared/spelling-wordlist.txt
+  s_7e55147355fa65::t_796355650330ed 742
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a6e6635b3ced9ff8b01d7c9799e1abf9f604e6fb",
+  "prompts": {},
+  "sessions": {
+    "s_7e55147355fa65": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1a06d-dd8a-7b30-abfb-ba57e7f94159",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
