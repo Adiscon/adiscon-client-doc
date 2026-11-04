@@ -7,7 +7,7 @@
    ERR-2026-020: A service may not find its default license file
    =============================================================
 
-   **Status:** Draft; partial correction scheduled
+   **Status:** Draft; partial correction available
 
    **Publication:** Draft prepared for review
 
@@ -42,6 +42,23 @@
       - **rsyslog Windows Agent:** client ``26.10.0.443`` and service
         ``26.10.0.354``
 
+   The following released service versions include a partial correction but
+   may remain affected when the configured data directory differs from the
+   client's default license location and a valid license exists only at the
+   client location, not at the service's default license path:
+
+   .. only:: winsyslog or winsyslog_j
+
+      - **WinSyslog:** service ``26.11.0.778``
+
+   .. only:: mwagent
+
+      - **MonitorWare Agent:** service ``26.11.0.693``
+
+   .. only:: rsyslog
+
+      - **rsyslog Windows Agent:** service ``26.11.0.357``
+
    The issue requires an empty configured license path, a valid license at the
    client default location, and no valid license at the different location
    used by the service. The service location can depend on its configured data
@@ -68,7 +85,7 @@
       versions listed above, an empty license path selects ``license.alic``
       in the configured data directory, or in the directory containing the
       service program if the data directory is empty. Confirm whether a
-      valid license exists only at the client location. For the scheduled
+      valid license exists only at the client location. For the released
       26.11 behavior, see the resolution status below.
    4. Check the service's license status. Trial status alone does not confirm
       this issue; the path and license conditions above must also apply.
@@ -88,8 +105,8 @@
    -----------------
 
    For registry configurations with an empty license path and no configured
-   data directory, a correction is scheduled for version 26.11. The target
-   service build is:
+   data directory, a partial correction is available in version 26.11,
+   released on November 3, 2026. The service build is:
 
    .. only:: winsyslog or winsyslog_j
 
@@ -103,9 +120,7 @@
 
       - **rsyslog Windows Agent:** ``26.11.0.357``
 
-   This target build does not confirm that a corrected release is available.
-
-   With no configured data directory, the scheduled correction first checks
+   With no configured data directory, the correction first checks
    the product-specific default license location under the Windows common
    application data directory, if Windows can provide that directory. If
    that license file or its containing path is missing, the service retains
@@ -113,7 +128,7 @@
    or invalid license at the product-specific location does not trigger that
    fallback.
 
-   The scheduled correction does not cover configurations with a different
+   The correction does not cover configurations with a different
    data directory. The service continues to use that directory for its
    default license path, so the mismatch may remain. Use the explicit-path
    workaround above and verify licensed operation.
@@ -122,3 +137,5 @@
    ----------------
 
    - **November 3, 2026:** Draft prepared for review; not published.
+   - **November 4, 2026:** Updated the partial correction to released status
+     and clarified the remaining affected configuration; still a draft.
