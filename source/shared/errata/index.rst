@@ -63,3 +63,8 @@
 
    * `ERR-2026-006: EventReporter may not find the default license file
      <err-2026-006-eventreporter-default-license.html>`__
+
+.. only:: (winsyslog or winsyslog_j or mwagent or rsyslog) and errata_preview
+
+   * `ERR-2026-020: A service may not find its default license file
+     <err-2026-020-product-default-license.html>`__
