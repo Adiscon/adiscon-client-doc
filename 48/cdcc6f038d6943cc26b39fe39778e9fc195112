@@ -1,0 +1,33 @@
+eventreporter/conf.py
+  s_e0f1cdb24edfcc::t_9d2956df1b07f7 111
+source/eventreporterspecific/actions.rst
+  s_96d2274d1b9c05::t_73d998f8d75760 37
+source/eventreporterspecific/store-and-forward.rst
+  s_96d2274d1b9c05::t_144c2b1338ad9e 32
+source/mwagentspecific/a-sendrelp.rst
+  s_96d2274d1b9c05::t_7ce4c0184d448e 4-9,22,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "48cdcc6f038d6943cc26b39fe39778e9fc195112",
+  "prompts": {},
+  "sessions": {
+    "s_96d2274d1b9c05": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8944ecb0-55bf-4f84-a1ad-0eec21d4b478",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_e0f1cdb24edfcc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1d4b3-563e-76c0-a39e-0b3f1a44b0b9",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
