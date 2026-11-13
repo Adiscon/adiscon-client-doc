@@ -29,6 +29,7 @@ Common forwarding targets
 -------------------------
 
 - Syslog: :doc:`Forward Syslog <../mwagentspecific/a-forwardsyslogoptions>`
+- RELP: :doc:`Send RELP <../mwagentspecific/a-sendrelp>` (Professional and trial)
 - SETP: :doc:`Forward via SETP <../mwagentspecific/a-forwardsetpoptions>`
 - Email: :doc:`Send Email <../mwagentspecific/a-mailoptions>`
 

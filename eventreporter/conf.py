@@ -108,7 +108,7 @@ exclude_patterns = ['index.mwagent.rst','index.rsyslog.rst','index.winsyslog.rst
     'purchasingmwagent.rst','stepbystepguides.rst',
     'articles/index-mwagent.rst','mwagentspecific/index.rst','mwagentspecific/actions.rst',
     'mwagentspecific/a-controlntservice.rst','mwagentspecific/a-normalizeevent.rst',
-    'mwagentspecific/a-postprocessevent.rst','mwagentspecific/a-sendmsqueue.rst','mwagentspecific/a-sendrelp.rst',
+    'mwagentspecific/a-postprocessevent.rst','mwagentspecific/a-sendmsqueue.rst',
     'mwagentspecific/a-sendsnmptrap.rst','mwagentspecific/a-sendtocommunicationsport.rst',
     'mwagentspecific/a-syslogqueueaction.rst',
     'mwagentspecific/cpumonitor.rst','mwagentspecific/databasemonitor.rst','mwagentspecific/diskspacemonitor.rst',

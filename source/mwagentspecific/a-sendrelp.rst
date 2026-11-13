@@ -1,6 +1,12 @@
 Send RELP
 =========
 
+.. only:: eventreporter
+
+   Send RELP is scheduled for EventReporter Professional and the trial version
+   in version 26.12. Install the supporting service and configuration client.
+   Existing Professional license files continue to work without replacement.
+
 This action is roughly equivalent to the "send syslog" action, except that it
 utilizes the new reliable event logging protocol (RELP) for message
 transmission. It can only be used together with a RELP-enabled receiver but
@@ -13,8 +19,9 @@ guards only the transmission channel, but not local processing.
 
 .. image:: ../images/a-sendrelp-general.png
    :width: 100%
+   :alt: Send RELP general settings
 
-* Action - Send RELP General*
+*Action - Send RELP General*
 
 
 RELP Servername
