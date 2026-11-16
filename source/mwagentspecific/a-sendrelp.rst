@@ -4,8 +4,9 @@ Send RELP
 .. only:: eventreporter
 
    Starting with version 26.12, Send RELP is available for EventReporter
-   Professional and the trial version. Install the supporting service and
-   configuration client.
+   Professional and the trial version. Use EventReporter service version
+   26.12 or later and EventReporter Configuration Client version 26.12 or
+   later.
    Existing Professional license files continue to work without replacement.
 
 This action is roughly equivalent to the "send syslog" action, except that it
