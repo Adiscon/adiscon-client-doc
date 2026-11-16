@@ -1,0 +1,19 @@
+source/mwagentspecific/a-sendrelp.rst
+  s_e0f1cdb24edfcc::t_784130f66064c8 6-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e37dcbccf7815f05ecd76d507eb2218b81fccef6",
+  "prompts": {},
+  "sessions": {
+    "s_e0f1cdb24edfcc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1d4b3-563e-76c0-a39e-0b3f1a44b0b9",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
