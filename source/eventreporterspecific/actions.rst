@@ -34,6 +34,7 @@ Forwarding actions
    ../mwagentspecific/a-netsend
    ../mwagentspecific/a-forwardsetpoptions
    ../mwagentspecific/a-forwardsyslogoptions
+   ../mwagentspecific/a-sendrelp
    ../mwagentspecific/a-senddtls
    ../mwagentspecific/a-httprequest
 
