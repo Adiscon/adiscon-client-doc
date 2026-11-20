@@ -12,6 +12,12 @@ The main forwarding actions in rsyslog Windows Agent are:
 - **Send RELP** for reliable event transport to a RELP-enabled receiver
 - **Send DTLS** for packet-based transport with encryption where that is required
 
+Send DTLS is available in the Professional and Enterprise editions and during
+the trial period. The Basic edition does not include Send DTLS. In the Basic
+edition, the configuration client does not offer the action, and the service
+does not load an existing Send DTLS action. Instead, the service writes a
+warning to the Windows Event Log.
+
 Internal actions
 ----------------
 

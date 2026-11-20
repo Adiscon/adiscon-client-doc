@@ -17,6 +17,12 @@ Forwarding actions
    a-forwardsyslogoptions
    ../mwagentspecific/a-senddtls
 
+.. note::
+
+   Send DTLS requires the Professional or Enterprise edition. It is also
+   available during the trial period. The Basic edition does not include
+   Send DTLS. See :doc:`editioncomparison`.
+
 Internal actions
 ----------------
 
