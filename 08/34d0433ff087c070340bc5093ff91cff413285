@@ -1,0 +1,21 @@
+source/rsyslogwaspecific/actions.rst
+  s_0701b88385115f::t_82224f1991d9cb 20-25
+source/rsyslogwaspecific/rswaconcepts-actions.rst
+  s_0701b88385115f::t_f79b39d373f7e3 15-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0834d0433ff087c070340bc5093ff91cff413285",
+  "prompts": {},
+  "sessions": {
+    "s_0701b88385115f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "618cf7e6-7cf4-4efa-9729-549f8539e17c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
