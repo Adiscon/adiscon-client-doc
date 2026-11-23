@@ -1,0 +1,20 @@
+source/mwagentspecific/snmptrapreceiver.rst
+  s_4bdecb10a1284c::t_6993f3a84d2d80 70-73,83-85
+  s_4bdecb10a1284c::t_6681779cfb4431 86
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0fdda0d222650eb25e736436ca2fc3b0525cecd5",
+  "prompts": {},
+  "sessions": {
+    "s_4bdecb10a1284c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a207de-5ea2-7ad1-97b8-fdc9aed20e93",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
