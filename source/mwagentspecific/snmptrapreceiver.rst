@@ -67,6 +67,10 @@ SNMP Version
 
   *  1 = SNMP Version 2c only
 
+  .. only:: winsyslog or winsyslog_j or mwagent
+
+     *  3 = SNMPv3 (authentication only; planned)
+
 **Description:**
   Can be used to restrict the SNMP versions. The available values are:
 
@@ -75,6 +79,10 @@ SNMP Version
   * SNMP Version 1 only
 
   * SNMP Version 2c only
+
+  .. only:: winsyslog or winsyslog_j or mwagent
+
+     * SNMPv3 (authentication only; planned)
 
 
 
