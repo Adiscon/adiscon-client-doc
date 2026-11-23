@@ -1,0 +1,45 @@
+source/_generated/event-ids/rsyslog-client/event-ids.json
+  s_6e3a21d8623fb4::t_80a6fe4af6d30b 7
+winsyslog-j/conf.py
+  s_6e3a21d8623fb4::t_63c040dd8b7e34 91,93
+rsyslog/conf.py
+  s_6e3a21d8623fb4::t_63c040dd8b7e34 89,91
+source/_generated/event-ids/rsyslog-client/llms.txt
+  s_6e3a21d8623fb4::t_80a6fe4af6d30b 3
+source/_generated/event-ids/mwagent/llms.txt
+  s_6e3a21d8623fb4::t_80a6fe4af6d30b 3
+eventreporter/conf.py
+  s_6e3a21d8623fb4::t_63c040dd8b7e34 89,91
+syslogviewer/conf.py
+  s_6e3a21d8623fb4::t_63c040dd8b7e34 85,87
+source/_generated/event-ids/eventreporter/event-ids.json
+  s_6e3a21d8623fb4::t_80a6fe4af6d30b 7
+source/_generated/event-ids/winsyslog/event-ids.json
+  s_6e3a21d8623fb4::t_80a6fe4af6d30b 7
+source/_generated/event-ids/eventreporter/llms.txt
+  s_6e3a21d8623fb4::t_80a6fe4af6d30b 3
+mwagent/conf.py
+  s_6e3a21d8623fb4::t_63c040dd8b7e34 89,91
+winsyslog/conf.py
+  s_6e3a21d8623fb4::t_63c040dd8b7e34 90,92
+source/_generated/event-ids/winsyslog/llms.txt
+  s_6e3a21d8623fb4::t_80a6fe4af6d30b 3
+source/_generated/event-ids/mwagent/event-ids.json
+  s_6e3a21d8623fb4::t_80a6fe4af6d30b 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "2fbb99ad757f6cb2fd14d61162990e229023da4c",
+  "prompts": {},
+  "sessions": {
+    "s_6e3a21d8623fb4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0583b-d99d-76c3-8041-ec2ea0bfb116",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}

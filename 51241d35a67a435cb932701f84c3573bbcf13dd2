@@ -1,0 +1,23 @@
+source/mwagentspecific/a-mailoptions.rst
+  s_3e0869f06f73a6::t_c8e06dd1a1cbe9 95,103-105
+source/shared/gettingstarted/microsoft-365-oauth-mail.rst
+  s_3e0869f06f73a6::t_984634dd3fcea2 10-120,123-134,140-160,175-180,202-208,215,233-234,245-275,277-281,283,292-310,319-326,328-329,331-333,335-338,344-402,405-417,427-431,433-436,441-478,480-502,509
+source/shared/spelling-wordlist.txt
+  s_3e0869f06f73a6::t_b87d4fd5176179 1954-1957
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "51241d35a67a435cb932701f84c3573bbcf13dd2",
+  "prompts": {},
+  "sessions": {
+    "s_3e0869f06f73a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11fc4-06da-79b2-bbdf-5531555ff365",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}

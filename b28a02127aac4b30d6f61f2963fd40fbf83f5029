@@ -1,0 +1,29 @@
+_static/copybutton-accessibility.css
+  s_3e0869f06f73a6::t_8b403f99f9fc05 1-8
+conf_common.py
+  s_3e0869f06f73a6::t_8fbf59954559bf 80,84-85,96-101,106-107
+  s_3e0869f06f73a6::t_bdab01ac8aad77 94-95
+  s_3e0869f06f73a6::t_272b35deb22155 91,93,102-105,108
+requirements.txt
+  s_3e0869f06f73a6::t_272b35deb22155 10
+copybutton_support.py
+  s_3e0869f06f73a6::t_8fbf59954559bf 1-21
+source/shared/conf.py
+  s_3e0869f06f73a6::t_272b35deb22155 3-8,18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b28a02127aac4b30d6f61f2963fd40fbf83f5029",
+  "prompts": {},
+  "sessions": {
+    "s_3e0869f06f73a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11fc4-06da-79b2-bbdf-5531555ff365",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}

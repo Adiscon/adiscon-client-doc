@@ -1,0 +1,30 @@
+source/shared/forward-syslog-tls-timeout.inc
+  s_9e8472d55f2395::t_4428e13432eafa 18-19,36-37
+  s_9e8472d55f2395::t_52d4905c484fd3 3-15,20-22,27-35
+  s_9e8472d55f2395::t_0126bfde786f2b 1-2,16,23-26
+  s_9e8472d55f2395::t_0da1b1cb342fc3 17
+source/mwagentspecific/a-forwardsyslogoptions.rst
+  s_9e8472d55f2395::t_b13fbe661fe1d1 604-611
+source/rsyslogwaspecific/a-forwardsyslogoptions.rst
+  s_9e8472d55f2395::t_937194996f7bcf 606-610
+source/shared/spelling-wordlist.txt
+  s_9e8472d55f2395::t_c4f185926e666e 1394
+source/winsyslogspecific/a-forwardsyslogoptions.rst
+  s_9e8472d55f2395::t_7b5d3949531b26 606-610
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c44c6b2757bfdb43763f352f77fb213be5da4bab",
+  "prompts": {},
+  "sessions": {
+    "s_9e8472d55f2395": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a111a8-1b92-7c93-8420-cac8cfabfa6f",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}

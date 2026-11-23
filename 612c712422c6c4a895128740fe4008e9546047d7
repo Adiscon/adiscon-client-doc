@@ -1,0 +1,32 @@
+.github/workflows/pr-build-docs-combined.yml
+  s_9e8472d55f2395::t_a6cb0fe638b36a 52-53,297
+AGENTS.md
+  s_9e8472d55f2395::t_a6cb0fe638b36a 529-532
+source/shared/forward-syslog-tls-timeout.inc
+  s_9e8472d55f2395::t_c7327097fd3820 10-11
+  s_9e8472d55f2395::t_a932df8e2b128c 7-9,12-14
+source/shared/errata/err-2026-003-tls-forwarding-stall.rst
+  s_9e8472d55f2395::t_2780d58e527ae9 3
+source/shared/errata/err-2026-004-eventlog-resume-first-event.rst
+  s_9e8472d55f2395::t_ef12813046155a 3
+source/shared/errata/err-2026-005-file-rotation-startup-pending.rst
+  s_9e8472d55f2395::t_c0a29bedc9f250 3
+source/shared/errata/index.rst
+  s_9e8472d55f2395::t_cbd454924235d2 47,52,57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "612c712422c6c4a895128740fe4008e9546047d7",
+  "prompts": {},
+  "sessions": {
+    "s_9e8472d55f2395": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a111a8-1b92-7c93-8420-cac8cfabfa6f",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}

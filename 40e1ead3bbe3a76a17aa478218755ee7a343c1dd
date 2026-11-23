@@ -1,0 +1,23 @@
+source/mwagentspecific/a-mailoptions.rst
+  s_18465d5b00ce36::t_52e311e73f8bbb 101
+source/shared/faq/metrics-http-listener.rst
+  s_18465d5b00ce36::t_52e311e73f8bbb 73-76,97
+source/shared/spelling-wordlist.txt
+  s_18465d5b00ce36::t_52e311e73f8bbb 130,188,209,329,340,355,501,1139,1949
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "40e1ead3bbe3a76a17aa478218755ee7a343c1dd",
+  "prompts": {},
+  "sessions": {
+    "s_18465d5b00ce36": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11fc2-a868-7791-930c-652a678560f1",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}

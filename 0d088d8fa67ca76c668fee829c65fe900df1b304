@@ -1,0 +1,29 @@
+source/shared/errata/err-2026-003-tls-forwarding-stall.rst
+  s_9e8472d55f2395::t_f9ea49f65fd4cc 41-42
+source/shared/errata/err-2026-005-file-rotation-startup-pending.rst
+  s_9e8472d55f2395::t_6eac197d5515a6 19-23
+  s_9e8472d55f2395::t_09c468960eddc9 53-55
+  s_9e8472d55f2395::t_fafc183c207acc 1-7,9-18,24-33,36-52,56-74
+  s_9e8472d55f2395::t_95e850a08d4a87 34-35
+  s_9e8472d55f2395::t_7bed1020969292 8
+source/shared/errata/err-2026-004-eventlog-resume-first-event.rst
+  s_9e8472d55f2395::t_f9ea49f65fd4cc 32-33
+source/shared/errata/index.rst
+  s_9e8472d55f2395::t_09c468960eddc9 56-60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0d088d8fa67ca76c668fee829c65fe900df1b304",
+  "prompts": {},
+  "sessions": {
+    "s_9e8472d55f2395": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a111a8-1b92-7c93-8420-cac8cfabfa6f",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}

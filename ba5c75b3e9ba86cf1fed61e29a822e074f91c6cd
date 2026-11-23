@@ -1,0 +1,75 @@
+source/_generated/event-ids/rsyslog-client/event-ids.json
+  s_a85c3ad158e990::t_028389451c73bc 7
+eventreporter/conf.py
+  s_a85c3ad158e990::t_e01aca201d5a2e 89,91
+BUILDING.md
+  s_a85c3ad158e990::t_d664830f315f18 195,199-207,213-214
+  s_a85c3ad158e990::t_1bad427b1fe5a8 184,186-190
+  s_a85c3ad158e990::t_e2602478b4f1ec 196-198,208-212
+winsyslog-j/conf.py
+  s_a85c3ad158e990::t_e01aca201d5a2e 91,93
+rsyslog/conf.py
+  s_a85c3ad158e990::t_e01aca201d5a2e 89,91
+build-chm.bat
+  s_a85c3ad158e990::t_0afcc10b6cf7e9 4,6,16,32-40,102,136-140,144-154,161-199
+source/_generated/event-ids/eventreporter/llms.txt
+  s_a85c3ad158e990::t_028389451c73bc 3
+.agent/skills/update-buildnumbers/SKILL.md
+  s_a85c3ad158e990::t_a5f547d1d66fe5 15-17,39-45,71-74
+  s_a85c3ad158e990::t_d9866e8e6951d0 1-14,18-38,68-70
+  s_a85c3ad158e990::t_e2602478b4f1ec 46-51,54-55,62-67
+  s_a85c3ad158e990::t_79499f6463bff4 52-53,56-61
+source/_generated/event-ids/winsyslog/llms.txt
+  s_a85c3ad158e990::t_028389451c73bc 3
+syslogviewer/conf.py
+  s_a85c3ad158e990::t_e01aca201d5a2e 85,87
+.agent/skills/rebuild-chm/SKILL.md
+  s_a85c3ad158e990::t_b1e1728bf21d4b 1-16,20,32-33,49-52,55-58,98-100
+  s_a85c3ad158e990::t_a6a5652df8cc13 25,65,82-89
+  s_890d9ed0a4c8d0::t_ae2cf153505100 31
+  s_a85c3ad158e990::t_126c02e0610fa0 26-30
+  s_a85c3ad158e990::t_b108c740b78139 53
+  s_a85c3ad158e990::t_a16d4dfbd2eb45 59-62,66,69-71,81
+  s_a85c3ad158e990::t_e2602478b4f1ec 21-24,34-48,54,63-64,67-68,72-76
+  s_a85c3ad158e990::t_0afcc10b6cf7e9 77-80,90-97
+  s_a85c3ad158e990::t_9228c1cd5453b6 17-19
+  s_a85c3ad158e990::t_aa9828e169ba67 101-103
+source/_generated/event-ids/mwagent/event-ids.json
+  s_a85c3ad158e990::t_028389451c73bc 7
+source/_generated/event-ids/eventreporter/event-ids.json
+  s_a85c3ad158e990::t_028389451c73bc 7
+source/_generated/event-ids/winsyslog/event-ids.json
+  s_a85c3ad158e990::t_028389451c73bc 7
+source/_generated/event-ids/mwagent/llms.txt
+  s_a85c3ad158e990::t_028389451c73bc 3
+mwagent/conf.py
+  s_a85c3ad158e990::t_e01aca201d5a2e 89,91
+source/_generated/event-ids/rsyslog-client/llms.txt
+  s_a85c3ad158e990::t_028389451c73bc 3
+winsyslog/conf.py
+  s_a85c3ad158e990::t_e01aca201d5a2e 90,92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ba5c75b3e9ba86cf1fed61e29a822e074f91c6cd",
+  "prompts": {},
+  "sessions": {
+    "s_890d9ed0a4c8d0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a080d7-0ad4-7372-9708-7f074241cdea",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_a85c3ad158e990": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0fbf7-c594-7fb0-be70-eb1b0cd0a5bb",
+        "model": "gpt-6-luna"
+      },
+      "human_author": null
+    }
+  }
+}

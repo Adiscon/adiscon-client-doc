@@ -1,0 +1,23 @@
+source/shared/partials/shutdown-protection-timeout.rst
+  s_276f4a92629fab::t_704afa6a6f3dba 19
+source/shared/spelling-wordlist.txt
+  s_276f4a92629fab::t_90162408cd4f8c 455
+syslogviewer/conf.py
+  s_276f4a92629fab::t_2597c0083e65e5 164-165
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "44086c8ae5736543bba1128eec2cd59ed482777a",
+  "prompts": {},
+  "sessions": {
+    "s_276f4a92629fab": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "15a7807d-c8ac-417f-8c92-8aed0fe895a0",
+        "model": "default"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}

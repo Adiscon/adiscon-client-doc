@@ -1,0 +1,113 @@
+source/mwagentspecific/debug-options.rst
+  s_2b5d8bd7abaefa::t_e41964ca4e7042 21-51
+source/mwagentspecific/f-customproperty.rst
+  s_2b5d8bd7abaefa::t_5ea0d11d2b19f4 7,9-37
+source/mwagentspecific/clienttools.rst
+  s_72c8b58c01f4ab::t_6eb4afa3b7f45f 91-119,121
+source/mwagentspecific/f-datetime.rst
+  s_2b5d8bd7abaefa::t_3ce232e69837d6 7,9-37
+source/mwagentspecific/f-eventlogmonitorv2.rst
+  s_2b5d8bd7abaefa::t_76d23b5501f922 6,8-36
+source/mwagentspecific/queuemanager-options.rst
+  s_2b5d8bd7abaefa::t_b9b6c39470a4e2 5,7-35
+source/shared/references/user-interface-changes.rst
+  s_a732edd6d38549::t_7eb303d0eea81c 87-117
+source/eventreporterspecific/configuringeventreporter.rst
+  s_72c8b58c01f4ab::t_486b6e8a164d18 13
+source/glossaryofterms/rules.rst
+  s_72c8b58c01f4ab::t_1e3eeecb7f502e 63,65-93
+source/mwagentspecific/f-fileexists.rst
+  s_2b5d8bd7abaefa::t_2075c31224f318 7,9-37
+source/mwagentspecific/clientoptions.rst
+  s_72c8b58c01f4ab::t_7da812b0cfd64d 48-76,78
+source/mwagentspecific/f-extendedipproperty.rst
+  s_2b5d8bd7abaefa::t_5c6e2b4711d0c4 4,6-34,64-92,94
+source/mwagentspecific/a-fileoptions.rst
+  s_a24a52784f4f7d::t_ef287d7134d52e 24,26-46
+source/mwagentspecific/f-filemonitor.rst
+  s_2b5d8bd7abaefa::t_05cf4949a45679 6,8-28
+source/mwagentspecific/f-syslog.rst
+  s_2b5d8bd7abaefa::t_faa616becd00e2 9,11-31
+source/shared/references/connecttocomputer.rst
+  s_72c8b58c01f4ab::t_9e2d43e28ff01a 6-28
+source/rsyslogwaspecific/a-forwardsyslogoptions.rst
+  s_a24a52784f4f7d::t_26813b99da7fa1 611,613,615
+source/winsyslogspecific/a-forwardsyslogoptions.rst
+  s_a24a52784f4f7d::t_547cd0645e4997 611,613,615
+source/mwagentspecific/general-options.rst
+  s_2b5d8bd7abaefa::t_8b5790ed937304 7-29
+source/mwagentspecific/a-forwardsyslogoptions.rst
+  s_a24a52784f4f7d::t_54e3077851b68f 609-621,623
+source/mwagentspecific/f-extendednumberproperty.rst
+  s_2b5d8bd7abaefa::t_2de48f5f60d4ed 7,9-37
+source/mwagentspecific/a-databaseoptions.rst
+  s_a24a52784f4f7d::t_42f8f7678eea04 334-354,356
+source/mwagentspecific/a-sendrelp.rst
+  s_a24a52784f4f7d::t_bf7e6e5a4d7a4e 186-206,208
+source/mwagentspecific/f-general.rst
+  s_2b5d8bd7abaefa::t_0eb8a7690132b4 6,8-36
+source/mwagentspecific/a-sendsnmptrap.rst
+  s_a24a52784f4f7d::t_0270dc23506a93 220-232,234
+source/mwagentspecific/f-snmptraps.rst
+  s_2b5d8bd7abaefa::t_8f10de1d2f03c2 11,13-25
+source/mwagentspecific/a-forwardsetpoptions.rst
+  s_a24a52784f4f7d::t_0efd01af6c9f01 130-150,152
+source/mwagentspecific/engine-options.rst
+  s_78275feba70589::t_545db75e4933cb 8,10-38,75-103,105,138,140-168,185-213,215
+source/mwagentspecific/f-eventlogmonitorv1.rst
+  s_2b5d8bd7abaefa::t_d370f39cde9d1c 7,9-37
+source/mwagentspecific/usingfilebasedconfiguration.rst
+  s_72c8b58c01f4ab::t_8f9438b11bacfa 198,200-228,262-292
+source/mwagentspecific/f-informationunittype.rst
+  s_2b5d8bd7abaefa::t_17ce58eb162fb3 9,11-39
+source/mwagentspecific/a-oledbdatabaseaction.rst
+  s_a24a52784f4f7d::t_851f98ca291efe 256-276,278
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "85ffa34bf94b1921dac0c9c6e533a5663589084c",
+  "prompts": {},
+  "sessions": {
+    "s_2b5d8bd7abaefa": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5f16-e537-7a83-9a0d-d4743f99d4ce",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_72c8b58c01f4ab": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4c59-edc7-74f3-962d-bdd9f47ff571",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_78275feba70589": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5fdd-0718-71f3-9f8d-64f3ce1d4951",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_a24a52784f4f7d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f532f-e127-77d2-af95-cf138999bbde",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    },
+    "s_a732edd6d38549": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4db4-255f-7001-b239-cce70e95bacd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}

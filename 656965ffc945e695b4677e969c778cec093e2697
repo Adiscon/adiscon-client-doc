@@ -1,0 +1,28 @@
+source/shared/errata/err-2026-003-tls-forwarding-stall.rst
+  s_9e8472d55f2395::t_e291ac57d2e7a6 1-94
+source/shared/errata/err-2026-004-eventlog-resume-first-event.rst
+  s_9e8472d55f2395::t_2767d7721d2761 1-72
+source/shared/errata/index.rst
+  s_9e8472d55f2395::t_9726fd046826a0 46-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "656965ffc945e695b4677e969c778cec093e2697",
+  "prompts": {},
+  "humans": {
+    "h_8e93f0703d8239": {
+      "author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  },
+  "sessions": {
+    "s_9e8472d55f2395": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a111a8-1b92-7c93-8420-cac8cfabfa6f",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}

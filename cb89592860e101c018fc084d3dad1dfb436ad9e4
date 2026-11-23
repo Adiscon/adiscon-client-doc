@@ -1,0 +1,64 @@
+source/shared/gettingstarted/emailnotifications.rst
+  s_3e0869f06f73a6::t_6ecbc99a253eb5 15-19
+source/mwagentspecific/a-mailoptions.rst
+  s_3e0869f06f73a6::t_6ecbc99a253eb5 131-133,209,212-214
+source/winsyslogspecific/tutorial-forward-email.rst
+  s_3e0869f06f73a6::t_2cf18387018906 56-59
+source/eventreporterspecific/tutorial-forward-email.rst
+  s_3e0869f06f73a6::t_6ecbc99a253eb5 52
+winsyslog/conf.py
+  s_3e0869f06f73a6::t_edc2f7921bf288 169-176
+mwagent/conf.py
+  s_3e0869f06f73a6::t_edc2f7921bf288 120-127
+source/shared/gettingstarted/microsoft-365-oauth-mail.rst
+  s_3e0869f06f73a6::t_6bde858a6bdeb2 341-343
+  s_3e0869f06f73a6::t_4b1508b65a8c09 62-64,151-152,160-161,165-166,186,188,190-197,204-205,261-262,272-275
+  s_3e0869f06f73a6::t_eb49f4536845da 5-6,8
+  s_3e0869f06f73a6::t_0143d0a6194842 123-127
+  s_3e0869f06f73a6::t_ca593edb381ec6 71,120,265,331
+  s_3e0869f06f73a6::t_3023d6e901f7c7 281
+  s_3e0869f06f73a6::t_a70d54d9ff34d6 282-283
+  s_3e0869f06f73a6::t_cf21491de3f3b5 422-423
+  s_3e0869f06f73a6::t_5f1e67628f856f 1-4,7,9-13,21-27,30-44,49-57,59-61,65-70,72,79-80,94-97,103,117-119,121-122,128-141,143,147,150,153-154,158-159,162-164,167-168,179,184-185,189,198,202-203,206,210,214-217,225-233,235,237-246,251,256-260,263-264,266-271,276-278,280,293-299,303-330,332-334,337,360-369,398-421,424-425
+  s_3e0869f06f73a6::t_1e20c34e71f6b3 252-255
+  s_3e0869f06f73a6::t_d3f7c75892c8de 45-48,73-78,81-93,98-102,142,144,148-149,155-157,181-183,187,199-201,207-209,211-212,279
+  s_3e0869f06f73a6::t_3e4e7cd31aec5a 359
+  s_3e0869f06f73a6::t_3276c8fc185f83 104-109,112
+  s_3e0869f06f73a6::t_7d13f238640a84 218-224,370-397
+  s_3e0869f06f73a6::t_5fae27ed19ea5d 14-18,28-29,145-146,169-178,180,213,234,236,247-250,300-302,338-340,344-358
+  s_3e0869f06f73a6::t_c68581713f6a4d 58,110-111,284-287
+  s_3e0869f06f73a6::t_f4b618ca02061a 114-116
+  s_3e0869f06f73a6::t_da6010bcc99c49 19-20,113,335-336
+  s_3e0869f06f73a6::t_27b397cd3ce455 288-292
+winsyslog-j/conf.py
+  s_3e0869f06f73a6::t_2cf18387018906 167-174
+source/stepbystepguides.rst
+  s_3e0869f06f73a6::t_6ecbc99a253eb5 21
+source/winsyslogspecific/stepbystepguides.rst
+  s_3e0869f06f73a6::t_2cf18387018906 18-24
+source/eventreporterspecific/stepbystepguides.rst
+  s_3e0869f06f73a6::t_6ecbc99a253eb5 16
+source/shared/gettingstarted/index.rst
+  s_3e0869f06f73a6::t_3276c8fc185f83 42-47
+  s_3e0869f06f73a6::t_fb1e0249887b93 48
+eventreporter/conf.py
+  s_3e0869f06f73a6::t_edc2f7921bf288 157-164
+source/shared/spelling-wordlist.txt
+  s_3e0869f06f73a6::t_c68581713f6a4d 1426
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cb89592860e101c018fc084d3dad1dfb436ad9e4",
+  "prompts": {},
+  "sessions": {
+    "s_3e0869f06f73a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11fc4-06da-79b2-bbdf-5531555ff365",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Andre Lorbach <alorbach@adiscon.com>"
+    }
+  }
+}
