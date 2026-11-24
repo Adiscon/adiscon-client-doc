@@ -82,7 +82,7 @@ SNMP Version
 
   .. only:: winsyslog or winsyslog_j or mwagent
 
-     *  3 = SNMPv3 (authentication only; planned)
+     *  3 = SNMPv3 (planned)
 
 **Description:**
   Can be used to restrict the SNMP versions. The available values are:
@@ -96,28 +96,29 @@ SNMP Version
 
   .. only:: winsyslog or winsyslog_j or mwagent
 
-     * SNMPv3 (authentication only; planned)
+     * SNMPv3 (planned)
 
 
 
 .. only:: winsyslog or winsyslog_j or mwagent
 
-   SNMPv3 authentication
-   ^^^^^^^^^^^^^^^^^^^^^
+   SNMPv3 authentication and privacy
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
    .. note::
 
-      SNMPv3 authentication is scheduled for version 26.12 and requires service
-      version 26.12 or later. Use these settings only with a configuration
-      client build that explicitly includes this feature. Updating the
-      configuration client alone does not add SNMPv3 support to an older
-      service.
+      SNMPv3 authentication without encryption (``authNoPriv``) is scheduled
+      for version 26.12 and requires service version 26.12 or later.
+      Encrypted reception (``authPriv``) is planned for a future release.
+      Use each security level only with service and configuration client
+      builds that explicitly include it. Updating the configuration client
+      alone does not add SNMPv3 support to an older service.
 
-   Select **SNMPv3 (authentication only)** to accept authenticated SNMPv3 traps
-   on this receiver. Its ``nSnmpVersion`` value is ``3``. The **SNMP v1/v2c**
-   choice, labeled **All Supported Versions** in older clients, continues to
-   mean SNMPv1 and SNMPv2c; it does not enable SNMPv3. Use a separate receiver
-   and port when both legacy and authenticated SNMPv3 reception are required.
+   Select **SNMPv3** to accept authenticated SNMPv3 traps on this receiver.
+   Its ``nSnmpVersion`` value is ``3``. The **SNMP v1/v2c** choice, labeled
+   **All Supported Versions** in older clients, continues to mean SNMPv1 and
+   SNMPv2c; it does not enable SNMPv3. Use a separate receiver and port when
+   both legacy and authenticated SNMPv3 reception are required.
 
    Selecting SNMPv3 enables **Sender engine ID**, **SNMPv3 username**,
    **Authentication protocol** and **Authentication passphrase**. These fields
@@ -129,15 +130,41 @@ SNMP Version
       :width: 100%
 
       SNMPv3 authentication fields enabled in the configuration client, using
-      example values and a masked example passphrase. Enter the settings
-      supplied by your sending device.
+      example values and a masked example passphrase. This screenshot shows
+      the authentication-only client scheduled for version 26.12, which does
+      not support encryption. Enter the settings supplied by your sending
+      device.
 
-   This mode uses the SNMPv3 User-based Security Model (USM) at the
-   ``authNoPriv`` security level: messages are authenticated but not encrypted.
-   Only SNMPv3 TRAP2 notifications are accepted. Unauthenticated SNMPv3,
-   encrypted ``authPriv`` messages and SNMPv3 INFORM notifications are not
-   supported. This feature does not change the SNMP Monitor service or the
-   Send SNMP Trap action.
+   This mode uses the SNMPv3 User-based Security Model (USM). Version 26.12
+   uses ``authNoPriv`` for authentication without encryption. In builds that
+   explicitly support encrypted reception, select either ``authNoPriv`` or
+   ``authPriv`` for authentication and encryption. Only SNMPv3 TRAP2
+   notifications are accepted.
+   Unauthenticated SNMPv3 and SNMPv3 INFORM notifications are not supported.
+   This feature does not change the SNMP Monitor service or the Send SNMP Trap
+   action.
+
+   In version 26.12, select **SNMPv3 (authentication only)** and use
+   ``authNoPriv``. Security-level selection and all privacy fields and
+   ``authPriv`` steps below apply only to future service and configuration
+   client builds that explicitly include encrypted reception. These fields
+   are absent from the authentication-only client shown above.
+
+   Security level
+   """"""""""""""
+
+   **File Configuration field:**
+     ``nSnmpV3SecurityLevel``
+
+   **Description:**
+     Select the exact security level used by the sender:
+
+     * ``2`` = ``authNoPriv``, the default: authentication without encryption.
+     * ``3`` = ``authPriv``: authentication and AES-128-CFB encryption.
+
+     The receiver accepts only the configured level. An ``authPriv`` receiver
+     rejects ``authNoPriv`` messages, and an ``authNoPriv`` receiver rejects
+     ``authPriv`` messages. There is no automatic fallback or downgrade.
 
    Sender engine ID
    """"""""""""""""
@@ -192,32 +219,63 @@ SNMP Version
      and omit the passphrase from screenshots, support files and command
      history.
 
+   Privacy protocol
+   """"""""""""""""
+
+   **File Configuration field:**
+     ``nSnmpV3PrivProtocol``
+
+   **Description:**
+     ``0`` = AES-128-CFB, the default and only supported privacy protocol.
+     This setting applies when the security level is ``authPriv``. DES and
+     other AES variants are not supported.
+
+   Privacy passphrase
+   """"""""""""""""""
+
+   **File Configuration field:**
+     ``szSnmpV3PrivPassword``
+
+   **Description:**
+     Required when ``nSnmpV3SecurityLevel`` is ``3``. Enter the same privacy
+     passphrase as the sender, using 8 to 255 printable ASCII characters;
+     spaces are significant. It is separate from the authentication passphrase.
+     The client masks the passphrase on screen, but masking does not encrypt
+     it in the configuration file or registry. Restrict access to that
+     configuration and its backups, and omit both passphrases from screenshots,
+     support files and command history.
+
    Configure and verify reception
    """"""""""""""""""""""""""""""
 
    1. Obtain the authoritative engine ID and USM settings from the sender.
    2. Create a receiver with a free listener port and the required rule set.
-   3. Select SNMPv3 (authentication only) and enter the matching engine ID,
-      user name, authentication protocol and passphrase.
-   4. Configure the sender to use ``authNoPriv`` and this receiver's address
-      and listener port. Save and apply the receiver configuration, then send
-      a test trap.
+   3. Select SNMPv3 and enter the matching engine ID, user name,
+      authentication protocol and passphrase. For version 26.12, use
+      **SNMPv3 (authentication only)** with ``authNoPriv``. In future builds
+      that support privacy, select the security level; for ``authPriv``, also
+      select AES-128-CFB and enter the privacy passphrase.
+   4. Configure the sender to use the same security level and this receiver's
+      address and listener port. Save and apply the receiver configuration,
+      then send a test trap.
    5. Check the rule set's output. Authenticated messages have
       ``snmp_version`` set to ``3``, ``snmp_securityname`` set to the verified
-      user name, and ``snmp_securitylevel`` set to ``authNoPriv``.
+      user name, and ``snmp_securitylevel`` set to the configured level
+      (``authNoPriv`` or ``authPriv``).
       ``snmp_community`` is empty because SNMPv3 has no community string.
 
    Each receiver accepts one engine ID and user profile. Use additional
    receivers with separate ports for other profiles. Receivers using the same
-   engine ID and user must use identical authentication settings; conflicting
-   settings prevent the affected receiver from starting. Change the sender
+   engine ID and user must use identical authentication and privacy settings;
+   conflicting settings prevent the affected receiver from starting. Change
+   the sender
    and receiver credentials together and reapply the configuration when
-   rotating a passphrase.
+   rotating either passphrase.
 
    Wrong credentials, a different engine ID or user, invalid messages and
    unauthenticated traffic do not enter the rule set. There is no fallback to
    unauthenticated reception. When no test message appears, check the sender's
-   engine ID and all authentication settings as well as the existing listener,
+   engine ID, security level, authentication and privacy settings, and listener,
    network and rule-set configuration.
 
    USM checks the sender's engine time within a 150-second window. This is not
