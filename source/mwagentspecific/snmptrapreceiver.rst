@@ -1,3 +1,5 @@
+.. _snmp-trap-receiver:
+
 SNMP Trap Receiver
 ==================
 
@@ -10,10 +12,23 @@ The ``SNMP Trap Receiver`` service runs continuously based on the configuration
 mentioned below:
 
 
-.. image:: ../images/snmptrapreceiver.png
-   :width: 100%
+.. only:: not (winsyslog or winsyslog_j or mwagent)
 
-* Service - SNMP Trap Receiver*
+   .. figure:: ../images/snmptrapreceiver.png
+      :alt: SNMP Trap Receiver service settings.
+      :width: 100%
+
+      SNMP Trap Receiver service settings.
+
+.. only:: winsyslog or winsyslog_j or mwagent
+
+   .. figure:: ../images/snmp-trap-v1-v2c.jpg
+      :alt: SNMP v1/v2c selected with SNMPv3 authentication fields disabled.
+      :width: 100%
+
+      Receiver settings in a configuration client with SNMPv3 support,
+      scheduled for version 26.12. SNMPv3 fields are disabled in SNMP v1/v2c
+      mode.
 
 Internet Protocoltype
 ^^^^^^^^^^^^^^^^^^^^^
@@ -59,20 +74,156 @@ SNMP Version
 **File Configuration field:**
   nSnmpVersion
 
-  * -1 = All Supported Versions
+  * -1 = SNMP v1/v2c (All Supported Versions in older clients)
 
   *  0 = SNMP Version 1 only
 
   *  1 = SNMP Version 2c only
 
+  .. only:: winsyslog or winsyslog_j or mwagent
+
+     *  3 = SNMPv3 (authentication only; planned)
+
 **Description:**
   Can be used to restrict the SNMP versions. The available values are:
 
-  * All Supported Versions (i.e. SNMP Version 1 and SNMP Version 2c only)
+  * SNMP v1/v2c (All Supported Versions in older clients): SNMP Version 1 and
+    SNMP Version 2c only
 
   * SNMP Version 1 only
 
   * SNMP Version 2c only
+
+  .. only:: winsyslog or winsyslog_j or mwagent
+
+     * SNMPv3 (authentication only; planned)
+
+
+
+.. only:: winsyslog or winsyslog_j or mwagent
+
+   SNMPv3 authentication
+   ^^^^^^^^^^^^^^^^^^^^^
+
+   .. note::
+
+      SNMPv3 authentication is scheduled for version 26.12 and requires service
+      version 26.12 or later. Use these settings only with a configuration
+      client build that explicitly includes this feature. Updating the
+      configuration client alone does not add SNMPv3 support to an older
+      service.
+
+   Select **SNMPv3 (authentication only)** to accept authenticated SNMPv3 traps
+   on this receiver. Its ``nSnmpVersion`` value is ``3``. The **SNMP v1/v2c**
+   choice, labeled **All Supported Versions** in older clients, continues to
+   mean SNMPv1 and SNMPv2c; it does not enable SNMPv3. Use a separate receiver
+   and port when both legacy and authenticated SNMPv3 reception are required.
+
+   Selecting SNMPv3 enables **Sender engine ID**, **SNMPv3 username**,
+   **Authentication protocol** and **Authentication passphrase**. These fields
+   are disabled when an SNMPv1 or SNMPv2c mode is selected. Switching back to a
+   legacy mode retains the authentication settings, but they are inactive.
+
+   .. figure:: ../images/snmp-trap-v3.jpg
+      :alt: SNMPv3 selected with example sender settings and masked passphrase.
+      :width: 100%
+
+      SNMPv3 authentication fields enabled in the configuration client, using
+      example values and a masked example passphrase. Enter the settings
+      supplied by your sending device.
+
+   This mode uses the SNMPv3 User-based Security Model (USM) at the
+   ``authNoPriv`` security level: messages are authenticated but not encrypted.
+   Only SNMPv3 TRAP2 notifications are accepted. Unauthenticated SNMPv3,
+   encrypted ``authPriv`` messages and SNMPv3 INFORM notifications are not
+   supported. This feature does not change the SNMP Monitor service or the
+   Send SNMP Trap action.
+
+   Sender engine ID
+   """"""""""""""""
+
+   **File Configuration field:**
+     ``szSnmpV3EngineId``
+
+   **Description:**
+     Enter the sending device's authoritative engine ID, not the receiver's
+     engine ID or the device's IP address. Enter 5 to 32 bytes as 10 to 64
+     hexadecimal digits without separators; an optional ``0x`` prefix is
+     accepted. An ID consisting entirely of zero bytes or entirely of ``ff``
+     bytes is invalid. The configured value must match the sender exactly.
+
+   User name
+   """""""""
+
+   **File Configuration field:**
+     ``szSnmpV3User``
+
+   **Description:**
+     Enter the sender's USM user name. It is case sensitive and must contain
+     1 to 32 printable ASCII characters. The user name and engine ID identify
+     the sender profile for this receiver.
+
+   Authentication protocol
+   """""""""""""""""""""""
+
+   **File Configuration field:**
+     ``nSnmpV3AuthProtocol``
+
+   **Description:**
+     Select the same authentication protocol as the sender:
+
+     * ``0`` = SHA-1, the default. Some devices and tools call this ``SHA``.
+     * ``1`` = MD5, provided for compatibility with existing devices.
+
+     These are HMAC-SHA-1-96 and HMAC-MD5-96 authentication. SHA-2 protocols
+     are not available in this feature.
+
+   Authentication passphrase
+   """""""""""""""""""""""""
+
+   **File Configuration field:**
+     ``szSnmpV3AuthPassword``
+
+   **Description:**
+     Enter the same authentication passphrase as the sender. Use 8 to 255
+     printable ASCII characters; spaces are significant. The client masks
+     the passphrase on screen. Masking does not encrypt it in the configuration
+     file or registry. Restrict access to that configuration and its backups,
+     and omit the passphrase from screenshots, support files and command
+     history.
+
+   Configure and verify reception
+   """"""""""""""""""""""""""""""
+
+   1. Obtain the authoritative engine ID and USM settings from the sender.
+   2. Create a receiver with a free listener port and the required rule set.
+   3. Select SNMPv3 (authentication only) and enter the matching engine ID,
+      user name, authentication protocol and passphrase.
+   4. Configure the sender to use ``authNoPriv`` and this receiver's address
+      and listener port. Save and apply the receiver configuration, then send
+      a test trap.
+   5. Check the rule set's output. Authenticated messages have
+      ``snmp_version`` set to ``3``, ``snmp_securityname`` set to the verified
+      user name, and ``snmp_securitylevel`` set to ``authNoPriv``.
+      ``snmp_community`` is empty because SNMPv3 has no community string.
+
+   Each receiver accepts one engine ID and user profile. Use additional
+   receivers with separate ports for other profiles. Receivers using the same
+   engine ID and user must use identical authentication settings; conflicting
+   settings prevent the affected receiver from starting. Change the sender
+   and receiver credentials together and reapply the configuration when
+   rotating a passphrase.
+
+   Wrong credentials, a different engine ID or user, invalid messages and
+   unauthenticated traffic do not enter the rule set. There is no fallback to
+   unauthenticated reception. When no test message appears, check the sender's
+   engine ID and all authentication settings as well as the existing listener,
+   network and rule-set configuration.
+
+   USM checks the sender's engine time within a 150-second window. This is not
+   an exactly-once delivery guarantee: duplicates within the window can be
+   accepted, and this feature does not add persistent replay detection across
+   receiver restarts.
 
 
 
