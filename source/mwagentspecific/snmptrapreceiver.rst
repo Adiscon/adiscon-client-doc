@@ -12,10 +12,23 @@ The ``SNMP Trap Receiver`` service runs continuously based on the configuration
 mentioned below:
 
 
-.. image:: ../images/snmptrapreceiver.png
-   :width: 100%
+.. only:: not (winsyslog or winsyslog_j or mwagent)
 
-* Service - SNMP Trap Receiver*
+   .. figure:: ../images/snmptrapreceiver.png
+      :alt: SNMP Trap Receiver service settings.
+      :width: 100%
+
+      SNMP Trap Receiver service settings.
+
+.. only:: winsyslog or winsyslog_j or mwagent
+
+   .. figure:: ../images/snmp-trap-v1-v2c.jpg
+      :alt: SNMP v1/v2c selected with SNMPv3 authentication fields disabled.
+      :width: 100%
+
+      Receiver settings in a configuration client with SNMPv3 support,
+      scheduled for version 26.12. SNMPv3 fields are disabled in SNMP v1/v2c
+      mode.
 
 Internet Protocoltype
 ^^^^^^^^^^^^^^^^^^^^^
@@ -61,7 +74,7 @@ SNMP Version
 **File Configuration field:**
   nSnmpVersion
 
-  * -1 = All Supported Versions
+  * -1 = SNMP v1/v2c (All Supported Versions in older clients)
 
   *  0 = SNMP Version 1 only
 
@@ -74,7 +87,8 @@ SNMP Version
 **Description:**
   Can be used to restrict the SNMP versions. The available values are:
 
-  * All Supported Versions (i.e. SNMP Version 1 and SNMP Version 2c only)
+  * SNMP v1/v2c (All Supported Versions in older clients): SNMP Version 1 and
+    SNMP Version 2c only
 
   * SNMP Version 1 only
 
@@ -93,16 +107,30 @@ SNMP Version
 
    .. note::
 
-      SNMPv3 authentication is planned for a future release. Use these settings
-      only with service and configuration client builds that explicitly
-      include this feature. A newer client does
-      not add SNMPv3 support to an older service.
+      SNMPv3 authentication is scheduled for version 26.12 and requires service
+      version 26.12 or later. Use these settings only with a configuration
+      client build that explicitly includes this feature. Updating the
+      configuration client alone does not add SNMPv3 support to an older
+      service.
 
    Select **SNMPv3 (authentication only)** to accept authenticated SNMPv3 traps
-   on this receiver. Its ``nSnmpVersion`` value is ``3``. The existing **All
-   Supported Versions** choice continues to mean SNMPv1 and SNMPv2c; it does not
-   enable SNMPv3. Use a separate receiver and port when both legacy and
-   authenticated SNMPv3 reception are required.
+   on this receiver. Its ``nSnmpVersion`` value is ``3``. The **SNMP v1/v2c**
+   choice, labeled **All Supported Versions** in older clients, continues to
+   mean SNMPv1 and SNMPv2c; it does not enable SNMPv3. Use a separate receiver
+   and port when both legacy and authenticated SNMPv3 reception are required.
+
+   Selecting SNMPv3 enables **Sender engine ID**, **SNMPv3 username**,
+   **Authentication protocol** and **Authentication passphrase**. These fields
+   are disabled when an SNMPv1 or SNMPv2c mode is selected. Switching back to a
+   legacy mode retains the authentication settings, but they are inactive.
+
+   .. figure:: ../images/snmp-trap-v3.jpg
+      :alt: SNMPv3 selected with example sender settings and masked passphrase.
+      :width: 100%
+
+      SNMPv3 authentication fields enabled in the configuration client, using
+      example values and a masked example passphrase. Enter the settings
+      supplied by your sending device.
 
    This mode uses the SNMPv3 User-based Security Model (USM) at the
    ``authNoPriv`` security level: messages are authenticated but not encrypted.
